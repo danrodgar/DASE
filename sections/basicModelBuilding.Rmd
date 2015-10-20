@@ -1,0 +1,53 @@
+# Basic Model Building
+
+
+
+## Linear Regression
+  - This procedure fits a straight line to the data. The idea is that the independent variable x is something the experimenter controls and the dependent variable y is something that the experimenter measures. The line is used to predict the value of y for a known value of x. The variable x is the predictor variable and y the response variable.
+  - First proposed many years ago. But still very useful ...
+  
+    ![](../figures/galton.png)
+  
+  - The equation takes the form $\hat{y}=b_0+b_1 * x$
+  - The method used to choose the values $b_0$ and $b_1$ is to minimize the sum of the squares of the residual errors.
+
+## Galton Data
+
+
+```{r}
+library(UsingR); data(galton)
+par(mfrow=c(1,2))
+hist(galton$child,col="blue",breaks=100)
+hist(galton$parent,col="blue",breaks=100)
+plot(galton$parent,galton$child,pch=1,col="blue", cex=0.4)
+lm1 <- lm(galton$child ~ galton$parent)
+lines(galton$parent,lm1$fitted,col="red",lwd=3)
+plot(galton$parent,lm1$residuals,col="blue",pch=1, cex=0.4)
+abline(c(0,0),col="red",lwd=3)
+qqnorm(galton$child)
+```
+
+  
+## Linear Regression Diagnostics
+  - Several plots help to evaluate the suitability of the linear regression 
+    + *Residuals vs fitted*: The residuals should be randomly distributed around the horizontal line representing a residual error of zero; that is, there should not be a distinct trend in the distribution of points. 
+    + *Standard Q-Q plot*: residual errors are normally distributed
+    + *Square root of the standardized residuals vs the fitted value*s: there should be no obvious trend.
+    + *Leverage*: measures the importance of each point in determining the regression result. Smaller values means that removing the observation has little effect on the regression result. 
+
+
+
+## China dataset. Linear regression. Fitting a linear model to log-log
+  - the predictive power equation is $y= e^{b_0 + b_1 log(x)}$, ignoring the bias corrections
+  - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.
+  
+#```{r}
+#linmodel_logchina <- lm(logchina_effort ~ logchina_size)
+#par(mfrow=c(1,1))
+#plot(logchina_size, logchina_effort)
+#abline(linmodel_logchina, lwd=3, col=3)
+#par(mfrow=c(1,2))
+#plot(linmodel_logchina, ask = FALSE)
+#linmodel_logchina
+#```
+

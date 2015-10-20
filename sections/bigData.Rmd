@@ -1,0 +1,4 @@
+# Big Data in Software Engineering
+
+Spark is becoming the most popular approach in Big Data. Large Volumes of data can be collected the repositories such as GitHub.
+

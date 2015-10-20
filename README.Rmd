@@ -1,0 +1,81 @@
+
+---
+title: "Data Analysis in Software Engineering (DASE)"
+author: Javier Dolado and Daniel Rodriguez
+date: "`r Sys.Date()`"
+output: html_document
+root.dir: .
+---
+
+This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.es/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez]() at the [University of Alcala](http://www.uah.es/).
+
+It is mainly based on [R](http://cran.r-project.org) and [RStudio] (http://www.rstudio.com/). 
+
+We will also show examples in Weka and other packages.
+
+It is structured as follows.
+
+
+1 [Introduction to data analysis and model building](./sections/intro.html)
+
+2 [Data Sources](./sections/dataSources.html)
+
+   - Public repositories in software engineering
+   - Sources of information
+   
+3 [Preprocessing Techniques](./sections/preprocessingIntro.html)
+
+   + Data types
+   + Data Cleaning (duplicates, imbalance, noise)
+   + Data Discretisation
+   + Data Normalisation
+   
+4 [Exploratory Data Analysis](./sections/exploratoryDataAnalysis.html)
+
+   + Visualization
+   
+5 [Descriptive Statistics](./sections/descriptiveStatistics.html)
+
+6 [Basic Model Building](./sections/basicModelBuilding.Rmd) (Machine Learning Techniques)
+
+   + Supervised
+      + Regression and classification
+      + Rules and Decision Trees
+      + Nearest Neighbours (Lazy approaches)
+      + Neural Networks
+      + Probabilistic Classifiers
+      
+   + Unsupervised
+      + Clustering
+      + Association rules
+      
+   + Other approaches
+   
+7 [Evaluation](./sections/evaluation.html)
+
+   - Descriptive statistics
+   - Evaluation measures in machine learning
+   - Graphical evaluation techniques (ROC and other visual evaluation techniques)
+   
+8 [Advanced Model Building](advancedModelBuilding.html) (Advanced algorithms)
+
+  - Metalearners
+  - Hybrid approaches
+    
+9 [Advanced Preprocessing Techniques](./sections/advancedPreprocessingTechniques.html)
+
+   + Noise
+   + Feature Selection and Instance Selection
+   + Imbalance
+   + Missing values (Imputation methods)
+
+10 [Classical Hypothesis Testing](./sections/classicalHypothesisTesting)
+
+   + p-values
+   + Equivalence Hypothesis Testing
+
+11 [Dealing with Large Volumes of Data](./sections/bigData.html)
+
+   + Apache Spark Introduction
+
+

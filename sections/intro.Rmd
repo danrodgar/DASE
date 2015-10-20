@@ -1,0 +1,38 @@
+---
+title: "Introduction"
+output: html_document
+bibliography: ../references/references.bib
+header-includes: \usepackage{amsmath}
+---
+
+We will deal with extracting information from data, either for estimation, defect prediction, planning, etc. 
+
+We will provide an overview of data analsyis using different techniques. 
+
+## KDD
+
+The non-trivial process of identifying valid, novel, potentially useful, and ultimately understandable patterns in data [@FayyadPS1996]
+
+![KDD Process](../figures/Fayyad96kdd-process.png)
+
+
+
+## The Aim of Data Analysis and Statistical Learning
+  - The aim of any data analysis is to  **understand the data** 
+  - and to build models for making predictions and estimating future events based on past data
+  - and to make statistical inferences from our data.
+  - We may want to test different hypothesis on the data
+  - We want to generate conclusions about the population where our sample data comes from
+  - Most probably we are interested in building a model for quality, time, defects or effort prediction
+    
+  ![](../figures/prediction.png)
+  
+  - We want to find a function *f()*, that given X1, X2, ...  computes *Y=f(X1, X2, ..., Xn)*
+  - Basic References: 
+    + [John Verzani, simpleR - Using R for Introductory Statistics](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf)
+    + Peter Dalgaard, *Introductory Statistics with R*, 2nd ed., Springer, 2008
+    + Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, *An Introduction to Statistical Learning with Applications in R*, Springer 2014
+    + Geoff Cumming, *Understanding the New Statistics: Effect Sizes, Confidence Intervals, and Meta_Analysis*, Routledge, New York, 2012
+
+## References
+
