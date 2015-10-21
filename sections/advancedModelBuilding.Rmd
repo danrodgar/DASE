@@ -6,6 +6,7 @@ header-includes: \usepackage{amsmath}
 
 
 ## Genetic Programming for Symbolic Regression
+
   - R package "rgp"
   - other reference for GP: Langdon WB, Poli R (2001) Foundations of Genetic Programming. Springer.
 
@@ -25,19 +26,20 @@ header-includes: \usepackage{amsmath}
 
 ```{r}
 library(foreign)
-path2files <- "~/DocProjects/PRESI2013/london2015" # Set here the path to the folder where you have downloaded the files
-setwd(path2files) #this command sets the default directory
-telecom1 <- read.table("Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+getwd()
+
+#read data
+telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") 
+ 
 size_telecom1 <- telecom1$size
 effort_telecom1 <- telecom1$effort
 
-chinaTrain <- read.arff("china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
 china_train_size <- chinaTrain$AFP 
 china_train_effort <- chinaTrain$Effort
-chinaTest <- read.arff("china3AttSelectedAFPTest.arff")
+chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
 china_size_test <- chinaTest$AFP
 actualEffort <- chinaTest$Effort
-
 ```
 
 
@@ -82,31 +84,33 @@ mean(ae_gp)
 
 
 ### Genetic Programming for Symbolic Regression. Telecom1 dataset.
+
   - For illustration purposes only. We use all data points. 
+  
 ```{r}
-y <- effort_telecom1   # all data points
-x <- size_telecom1   # 
-
-data2 <- data.frame(y, x)  # create a data frame with effort, size
-# newFuncSet <- mathFunctionSet
-# alternatives to mathFunctionSet
-newFuncSet <- expLogFunctionSet # sqrt", "exp", and "ln"
-# newFuncSet <- trigonometricFunctionSet
-# newFuncSet <- arithmeticFunctionSet
-# newFuncSet <- functionSet("+","-","*", "/","sqrt", "log", "exp") # ,, )
-
-gpresult <- symbolicRegression(y ~ x, 
-                                data=data2, functionSet=newFuncSet,
-                                populationSize=initialPopulation,
-                                stopCondition=makeStepsStopCondition(stepsGenerations))
-
-bf <- gpresult$population[[which.min(sapply(gpresult$population, gpresult$fitnessFunction))]]
-wf <- gpresult$population[[which.max(sapply(gpresult$population, gpresult$fitnessFunction))]]
-
-bf1 <- gpresult$population[[which.min((gpresult$fitnessValues))]]
-plot(x,y)
-lines(x, bf(x), type = "l", col="blue", lwd=3)
-lines(x,wf(x), type = "l", col="red", lwd=2)
+# y <- effort_telecom1   # all data points
+# x <- size_telecom1   # 
+# 
+# data2 <- data.frame(y, x)  # create a data frame with effort, size
+# # newFuncSet <- mathFunctionSet
+# # alternatives to mathFunctionSet
+# newFuncSet <- expLogFunctionSet # sqrt", "exp", and "ln"
+# # newFuncSet <- trigonometricFunctionSet
+# # newFuncSet <- arithmeticFunctionSet
+# # newFuncSet <- functionSet("+","-","*", "/","sqrt", "log", "exp") # ,, )
+# 
+# gpresult <- symbolicRegression(y ~ x, 
+#                                 data=data2, functionSet=newFuncSet,
+#                                 populationSize=initialPopulation,
+#                                 stopCondition=makeStepsStopCondition(stepsGenerations))
+# 
+# bf <- gpresult$population[[which.min(sapply(gpresult$population, gpresult$fitnessFunction))]]
+# wf <- gpresult$population[[which.max(sapply(gpresult$population, gpresult$fitnessFunction))]]
+# 
+# bf1 <- gpresult$population[[which.min((gpresult$fitnessValues))]]
+# plot(x,y)
+# lines(x, bf(x), type = "l", col="blue", lwd=3)
+# lines(x,wf(x), type = "l", col="red", lwd=2)
 
 ```
 
@@ -123,53 +127,30 @@ lines(x,wf(x), type = "l", col="red", lwd=2)
 
 
 
-
-
 ## Ensembles
 
-This technique consists in combining single classifiers (sometimes are also called weak classifiers)
+Ensembles or meta-learners combine multiple models to obtain better predictions i.e., this technique consists in combining single classifiers (sometimes are also called weak classifiers). 
 
-Ensembles or meta-learners combine multiple models to obtain
-better predictions. They are typically classified as Bagging,
-Boosting and Stacking (Stacked generalization). We
-have used Bagging and Boosting algorithms in this work.
-Bagging [3] (also known as Bootstrap aggregating) is an ensemble
-technique in which a base learner is applied to mul-
-tiple equal size datasets created from the original data using
-bootstraping. Predictions are based on voting of the individual
-predictions. An advantage of bagging is that it does
-not require any modification to the learning algorithm and
-takes advantage of the instability of the base classifier to create
-diversity among individual ensembles so that individual
-members of the ensemble perform well in different regions
-of the data. Bagging does not perform well with classifiers
-if their output is robust to perturbation of the data such as
-nearest-neighbour (NN) classifiers.
-Boosting techniques generate multiple models that complement
-each other inducing models that improve regions of the
-data where previous induced models preformed poorly. This
-is achieved by increasing the weights of instances wrongly
-classified, so new learners focus on those instances. Finally,
-classification is based on a weighted voted among all members
-of the ensemble. In particular, AdaBoost.M1 [15] is
-a popular boosting algorithm for classification. The set of
-training examples is assigned an equal weight at the beginning
-and the weight of instances is either increased or
-decreased depending on whether the learner classified that
-instance incorrectly or not. The following iterations focus
-on those instances with higher weights. AdaBoost.M1 can
-be applied to any base learner.
-Rotation Forests [40] combine randomly chosen subsets of
-attributes (random subspaces) and bagging approaches with
-principal components feature generation to construct an ensemble
-of decision trees. Principal Component Analysis is
-used as a feature selection technique combining subsets of
-attributes which are used with a bootstrapped subset of the
-training data by the base classifier.
-A problem with ensembles is that their models are difficult
-to interpret (they behave as blackboxes) in comparison to
+A problem with ensembles is that their models are difficult to interpret (they behave as blackboxes) in comparison to
 decision trees or rules which provide an explanation of their
 decision making process.
+
+They are typically classified as Bagging, Boosting and Stacking (Stacked generalization). 
+
+### Bagging
+Bagging (also known as Bootstrap aggregating) is an ensemble technique in which a base learner is applied to multiple equal size datasets created from the original data using bootstraping. Predictions are based on voting of the individual predictions. An advantage of bagging is that it does not require any modification to the learning algorithm and takes advantage of the instability of the base classifier to create diversity among individual ensembles so that individual members of the ensemble perform well in different regions of the data. Bagging does not perform well with classifiers if their output is robust to perturbation of the data such as
+nearest-neighbour (NN) classifiers.
+
+### Boosting
+Boosting techniques generate multiple models that complement each other inducing models that improve regions of the data where previous induced models preformed poorly. This is achieved by increasing the weights of instances wrongly classified, so new learners focus on those instances. Finally, classification is based on a weighted voted among all members of the ensemble. 
+
+In particular, AdaBoost.M1 [15] is a popular boosting algorithm for classification. The set of training examples is assigned an equal weight at the beginning and the weight of instances is either increased or
+decreased depending on whether the learner classified that instance incorrectly or not. The following iterations focus on those instances with higher weights. AdaBoost.M1 can be applied to any base learner.
+
+### Other approaches
+
+Rotation Forests [40] combine randomly chosen subsets of attributes (random subspaces) and bagging approaches with principal components feature generation to construct an ensemble of decision trees. Principal Component Analysis is used as a feature selection technique combining subsets of
+attributes which are used with a bootstrapped subset of the training data by the base classifier. 
 
 
 

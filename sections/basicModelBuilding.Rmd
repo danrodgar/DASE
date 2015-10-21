@@ -1,3 +1,6 @@
+
+root.dir:.
+
 # Basic Model Building
 
 
@@ -29,6 +32,7 @@ qqnorm(galton$child)
 
   
 ## Linear Regression Diagnostics
+
   - Several plots help to evaluate the suitability of the linear regression 
     + *Residuals vs fitted*: The residuals should be randomly distributed around the horizontal line representing a residual error of zero; that is, there should not be a distinct trend in the distribution of points. 
     + *Standard Q-Q plot*: residual errors are normally distributed
