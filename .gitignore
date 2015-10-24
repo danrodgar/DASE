@@ -2,3 +2,6 @@
 *.Rmd~
 *.bak
 
+.Rhistory
+.Rproj.user
+.Rdata

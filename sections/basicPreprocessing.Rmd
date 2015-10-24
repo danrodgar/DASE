@@ -1,0 +1,71 @@
+---
+title: "Basics of Preprocessing"
+output: html_document
+header-includes: \usepackage{amsmath}
+---
+
+# Basics of Preprocessing
+
+This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, tranforming input data, merging variables, etc.
+
+*Consistent* data are semantically correct based on real-world knowledge of the problem, i.e., no constrains are violated and data that can be used for inducing models and analysis. For example, the LoC or effort is constrained to non-negative values. We can also consider that to multiple attributes are consistent among them, and even datasets (e.g., same metrics but collected by different tools)
+
+
+## Missing values
+
+Imputation consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and imputation methods are needed. 
+
+In R, a missing value is represented with $NA$ and the analyst must decide what to do with missing data. The simplest approach is to leave out instances with with missing data. This functionality is supported by many base functions through the *na.rm* option.
+
+MCAR
+
+### Imputation methods
+
+We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute.
+
+More elaborated approaches include:
+
+  + EM (Expectation-Maximisation)
+
+  + Distance-based
+
+
+## Outliers
+
+There is a vast body of literature on outlier detection, and several definitions of outlier exist A particularly
+easy-to-implement example is the method of
+Hiridoglou and Berthelot 16 for positive observations.
+In this method, an observation is an outlier when
+ℎ(𝑥) = max ቆ 𝑥
+...
+is usually the median observation, although
+other measures of centrality may be chosen. Here, the
+score function ℎ(𝑥) grows as 1/𝑥 as 𝑥 approaches zero
+and grows linearly with 𝑥 when it is larger than 𝑥
+
+## Preprocessing in R
+
+Hmisc package has a convenient 
+
+
+CARET 
+https://tgmstat.wordpress.com/2013/11/07/unsupervised-data-pre-processing-for-predictive-modeling/
+
+plyr
+http://seananderson.ca/courses/12-plyr/plyr_2012.pdf
+
+The plyr (Wickham, 2014) package provides a clean and consistent approach to transforming
+data. We can easily, for example, transform a data frame into a new smaller data frame grouped
+by the location
+
+
+
+## Other libraries and tricks
+
+lubridate package13 contains a number of functions facilitating the conversion of text to
+POSIXct dates. As an example, consider the following code.
+
+library(lubridate)
+dates <- c("15/02/2013", "15 Feb 13", "It happened on 15 02 '13")
+dmy(dates)
+
