@@ -1,11 +1,30 @@
 
-root.dir:.
-
 # Basic Model Building
 
+Data mining techniques can be grouped into predictive (supervised) and descriptive (unsupervised) depending on the problem at hand.
+
+For example, in fault prediction, it would correspond to the generation of classification models to predict whether a software module will be defective based on metrics from historical project data. In the case of predicting a numeric value, it is a regression problem, e.g. effort and cost estimation.
+
+A classification problem can be defined as the induction, from a dataset $\cal D$, of a classification function $\psi$ that, given the attribute vector of an instance/example, returns a class ${c}$. A regression problem, on the other hand, returns an numeric value.
+
+Dataset, $\cal D$, is typically composed of $n$ attributes and a class attribute $C$. 
+
+| $Att_1$  | ... | Attn | C   |
+|----------|-----| -----|-----|
+| $a_{11}$ | ... | a1n  | c1  |
+| $a_{21}$ | ... | a2n  | c2  |
+| ...      | ... | ...  | ... |
+| $a_{m1}$ | ... | amn  | cm  |
+
+Columns are usually called attributes and there is class attribute, binay (two values) or multi-label.
+
+From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. For example, association rules or clustering.
 
 
-## Linear Regression
+
+## Predictive problems
+
+### Linear Regression
   - This procedure fits a straight line to the data. The idea is that the independent variable x is something the experimenter controls and the dependent variable y is something that the experimenter measures. The line is used to predict the value of y for a known value of x. The variable x is the predictor variable and y the response variable.
   - First proposed many years ago. But still very useful ...
   
@@ -15,7 +34,6 @@ root.dir:.
   - The method used to choose the values $b_0$ and $b_1$ is to minimize the sum of the squares of the residual errors.
 
 ## Galton Data
-
 
 ```{r}
 library(UsingR); data(galton)
@@ -39,19 +57,108 @@ qqnorm(galton$child)
     + *Square root of the standardized residuals vs the fitted value*s: there should be no obvious trend.
     + *Leverage*: measures the importance of each point in determining the regression result. Smaller values means that removing the observation has little effect on the regression result. 
 
-
-
 ## China dataset. Linear regression. Fitting a linear model to log-log
   - the predictive power equation is $y= e^{b_0 + b_1 log(x)}$, ignoring the bias corrections
   - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.
-  
-#```{r}
-#linmodel_logchina <- lm(logchina_effort ~ logchina_size)
-#par(mfrow=c(1,1))
-#plot(logchina_size, logchina_effort)
-#abline(linmodel_logchina, lwd=3, col=3)
-#par(mfrow=c(1,2))
-#plot(linmodel_logchina, ask = FALSE)
-#linmodel_logchina
-#```
 
+
+
+```{r}
+library(foreign)
+china <- read.arff("../datasets/china.arff")
+china_size <- china$AFP
+summary(china_size)
+china_effort <- china$Effort
+summary(china_effort)
+par(mfrow=c(1,2))
+hist(china_size, col="blue", xlab="Adjusted Function Points", main="Distribution of AFP")
+hist(china_effort, col="blue",xlab="Effort", main="Distribution of Effort")
+boxplot(china_size)
+boxplot(china_effort)
+qqnorm(china_size)
+qqline(china_size)
+qqnorm(china_effort)
+qqline(china_effort)
+```
+  
+
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+logchina_size = log(china_size)
+hist(logchina_size, col="blue", xlab="log Adjusted Function Points", main="Distribution of log AFP")
+logchina_effort = log(china_effort)
+hist(logchina_effort, col="blue",xlab="Effort", main="Distribution of log Effort")
+qqnorm(logchina_size)
+qqnorm(logchina_effort)
+```
+  
+  
+  
+```{r}
+linmodel_logchina <- lm(logchina_effort ~ logchina_size)
+par(mfrow=c(1,1))
+plot(logchina_size, logchina_effort)
+abline(linmodel_logchina, lwd=3, col=3)
+par(mfrow=c(1,2))
+plot(linmodel_logchina, ask = FALSE)
+linmodel_logchina
+```
+
+
+## Supervised Classification
+
+
+Here we will use defect prediction as ensample of several machine learning techniques.
+
+> **No Free Lunch theorem**
+> In the absence of any knowledge about the prediction problem, no model
+> can be said to be uniformly better than any other
+
+The caret (Classification And REgression Training) package provides a unified interface for modeling and prediction with around 150 different models with tools for:
+
++ data splitting
++ pre-processing
++ feature selection
++ model tuning using resampling
++ variable importance estimation, etc.
+
+[http://topepo.github.io/caret/index.html](http://topepo.github.io/caret/index.html)
+
+The caret package 
+
+Website: [http://caret.r-forge.r-project.org](http://caret.r-forge.r-project.org)
+
+JSS Paper: www.jstatsoft.org/v28/i05/paper
+Book: [Applied Predictive Modeling](http://AppliedPredictiveModeling.com/) 
+
+
+```{r}
+library(caret)
+library(C50)
+
+kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+ctrl <- trainControl(method = "repeatedcv",
+    repeats = 3,
+    classProbs = TRUE,
+    summaryFunction = twoClassSummary)
+#model <- C50::C5.0()
+
+```
+
+## Trees
+
+C5
+
+## Rules
+
+C5 Rules
+
+## Distanced-based Methods
+
+IB1 and IB-k
+
+## Probabilistic Methods
+
+### Naive Bayes
+
+### Bayesian Networks

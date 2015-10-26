@@ -2,7 +2,7 @@
 title: "Evaluation"
 date: "`r Sys.Date()`"
 output: html_document
-root.dir: .
+header-includes: \usepackage{bm}
 ---
 ## Building and Validating a Model
   - Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.
@@ -26,7 +26,8 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
   
   
 ```{r}
-chinaTrain <- read.arff("./datasets/china3AttSelectedAFPTrain.arff")
+library(foreign)
+chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
 nrow(chinaTrain)
 logchina_size <- log(chinaTrain$AFP)
 logchina_effort <- log(chinaTrain$Effort)
@@ -62,7 +63,7 @@ $$
 gm_mean = function(x, na.rm=TRUE){
   exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))}
 
-chinaTest <- read.arff("china3AttSelectedAFPTest.arff")
+chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
 b0 <- linmodel_logchina_train$coefficients[1]
 b1 <- linmodel_logchina_train$coefficients[2]
 china_size_test <- chinaTest$AFP
@@ -96,7 +97,10 @@ Lpred
 
 ## Building a Linear Model on the Telecom1 dataset  
   - Although there are few datapoints we split the file into Train (2/3) and Test (1/3)
+  
 ```{r}
+telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+
 samplesize <- floor(0.66*nrow(telecom1))
 set.seed(012) # to make the partition reproducible
 train_idx <- sample(seq_len(nrow(telecom1)), size = samplesize)
@@ -126,9 +130,15 @@ segments(xtest, ytest, xtest, pre_tel1, col="red")
 ```
 
 ## Building a Linear Model on the Telecom1 dataset with all observations
+
   - Just to visualize results
+  
 ```{r}
 par(mfrow=c(1,1))
+
+effort_telecom1 <- telecom1$effort
+size_telecom1 <- telecom1$size
+
 lmtelecom <- lm(effort_telecom1 ~ size_telecom1)
 plot(size_telecom1, effort_telecom1)
 abline(lmtelecom, lwd=3, col="blue")
@@ -155,6 +165,7 @@ mar_tel1
 
 
 ## Standardised Accuracy. MARP0. ChinaTest
+
 - Computing $MARP_0$ in the China Test data
 
 ```{r}
@@ -180,9 +191,7 @@ saChina
   - Computing $MARP_0$
 
 ```{r}
-path2files <- "~/DocProjects/PRESI2013/london2015"
-setwd(path2files)
-telecom1 <- read.table("Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
 #par(mfrow=c(1,2))
 #size <- telecom1[1]$size   not needed now
 actualEffTelecom1 <- telecom1[2]$effort
@@ -290,7 +299,7 @@ distribution of the statistic.
   - **Resampling** or **bootstraping** is a method to calculate estimates of a parameter taking samples from the original data and using those *resamples* to calculate statistics. Using the resamples usually gives more accurate results than using the original single sample to calculate an estimate of a parameter. 
   
   
-  ![](/home/javier/DocProjects/PRESI2013/london2015/bootstrap.png)
+  ![](../figures/bootstrap.png)
   
   - Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:
 ```{r}
@@ -337,3 +346,48 @@ print(paste0("Confidence Interval: ", round(b_ci_gm[4], digits=3), " - ", round(
 ```
 
 
+## Evaluation of Classifiers
+
+### Numeric Evaluation
+
+RSME
+...
+
+
+### Discrete Evaluation
+
+The confusion matrix (which can be extended to multiclass problems). The following table shows the possible outcomes for binary classification problems:
+
+|           |$Pred Pos$ | $Pred Neg$ |
+|-----------|-----------|------------|
+| $Act Pos$ |   $TP$    | $FN$       |
+| $Act Neg$ |   $FP$    | $TN$       |
+
+where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
+
+From the confusion matrix, we can calculate:
+
+   + *True positive rate*, or *recall * 
+             $TP_r = recall = r = TP/TP+FN$
+      is the proportion of positive cases correctly classified as belonging to the positive class.
+   + *False negative rate* ($FN_r=FN/TP+FN$) is the proportion of positive cases misclassified as belonging to the negative class.
+   + *False positive rate* ($FP_r=FP/FP+TN$) is the proportion of negative cases misclassified as belonging to the positive class.
+   + *True negative rate* ($TN_r=TN/FP+TN$) is the proportion of negative cases correctly classified as belonging to the negative class.
+
+
+There is a tradeoff between $FP_r$ and $FN_r$ as the objective is minimize both
+metrics (or conversely, maximize the true negative and positive
+rates). It is possible to combine both metrics into a single figure,
+predictive $accuracy$:
+
+($accuracy = \frac{TP + TN}{TP + TN + FP + FN}$)
+
+to measure performance of classifiers (or the complementary value, the
+error rate} which is defined as $1-accuracy$)
+
+
+A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|\bm{x})$. Then, given a new instance, $\bm{x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
+
+$\psi({x}) = argmax_c (P(c|{x}))$
+
+ 

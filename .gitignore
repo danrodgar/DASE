@@ -1,6 +1,7 @@
 *.md~
 *.Rmd~
 *.bak
+*.html
 
 .Rhistory
 .Rproj.user
