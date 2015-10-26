@@ -18,7 +18,8 @@ Dataset, $\cal D$, is typically composed of $n$ attributes and a class attribute
 
 Columns are usually called attributes and there is class attribute, binay (two values) or multi-label.
 
-From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. For example, association rules or clustering.
+From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This include association rules, clustering, or tree clustering
+which purpose is to join together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. 
 
 
 

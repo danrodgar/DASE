@@ -32,9 +32,9 @@ More elaborated approaches include:
 
 ## Outliers
 
-There is a vast body of literature on outlier detection, and several definitions of outlier exist A particularly
-easy-to-implement example is the method of
-Hiridoglou and Berthelot 16 for positive observations.
+There is a large amount of literature related to outlier detection, and several definitions of outlier exist. 
+
+An easy-to-implement example is the method of Hiridoglou and Berthelot  for positive observations.
 In this method, an observation is an outlier when
 ℎ(𝑥) = max ቆ 𝑥
 ...
