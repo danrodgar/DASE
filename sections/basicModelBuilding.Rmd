@@ -18,23 +18,30 @@ Dataset, $\cal D$, is typically composed of $n$ attributes and a class attribute
 
 Columns are usually called attributes and there is class attribute, binay (two values) or multi-label.
 
-From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This include association rules, clustering, or tree clustering
-which purpose is to join together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. 
+From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This include association rules, clustering, or tree clustering which purpose is to join together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. The dataset will be as the previous table without the $C$ class attribute
 
+| $Att_1$  | ... | Attn |
+|----------|-----| -----|
+| $a_{11}$ | ... | a1n  |
+| $a_{21}$ | ... | a2n  |
+| ...      | ... | ...  |
+| $a_{m1}$ | ... | amn  |
 
 
 ## Predictive problems
 
 ### Linear Regression
   - This procedure fits a straight line to the data. The idea is that the independent variable x is something the experimenter controls and the dependent variable y is something that the experimenter measures. The line is used to predict the value of y for a known value of x. The variable x is the predictor variable and y the response variable.
-  - First proposed many years ago. But still very useful ...
+  - First proposed many years ago. But still very useful...
   
-    ![](../figures/galton.png)
+    ![Galton Data](../figures/galton.png)
   
   - The equation takes the form $\hat{y}=b_0+b_1 * x$
   - The method used to choose the values $b_0$ and $b_1$ is to minimize the sum of the squares of the residual errors.
 
 ## Galton Data
+
+Not related to Software Engineering but ...
 
 ```{r}
 library(UsingR); data(galton)
@@ -57,6 +64,8 @@ qqnorm(galton$child)
     + *Standard Q-Q plot*: residual errors are normally distributed
     + *Square root of the standardized residuals vs the fitted value*s: there should be no obvious trend.
     + *Leverage*: measures the importance of each point in determining the regression result. Smaller values means that removing the observation has little effect on the regression result. 
+
+
 
 ## China dataset. Linear regression. Fitting a linear model to log-log
   - the predictive power equation is $y= e^{b_0 + b_1 log(x)}$, ignoring the bias corrections
@@ -148,18 +157,87 @@ ctrl <- trainControl(method = "repeatedcv",
 
 ## Trees
 
-C5
+```  {r}
+library(foreign)
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
+
+# split into training and test datasets
+set.seed(1)
+ind <- sample(2, nrow(iris), replace=T, prob=c(0.7, 0.3))
+kc1.train <- kc1[ind==1, ]
+kc1.test <- kc1[ind==2, ]
+
+# build a decision tree
+library(party)
+kc1.formula <- kc1$Defective ~ .
+kc1.ctree <- ctree(kc1.formula, data=kc1.train)
+
+# predict on test data
+pred <- predict(kc1.ctree, newdata = kc1.test)
+# check prediction result
+table(pred, kc1.test$Defective)
+plot(kc1.ctree)
+```
+
+
+
+Usign the 
+
+``` {r}
+# Using the 'rpart' package
+library(rpart, quietly=TRUE)
+kc1.rpart <- rpart(Defective ~ ., data=kc1.train)
+plot(kc1.rpart)
+
+library(rpart.plot)
+asRules()
+#fancyRpartPlot(kc1.rpart)
+```
 
 ## Rules
 
 C5 Rules
 
+
+
 ## Distanced-based Methods
 
 IB1 and IB-k
+
+
 
 ## Probabilistic Methods
 
 ### Naive Bayes
 
 ### Bayesian Networks
+
+
+
+## Clustering
+
+```{r}
+library(fpc)
+kc1.train$Defective <- NULL
+
+ds <- dbscan(kc1.train, eps = 0.42, MinPts = 5)
+
+kc1.kmeans <- kmeans(kc1.train, 2)
+
+```
+
+
+kMeans
+
+```{r}
+#library(reshape, quietly=TRUE)
+#kc1.kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
+
+```
+
+
+## Association rules
+
+arules
+
+

@@ -5,7 +5,7 @@ Javier Dolado and Daniel Rodriguez
 (Draft `r Sys.Date()`)
 
 
-This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.es/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez]() at the [University of Alcala](http://www.uah.es/).
+This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.eus/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez](http://www.cc.uah.es/drg) at the [University of Alcala](http://www.uah.es/).
 
 It is mainly based on [R](http://cran.r-project.org) and [RStudio] (http://www.rstudio.com/). 
 
@@ -55,6 +55,8 @@ It is structured as follows.
    - Evaluation measures in machine learning
    - Graphical evaluation techniques (ROC and other visual evaluation techniques)
    
+   - [Evaluation in Software Engineering](./sections/evaluationInSoftEng.Rmd)
+   
 8 [Advanced Model Building](advancedModelBuilding.Rmd) (Advanced algorithms)
 
   - Metalearners
@@ -77,3 +79,4 @@ It is structured as follows.
    + Apache Spark Introduction
 
 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.

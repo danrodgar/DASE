@@ -8,7 +8,19 @@ header-includes: \usepackage{amsmath}
 
 This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, tranforming input data, merging variables, etc.
 
+Typically, preprocessing consist of the following tasks (subprocesses):
+ 
+ + Data cleaning (consistency, noise detection, outliers)
+ + Data integration
+ + Data transformation  (normalisation, discretisation) and derivation of new attributes from existing ones (e.g., population density from population and area)
+ + Missing data imputation
+ + Data reduction (feature selection and instace selection)
+
+
+## Data
+
 *Consistent* data are semantically correct based on real-world knowledge of the problem, i.e., no constrains are violated and data that can be used for inducing models and analysis. For example, the LoC or effort is constrained to non-negative values. We can also consider that to multiple attributes are consistent among them, and even datasets (e.g., same metrics but collected by different tools)
+
 
 
 ## Missing values
