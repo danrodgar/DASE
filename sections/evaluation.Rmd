@@ -117,10 +117,10 @@ res <- signif(residuals(lmtelecom1), 5)
 
 xtest <- telecom1_test$size
 ytest <- telecom1_test$effort
-pre_tel1 <- exp(b0+b1*log(xtest))
+pre_tel1 <- exp(b0_tel1+b1_tel1*log(xtest))
 # plot distances between points and the regression line
 plot(xtest, ytest)
-curve(exp(b0+b1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
+curve(exp(b0_tel1+b1_tel1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
 segments(xtest, ytest, xtest, pre_tel1, col="red")
 
 ```
