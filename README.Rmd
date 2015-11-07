@@ -1,13 +1,11 @@
+# Data Analysis in Software Engineering (DASE)
 
----
-title: "Data Analysis in Software Engineering (DASE)"
-author: Javier Dolado and Daniel Rodriguez
-date: "`r Sys.Date()`"
-output: html_document
-root.dir: .
----
+Javier Dolado and Daniel Rodriguez
 
-This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.es/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez]() at the [University of Alcala](http://www.uah.es/).
+(Draft `r Sys.Date()`)
+
+
+This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.eus/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez](http://www.cc.uah.es/drg) at the [University of Alcala](http://www.uah.es/).
 
 It is mainly based on [R](http://cran.r-project.org) and [RStudio] (http://www.rstudio.com/). 
 
@@ -16,25 +14,25 @@ We will also show examples in Weka and other packages.
 It is structured as follows.
 
 
-1 [Introduction to data analysis and model building](./sections/intro.html)
+1 [Introduction to data analysis and model building](./sections/intro.Rmd)
 
-2 [Data Sources](./sections/dataSources.html)
+2 [Data Sources](./sections/dataSources.Rmd)
 
    - Public repositories in software engineering
    - Sources of information
    
-3 [Preprocessing Techniques](./sections/preprocessingIntro.html)
+3 [Preprocessing Techniques](./sections/preprocessingIntro.Rmd)
 
    + Data types
    + Data Cleaning (duplicates, imbalance, noise)
    + Data Discretisation
    + Data Normalisation
    
-4 [Exploratory Data Analysis](./sections/exploratoryDataAnalysis.html)
+4 [Exploratory Data Analysis](./sections/exploratoryDataAnalysis.Rmd)
 
    + Visualization
    
-5 [Descriptive Statistics](./sections/descriptiveStatistics.html)
+5 [Descriptive Statistics](./sections/descriptiveStatistics.Rmd)
 
 6 [Basic Model Building](./sections/basicModelBuilding.Rmd) (Machine Learning Techniques)
 
@@ -51,18 +49,20 @@ It is structured as follows.
       
    + Other approaches
    
-7 [Evaluation](./sections/evaluation.html)
+7 [Evaluation](./sections/evaluation.Rmd)
 
    - Descriptive statistics
    - Evaluation measures in machine learning
    - Graphical evaluation techniques (ROC and other visual evaluation techniques)
    
-8 [Advanced Model Building](advancedModelBuilding.html) (Advanced algorithms)
+   - [Evaluation in Software Engineering](./sections/evaluationInSoftEng.Rmd)
+   
+8 [Advanced Model Building](advancedModelBuilding.Rmd) (Advanced algorithms)
 
   - Metalearners
   - Hybrid approaches
     
-9 [Advanced Preprocessing Techniques](./sections/advancedPreprocessingTechniques.html)
+9 [Advanced Preprocessing Techniques](./sections/advancedPreprocessingTechniques.Rmd)
 
    + Noise
    + Feature Selection and Instance Selection
@@ -74,8 +74,9 @@ It is structured as follows.
    + p-values
    + Equivalence Hypothesis Testing
 
-11 [Dealing with Large Volumes of Data](./sections/bigData.html)
+11 [Dealing with Large Volumes of Data](./sections/bigData.Rmd)
 
    + Apache Spark Introduction
 
 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.

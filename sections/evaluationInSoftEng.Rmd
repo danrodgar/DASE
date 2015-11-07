@@ -1,44 +1,7 @@
 ---
-title: "Evaluation"
-date: "`r Sys.Date()`"
+title: "Evaluation in Software Engineering"
 output: html_document
-header-includes: \usepackage{bm}
 ---
-## Building and Validating a Model
-  - Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.
-  - *Validation Set approach*: it is the simplest method. It consists of randomly dividing the available set of oservations into two parts, a *training set* and a *validation set* or hold-out
-set. Usually 2/3 of the data points are used for training and 1/3 is used for testing purposes.
-
-   ![](../figures/validation.png) 
-
-
-  - *Leave-One-Out Cross-Validation*: instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated n times (the total number of observations) and the estimate for the test mean squared error is the average of the n test estimates.
-  
-   ![](../figures/leaveone.png) 
-
-  - *k-Fold Cross-Validation*: it involves randomly dividing the set of observations into k groups, or folds, of approximately equal size. The first fold is treated as a validation set, the the methods is fit on the remaining k-1 folds. This procedure is repeated k times. If k is equal to n we are in the previous method.
-  
-  ![k-fold](../figures/kfold.png) 
-  
-  
-### China dataset. Split data into Training and Testing
-  - The data is already divided into two different files
-  
-  
-```{r}
-library(foreign)
-chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
-nrow(chinaTrain)
-logchina_size <- log(chinaTrain$AFP)
-logchina_effort <- log(chinaTrain$Effort)
-linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)
-par(mfrow=c(1,1))
-plot(logchina_size, logchina_effort)
-abline(linmodel_logchina_train, lwd=3, col=4)
-par(mfrow=c(1,2))
-plot(linmodel_logchina_train, ask = FALSE)
-linmodel_logchina_train
-```
 
 
 ## Measures of Evaluation used in Software Engineering
@@ -121,10 +84,10 @@ res <- signif(residuals(lmtelecom1), 5)
 
 xtest <- telecom1_test$size
 ytest <- telecom1_test$effort
-pre_tel1 <- exp(b0_tel1+b1_tel1*log(xtest))
+pre_tel1 <- exp(b0+b1*log(xtest))
 # plot distances between points and the regression line
 plot(xtest, ytest)
-curve(exp(b0_tel1+b1_tel1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
+curve(exp(b0+b1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
 segments(xtest, ytest, xtest, pre_tel1, col="red")
 
 ```
@@ -345,49 +308,3 @@ print(paste0("Confidence Interval: ", round(b_ci_gm[4], digits=3), " - ", round(
 # }
 ```
 
-
-## Evaluation of Classifiers
-
-### Numeric Evaluation
-
-RSME
-...
-
-
-### Discrete Evaluation
-
-The confusion matrix (which can be extended to multiclass problems). The following table shows the possible outcomes for binary classification problems:
-
-|           |$Pred Pos$ | $Pred Neg$ |
-|-----------|-----------|------------|
-| $Act Pos$ |   $TP$    | $FN$       |
-| $Act Neg$ |   $FP$    | $TN$       |
-
-where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
-
-From the confusion matrix, we can calculate:
-
-   + *True positive rate*, or *recall * 
-             $TP_r = recall = r = TP/TP+FN$
-      is the proportion of positive cases correctly classified as belonging to the positive class.
-   + *False negative rate* ($FN_r=FN/TP+FN$) is the proportion of positive cases misclassified as belonging to the negative class.
-   + *False positive rate* ($FP_r=FP/FP+TN$) is the proportion of negative cases misclassified as belonging to the positive class.
-   + *True negative rate* ($TN_r=TN/FP+TN$) is the proportion of negative cases correctly classified as belonging to the negative class.
-
-
-There is a tradeoff between $FP_r$ and $FN_r$ as the objective is minimize both
-metrics (or conversely, maximize the true negative and positive
-rates). It is possible to combine both metrics into a single figure,
-predictive $accuracy$:
-
-($accuracy = \frac{TP + TN}{TP + TN + FP + FN}$)
-
-to measure performance of classifiers (or the complementary value, the
-error rate} which is defined as $1-accuracy$)
-
-
-A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|\bm{x})$. Then, given a new instance, $\bm{x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
-
-$\psi({x}) = argmax_c (P(c|{x}))$
-
- 

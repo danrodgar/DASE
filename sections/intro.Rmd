@@ -15,7 +15,15 @@ The non-trivial process of identifying valid, novel, potentially useful, and ult
 
 ![KDD Process](../figures/Fayyad96kdd-process.png)
 
+The Cross Industry Process for Data Mining (CRISP-DM, 1996) provides a common and well-developed framework for delivering data mining projects identifying six steps:
+project:
 
+1 Problem Understanding
+2 Data Understanding
+3 Data Preparation
+4 Modeling
+5 Evaluation
+6 Deployment
 
 ## The Aim of Data Analysis and Statistical Learning
   - The aim of any data analysis is to  **understand the data** 
@@ -28,7 +36,9 @@ The non-trivial process of identifying valid, novel, potentially useful, and ult
   ![](../figures/prediction.png)
   
   - We want to find a function *f()*, that given X1, X2, ...  computes *Y=f(X1, X2, ..., Xn)*
-  - Basic References: 
+
+
+## Basic References: 
     + [John Verzani, simpleR - Using R for Introductory Statistics](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf)
     + Peter Dalgaard, *Introductory Statistics with R*, 2nd ed., Springer, 2008
     + Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, *An Introduction to Statistical Learning with Applications in R*, Springer 2014
