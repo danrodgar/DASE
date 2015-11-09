@@ -144,9 +144,13 @@ Book: [Applied Predictive Modeling](http://AppliedPredictiveModeling.com/)
 
 ```{r}
 library(caret)
+
+library(foreign)
+
+
 library(C50)
 
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
 ctrl <- trainControl(method = "repeatedcv",
     repeats = 3,
     classProbs = TRUE,
@@ -159,7 +163,7 @@ ctrl <- trainControl(method = "repeatedcv",
 
 ```  {r}
 library(foreign)
-kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
 
 # split into training and test datasets
 set.seed(1)
@@ -170,7 +174,7 @@ kc1.test <- kc1[ind==2, ]
 # build a decision tree
 library(party)
 kc1.formula <- kc1$Defective ~ .
-kc1.ctree <- ctree(kc1.formula, data=kc1.train)
+kc1.ctree <- ctree(kc1$Defective ~ ., data=kc1.train)
 
 # predict on test data
 pred <- predict(kc1.ctree, newdata = kc1.test)
@@ -185,30 +189,67 @@ Usign the
 
 ``` {r}
 # Using the 'rpart' package
-library(rpart, quietly=TRUE)
+library(rpart)
 kc1.rpart <- rpart(Defective ~ ., data=kc1.train)
 plot(kc1.rpart)
 
 library(rpart.plot)
-asRules()
+#asRules(kc1.rpart)
 #fancyRpartPlot(kc1.rpart)
 ```
+
+
+
 
 ## Rules
 
 C5 Rules
 
+```{r}
+library(C50)
+c5t <- C5.0(kc1[,-22],kc1[,22])
+summary(c5t)
+plot(c5t)
 
+c5r <- C5.0(kc1[,-22],kc1[,22], rules = TRUE)
+summary(c5r)
+```
 
 ## Distanced-based Methods
 
 IB1 and IB-k
 
+```{r}
+summary(kc1)
+str(kc1)
 
+library(class)
+
+ind <- sample(2, nrow(iris), replace=T, prob=c(0.7, 0.3))
+kc1.train <- kc1[ind==1, ]
+kc1.test <- kc1[ind==2, ]
+
+m1 <- knn(train=kc1.train[,-22], test=kc1.test[,-22], cl=kc1.train[,22], k=3)
+
+table(kc1.test[,22],m1)
+```
 
 ## Probabilistic Methods
 
 ### Naive Bayes
+
+```{r}
+library (e1071)
+n1 <-naiveBayes(kc1.train$Defective ~ ., data=kc1.train)
+
+predict(n1,kc1.test, type = c("class")) # class by default
+
+predict(n1,kc1.test, type = c("raw"))
+
+```
+
+
+
 
 ### Bayesian Networks
 
@@ -238,6 +279,45 @@ kMeans
 
 ## Association rules
 
-arules
+```{r}
+library(arules)
+
+x <- kc1$LOC_TOTAL
+str(x)
+summary(x)
+
+hist(x, breaks=30, main="LoC Total")
+
+xDisc <- discretize(x, categories=5)
+table(xDisc)
+
+for(i in 1:21) kc1[,i] <- discretize(kc1[,i],  "frequency", categories=5)
 
 
+str(kc1)
+
+rules <- apriori(kc1, parameter = list(support=0.60, confidence=0.800, minlen=3))
+
+
+
+rules
+
+ rules <- apriori(kc1,
+   parameter = list(minlen=3, supp=0.6, conf=0.8),
+   appearance = list(rhs=c("Defective=Y", "Defective=N"),
+   default="lhs"),
+   control = list(verbose=F))
+ 
+ #rules <- apriori(kc1,
+ #   parameter = list(minlen=2, supp=0.05, conf=0.3),
+ #   appearance = list(rhs=c("Defective=Y", "Defective=N"),
+ #   default="lhs"))
+  
+ inspect(rules)
+ 
+ rules
+ 
+ library(arulesViz)
+ plot(rules)
+ 
+ ```
