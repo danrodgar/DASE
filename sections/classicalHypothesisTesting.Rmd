@@ -19,21 +19,18 @@
   
   - Type I and Type II errors
   
-  
-  ![](../figures/typeIandIIwiki.png)
-  
+       ![](../figures/typeIandIIwiki.png)
   
   
   - Two-tailed NHST
   
-  
-    ![](../figures/stat_power_ggplot.png)
+       ![](../figures/stat_power_ggplot.png)
     
     
   - One-tailed NHST
   
-  
-  ![](../figures/Fig1.eps)
+       ![](../figures/One-tailedNHST.png)
+
 
   - elementary example
 
@@ -47,9 +44,7 @@ t.test(data, mu=50, alternative = 'greater')
 
 ```{r echo=FALSE}
 library(foreign)
-getwd()
-setwd(getwd())
-chinaTrain <- read.arff("china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
 logchina_size <- log(chinaTrain$AFP)
 logchina_effort <- log(chinaTrain$Effort)
 linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)

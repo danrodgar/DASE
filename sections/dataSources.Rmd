@@ -5,92 +5,124 @@ header-includes: \usepackage{amsmath}
 ---
 
 
-Type of information stored in the repositories:
+We classify this trail in the following categories:
 
-– Meta-information about the project itself and the
+* _Source code_ can be studied to measure its properties, such as size or complexity.
+
+* _Source Code Management Systems_ (SCM) make it possible to store all the changes that the different source code files undergo during the project. Also, SCM systems allow for work to be done in parallel by different developers over the same source code tree. Every change recorded in the system is accompanied with meta-information (author, date, reason for the change, etc) that can be used for research purposes.
+
+* _Issue or Bug tracking systems_ (ITS). Bugs, defects and user requests are managed in ISTs, where users and developers can fill tickets with a description of a defect found, or a desired new functionality. All the changes to the ticket are recorded in the system, and most of the systems also record the comments and communications among all the users and developers implied in the task. 
+
+* _Messages_ between developers and users. In the case of free/open source software, the projects are open to the world, and the messages are archived in the form of mailing lists and social networks which can also be mined for research purposes. There are also some other open message systems, such as IRC or forums. 
+
+* _Meta-data about the projects_. As well as the low level information of the software processes, we can also find meta-data about the software projects which can be useful for research. This meta-data may include intended-audience, programming language, domain of application, license (in the case of open source), etc.
+
+* _Usage data_. There are statistics about software downloads, logs from servers, software reviews, etc. 
+
+## Types of information stored in the repositories
+
+  * Meta-information about the project itself and the
 people that participated.
 
-– Low-level information
+    + Low-level information
 
-∗ Mailing Lists (ML)
+        * Mailing Lists (ML)
 
-∗ Bugs Tracking Systems (BTS) or Project
+        * Bugs Tracking Systems (BTS) or Project Tracker System (PTS)
 
-Tracker System (PTS)
+        * Software Configuration Management Systems (SCM)
 
-∗ Software Configuration Management Systems
-(SCM)
-– Processed information. For example Project management
-information about the effort estimation
+    + Processed information. For example project management information about the effort estimation
 and cost of the project.
-• Whether the repository is public or not
-• Single project vs. multiprojects. Whether the repository
+
+* Whether the repository is public or not
+
+* Single project vs. multiprojects. Whether the repository
 contains information of a single project with multiples
 versions or multiples projects and/or versions.
-• Type of content, open source or industrial projects
-• Format in which the information is stored. The repositories
-analysed here provide the information using
-different formats or technologies for accessing the
-information:
-– Text. It can be just plain text, CSV (Comma Separated
-Values) files, Attribute-Relation File Format
-(ARFF) [20] or its variants
-– Through databases. Downloading dumps of the
+
+* Type of content, open source or industrial projects
+
+* Format in which the information is stored and formats or technologies for accessing the information:
+  
+    + Text. It can be just plain text, CSV (Comma Separated Values) files, Attribute-Relation File Format
+(ARFF) or its variants
+    
+    + Through databases. Downloading dumps of the
 database.
-– Remote access such as APIs of Web services or
+    
+    + Remote access such as APIs of Web services or
 REST
 
 
+## Repositories
 
 There is a number of open research repositories in Software Engineering. Among them:
 
-FLOSSMole [6] 
-http://flossmole.org/
+  + FLOSSMole [6] 
+[http://flossmole.org/](http://flossmole.org/)
 
-FLOSSMetrics [7]: 
-http://flossmetrics.org/
+  + FLOSSMetrics [7]: 
+[http://flossmetrics.org/](http://flossmetrics.org/)
 
-PROMISE (PRedictOr Models In Software Engineering) [8]: 
-http://code.google.com/p/promisedata/
+  + PROMISE (PRedictOr Models In Software Engineering) [8]: 
+[http://openscience.us/repo/](http://openscience.us/repo/)
 
-Qualitas Corpus (QC) [9]: 
-http://qualitascorpus.com/
+  + Qualitas Corpus (QC) [9]: 
+[http://qualitascorpus.com/](http://qualitascorpus.com/)
 
-Sourcerer Project [10]: 
-http://sourcerer.ics.uci.edu/
+  + Sourcerer Project [10]: 
+[http://sourcerer.ics.uci.edu/](http://sourcerer.ics.uci.edu/)
 
-Ultimate Debian Database (UDD) [11] 
-http://udd.debian.org/
+  + Ultimate Debian Database (UDD) [11] 
+[http://udd.debian.org/](http://udd.debian.org/)
 
-Bug Prediction Dataset (BPD) [12,13]: 
-http://bug.inf.usi.ch/
-
-The International Software Benchmarking Standards Group (ISBSG) [14] 
-http://www.isbsg.org/
-
-Eclipse Bug Data (EBD) [11,15]: 
-http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/
-
-Software-artifact Infrastructure Repository (SIR) [16] 
+  + Software-artifact Infrastructure Repository (SIR) [16] 
 http://sir.unl.edu
 
-ohloh [17] 
-http://www.ohloh.net/
+  + OpenHub:
+[https://www.openhub.net/](https://www.openhub.net/)
+(before Ohloh [17])
 
-SourceForge Research Data Archive (SRDA) [18] 
-http://zerlot.cse.nd.edu/
-
-Helix Data Set [19]: 
-http://www.ict.swin.edu.au/research/projects/helix/
-
-TukuTuku: 
-http://www.metriq.biz/tukutuku/
-
-SECOLD (Source code ECOsystem Linked Data): 
-http://www.secold.org/
+  + SourceForge Research Data Archive (SRDA) [18] 
+[http://zerlot.cse.nd.edu/](http://zerlot.cse.nd.edu/)
 
 
-## References
+
+  + SECOLD (Source code ECOsystem Linked Data): 
+    [http://www.secold.org/]()
+
+
+Not openly available:
+
+  + The International Software Benchmarking Standards Group (ISBSG)
+    [http://www.isbsg.org/](http://www.isbsg.org/)
+  
+  + TukuTuku
+    [http://www.metriq.biz/tukutuku/](http://www.metriq.biz/tukutuku/)
+
+
+Some papers and publications/theses that have been used in the literature:
+
+  + Helix Data Set [19]: 
+    [http://www.ict.swin.edu.au/research/projects/helix/](http://www.ict.swin.edu.au/research/projects/helix/)
+
+  + Bug Prediction Dataset (BPD) [12,13]: 
+    [http://bug.inf.usi.ch/](http://bug.inf.usi.ch/)
+
+  + Eclipse Bug Data (EBD) [11,15]: 
+    [http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/](http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/)
+
+
+## Some Tools to extract data and dashboards
+
+Metrics Grimoire
+[http://metricsgrimoire.github.io/](http://metricsgrimoire.github.io/)
+
+SonarQube
+[http://www.sonarqube.org/](http://www.sonarqube.org/)
+
+## References (To be fixed)
 
 6
 J. Howison, M. Conklin, and K. Crowston, ``FLOSSmole: A collaborative repository for FLOSS research data and analyses,'' International Journal of Information Technology and Web Engineering, vol. 1, no. 3, 2006.

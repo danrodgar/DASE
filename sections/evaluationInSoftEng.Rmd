@@ -5,26 +5,42 @@ output: html_document
 
 
 ## Measures of Evaluation used in Software Engineering
-  - There are several measures usually used:
-  - *Mean of the Absolute Error* (MAR): compute the absolute errors and take the mean
-  - *Geometric Mean of the Absolute Error* (gMAR): more appropriate when the distribution is skewed
-  - *Mean Magnitude of the Relative Error (MMRE)*: this measure has been critisized many times. 
-  $$ 
-  \frac{\sum_{i=1}^{n}{|{\hat{y}_i-y_i}|}/y_i}{n}
-  $$
-  - *Median Magnitude of the Relative Error (MdMRE)*: using the median insted of the mean
-  - *Level of Prediction (LPred(l))*: defined as the percentage of estimates that are within the level l% of the actual values. Usually the level of prediction is set at 25% below and above the actual value and an estimation method is considered good if it gives a result of more than 75%.
-  - *Standardised Accuracy (SA)* (proposed by Shepperd&MacDonnell): this measure overcomes all the problems of the MMRE. It is defined as the MAR relative to random guessing:
-$$
- SA=1-{\frac{MAR}{\overline{MAR}_{P_0}}\times100}.
-$$
-  - "random guessing" $\overline{MAR}_{P_0}$ is defined as: predict a $\hat{y}_t$ for the target case *t* by randomly sampling (with equal probability) over all the remaining n-1 cases and take $\hat{y}_t=y_r$ where r is drawn randomly from 1,n and $r\neq t$.
+  
+There are several measures usually used:
 
-## Evaluation of the model in the Testing data (2)
+  - *Mean of the Absolute Error* (MAR): compute the absolute errors and take the mean
+
+  - *Geometric Mean of the Absolute Error* (gMAR): more appropriate when the distribution is skewed
+
+  - *Mean Magnitude of the Relative Error (MMRE)*: this measure has been critisized many times. 
+      $$ 
+      \frac{\sum_{i=1}^{n}{|{\hat{y}_i-y_i}|}/y_i}{n}
+      $$
+
+  - *Median Magnitude of the Relative Error (MdMRE)*: using the median insted of the mean
+
+  - *Level of Prediction (LPred(l))*: defined as the percentage of estimates that are within the level $l%$ of the actual values. Usually the level of prediction is set at 25% below and above the actual value and an estimation method is considered good if it gives a result of more than 75%.
+ 
+  - *Standardised Accuracy (SA)* (proposed by Shepperd&MacDonnell): this measure overcomes all the problems of the MMRE. It is defined as the MAR relative to random guessing:
+      $$
+       SA=1-{\frac{MAR}{\overline{MAR}_{P_0}}\times100}.
+      $$
+
+  - *Random guessing* $\overline{MAR}_{P_0}$ is defined as: predict a $\hat{y}_t$ for the target case *t* by randomly sampling (with equal probability) over all the remaining n-1 cases and take $\hat{y}_t=y_r$ where r is drawn randomly from 1,n and $r\neq t$.
+
+
+## Evaluation of the model in the Testing data
 
 ```{r}
+library(foreign)
 gm_mean = function(x, na.rm=TRUE){
   exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))}
+
+chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
+logchina_size <- log(chinaTrain$AFP)
+logchina_effort <- log(chinaTrain$Effort)
+linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)
+
 
 chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
 b0 <- linmodel_logchina_train$coefficients[1]
@@ -87,7 +103,7 @@ ytest <- telecom1_test$effort
 pre_tel1 <- exp(b0+b1*log(xtest))
 # plot distances between points and the regression line
 plot(xtest, ytest)
-curve(exp(b0+b1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
+curve(exp(b0_tel1+b1_tel1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
 segments(xtest, ytest, xtest, pre_tel1, col="red")
 
 ```
@@ -191,9 +207,10 @@ marp0atkinson
 hist(randnaiveruns, main="MARP0 distribution of the Atkinson dataset")
 ```
 
-## ISBSG dataset
-  - to do
+
 ```{r, echo=FALSE}
+## ISBSG dataset
+##   to do
 # isbsgTrain8 <- read.arff("ISBSGv10_AttributesSelected_952Instances_8Att_Train_CLast.arff")
 # isbsgTest8 <- read.arff("ISBSGv10_AttributesSelected_952Instances_8Att_Test_CLast.arff")
 ```
@@ -307,4 +324,7 @@ print(paste0("Confidence Interval: ", round(b_ci_gm[4], digits=3), " - ", round(
 #   return (conf_int)
 # }
 ```
+
+
+
 

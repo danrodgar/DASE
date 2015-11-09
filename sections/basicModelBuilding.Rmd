@@ -150,7 +150,7 @@ library(foreign)
 
 library(C50)
 
-kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
 ctrl <- trainControl(method = "repeatedcv",
     repeats = 3,
     classProbs = TRUE,

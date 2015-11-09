@@ -125,6 +125,11 @@ mean(ae_gp)
   ![](../figures/neuralnet2.png)
 
 
+
+
+
+
+
 ## Support Vector Machines
 
 SVM

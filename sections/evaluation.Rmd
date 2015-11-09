@@ -4,7 +4,34 @@ date: "`r Sys.Date()`"
 output: html_document
 header-includes: \usepackage{bm}
 ---
+
+
+Once we obtain the model with the training data, we need to evaluate it with some new data (testing data)
+
+We cannnot use the the same data for training and testing (it is like evaluating a student with the exercises previouly solved. Student's marks will be “optimistic” and we don’t know about student capability to generalise the learned concepts).
+
+## Underfitting vs. Overfitting
+
+![Underfitting](../figures/underfitting.png) ![Overfitting](../figures/overfitting.png)
+
+For example, increasing the tree size, decreases the training and testing errors. However, at some point after (tree complexity), training error keeps decreasing but testing error increases. Many algorithms have parameters to determine the model complexity (e.g., in decision trees is the prunning parameter)
+
+![Overfitting in trees](../figures/overfittingTrees.png)
+
 ## Building and Validating a Model
+
+### Holdout approach ###
+
+**Holdout approach** consists of dividing the dataset into *training* (approx. 2/3 of the data) and *testing* (approx 1/3 of the data).
+  + Problems: Data can be skewed, missing classes, etc. if randomly divided
+
+Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains aprox 45% of positive cases, the training and testing datasets should mantain similar proportion of positive cases).
+
+Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method)
+
+The error rates on the different iterations are averaged (overall error rate)
+
+
   - Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.
   - *Validation Set approach*: it is the simplest method. It consists of randomly dividing the available set of oservations into two parts, a *training set* and a *validation set* or hold-out
 set. Usually 2/3 of the data points are used for training and 1/3 is used for testing purposes.
@@ -12,14 +39,21 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
    ![](../figures/validation.png) 
 
 
-  - *Leave-One-Out Cross-Validation*: instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated n times (the total number of observations) and the estimate for the test mean squared error is the average of the n test estimates.
-  
-   ![](../figures/leaveone.png) 
+## Cross Validation (CV)
 
-  - *k-Fold Cross-Validation*: it involves randomly dividing the set of observations into k groups, or folds, of approximately equal size. The first fold is treated as a validation set, the the methods is fit on the remaining k-1 folds. This procedure is repeated k times. If k is equal to n we are in the previous method.
+
+  - *k-Fold Cross-Validation*: it involves randomly dividing the set of observations into $k$ groups, or folds, of approximately equal size. The first fold is treated as a validation set, the the methods is fit on the remaining k-1 folds. This procedure is repeated k times. If k is equal to n we are in the previous method.
+  
+  + 1st step: split dataset ($\cal D$) into k subsets of approximatelly equal size $C_1, \dots, C_k$ 
+  + 2nd step: we construct a dataset $D_i = D-C_i$ used for training and test the accuracy of the classifier $D_i$ on $C_i$ subset for testing
+Having done this for all $k$ we estimate the accuracy of the method by averaging the accuracy over the $k$ cross-validation trials
   
   ![k-fold](../figures/kfold.png) 
   
+
+  - *Leave-One-Out Cross-Validation*: This is a special case of CV. Instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated n times (the total number of observations) and the estimate for the test mean squared error is the average of the n test estimates.
+  
+   ![LOO](../figures/leaveone.png) 
   
 ### China dataset. Split data into Training and Testing
   - The data is already divided into two different files
@@ -41,317 +75,7 @@ linmodel_logchina_train
 ```
 
 
-## Measures of Evaluation used in Software Engineering
-  - There are several measures usually used:
-  - *Mean of the Absolute Error* (MAR): compute the absolute errors and take the mean
-  - *Geometric Mean of the Absolute Error* (gMAR): more appropriate when the distribution is skewed
-  - *Mean Magnitude of the Relative Error (MMRE)*: this measure has been critisized many times. 
-  $$ 
-  \frac{\sum_{i=1}^{n}{|{\hat{y}_i-y_i}|}/y_i}{n}
-  $$
-  - *Median Magnitude of the Relative Error (MdMRE)*: using the median insted of the mean
-  - *Level of Prediction (LPred(l))*: defined as the percentage of estimates that are within the level l% of the actual values. Usually the level of prediction is set at 25% below and above the actual value and an estimation method is considered good if it gives a result of more than 75%.
-  - *Standardised Accuracy (SA)* (proposed by Shepperd&MacDonnell): this measure overcomes all the problems of the MMRE. It is defined as the MAR relative to random guessing:
-$$
- SA=1-{\frac{MAR}{\overline{MAR}_{P_0}}\times100}.
-$$
-  - "random guessing" $\overline{MAR}_{P_0}$ is defined as: predict a $\hat{y}_t$ for the target case *t* by randomly sampling (with equal probability) over all the remaining n-1 cases and take $\hat{y}_t=y_r$ where r is drawn randomly from 1,n and $r\neq t$.
-
-## Evaluation of the model in the Testing data (2)
-
-```{r}
-gm_mean = function(x, na.rm=TRUE){
-  exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))}
-
-chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
-b0 <- linmodel_logchina_train$coefficients[1]
-b1 <- linmodel_logchina_train$coefficients[2]
-china_size_test <- chinaTest$AFP
-actualEffort <- chinaTest$Effort
-predEffort <- exp(b0+b1*log(china_size_test))
-
-err <- actualEffort - predEffort  #error or residual
-ae <- abs(err)
-hist(ae, main="Absolute Error in the China Test data")
-mar <- mean(ae)
-mre <- ae/actualEffort
-mmre <- mean(mre)
-mdmre <- median(mre)
-gmar <- gm_mean(ae)
-mar
-mmre
-mdmre
-gmar
-```
-
-```{r}
-level_pred <- 0.25 #below and above (both)
-lowpred <- actualEffort*(1-level_pred)
-uppred <-  actualEffort*(1+level_pred)
-pred  <-  predEffort <= uppred & predEffort >= lowpred  #pred is a vector with logical values 
-Lpred <- sum(pred)/length(pred)
-Lpred
-```
-
-
-
-## Building a Linear Model on the Telecom1 dataset  
-  - Although there are few datapoints we split the file into Train (2/3) and Test (1/3)
-  
-```{r}
-telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
-
-samplesize <- floor(0.66*nrow(telecom1))
-set.seed(012) # to make the partition reproducible
-train_idx <- sample(seq_len(nrow(telecom1)), size = samplesize)
-telecom1_train <- telecom1[train_idx, ]
-telecom1_test <- telecom1[-train_idx, ]
-
-par(mfrow=c(1,1))
-# transformation of variables to log-log
-xtrain <- log(telecom1_train$size)
-ytrain <- log(telecom1_train$effort)
-lmtelecom1 <- lm( ytrain ~ xtrain)
-plot(xtrain, ytrain)
-abline(lmtelecom1, lwd=2, col="blue")
-b0_tel1 <- lmtelecom1$coefficients[1]
-b1_tel1 <- lmtelecom1$coefficients[2]
-# calculate residuals and predicted values
-res <- signif(residuals(lmtelecom1), 5)
-
-xtest <- telecom1_test$size
-ytest <- telecom1_test$effort
-pre_tel1 <- exp(b0_tel1+b1_tel1*log(xtest))
-# plot distances between points and the regression line
-plot(xtest, ytest)
-curve(exp(b0_tel1+b1_tel1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)
-segments(xtest, ytest, xtest, pre_tel1, col="red")
-
-```
-
-## Building a Linear Model on the Telecom1 dataset with all observations
-
-  - Just to visualize results
-  
-```{r}
-par(mfrow=c(1,1))
-
-effort_telecom1 <- telecom1$effort
-size_telecom1 <- telecom1$size
-
-lmtelecom <- lm(effort_telecom1 ~ size_telecom1)
-plot(size_telecom1, effort_telecom1)
-abline(lmtelecom, lwd=3, col="blue")
-# calculate residuals and predicted values
-res <- signif(residuals(lmtelecom), 5) 
-predicted <- predict(lmtelecom)
-# plot distances between points and the regression line
-segments(size_telecom1, effort_telecom1, size_telecom1, predicted, col="red")
-
-level_pred <- 0.25 #below and above (both)
-lowpred <- effort_telecom1*(1-level_pred)
-uppred <-  effort_telecom1*(1+level_pred)
-predict_inrange  <-  predicted <= uppred & predicted >= lowpred  #pred is a vector with logical values 
-Lpred <- sum(predict_inrange)/length(predict_inrange)
-Lpred
-#Visually plot lpred
-segments(size_telecom1, lowpred, size_telecom1, uppred, col="red", lwd=3)
-
-err_telecom1 <- abs(effort_telecom1 - predicted)
-mar_tel1 <- mean(err_telecom1)
-mar_tel1
-
-```
-
-
-## Standardised Accuracy. MARP0. ChinaTest
-
-- Computing $MARP_0$ in the China Test data
-
-```{r}
-estimEffChinaTest <- predEffort  # This will be overwritten, no problem
-numruns <- 9999
-randguessruns <- rep(0, numruns)
-for (i in 1:numruns) { 
-  for (j in 1:length(estimEffChinaTest)) {
-    estimEffChinaTest[j] <- sample(actualEffort[-j],1)}#replacement with random guessingt    
-  randguessruns[i] <- mean(abs(estimEffChinaTest-actualEffort))
-  } 
-marp0Chinatest <- mean(randguessruns)
-marp0Chinatest
-hist(randguessruns, main="MARP0 distribution of the China dataset")
-
-saChina = (1- mar/marp0Chinatest)*100
-saChina
-```
-
-
-
-## Standardised Accuracy. MARP0. Telecom1
-  - Computing $MARP_0$
-
-```{r}
-telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
-#par(mfrow=c(1,2))
-#size <- telecom1[1]$size   not needed now
-actualEffTelecom1 <- telecom1[2]$effort
-estimEffTelecom1 <- telecom1[3]$EstTotal # this will be overwritten
-numruns <- 9999
-randguessruns <- rep(0, numruns)
-for (i in 1:numruns) { 
-  for (j in 1:length(estimEffTelecom1)) {
-    estimEffTelecom1[j] <- sample(actualEffTelecom1[-j],1)}#replacement with random guessingt    
-  randguessruns[i] <- mean(abs(estimEffTelecom1-actualEffTelecom1))
-  } 
-marp0telecom1 <- mean(randguessruns)
-marp0telecom1
-hist(randguessruns, main="MARP0 distribution of the Telecom1 dataset")
-saTelecom1 <- (1- mar_tel1/marp0telecom1)*100
-saTelecom1
-
-```
-
-### MARP0 in the Atkinson dataset
-  - For checking results you may use figure Atkinson in Shepperd&MacDonnell
-```{r, echo=FALSE}
-act_effort <- c(670,912,218,595,267,344,229,190,869,109,289,616,557,416,578,438)
-estim_effort <- rep(0, length(act_effort))
-numruns <- 9999
-randnaiveruns <- rep(0, numruns)
-for (i in 1:numruns) { 
-  for (j in 1:length(act_effort)) {
-    estim_effort[j] <- sample(act_effort[-j],1)}#replacement with random guessingt    
-  randnaiveruns[i] <- mean(abs(estim_effort-act_effort))
-  } 
-marp0atkinson <- mean(randnaiveruns)
-marp0atkinson
-hist(randnaiveruns, main="MARP0 distribution of the Atkinson dataset")
-```
-
-## ISBSG dataset
-  - to do
-```{r, echo=FALSE}
-# isbsgTrain8 <- read.arff("ISBSGv10_AttributesSelected_952Instances_8Att_Train_CLast.arff")
-# isbsgTest8 <- read.arff("ISBSGv10_AttributesSelected_952Instances_8Att_Test_CLast.arff")
-```
-
-
-## Confidence Intervals. Bootstrap
-  - Until now we have generated point estimates
-  - A *confidence interval* (CI) is an interval estimate of a population parameter. The parameter can be the mean, the median or other. The frequentist CI is an observed interval that is different from sample to sample. It frequently includes the value of the unobservable parameter of interes if the experiment is repeated. The *confidence level* is the value that measures the frequency that the constructed intervals contain the true value of the parameter. 
-  - The construction of a confidence interval with an exact value of confidence level for a distribution requires some statistical properties. Usually, *normality* is one of the properties required for computing confidence intervals. 
-    - Not all confidence intervals contain the true value of the parameter.
-    - Simulation of confidence intervals
-
-
-
-```{r, echo=FALSE}
-# code from the book by Ugerte et al. Probability and statistics with R
-  norsim <- function(sims = 100, n = 36, mu = 100, sigma = 18, 
-                   conf.level = 0.95){
-  alpha <- 1 - conf.level
-  CL <- conf.level * 100
-  ll <- numeric(sims)
-  ul <- numeric(sims)
-  for (i in 1:sims){
-    xbar <- mean(rnorm(n , mu, sigma))
-    ll[i] <- xbar - qnorm(1 - alpha/2)*sigma/sqrt(n)
-    ul[i] <- xbar + qnorm(1 - alpha/2)*sigma/sqrt(n)
-  }
-  notin <- sum((ll > mu) + (ul < mu))
-  percentage <- round((notin/sims) * 100, 2)
-  SCL <- 100 - percentage
-  plot(ll, type = "n", ylim = c(min(ll), max(ul)), xlab = " ", 
-       ylab = " ")
-  for (i in 1:sims) {
-    low <- ll[i]
-    high <- ul[i]
-    if (low < mu & high > mu) {
-      segments(i, low, i, high)
-    }
-    else if (low > mu & high > mu) {
-      segments(i, low, i, high, col = "red", lwd = 5)
-    }
-    else {
-      segments(i, low, i, high, col = "blue", lwd = 5)
-    }
-  }
-  abline(h = mu)
-#   cat(SCL, "\b% of the random confidence intervals contain Mu =", mu, "\b.", "\n")
-}
-```
-
-```{r}
-set.seed(10)
-norsim(sims = 100, n = 36, mu = 100, sigma = 18, conf.level = 0.95)
-```
-
-  - The range defined by the confidence interval will vary with each sample, because the sample size will vary each time and the standard deviation will vary too.
-  - ‘95%’ confidence interval: it is the probability that the hypothetical confidence intervals (that would be computed from the hypothetical repeated samples) will contain the population mean.
-  - the particular interval that we compute on one sample does not mean that the population mean lies within that interval with a probability of 95%.
-  - recommended reading:  *Robust misinterpretation of confidence intervals*, Rink Hoekstra, Richard D. Morey, Jeffrey N. Rouder, Eric-Jan Wagenmakers.  Psychonomic Bulletin & Review, October 2014 
-
-
-## Nonparametric Bootstrap
-  - For computing CIs the important thing is to know the assumptions that are made to “know” the
-distribution of the statistic.
-  - There is a way to compute confidence intervals without meeting the requirements of parametric methods. 
-  - **Resampling** or **bootstraping** is a method to calculate estimates of a parameter taking samples from the original data and using those *resamples* to calculate statistics. Using the resamples usually gives more accurate results than using the original single sample to calculate an estimate of a parameter. 
-  
-  
-  ![](../figures/bootstrap.png)
-  
-  - Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:
-```{r}
-library(boot)
-hist(ae, main="Absolute Errors of the China Test data")
-level_confidence <- 0.95
-repetitionsboot <- 9999
-samplemean <- function(x, d){return(mean(x[d]))}
-b_mean <- boot(ae, samplemean, R=repetitionsboot)
-confint_mean_China <- boot.ci(b_mean)
-confint_mean_China
-```
-
-  - Computing the bootstraped geometric mean
-
-
-```{r}
-boot_geom_mean <- function(error_vec){
-  log_error <- log(error_vec[error_vec > 0])
-  log_error <-log_error[is.finite(log_error)] #remove the -Inf value before calculating the mean, just in case
-  samplemean <- function(x, d){return(mean(x[d]))}
-  b <- boot(log_error, samplemean, R=repetitionsboot) # with package boot
-  # this is a boot for the logs
-  return(b)
-}
-# BCAconfidence interval for the geometric mean
-BCAciboot4geommean <- function(b){  
-  conf_int <- boot.ci(b, conf=level_confidence, type="bca")$bca #following 10.9 of Ugarte et al.'s book
-  conf_int[5] <- exp(conf_int[5]) # the boot was computed with log. Now take the measure back to its previous units
-  conf_int[4] <- exp(conf_int[4])
-  return (conf_int)
-}
-# this is a boot object
-b_gm <- boot_geom_mean(ae) #"ae" is the absolute error in the China Test data
-print(paste0("Geometric Mean of the China Test data: ", round(exp(b_gm$t0), digits=3)))
-b_ci_gm <- BCAciboot4geommean(b_gm)
-print(paste0("Confidence Interval: ", round(b_ci_gm[4], digits=3), " - ", round(b_ci_gm[5], digits=3)))
-
-# Make a % confidence interval bca
-# BCAciboot <- function(b){  
-#   conf_int <- boot.ci(b, conf=level_confidence, type="bca")$bca #following 10.9 of Ugarte et al.'s book
-#   return (conf_int)
-# }
-```
-
-
 ## Evaluation of Classifiers
-
-### Numeric Evaluation
-
-RSME
-...
 
 
 ### Discrete Evaluation
@@ -385,9 +109,140 @@ predictive $accuracy$:
 to measure performance of classifiers (or the complementary value, the
 error rate} which is defined as $1-accuracy$)
 
+f-measure
 
-A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|\bm{x})$. Then, given a new instance, $\bm{x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
+
+G-mean
+
+$\sqrt{PD \times Precision}$
+
+G-mean2
+
+$\sqrt{PD \times Specificity}$
+
+j-coeff = sensitivity + specificity - 1 = PD -PF
+
+(Jiang, Cubic and Ma, 2008 ESE)
+
+### Prediction in probabilistic classifiers
+
+A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|{x})$. Then, given a new instance, ${x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
 
 $\psi({x}) = argmax_c (P(c|{x}))$
 
  
+
+### Graphical Evaluation
+
+ROC
+
+Precision Recall
+
+
+
+
+Another evaluation technique to consider when data is imbalanced is the *Receiver Operating Characteristic* ($ROC$)~\cite{Fawcett2006} curve which provides a graphical visualisation of the results.
+
+
+A simple way to approximate the AUC is with the following equation:
+$AUC=\frac{1+TP_{r}-FP_{r}}{2}$
+
+The Area Under the ROC Curve (AUC) also provides a quality measure between positive and negative rates with a single value. 
+
+
+![Receiver Operating Characteristic](../figures/roc.png)
+
+
+
+
+Similarly to ROC, another widely used evaluation technique is the Precision-Recall Curve (PRC), which depicts a trade off between precision and recall and can also be summarised into a single value as the Area Under the Precision-Recall Curve (AUPRC)~\cite{Davis2006}.
+
+%AUPCR is more accurate than the ROC for testing performances when dealing with imbalanced datasets as well as optimising ROC values does not necessarily optimises AUPR values, i.e., a good classifier in AUC space may not be so good in PRC space.
+%The weighted average uses weights proportional to class frequencies in the data.
+%The weighted average is computed by weighting the measure of class (TP rate, precision, recall ...) by the proportion of instances there are in that class. Computing the average can be sometimes be misleading. For instance, if class 1 has 100 instances and you achieve a recall of 30%, and class 2 has 1 instance and you achieve recall of 100% (you predicted the only instance correctly), then when taking the average (65%) you will inflate the recall score because of the one instance you predicted correctly. Taking the weighted average will give you 30.7%, which is much more realistic measure of the performance of the classifier.
+%NB: I gave an example with two classes, but in fact the weighted average make sense only when you have more then two classes. When you have only two classes weighting does not make sense, and the measures should be computed relative to the minority class. In other words, you are interested to know if you are able to detect the minority
+
+### Metrics used in Software Engineering and Defect Classification
+
+In the domain of defect prediction and when two classes are considered, it is also customary to refer to the *probability of detection*, ($pd$) which corresponds to the True Positive rate ($TP_{rate}$ or \emph{Sensitivity}) as a measure of the goodness of the model, and *probability of false alarm* ($pf$) as performance measures~\cite{Menzies07}. 
+
+The objective is to find which techniques that maximise $pd$ and minimise $pf$. As stated by Menzies et al., the balance between these two measures depends on the project characteristics (e.g. real-time systems vs. information management systems) it is formulated as the Euclidean distance from the sweet spot $pf=0$ and $pd=1$ to a pair of $(pf,pd)$. 
+
+$balance=1-\frac{\sqrt{(0-pf^2)+(1-pd^2)}}{\sqrt{2}}$
+
+It is normalized by the maximum possible distance across the ROC square ($\sqrt{2}, 2$), subtracted this value from 1, and expressed it as a
+percentage.
+
+
+
+
+
+ 
+
+### Numeric Prediction Evaluation
+
+RSME
+Mean Square Error = $MSE$ =
+$\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{n}$
+
+${MSE}=\frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2$
+ 
+${RMSD}=\sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}$ 
+ 
+A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew's Correlation Coefficient ($MCC$)~\cite{Matthews1975Comparison}:
+
+$MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$
+
+$MCC$ can also be calculated from the confusion matrix. Its range goes from -1 to +1; the closer to one the better as it indicates perfect prediction whereas a value of 0 means that classification is not better than random prediction and negative values mean that predictions are worst than random.
+
+
+Mean-absolute error $MAE$
+
+$\frac{|p_1-a_1| + \ldots  +|p_n-a_n|}{n}$
+
+Relative absolute error:
+
+$RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | }$
+
+Root relative-squared error:
+
+$RAE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | } }$
+
+where \hat{\theta} is a mean value of \theta.
+
+
+Relative-squared error
+$\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}$
+($\hat{a}$ is the mean value over the training data)
+
+
+Relative Absolut Error
+
+Correlation Coefficient
+
+Correlation coefficient between two random
+variables $X$ and $Y$ is defined as $$\rho(X,Y) = \frac{{\bf
+Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}.$$ The {\em sample
+correlation coefficient} $r$ between two samples $x_i$ and $y_j$ is
+defined as $r = S_{xy}/\sqrt{S_{xx}S_{yy}}.$ 
+
+Example: Is there any linear relationship between the effort estimates ($p_i$) and actual effort ($a_i$)? 
+
+$a\|39,43,21,64,57,47,28,75,34,52$
+
+$p\|65,78,52,82,92,89,73,98,56,75$
+
+```{r}
+p<-c(39,43,21,64,57,47,28,75,34,52)
+a<-c(65,78,52,82,92,89,73,98,56,75)
+#
+cor(p,a)
+```
+
+
+
+$R^2$
+
+
+
+
