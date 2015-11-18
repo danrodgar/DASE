@@ -1,0 +1,108 @@
+---
+title: "Text Mining Soft Eng Data"
+output: html_document
+---
+
+
+```{r}
+library(foreign)
+
+d <- read.arff("../datasets/textMining/compendium.arff")
+
+```
+
+
+```{r}
+
+library(tm)
+
+
+dfcomp <- data.frame(textCol = d$Description)  # , d$Category)
+
+ds <- DataframeSource(dfcomp)
+dsc <-Corpus(ds)
+
+dtm<- DocumentTermMatrix(dsc, control = list(weighting = weightTf, stopwords = TRUE))
+
+dim(dtm)
+
+inspect(dtm[1:10,1:10])
+
+findFreqTerms(dtm,15)
+
+findAssocs(dtm,term="windows",corlimit=0.3)
+
+dtm.70=removeSparseTerms(dtm,sparse=0.7)
+dtm.70 # or dim(dtm.70)
+# note that the term-document matrix needs to be transformed (casted)
+# to a matrix form in the following barplot command
+barplot(as.matrix(dtm.70),xlab="terms",ylab="number of occurrences",main="Most frequent terms (sparseness=0.7)")
+
+dtm.90=removeSparseTerms(dtm,sparse=0.9)
+dtm.90
+
+
+dtmdf <- as.data.frame(inspect(dtm.70))
+rownames(dtm)<- 1:nrow(dtm)
+
+
+class <- d$Category
+dtmdf <- cbind(dtmdf,class)
+
+
+```
+
+
+```{r}
+# which words are associated with "r"?
+findAssocs(dtm, 'windows', 0.30)
+```
+
+
+Use any classifier now:
+
+```{r}
+
+library(caret)
+
+library(randomForest)
+
+inTraining <- createDataPartition(dtmdf$class, p = .75, list = FALSE)
+training <- dtmdf[ inTraining,]
+testing  <- dtmdf[-inTraining,]
+
+fitControl <- trainControl(## 5-fold CV
+                           method = "repeatedcv",
+                           number = 5,
+                           ## repeated ten times
+                           repeats = 5)
+
+
+gbmFit1 <- train(class ~ ., data = training,
+                 method = "gbm",
+                 trControl = fitControl,
+                 ## This last option is actually one
+                 ## for gbm() that passes through
+                 verbose = FALSE)
+
+gbmFit1
+
+trellis.par.set(caretTheme())
+plot(gbmFit1)
+
+trellis.par.set(caretTheme())
+plot(gbmFit1, metric = "Kappa")
+
+head(predict(gbmFit1, testing, type = "prob"))
+
+```
+
+
+
+```{r}
+library(wordcloud)
+# calculate the frequency of words and sort in descending order.
+wordFreqs=sort(colSums(as.matrix(dtm.90)),decreasing=TRUE)
+wordcloud(words=names(wordFreqs),freq=wordFreqs)
+```
+

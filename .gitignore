@@ -1,5 +1,7 @@
 *.md~
 *.Rmd~
+*.csv~
+*.bib~
 *.bak
 *.html
 

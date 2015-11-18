@@ -9,6 +9,7 @@ R generic:
 
 [RSeek](http://rseek.org/)
 [Google's course](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
+[swirl](http://swirlstats.com/) package provides an introduction to R by means of interactive courses.
 
 Web Resources:
 
