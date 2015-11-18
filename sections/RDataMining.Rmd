@@ -8,6 +8,7 @@ output: html_document
 R generic:
 
 [RSeek](http://rseek.org/)
+[Google's course](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
 
 Web Resources:
 

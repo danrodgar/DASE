@@ -69,8 +69,12 @@ It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rs
 
    + p-values
    + Equivalence Hypothesis Testing
+   
+11 [Time Series](./sections/timeSeries.Rmd)
 
-11 [Dealing with Large Volumes of Data](./sections/bigData.Rmd)
+12 Social Network Analysis
+
+13 [Dealing with Large Volumes of Data](./sections/bigData.Rmd)
 
    + Apache Spark Introduction
 

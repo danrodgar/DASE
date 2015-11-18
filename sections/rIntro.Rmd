@@ -8,6 +8,7 @@ header-includes: \usepackage{amsmath}
 ---
 
 ## R and RStudio
+  - [R coding style](https://google.github.io/styleguide/Rguide.xml)
   - R as a calculator. Console.
   - Variables. The workspace. Objects.
     + assign operator <-   sequence operator  :
@@ -17,14 +18,22 @@ header-includes: \usepackage{amsmath}
     # comments
     source("filewithcommands.R")
     sink("recordmycommands.lis")
-    
+    savehistory()
+  - From command line:
+    + Rscript  
+      Rscript file | -e (e.g. Rscript -e 2+2)  
+      quit()
+
   - ls() 
   - s.str()
   - objects()
   - rm(totalCost)
   - str(   )  (Structure) provides information about the variable
+
   
-    
+
+***
+  
 Four # create an environment in RStudio
 
 ![Environment](../figures/environments.png)
@@ -571,3 +580,7 @@ plot(mydataISBSG$FS, mydataISBSG$N_effort)
 
 ***
 ## Flow of Control 
+
+
+***
+
