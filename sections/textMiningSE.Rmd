@@ -11,6 +11,7 @@ d <- read.arff("../datasets/textMining/compendium.arff")
 
 ```
 
+Creating Document-Term Matrix (DTM)
 
 ```{r}
 
@@ -22,28 +23,42 @@ dfcomp <- data.frame(textCol = d$Description)  # , d$Category)
 ds <- DataframeSource(dfcomp)
 dsc <-Corpus(ds)
 
-dtm<- DocumentTermMatrix(dsc, control = list(weighting = weightTf, stopwords = TRUE))
 
-dim(dtm)
+# weighting=TfIdf weighting is Tf-Idf
+# minWordLength=WL the minimum word length is WL
+# minDocFreq=ND each word must appear at least in ND docs
 
-inspect(dtm[1:10,1:10])
+# Other options of DTM
+# These are not really needed, if preprocessing has been carried out:
+# stemming = TRUE stemming is applied
+# stopwords=TRUE stopwords are eliminated
+# removeNumbers=TRUE numbers are eliminated
 
-findFreqTerms(dtm,15)
 
-findAssocs(dtm,term="windows",corlimit=0.3)
+dtm<- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
 
-dtm.70=removeSparseTerms(dtm,sparse=0.7)
-dtm.70 # or dim(dtm.70)
+# dim(dtm)
+# inspect(dtm) #[1:10,1:10])
+
+# dtm.70=removeSparseTerms(dtm,sparse=0.7)
+# dtm.70 # or dim(dtm.70)
 # note that the term-document matrix needs to be transformed (casted)
 # to a matrix form in the following barplot command
-barplot(as.matrix(dtm.70),xlab="terms",ylab="number of occurrences",main="Most frequent terms (sparseness=0.7)")
 
 dtm.90=removeSparseTerms(dtm,sparse=0.9)
-dtm.90
 
 
-dtmdf <- as.data.frame(inspect(dtm.70))
-rownames(dtm)<- 1:nrow(dtm)
+
+barplot(as.matrix(dtm),xlab="terms",ylab="number of occurrences",main="Most frequent terms (sparseness=0.9)")
+
+```
+
+As data frame:
+
+```{r results='hide'}
+#dtmdf <- as.data.frame(dtm.90)
+dtmdf <- as.data.frame(inspect(dtm.90))
+# rownames(dtm)<- 1:nrow(dtm)
 
 
 class <- d$Category
@@ -54,8 +69,11 @@ dtmdf <- cbind(dtmdf,class)
 
 
 ```{r}
-# which words are associated with "r"?
-findAssocs(dtm, 'windows', 0.30)
+# which words are associated with "feature"?
+findAssocs(dtm, 'feature', 0.40)
+
+findFreqTerms(dtm,5)
+
 ```
 
 
@@ -94,6 +112,8 @@ trellis.par.set(caretTheme())
 plot(gbmFit1, metric = "Kappa")
 
 head(predict(gbmFit1, testing, type = "prob"))
+
+confusionMatrix(testing$class, predict(gbmFit1, testing))
 
 ```
 
