@@ -1,0 +1,27 @@
+---
+title: "Twitter Example"
+output: html_document
+---
+
+
+Twitter has been used in many SE Examples too...
+
+```{r}
+library(twitteR)
+library(ROAuth)
+library(RCurl)
+
+consumer_key <- "..." # API Key
+consumer_secret <- "..." # API Secret
+access_token <- "...-..."
+access_token_secret <- "...."
+
+setup_twitter_oauth(consumer_key,consumer_secret,access_token,access_token_secret)
+
+```
+
+
+```{r}
+searchTwitter('galicia', n=5)
+```
+
