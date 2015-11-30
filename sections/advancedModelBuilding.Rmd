@@ -7,8 +7,13 @@ header-includes: \usepackage{amsmath}
 
 ## Genetic Programming for Symbolic Regression
 
-  - R package "rgp"
-  - other reference for GP: Langdon WB, Poli R (2001) Foundations of Genetic Programming. Springer.
+This technique is inspired by Darwin's evolution theory.
+  + 1960s by I. Rechenberg in his work "Evolution strategies“
+  + 1975 Genetic Algorithms (GAs) invented by J Holland and published in his book "Adaption in Natural and Artificial Systems“
+  + 1992 J. Koza has used genetic algorithm to evolve programs to perform certain tasks. He called his method "genetic programming" 
+ 
+
+Other reference for GP: Langdon WB, Poli R (2001) Foundations of Genetic Programming. Springer.
 
 ![](../figures/gpEvolution.png)
 
@@ -20,13 +25,16 @@ header-includes: \usepackage{amsmath}
   ![](../figures/gp2.png)
 
 
+  ![](../figures/evoAlg.png)
+
+In R, we can use the "rgp" package
+
 ## GP Example
 
 ### Load Data
 
 ```{r}
 library(foreign)
-getwd()
 
 #read data
 telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") 
@@ -45,7 +53,7 @@ actualEffort <- chinaTest$Effort
 
 ### Genetic Programming for Symbolic Regression: China dataset.
 
-```{r}
+```{r warning=FALSE}
 library("rgp")
 options(digits = 5)
 stepsGenerations <- 1000
@@ -55,12 +63,12 @@ y <- china_train_effort   #
 x <- china_train_size  # 
 
 data2 <- data.frame(y, x)  # create a data frame with effort, size
-newFuncSet <- mathFunctionSet
+# newFuncSet <- mathFunctionSet
 # alternatives to mathFunctionSet
 # newFuncSet <- expLogFunctionSet # sqrt", "exp", and "ln"
 # newFuncSet <- trigonometricFunctionSet
 # newFuncSet <- arithmeticFunctionSet
-# newFuncSet <- functionSet("+","-","*", "/","sqrt", "log", "exp") # ,, )
+newFuncSet <- functionSet("+","-","*", "/","sqrt", "log", "exp") # ,, )
 
 gpresult <- symbolicRegression(y ~ x, 
                                 data=data2, functionSet=newFuncSet,
@@ -117,17 +125,89 @@ mean(ae_gp)
 
 
 
-## Neural Networks
+## Neural Networks 
 
-  - neuralnet package in R and caret. Need scaling of variables. to do
-    
+A neural network (NN) simulates some of the learning functions of the human brain. 
+
+It can recognize patterns and "learn" . Through the use of a trial and error method the system “learns” to become an “expert” in the field.
+
+A NN is composed of a set of nodes (units, neurons, processing elements) 
+  + Each node has input and output
+  + Each node performs a simple computation by its node function
+
+Weighted connections between nodes
+  + Connectivity gives the structure/architecture of the net
+  + What can be computed by a NN is primarily determined by the connections and their weights
+
   ![](../figures/neuralnet.png)
   ![](../figures/neuralnet2.png)
 
+There are several packages in R to work with NNs 
+  + [neuralnet](https://cran.r-project.org/web/packages/neuralnet/index.html)
+  + [nnet](https://cran.r-project.org/web/packages/nnet/index.html)
+  + [RSNNS](https://cran.r-project.org/web/packages/RSNNS/index.html)
+
+TO BE FIXED!!!: The following is an example with the neuralnet package (TO DO, denormalize!).  Neural nets need scaling of variables to work properly.
+    
+```{r}
+library(foreign)
+library(neuralnet)
+
+chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
+
+afpsize <- chinaTrain$AFP
+effort_china <- chinaTrain$Effort
+
+chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
+AFPTest <- chinaTest$AFP
+actualEffort <- chinaTest$Effort
+
+trainingdata <- cbind(afpsize,effort_china)
+colnames(trainingdata) <- c("Input","Output")
+
+testingdata <- cbind(afpsize,effort_china)
+colnames(trainingdata) <- c("Input","Output")
+
+#Normalize data
+norm.fun = function(x){(x - min(x))/(max(x) - min(x))}
+data.norm = apply(trainingdata, 2, norm.fun)
+#data.norm
+
+testdata.norm <- apply(trainingdata, 2, norm.fun)
+#testdata.norm
+
+
+#Train the neural network
+#Going to have 10 hidden layers
+#Threshold is a numeric value specifying the threshold for the partial
+#derivatives of the error function as stopping criteria.
+#net_eff <- neuralnet(Output~Input,trainingdata, hidden=5, threshold=0.25)
+net_eff <- neuralnet(Output~Input, data.norm, hidden=10, threshold=0.01)
+print(net_eff)
+#Plot the neural network
+plot(net_eff)
+#Test the neural network on some training data
 
 
 
+#testdata.norm<-data.frame((testdata[,1] - min(data[, 'displ']))/(max(data[, 'displ'])-min(data[, 'displ'])),(testdata[,2] - min(data[, 'year']))/(max(data[, 'year'])-min(data[, 'year'])),(testdata[,3] - min(data[, 'cyl']))/(max(data[, 'cyl'])-min(data[, 'cyl'])),(testdata[,4] - min(data[, 'hwy']))/(max(data[, 'hwy'])-min(data[, 'hwy'])))
 
+net.results <- compute(net_eff, testdata.norm[,2]) #Run them through the neural network
+
+
+#net.results <- compute(net_eff, dataTest.norm) # With normalized data
+
+#Lets see what properties net.sqrt has
+#ls(net.results)
+#Lets see the results
+#print(net.results$net.result)
+
+#Lets display a better version of the results
+#cleanoutput <- cbind(testdata.norm[,2],actualEffort,
+#                     as.data.frame(net.results$net.result))
+#colnames(cleanoutput) <- c("Input","Expected Output","Neural Net Output")
+#print(cleanoutput)
+```
 
 
 ## Support Vector Machines
@@ -158,6 +238,12 @@ decreased depending on whether the learner classified that instance incorrectly 
 
 Rotation Forests [40] combine randomly chosen subsets of attributes (random subspaces) and bagging approaches with principal components feature generation to construct an ensemble of decision trees. Principal Component Analysis is used as a feature selection technique combining subsets of
 attributes which are used with a bootstrapped subset of the training data by the base classifier. 
+
+
+### Boosting in R
+
+In R, there are three packages to deal with Boosting: gmb, ada and the mboost packages
+
 
 
 # Other Classification techniques

@@ -27,7 +27,11 @@ data <- fetch(rs, n=-1)
 Alternatively, we can create e CSV file directly from MySQL and load it
 
 ```{r eval = FALSE}
-SELECT 'user','follower'
+
+$mysql -u msr14 -pmsr14 msr14
+
+
+> SELECT 'user','follower'
 UNION ALL
 SELECT user_id,follower_id 
 	FROM followers 

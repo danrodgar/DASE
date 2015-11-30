@@ -7,7 +7,9 @@ Javier Dolado and Daniel Rodriguez
 
 This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.eus/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez](http://www.cc.uah.es/drg) at the [University of Alcala](http://www.uah.es/).
 
-It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rstudio.com/) but we will also show some examples in [Weka](http://www.cs.waikato.ac.nz/ml/weka/) and other packages. It is structured as follows:
+It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rstudio.com/) but we will also show some examples in [Weka](http://www.cs.waikato.ac.nz/ml/weka/) and other packages. [RMarkdown](http://rmarkdown.rstudio.com/) can be compiled to html (and other formats) with RStudio's Knit.
+
+It is structured as follows:
 
 
 1 [Introduction to data analysis and model building](./sections/intro.Rmd)
@@ -50,7 +52,6 @@ It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rs
    - Descriptive statistics
    - Evaluation measures in machine learning
    - Graphical evaluation techniques (ROC and other visual evaluation techniques)
-   
    - [Evaluation in Software Engineering](./sections/evaluationInSoftEng.Rmd)
    
 8 [Advanced Model Building](advancedModelBuilding.Rmd) (Advanced algorithms)

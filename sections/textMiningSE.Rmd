@@ -3,26 +3,30 @@ title: "Text Mining Soft Eng Data"
 output: html_document
 ---
 
+In software engineering, there is a lot of information that can be extracted from Software Configuration Management System (SCM). 
+
+The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).
+
+### Classifying bugs from Bugzilla 
+
+Bugzilla is Issue Tracking System that allow us to maintain and track the evolution of a project.
 
 ```{r}
 library(foreign)
 
 d <- read.arff("../datasets/textMining/compendium.arff")
-
+head(d,2)
 ```
 
 Creating Document-Term Matrix (DTM)
 
 ```{r}
-
 library(tm)
-
 
 dfcomp <- data.frame(textCol = d$Description)  # , d$Category)
 
 ds <- DataframeSource(dfcomp)
 dsc <-Corpus(ds)
-
 
 # weighting=TfIdf weighting is Tf-Idf
 # minWordLength=WL the minimum word length is WL
@@ -47,10 +51,7 @@ dtm<- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq
 
 dtm.90=removeSparseTerms(dtm,sparse=0.9)
 
-
-
 barplot(as.matrix(dtm),xlab="terms",ylab="number of occurrences",main="Most frequent terms (sparseness=0.9)")
-
 ```
 
 As data frame:
@@ -63,26 +64,24 @@ dtmdf <- as.data.frame(inspect(dtm.90))
 
 class <- d$Category
 dtmdf <- cbind(dtmdf,class)
-
-
 ```
 
-
+Now, we can explore things such as "which words are associated with "feature"?"
 ```{r}
 # which words are associated with "feature"?
 findAssocs(dtm, 'feature', 0.40)
-
-findFreqTerms(dtm,5)
-
 ```
 
+And find frequent terms.
+
+```{r}
+findFreqTerms(dtm,5)
+```
 
 Use any classifier now:
 
 ```{r}
-
 library(caret)
-
 library(randomForest)
 
 inTraining <- createDataPartition(dtmdf$class, p = .75, list = FALSE)
@@ -118,6 +117,7 @@ confusionMatrix(testing$class, predict(gbmFit1, testing))
 ```
 
 
+And finally, a word cloud as an example that appears everywhere these days.
 
 ```{r}
 library(wordcloud)
@@ -126,3 +126,7 @@ wordFreqs=sort(colSums(as.matrix(dtm.90)),decreasing=TRUE)
 wordcloud(words=names(wordFreqs),freq=wordFreqs)
 ```
 
+
+## Extracting data from Twitter
+
+The hardest bit is to link with Twitter. Using the TwitteR package is explained following this [example](./twitter.Rmd).
