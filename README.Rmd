@@ -2,7 +2,7 @@
 
 Javier Dolado and Daniel Rodriguez
 
-(DRAFT `r Sys.Date()`)
+(DRAFT - Not ready yet `r Sys.Date()`)
 
 
 This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.eus/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez](http://www.cc.uah.es/drg) at the [University of Alcala](http://www.uah.es/).
@@ -81,6 +81,11 @@ It is structured as follows:
 
 Appendix A - [Introduction to R](./sections/rIntro.Rmd)
 
+***
+
+# Acknowledgements 
+
+The research leading to these results has received funding from the European Union Seventh Framework Programme (FP7/2007-2013) under grant agreement no. 324356
 
 ***
 
