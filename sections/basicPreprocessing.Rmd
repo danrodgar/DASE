@@ -76,7 +76,6 @@ There is a large amount of literature related to outlier detection, and furtherm
 library(DMwR)
 library(foreign)
 
-
 kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
 ```
 
@@ -87,11 +86,11 @@ outlier.scores <- lofactor(kc1num, k=5)
 plot(density(na.omit(outlier.scores)))
 outliers <- order(outlier.scores, decreasing=T)[1:5]
 print(outliers)
-
 ```
 
-Another simple method of Hiridoglou and Berthelot for positive observations.
 
+
+Another simple method of Hiridoglou and Berthelot for positive observations.
 
 
 ## Feature selection
@@ -195,59 +194,40 @@ preObj <- preProcess(kc1[, -22], method=c("center", "scale"))
 
 
 ### Z-score normalization
+TBD
 
 ## Transformations
 
 ### Linear Transformations and  Quadratic Transformations
+TBD
 
 ### Box-cox transformation 
+TBD
 
 ### Nominal to Binary tranformations
-
-
-
-## Preprocessing in R
-
-Hmisc package has a convenient 
-
-
-CARET 
-https://tgmstat.wordpress.com/2013/11/07/unsupervised-data-pre-processing-for-predictive-modeling/
-
-plyr
-http://seananderson.ca/courses/12-plyr/plyr_2012.pdf
-
-The plyr (Wickham, 2014) package provides a clean and consistent approach to transforming
-data. We can easily, for example, transform a data frame into a new smaller data frame grouped
-by the location
-
-
-
-
+TBD
 
 ###  Pre-processing in R
 
 #### dplyr package
 
-The *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* package created Hadley Wickham. Some functions are similar to SQL syntax and it key functions in dplyr include:
+The *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* package created by Hadley Wickham. Some functions are similar to SQL syntax and it key functions in dplyr include:
 
- + select         select columns from a dataframe
+ + select: select columns from a dataframe
+ + filter: select rows from a dataframe
+ + summarize: allows us to do summary stats based upon the grouped variable
+ + group_by: group by a factor variable
+ + arrange: order the dataset
+ + joins: as in sql left join
 
- + filter         select rows from a dataframe
+Tutorial:
+[https://github.com/justmarkham/dplyr-tutorial](https://github.com/justmarkham/dplyr-tutorial)
 
- + group_by       group by a factor variable
-
- + summarize      allows you to do summary stats based upon the grouped variable
-
- + arrange        order the dataset
-
- + left_join      identical to a sql left join
-
+Examples
 
 ```{r}
 library(dplyr)
 data(kc1)
-
 ```
 
 Describe the dataframe:
@@ -256,22 +236,119 @@ Describe the dataframe:
 str(kc1)
 ```
 
+tbl_df creates a “local data frame” as a wrapper for better printing
+
+```{r}
+kc1_tbl <- tbl_df(kc1)
+```
+
 Filter:
 
 ```{r}
-# note: you can use comma or ampersand to represent AND condition
-filter(kc1, Defective=="Y")
+# Filter rows: use comma or & to represent AND condition
+filter(kc1_tbl, Defective == "Y" & LOC_BLANK != 0)
 ```
 
-Select:
+Another operator is `%in%`.
 
-(TO BE COMPLETED)
+Select:
+```{r}
+select(kc1_tbl, contains("LOC"), Defective)
+```
+c1_tbl, contains("LOC"), Defective
+
+
+Filter and Select together:
+```{r}
+# nesting method
+filter(select(kc1_tbl, contains("LOC"), Defective), Defective !=0)
+```
+
+It is easier usign the chaining method:
+
+```{r}
+# chaining method
+kc1_tbl %>%
+    select(contains("LOC"), Defective) %>%
+    filter(Defective !=0)
+```
+
+
+Arrange ascending
+```{r}
+# 
+kc1_tbl %>%
+    select(LOC_TOTAL, Defective) %>%
+    arrange(LOC_TOTAL)
+```
+
+Arrange descending
+```{r}
+kc1_tbl %>%
+    select(LOC_TOTAL, Defective) %>%
+    arrange(desc(LOC_TOTAL))
+```
+
+
+Mutate:
+
+```{r}
+kc1_tbl %>%
+    filter(Defective == "Y") %>%
+    select(NUM_OPERANDS, NUM_OPERATORS, Defective) %>%
+    mutate(HalsteadLength = NUM_OPERANDS + NUM_OPERATORS)
+```
+
+summarise: Reduce variables to values
+
+```{r}
+# Create a table grouped by Defective, and then summarise each group by taking the mean of loc
+kc1_tbl %>%
+    group_by(Defective) %>%
+    summarise(avg_loc = mean(LOC_TOTAL, na.rm=TRUE))
+```
+
+
+```{r}
+# Create a table grouped by Defective, and then summarise each group by taking the mean of loc
+kc1_tbl %>%
+    group_by(Defective) %>%
+    summarise_each(funs(mean, min, max), BRANCH_COUNT, LOC_TOTAL)
+```
+It seems than Defective modules are larger than the non-Defective ones.
+
+Count with 
+```{r}
+# n() or tally
+kc1_tbl %>%
+    group_by(Defective) %>%
+    tally()
+```
+
+
+Upps! It seems that it's an imbalanced dataset
+
+
+```{r}
+# randomly sample a fixed number of rows, without replacement
+kc1_tbl %>% sample_n(2)
+
+# randomly sample a fraction of rows, with replacement
+kc1_tbl %>% sample_frac(0.05, replace=TRUE)
+
+# Better formatting adapted to the screen width
+glimpse(kc1_tbl)
+```
 
 ## Other libraries and tricks
 
-lubridate package13 contains a number of functions facilitating the conversion of text to
-POSIXct dates. As an example, consider the following code.
+lubridate package contains a number of functions facilitating the conversion of text to
+POSIX dates. As an example, consider the following code.
 
+
+For example [https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf](https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf)
+```{r}
 library(lubridate)
 dates <- c("15/02/2013", "15 Feb 13", "It happened on 15 02 '13")
 dmy(dates)
+```

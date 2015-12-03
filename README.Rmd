@@ -11,7 +11,6 @@ It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rs
 
 It is structured as follows:
 
-
 1 [Introduction to data analysis and model building](./sections/intro.Rmd)
 
 2 [Data Sources](./sections/dataSources.Rmd)
@@ -19,7 +18,7 @@ It is structured as follows:
    - Sources of information
    - Public repositories in software engineering
    
-3 [Preprocessing Techniques](./sections/preprocessingIntro.Rmd)
+3 [Preprocessing Techniques](./sections/basicPreprocessing.Rmd)
 
    + Data types
    + Data Cleaning (duplicates, imbalance, noise)
@@ -46,6 +45,7 @@ It is structured as follows:
       + Association rules
       
    + Other approaches
+      + Weak Classification, Semi-supervised learning
    
 7 [Evaluation](./sections/evaluation.Rmd)
 
@@ -54,7 +54,7 @@ It is structured as follows:
    - Graphical evaluation techniques (ROC and other visual evaluation techniques)
    - [Evaluation in Software Engineering](./sections/evaluationInSoftEng.Rmd)
    
-8 [Advanced Model Building](advancedModelBuilding.Rmd) (Advanced algorithms)
+8 [Advanced Model Building](./sections/advancedModelBuilding.Rmd) (Advanced algorithms)
 
   - Metalearners
   - Hybrid approaches
