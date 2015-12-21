@@ -5,10 +5,6 @@ header-includes: \usepackage{amsmath}
 ---
 
 
-# [Supervised classification](./b)
-
-[Supervised classification]
-
 A classification problem can be defined as the induction, from a dataset $\cal D$, of a classification function $\psi$ that, given the attribute vector of an instance/example, returns a class ${c}$. A regression problem, on the other hand, returns an numeric value.
 
 Dataset, $\cal D$, is typically composed of $n$ attributes and a class attribute $C$. 
@@ -162,7 +158,7 @@ str(kc1)
 There are several packages for inducing classification trees, for example with the [party package](https://cran.r-project.org/web/packages/party/index.html) (recursive partitioning):
 
 ```{r}
-# Split into training and test datasets
+# Split data into training and test datasets
 set.seed(1)
 ind <- sample(2, nrow(kc1), replace = TRUE, prob = c(0.7, 0.3))
 kc1.train <- kc1[ind==1, ]
@@ -251,42 +247,44 @@ table(kc1.test[,22],m1)
 
 ### Naive Bayes
 
+Using the `klaR` package with `caret`:
+
+```{r warning=FALSE}
+library(caret)
+library(klaR)
+model <- NaiveBayes(Defective ~ ., data = kc1.train)
+predictions <- predict(model, kc1.test[,-22])
+confusionMatrix(predictions$class, kc1.test$Defective)
+```
+
+
+Using the `e1071` package:
+
 ```{r}
 library (e1071)
 n1 <-naiveBayes(kc1.train$Defective ~ ., data=kc1.train)
-
 predict(n1,kc1.test, type = c("class")) # class by default
-
 predict(n1,kc1.test, type = c("raw"))
 
 ```
 
 
-
-
 ### Bayesian Networks
-
-
 
 ## Clustering
 
 ```{r}
 library(fpc)
 kc1.train$Defective <- NULL
-
 ds <- dbscan(kc1.train, eps = 0.42, MinPts = 5)
-
 kc1.kmeans <- kmeans(kc1.train, 2)
-
 ```
-
 
 kMeans
 
 ```{r}
 #library(reshape, quietly=TRUE)
 #kc1.kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
-
 ```
 
 
@@ -311,11 +309,9 @@ str(kc1)
 
 rules <- apriori(kc1, parameter = list(support=0.60, confidence=0.800, minlen=3))
 
-
-
 rules
 
- rules <- apriori(kc1,
+rules <- apriori(kc1,
    parameter = list(minlen=3, supp=0.6, conf=0.8),
    appearance = list(rhs=c("Defective=Y", "Defective=N"),
    default="lhs"),
@@ -336,173 +332,10 @@ rules
 ```
 
 
-```{r}
-# load libraries
-library(caret)
-library(pROC)
-
-#################################################
-# model it
-#################################################
-
-# Get names of caret supported models (just a few - head)
-
-head(names(getModelInfo()))
-```
-
- 
- 
-```{r}
- 
- # load data
-titanicDF <- read.csv('http://math.ucdenver.edu/RTutorial/titanic.txt',sep='\t')
-titanicDF$Title <- ifelse(grepl('Mr ',titanicDF$Name),'Mr',ifelse(grepl('Mrs ',titanicDF$Name),'Mrs',ifelse(grepl('Miss',titanicDF$Name),'Miss','Nothing'))) 
-titanicDF$Age[is.na(titanicDF$Age)] <- median(titanicDF$Age, na.rm=T)
-
-# miso format
-titanicDF <- titanicDF[c('PClass', 'Age',    'Sex',   'Title', 'Survived')]
-
-# dummy variables for factors/characters
-titanicDF$Title <- as.factor(titanicDF$Title)
-titanicDummy <- dummyVars("~.",data=titanicDF, fullRank=F)
-titanicDF <- as.data.frame(predict(titanicDummy,titanicDF))
-print(names(titanicDF))
 
 
-# what is the proportion of your outcome variable?
-prop.table(table(titanicDF$Survived))
-
-# save the outcome for the glmnet model
-tempOutcome <- titanicDF$Survived  
-
-# generalize outcome and predictor variables
-outcomeName <- 'Survived'
-predictorsNames <- names(titanicDF)[names(titanicDF) != outcomeName]
-
-#################################################
-# model it
-#################################################
-# get names of all caret supported models 
-names(getModelInfo())
-
-titanicDF$Survived <- ifelse(titanicDF$Survived==1,'yes','nope')
-
-# pick model gbm and find out what type of model it is
-getModelInfo()$gbm$type
-
-# split data into training and testing chunks
-set.seed(1234)
-splitIndex <- createDataPartition(titanicDF[,outcomeName], p = .75, list = FALSE, times = 1)
-trainDF <- titanicDF[ splitIndex,]
-testDF  <- titanicDF[-splitIndex,]
-
-# create caret trainControl object to control the number of cross-validations performed
-objControl <- trainControl(method='cv', number=3, returnResamp='none', summaryFunction = twoClassSummary, classProbs = TRUE)
 
 
-# run model
-objModel <- train(trainDF[,predictorsNames], as.factor(trainDF[,outcomeName]), 
-                  method='gbm', 
-                  trControl=objControl,  
-                  metric = "ROC",
-                  preProc = c("center", "scale"))
 
 
-# find out variable importance
-summary(objModel)
-
-# find out model details
-objModel
-
-#################################################
-# evalutate model
-#################################################
-# get predictions on your testing data
-
-# class prediction
-predictions <- predict(object=objModel, testDF[,predictorsNames], type='raw')
-head(predictions)
-postResample(pred=predictions, obs=as.factor(testDF[,outcomeName]))
-
-# probabilities 
-predictions <- predict(object=objModel, testDF[,predictorsNames], type='prob')
-head(predictions)
-postResample(pred=predictions[[2]], obs=ifelse(testDF[,outcomeName]=='yes',1,0))
-auc <- roc(ifelse(testDF[,outcomeName]=="yes",1,0), predictions[[2]])
-print(auc$auc)
-
-
-################################################
-# glmnet model
-################################################
-
-# pick model gbm and find out what type of model it is
-getModelInfo()$glmnet$type
-
-# save the outcome for the glmnet model
-titanicDF$Survived  <- tempOutcome
-
-# split data into training and testing chunks
-set.seed(1234)
-splitIndex <- createDataPartition(titanicDF[,outcomeName], p = .75, list = FALSE, times = 1)
-trainDF <- titanicDF[ splitIndex,]
-testDF  <- titanicDF[-splitIndex,]
-
-# create caret trainControl object to control the number of cross-validations performed
-objControl <- trainControl(method='cv', number=3, returnResamp='none')
-
-# run model
-objModel <- train(trainDF[,predictorsNames], trainDF[,outcomeName], method='glmnet',  metric = "RMSE", trControl=objControl)
-
-# get predictions on your testing data
-predictions <- predict(object=objModel, testDF[,predictorsNames])
-
-library(pROC)
-auc <- roc(testDF[,outcomeName], predictions)
-print(auc$auc)
-
-postResample(pred=predictions, obs=testDF[,outcomeName])
-
-# find out variable importance
-summary(objModel)
-plot(varImp(objModel,scale=F))
-
-# find out model details
-objModel
-
-# display variable importance on a +/- scale 
-vimp <- varImp(objModel, scale=F)
-results <- data.frame(row.names(vimp$importance),vimp$importance$Overall)
-results$VariableName <- rownames(vimp)
-colnames(results) <- c('VariableName','Weight')
-results <- results[order(results$Weight),]
-results <- results[(results$Weight != 0),]
-
-par(mar=c(5,15,4,2)) # increase y-axis margin. 
-xx <- barplot(results$Weight, width = 0.85, 
-              main = paste("Variable Importance -",outcomeName), horiz = T, 
-              xlab = "< (-) importance >  < neutral >  < importance (+) >", axes = FALSE, 
-              col = ifelse((results$Weight > 0), 'blue', 'red')) 
-axis(2, at=xx, labels=results$VariableName, tick=FALSE, las=2, line=-0.3, cex.axis=0.6)  
-
-
-################################################
-# advanced stuff
-################################################
-
-# boosted tree model (gbm) adjust learning rate and and trees
-gbmGrid <-  expand.grid(interaction.depth =  c(1, 5, 9),
-                        n.trees = 50,
-                        shrinkage = 0.01)
-
-# run model
-objModel <- train(trainDF[,predictorsNames], trainDF[,outcomeName], method='gbm', trControl=objControl, tuneGrid = gbmGrid, verbose=F)
-
-# get predictions on your testing data
-predictions <- predict(object=objModel, testDF[,predictorsNames])
-
-library(pROC)
-auc <- roc(testDF[,outcomeName], predictions)
-print(auc$auc)
-```
 
