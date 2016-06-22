@@ -8,27 +8,27 @@ Javier Dolado (UPV/EHU) and Daniel Rodriguez (UAH)
 (`r Sys.Date()`)
 
 
-1 [Introduction to data analysis and model building](./intro.html)
+1 [Introduction to data analysis and model building](./sections/intro.html)
 
-2 [Data Sources](./dataSources.html)
+2 [Data Sources](./sections/dataSources.html)
 
    - Sources of information
    - Public repositories in software engineering
    
-3 [Preprocessing Techniques](./basicPreprocessing.html)
+3 [Preprocessing Techniques](./sections/basicPreprocessing.html)
 
    + Data types
    + Data Cleaning (duplicates, imbalance, noise)
    + Data Discretisation
    + Data Normalisation
    
-4 [Exploratory Data Analysis](./exploratoryDataAnalysis.html)
+4 [Exploratory Data Analysis](./sections/exploratoryDataAnalysis.html)
 
    + Visualization
    
-5 [Descriptive Statistics](./descriptiveStatistics.html)
+5 [Descriptive Statistics](./sections/descriptiveStatistics.html)
 
-6 [Basic Model Building](./basicModelBuilding.html) (Machine Learning Techniques)
+6 [Basic Model Building](./sections/basicModelBuilding.html) (Machine Learning Techniques)
 
    + Supervised
       + Regression and classification
@@ -44,36 +44,36 @@ Javier Dolado (UPV/EHU) and Daniel Rodriguez (UAH)
    + Other approaches
       + Weak Classification, Semi-supervised learning
    
-7 [Evaluation](./evaluation.html)
+7 [Evaluation](./sections/evaluation.html)
 
    - Descriptive statistics
    - Evaluation measures in machine learning
    - Graphical evaluation techniques (ROC and other visual evaluation techniques)
-   - [Evaluation in Software Engineering](./evaluationInSoftEng.html)
+   - [Evaluation in Software Engineering](./sections/evaluationInSoftEng.html)
    
-8 [Advanced Model Building](./advancedModelBuilding.html) (Advanced algorithms)
+8 [Advanced Model Building](./sections/advancedModelBuilding.html) (Advanced algorithms)
 
   - Meta-learners
   - Hybrid approaches
     
-9 [Advanced Preprocessing Techniques](./advancedPreprocessingTechniques.html)
+9 [Advanced Preprocessing Techniques](./sections/advancedPreprocessingTechniques.html)
 
    + Noise
    + Feature Selection and Instance Selection
    + Imbalance
    + Missing values (Imputation methods)
 
-10 [Classical Hypothesis Testing](./classicalHypothesisTesting)
+10 [Classical Hypothesis Testing](./sections/classicalHypothesisTesting)
 
    + p-values
    + Equivalence Hypothesis Testing
    
-11 [Time Series](./timeSeries.html)
+11 [Time Series](./sections/timeSeries.html)
 
-12 [Social Network Analysis](./SNAinSE.html)
+12 [Social Network Analysis](./sections/SNAinSE.html)
 
-13 [Dealing with Large Volumes of Data](./bigData.html)
+13 [Dealing with Large Volumes of Data](./sections/bigData.html)
 
    + Apache Spark Introduction
 
-Appendix A - [Introduction to R](./rIntro.html)
+Appendix A - [Introduction to R](./sections/rIntro.html)
