@@ -1,0 +1,134 @@
+---
+title: "Social Network Analysis in SE"
+output: html_document
+---
+
+In this example, we will data from the MSR14 challenge. Further information and datasets:
+[http://openscience.us/repo/msr/msr14.html](http://openscience.us/repo/msr/msr14.html)
+
+Similar databases can be obtained using MetricsGrimoire or other tools.
+
+In this simple example, we create a network form the users and following extracted from GitHub and stored in a MySQL database.
+
+We can read a file directely from MySQL dump 
+
+```{r}	
+library(RMySQL)
+
+# Connecting to MySQL
+mydb = dbConnect(MySQL(), user='msr14', password='msr14', dbname='msr14', host='localhost')
+
+# Retrieving data from MySQL
+sql <- "select user_id, follower_id from followers limit 100;"
+rs = dbSendQuery(mydb, sql)
+data <- fetch(rs, n=-1)
+```
+
+Alternatively, we can create e CSV file directly from MySQL and load it
+
+```{r eval = FALSE}
+
+$mysql -u msr14 -pmsr14 msr14
+
+
+> SELECT 'user','follower'
+UNION ALL
+SELECT user_id,follower_id 
+	FROM followers 
+	LIMIT 1000 
+	INTO OUTFILE "/tmp/followers.csv"
+	FIELDS TERMINATED BY ','
+	LINES TERMINATED BY '\n';
+```
+
+```{r eval = FALSE}
+dat = read.csv("./datasets/sna/followers.csv", header = FALSE, sep = ",")
+dat <- head(data,100)
+```
+
+We can now create the graph
+
+```{r}
+library(igraph)
+# Create a graph
+g <- graph.data.frame(data, directed = TRUE)
+```
+
+
+Some values:
+```{r}
+summary(g); 
+```
+
+
+Plotting the graph:
+
+
+```{r}
+layout1 <-  layout.fruchterman.reingold(g)
+plot(g, layout1)
+```
+
+
+Other layout
+```{r}
+plot(g, layout=layout.kamada.kawai)
+```
+
+A tk application can launched to show the plot interactively:
+```{r eval = FALSE}
+plot(g, layout = layout.fruchterman.reingold)
+```
+
+
+Some metrics:
+```{r}
+metrics <- data.frame(
+  deg = degree(g),
+  bet = betweenness(g),
+  clo = closeness(g),
+  eig = evcent(g)$vector,
+  cor = graph.coreness(g)
+)
+
+#
+head(metrics)
+```
+
+
+
+# To fix and to do:
+
+Explain metrics and better graphs
+
+```{r eval = FALSE}
+library(ggplot2)
+
+ggplot(
+  metrics,
+  aes(x=bet, y=eig,
+    label=rownames(metrics),
+    colour=res, size=abs(res))
+)+
+xlab("Betweenness Centrality")+
+ylab("Eigenvector Centrality")+
+geom_text()
++
+theme(title="Key Actor Analysis")
+
+
+V(g)$label.cex <- 2.2 * V(g)$degree / max(V(g)$degree)+ .2
+V(g)$label.color <- rgb(0, 0, .2, .8)
+V(g)$frame.color <- NA
+egam <- (log(E(g)$weight)+.4) / max(log(E(g)$weight)+.4)
+E(g)$color <- rgb(.5, .5, 0, egam)
+E(g)$width <- egam
+# plot the graph in layout1
+plot(g, layout=layout1)
+```
+
+# References
+
+http://sna.stanford.edu/lab.php?l=1
+
+

@@ -1,0 +1,67 @@
+---
+title: "Time Series"
+output: html_document
+---
+
+Many sources of information are time related. For example, data from Software Configuration Management (SCM) such as Git, [GitHub](http://www.github.com)) systems or Dashboards such as [Metrics Grimoire](http://metricsgrimoire.github.io/) from [Bitergia](http://bitergia.com/) or [SonarQube](http://www.sonarqube.org/) 
+
+
+With MetricsGrimore or SonarQube we can extract datasets or dump of databases. For example, a dashboard for the OpenStack project is located at [http://activity.openstack.org/dash/browser/](http://activity.openstack.org/dash/browser/) and provides datasets as MySQL dumps or JSON files.
+
+With R we can read a JSON file as follows:
+
+```{r}
+library(jsonlite)
+gm <- fromJSON("http://activity.openstack.org/dash/browser/data/json/nova.git-scm-rep-evolutionary.json")
+
+str(gm)
+```
+
+Now we can use time series packages. First, after loading the libraries, we need to create a time series object.
+
+```{r}
+# TS libraries
+library(xts)
+library(forecast)
+
+# Library to deal with dates
+library(lubridate)
+
+# Ceate a time series object
+gmts <- xts(gm$commits,seq(ymd('2010-05-22'),ymd('2015-11-16'), by = '1 week'))
+
+# TS Object
+str(gmts)
+
+head(gmts, 3)
+```
+
+
+Visualise the time series object
+```{r}
+plot(gmts)
+```
+
+Arima model:
+```{r}
+fit <- auto.arima(gmts)
+fit
+```
+
+```{r}
+forecast(fit, 5)
+plot(forecast(fit, 5))
+```
+
+## Web tutorials about Time Series:
+
+http://www.statoek.wiso.uni-goettingen.de/veranstaltungen/zeitreihen/sommer03/ts_r_intro.pdf
+
+http://www.statmethods.net/advstats/timeseries.html
+
+http://a-little-book-of-r-for-time-series.readthedocs.org/en/latest/
+
+https://media.readthedocs.org/pdf/a-little-book-of-r-for-time-series/latest/a-little-book-of-r-for-time-series.pdf
+
+http://www.stat.pitt.edu/stoffer/tsa3/
+
