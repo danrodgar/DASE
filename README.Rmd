@@ -1,3 +1,6 @@
+---
+output: html_document
+---
 # Data Analysis in Software Engineering (DASE)
 
 Javier Dolado and Daniel Rodriguez
@@ -5,7 +8,7 @@ Javier Dolado and Daniel Rodriguez
 (DRAFT - Not ready yet `r Sys.Date()`)
 
 
-This course covers sereral aspects of data analysis in Software Engieering (SE) and is been created by [Javier Dolado](www.sc.ehu.eus/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez](http://www.cc.uah.es/drg) at the [University of Alcala](http://www.uah.es/).
+This course covers several aspects of data analysis in Software Engineering (SE) and is been created by [Javier Dolado](www.sc.ehu.eus/jiwdocoj/) at the [University of the Basque Country](www.ehu.eus) and [Daniel Rodriguez](http://www.cc.uah.es/drg) at the [University of Alcala](http://www.uah.es/).
 
 It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rstudio.com/) but we will also show some examples in [Weka](http://www.cs.waikato.ac.nz/ml/weka/) and other packages. [RMarkdown](http://rmarkdown.rstudio.com/) can be compiled to html (and other formats) with RStudio's Knit.
 
@@ -56,7 +59,7 @@ It is structured as follows:
    
 8 [Advanced Model Building](./sections/advancedModelBuilding.Rmd) (Advanced algorithms)
 
-  - Metalearners
+  - Meta-learners
   - Hybrid approaches
     
 9 [Advanced Preprocessing Techniques](./sections/advancedPreprocessingTechniques.Rmd)

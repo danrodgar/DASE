@@ -1,0 +1,79 @@
+---
+title: "Data Analysis in Software Engineering (DASE)"
+output: html_document
+---
+
+Javier Dolado (UPV/EHU) and Daniel Rodriguez (UAH)
+
+(`r Sys.Date()`)
+
+
+1 [Introduction to data analysis and model building](./intro.html)
+
+2 [Data Sources](./dataSources.html)
+
+   - Sources of information
+   - Public repositories in software engineering
+   
+3 [Preprocessing Techniques](./basicPreprocessing.html)
+
+   + Data types
+   + Data Cleaning (duplicates, imbalance, noise)
+   + Data Discretisation
+   + Data Normalisation
+   
+4 [Exploratory Data Analysis](./exploratoryDataAnalysis.html)
+
+   + Visualization
+   
+5 [Descriptive Statistics](./descriptiveStatistics.html)
+
+6 [Basic Model Building](./basicModelBuilding.html) (Machine Learning Techniques)
+
+   + Supervised
+      + Regression and classification
+      + Rules and Decision Trees
+      + Nearest Neighbours (Lazy approaches)
+      + Neural Networks
+      + Probabilistic Classifiers
+      
+   + Unsupervised
+      + Clustering
+      + Association rules
+      
+   + Other approaches
+      + Weak Classification, Semi-supervised learning
+   
+7 [Evaluation](./evaluation.html)
+
+   - Descriptive statistics
+   - Evaluation measures in machine learning
+   - Graphical evaluation techniques (ROC and other visual evaluation techniques)
+   - [Evaluation in Software Engineering](./evaluationInSoftEng.html)
+   
+8 [Advanced Model Building](./advancedModelBuilding.html) (Advanced algorithms)
+
+  - Meta-learners
+  - Hybrid approaches
+    
+9 [Advanced Preprocessing Techniques](./advancedPreprocessingTechniques.html)
+
+   + Noise
+   + Feature Selection and Instance Selection
+   + Imbalance
+   + Missing values (Imputation methods)
+
+10 [Classical Hypothesis Testing](./classicalHypothesisTesting)
+
+   + p-values
+   + Equivalence Hypothesis Testing
+   
+11 [Time Series](./timeSeries.html)
+
+12 [Social Network Analysis](./SNAinSE.html)
+
+13 [Dealing with Large Volumes of Data](./bigData.html)
+
+   + Apache Spark Introduction
+
+Appendix A - [Introduction to R](./rIntro.html)
