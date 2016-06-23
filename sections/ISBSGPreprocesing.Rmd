@@ -361,19 +361,15 @@ Relevant ISBSG Attributes, their Types and % of Missing Values (after preprocess
 
 ```{r}
 library(foreign)
-d <- read.arff('./datasets/ISBSGv10.AttributesSelected_952Instances_14Att.arff')
+getwd()
+d <- read.arff('./datasets/ISBSGv10_AttributesSelected_952Instances_8Att_Train_CLast.arff')
 str(d)
 
-x <- d$AvgTeamSize
-plot(density(na.omit(x)))
+x <- d$MaxTeamSize
 qqnorm(log(x))
 qqline(log(x))
 
 shapiro.test(log(x))
-
-
-
-
 
 d1 <- density(na.omit(x))
 d2 <- density(log(na.omit(x)))
@@ -392,8 +388,6 @@ boxplot(prod[ats>=9],prod[ats<9])
 
 boxplot(prod[ats>=9],prod[ats<9],horizontal=T)
 wilcox.test(x)
-
-
 
 ```
 

@@ -49,9 +49,7 @@ hist(sample.means)
   - Read the Telecom1 dataset and print out the summary statistics with the command *summary*
 ```{r}
 options(digits=3)
-path2files <- "~/DocProjects/PRESI2013/london2015" # Set here the path to the folder where you have downloaded the files
-setwd(path2files) #this command sets the default directory
-telecom1 <- read.table("Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
 summary(telecom1)
 ```
   - We see that this dataset has three variables (or parameters) and few data points (18)
@@ -87,7 +85,7 @@ plot(size_telecom1, effort_telecom1)
 
 ```{r}
 library(foreign)
-china <- read.arff("china.arff")
+china <- read.arff("../datasets/china.arff")
 china_size <- china$AFP
 summary(china_size)
 china_effort <- china$Effort
@@ -110,7 +108,7 @@ qqline(china_effort)
 
 ```{r, echo=FALSE}
 # library(UsingR); data(galton)
-galton <- read.csv("galton.csv")
+galton <- read.csv("../datasets/galton.csv")
 par(mfrow=c(1,2))
 hist(galton$child,col="blue") #,breaks=100)
 hist(galton$parent,col="blue") #,breaks=100)

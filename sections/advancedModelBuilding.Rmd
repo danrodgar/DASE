@@ -264,11 +264,9 @@ getModelInfo()$gbm$type
 
 ```{r}
 library(foreign)
+library(caret)
 kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
-```
 
-
-```{r}
 # Split data into training and test datasets
 # TODO: Improve this with createDataParticion from Caret
 set.seed(1234)
@@ -349,9 +347,9 @@ objModel <- train(Defective ~ .,
 predictions <- predict(object=objModel, kc1.test[,-22])
 
 
-library(pROC)
-auc <- roc(kc1.test[,22], predictions)
-print(auc$auc)
+# library(pROC)
+# auc <- roc(kc1.test[, 22], predictions)
+# print(auc$auc)
 
 postResample(pred=predictions, obs=kc1.test[,22])
 
@@ -380,7 +378,7 @@ axis(2, at=xx, labels=results$VariableName, tick=FALSE, las=2, line=-0.3, cex.ax
 
 
 ################################################
-# advanced stuff
+# advanced stuff - to check
 ################################################
 
 # boosted tree model (gbm) adjust learning rate and and trees

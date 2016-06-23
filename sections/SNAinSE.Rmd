@@ -12,7 +12,7 @@ In this simple example, we create a network form the users and following extract
 
 We can read a file directely from MySQL dump 
 
-```{r}	
+```{r  eval = FALSE}	
 library(RMySQL)
 
 # Connecting to MySQL
@@ -41,17 +41,21 @@ SELECT user_id,follower_id
 	LINES TERMINATED BY '\n';
 ```
 
-```{r eval = FALSE}
-dat = read.csv("./datasets/sna/followers.csv", header = FALSE, sep = ",")
-dat <- head(data,100)
+```{r}
+# Data already extracted and stored as CSV file (for demo purposes)
+dat = read.csv("../datasets/sna/followers.csv", header = FALSE, sep = ",")
+dat <- head(dat,100)
 ```
 
 We can now create the graph
 
 ```{r}
 library(igraph)
+```
+
+```{r}
 # Create a graph
-g <- graph.data.frame(data, directed = TRUE)
+g <- graph.data.frame(dat, directed = TRUE)
 ```
 
 
