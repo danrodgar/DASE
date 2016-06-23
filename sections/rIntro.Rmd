@@ -586,7 +586,7 @@ Ifelse:
 
 ```{r}
 library(foreign)
-kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
 kc1$Defective <- ifelse(kc1$Defective == "Y", 1, 0)
 head(kc1, 1)
 ```
