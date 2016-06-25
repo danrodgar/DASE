@@ -1,0 +1,11 @@
+*.md~
+*.Rmd~
+*.csv~
+*.bib~
+*.html~
+*.bak
+*.Rmd
+.Rhistory
+.Rproj.user
+.Rdata
+.httr-oauth
