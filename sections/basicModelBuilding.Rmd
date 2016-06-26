@@ -9,8 +9,8 @@ Data mining techniques can be grouped into predictive (supervised) and descripti
 We can broadly distinguish between:
 
 
- - [Supervised classification](./basicModelBuildingSupervised.Rmd)
+ - [Supervised classification](./basicModelBuildingSupervised.html)
  
- - [Unsupervised classification](./basicModelBuildingUnsupervised.Rmd)
+ - [Unsupervised classification](./basicModelBuildingUnsupervised.html)
 
 
