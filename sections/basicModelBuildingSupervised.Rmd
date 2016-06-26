@@ -120,6 +120,7 @@ Here we will use defect prediction as ensample of several machine learning techn
 > In the absence of any knowledge about the prediction problem, no model
 > can be said to be uniformly better than any other
 
+There are hundreds of packages to perform classification task in R, but many of those can be used throught 'caret' which helps with many of the data mining process task as described next. 
 
 ### The caret package
 
@@ -134,10 +135,11 @@ The [caret (Classification And REgression Training) package](http://topepo.githu
 Website: [http://caret.r-forge.r-project.org](http://caret.r-forge.r-project.org)
 
 JSS Paper: [www.jstatsoft.org/v28/i05/paper](www.jstatsoft.org/v28/i05/paper)
+
 Book: [Applied Predictive Modeling](http://AppliedPredictiveModeling.com/) 
 
 
-### Defect Prediction
+### Defect Prediction as a running example
 
 We will show the use of different classification techniques in the problem of defect prediction. 
 
@@ -153,27 +155,121 @@ kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
 str(kc1)
 ```
 
-## Classification Trees
 
-There are several packages for inducing classification trees, for example with the [party package](https://cran.r-project.org/web/packages/party/index.html) (recursive partitioning):
+Then we need to divide the data into training and testing.
 
 ```{r}
 # Split data into training and test datasets
 set.seed(1)
-ind <- sample(2, nrow(kc1), replace = TRUE, prob = c(0.7, 0.3))
+inTrain <- createDataPartition(y=kc1$Defective,p=.75,list=FALSE)
+kc1.train <- kc1[inTrain,]
+kc1.test <- kc1[-inTrain,]
+```
+
+
+Another approach to dividing the data:
+```{r eval=FALSE}
+# Split data into training and test datasets
+
+set.seed(1)
+ind <- sample(2, nrow(kc1), replace = TRUE, prob = c(0.75, 0.25))
 kc1.train <- kc1[ind==1, ]
 kc1.test <- kc1[ind==2, ]
+```
 
+
+## Linear Discriminant Analysis (LDA)
+
+One classical approach to classification is Linear Discriminant Analysis (LDA). And the basic all would be as follows.
+
+```{r warning=FALSE}
+ldaModel <- train (Defective ~ ., data=kc1.train, method="lda", preProc=c("center","scale"))
+
+ldaModel
+```
+
+We can observe that we are training our model using `Defective ~ .` as a formula were 'Defective is the class variable separed by `~` and the ´.´ means the rest of the variables. Also, we are using a filter for the training data to (preProc) to center and scale. 
+
+Also, as stated in the documentation about the `train` method :
+> http://topepo.github.io/caret/training.html
+
+```{r warning=FALSE}
+ctrl <- trainControl(method = "repeatedcv",repeats=3)
+ldaModel <- train (Defective ~ ., data=kc1.train, method="lda", trControl=ctrl, preProc=c("center","scale"))
+
+ldaModel
+```
+
+Instead of accuracy we can activate other metrics using `summaryFunction=twoClassSummary` such as `ROC`, `sensitivity` and `specificity`. To do so, we also need to speficy `classProbs=TRUE`.
+
+```{r warning=FALSE}
+ctrl <- trainControl(method = "repeatedcv",repeats=3, classProbs=TRUE,
+summaryFunction=twoClassSummary)
+ldaModel3xcv10 <- train (Defective ~ ., data=kc1.train, method="lda", trControl=ctrl, preProc=c("center","scale"))
+
+ldaModel3xcv10
+```
+
+
+Most methods have parameters that need to be optimised and that is one of the
+
+```{r warning=FALSE, message=FALSE}
+plsFit3x10cv <- train (Defective ~ ., data=kc1.train, method="pls", trControl=ctrl, metric="ROC", preProc=c("center","scale"))
+
+plsFit3x10cv
+
+plot(plsFit3x10cv)
+```
+
+
+The parameter `tuneLength` allow us to specify the number values per parameter to consider.
+
+```{r warning=FALSE}
+plsFit3x10cv <- train (Defective ~ ., data=kc1.train, method="pls", trControl=ctrl, metric="ROC", tuneLength=5, preProc=c("center","scale"))
+
+plsFit3x10cv
+
+plot(plsFit3x10cv)
+``` 
+
+
+Finally to predict new cases, `caret` will use the best classfier obtained for prediction.
+
+```{r warning=FALSE}
+plsProbs <- predict(plsFit3x10cv, newdata = kc1.test, type = "prob")
+```
+
+```{r warning=FALSE}
+plsClasses <- predict(plsFit3x10cv, newdata = kc1.test, type = "raw")
+confusionMatrix(data=plsClasses,kc1.test$Defective)
+```
+
+
+## Classification Trees
+
+There are several packages for inducing classification trees, for example with the [party package](https://cran.r-project.org/web/packages/party/index.html) (recursive partitioning):
+
+
+```{r warning=FALSE, message=FALSE}
 # Build a decision tree
 library(party)
-kc1.formula <- kc1$Defective ~ .
-kc1.ctree <- ctree(kc1.formula, data = kc1.train)
+
+kc2 <- read.arff("../datasets/defectPred/D1/MC1.arff")
+str(kc2)
+
+set.seed(1)
+inTrain <- createDataPartition(y=kc2$Defective,p=.60,list=FALSE)
+kc2.train <- kc2[inTrain,]
+kc2.test <- kc2[-inTrain,]
+
+kc2.formula <- kc2$Defective ~ .
+kc2.ctree <- ctree(kc2.formula, data = kc2.train)
 
 # predict on test data
-pred <- predict(kc1.ctree, newdata = kc1.test)
+pred <- predict(kc2.ctree, newdata = kc2.test)
 # check prediction result
-table(pred, kc1.test$Defective)
-plot(kc1.ctree)
+table(pred, kc2.test$Defective)
+plot(kc2.ctree)
 ```
 
 Using the C50, there are two ways, specifying train and testing
@@ -229,9 +325,6 @@ table(c50rPred, kc1.train$Defective)
 IB1 and IB-k
 
 ```{r}
-summary(kc1)
-str(kc1)
-
 library(class)
 
 ind <- sample(2, nrow(iris), replace=T, prob=c(0.7, 0.3))
@@ -260,79 +353,22 @@ confusionMatrix(predictions$class, kc1.test$Defective)
 
 Using the `e1071` package:
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library (e1071)
 n1 <-naiveBayes(kc1.train$Defective ~ ., data=kc1.train)
-predict(n1,kc1.test, type = c("class")) # class by default
-predict(n1,kc1.test, type = c("raw"))
+
+# Show first 3 results using 'class'
+head(predict(n1,kc1.test, type = c("class")),3) # class by default
+
+# Show first 3 results using 'raw'
+head(predict(n1,kc1.test, type = c("raw")),3)
 
 ```
 
 
 ### Bayesian Networks
 
-## Clustering
-
-```{r}
-library(fpc)
-kc1.train$Defective <- NULL
-ds <- dbscan(kc1.train, eps = 0.42, MinPts = 5)
-kc1.kmeans <- kmeans(kc1.train, 2)
-```
-
-kMeans
-
-```{r}
-#library(reshape, quietly=TRUE)
-#kc1.kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
-```
-
-
-## Association rules
-
-```{r}
-library(arules)
-
-x <- kc1$LOC_TOTAL
-str(x)
-summary(x)
-
-hist(x, breaks=30, main="LoC Total")
-
-xDisc <- discretize(x, categories=5)
-table(xDisc)
-
-for(i in 1:21) kc1[,i] <- discretize(kc1[,i],  "frequency", categories=5)
-
-
-str(kc1)
-
-rules <- apriori(kc1, parameter = list(support=0.60, confidence=0.800, minlen=3))
-
-rules
-
-rules <- apriori(kc1,
-   parameter = list(minlen=3, supp=0.6, conf=0.8),
-   appearance = list(rhs=c("Defective=Y", "Defective=N"),
-   default="lhs"),
-   control = list(verbose=F))
- 
- #rules <- apriori(kc1,
- #   parameter = list(minlen=2, supp=0.05, conf=0.3),
- #   appearance = list(rhs=c("Defective=Y", "Defective=N"),
- #   default="lhs"))
-  
- inspect(rules)
- 
- rules
- 
- library(arulesViz)
- plot(rules)
- 
-```
-
-
-
+To Do
 
 
 
