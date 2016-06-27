@@ -8,6 +8,7 @@ Javier Dolado (UPV/EHU) and Daniel Rodriguez (UAH)
 (`r Sys.Date()`)
 
 
+
 1 [Introduction to data analysis and model building](./sections/intro.html)
 
 2 [Data Sources](./sections/dataSources.html)
@@ -46,7 +47,6 @@ Javier Dolado (UPV/EHU) and Daniel Rodriguez (UAH)
    
 7 [Evaluation](./sections/evaluation.html)
 
-   - Descriptive statistics
    - Evaluation measures in machine learning
    - Graphical evaluation techniques (ROC and other visual evaluation techniques)
    - [Evaluation in Software Engineering](./sections/evaluationInSoftEng.html)
