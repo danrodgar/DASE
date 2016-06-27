@@ -62,9 +62,17 @@ par(mfrow=c(1,2)) #two figures per row
 size_telecom1 <- telecom1$size
 effort_telecom1 <- telecom1$effort
 hist(size_telecom1, col="blue")
+lines(density(size_telecom1))
+plot(density(size_telecom1))
 hist(effort_telecom1, col="blue")
+plot(density(effort_telecom1))
+
+violinplot(size_telecom1)
+violinplot(effort_telecom1)
+
 boxplot(size_telecom1)
 boxplot(effort_telecom1)
+
 par(mfrow=c(1,1))
 qqnorm(size_telecom1, main="Q-Q Plot of 'size'")
 qqline(size_telecom1, col=2, lwd=2, lty=2) #draws a line through the first and third quartiles
