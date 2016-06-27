@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Introduction\"\noutput: html_document\nbibliography: ../references/references.bib\nheader-includes: \\usepackage{amsmath}\n---\n\nWe will deal with extracting information from data, either for estimation, defect prediction, planning, etc. \n\nWe will provide an overview of data analsyis using different techniques. \n\n## What is Knowledge Discovery in Databases (KDD)\n\nThe non-trivial process of identifying valid, novel, potentially useful, and ultimately understandable patterns in data [@FayyadPS1996]\n\n![KDD Process](../figures/Fayyad96kdd-process.png)\n\nThe Cross Industry Process for Data Mining (CRISP-DM, 1996) also provides a common and well-developed framework for delivering data mining projects identifying six steps:\n\n\n  1. Problem Understanding\n  2. Data Understanding\n  3. Data Preparation\n  4. Modeling\n  5. Evaluation\n  6. Deployment\n\n## The Aim of Data Analysis and Statistical Learning\n  - The aim of any data analysis is to  **understand the data** \n  - and to build models for making predictions and estimating future events based on past data\n  - and to make statistical inferences from our data.\n  - We may want to test different hypothesis on the data\n  - We want to generate conclusions about the population where our sample data comes from\n  - Most probably we are interested in building a model for quality, time, defects or effort prediction\n    \n  ![](../figures/prediction.png)\n  \n  - We want to find a function *f()*, that given X1, X2, ...  computes *Y=f(X1, X2, ..., Xn)*\n\n\n## Basic References \n\nGeneric books about statistics:\n\n  * [John Verzani, *simpleR - Using R for Introductory Statistics*](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf)\n  \n  * [Peter Dalgaard, *Introductory Statistics with R*, 2nd Edt., Springer, 2008](https://www.springer.com/gp/book/9780387790534)\n\n  * [Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, *An Introduction to Statistical Learning with Applications in R*, Springer, 2013](http://www.springer.com/it/book/9781461471370)\n\n  * [Geoff Cumming, *Understanding the New Statistics: Effect Sizes, Confidence Intervals, and Meta-Analysis*, Routledge, New York, 2012](https://www.routledge.com/products/9780415879682)\n    \n\nData Mining with R\n\n  * [Graham Williams, *Data Mining with Rattle and R: The Art of Excavating Data for Knowledge Discovery*, Springer 2011](http://www.springer.com/gp/book/9781441998897)\n  \n    Also the author maintains a Web site:\n    [http://rattle.togaware.com/](http://rattle.togaware.com/)\n  \n  * [Luis Torgo, *Data Mining with R: Learning with Case Studies*, Chapman and Hall/CRC, 2010](https://www.crcpress.com/Data-Mining-with-R-Learning-with-Case-Studies/Torgo/9781439810187)\n  \n  * [http://www.rdatamining.com/](http://www.rdatamining.com/)\n  \n  \nData Mining with Weka\n\n  *  Ian Witten, Eibe Frank, Mark Hall, Data Mining: Practical Machine Learning Tools and Techniques, MK 2011, ISBN: 978-0-12-374856-0\n\n\n\n\n## References\n\n",
+    "created" : 1467054525391.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2998016649",
+    "id" : "FC6A39B9",
+    "lastKnownWriteTime" : 1467056102,
+    "last_content_update" : 1467056102470,
+    "path" : "C:/Users/javier/DASE/sections/intro.Rmd",
+    "project_path" : "sections/intro.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

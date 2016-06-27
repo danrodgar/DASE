@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Exploratory Data Analysis\"\noutput: html_document\nheader-includes: \\usepackage{amsmath}\n---\n\n## Descriptive statistics\n  - The first task with any dataset is to characterise it in terms of summary statistics and graphics\n  - Displaying information graphically will help us to identify the main characteristics of the data. To describe a distribution we often want to know where it is centered and and what the spread is (mean, median, quantiles)\n \n  - Basic Plots: \n   \n    + **Histogram**: The histogram defines a sequence of breaks and then counts the number of observations in the bins formed by the breaks.\n    \n    + **Boxplot**: The boxplot is used to summarize data succinctly, quickly displaying if the data is symmetric or has suspected outliers.\n    \n    \n      ![](../figures/boxplotexp.png)\n      \n      \n    + **Q-Q plot**: This plot is used to determine if the data is close to being normally distributed. The quantiles of the standard normal distribution is represented by a straight line. The normality of the data can be evaluated by observing the extent in which the points appear on the line. When the data is normally distributed around the mean, then the mean and the median should be equal. \n    \n    + **Scatterplot**: A scatter plot provides a graphical view of the relationship between two sets of numbers: one numerical variable against another. \n    \n    + **Kernel Density Plot**: This plot visualizes the underlying distribution of a variable. Kernel density estimatiion is a non-parametric method of estimating the probability density function of continuous random variable. It helps to identify the distribution of the variable.\n    + **Violin Plot**: A violin plot is a combination of a boxplot and a kernel density plot. \n    \n    ",
+    "created" : 1467043359787.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2114018410",
+    "id" : "6081935F",
+    "lastKnownWriteTime" : 1467045612,
+    "last_content_update" : 1467045612176,
+    "path" : "C:/Users/javier/DASE/sections/exploratoryDataAnalysis.Rmd",
+    "project_path" : "sections/exploratoryDataAnalysis.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
