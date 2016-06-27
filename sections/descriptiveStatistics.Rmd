@@ -58,22 +58,27 @@ summary(telecom1)
     + EstTotal: the estimates coming from an estimation method
   - Basic Plots
 ```{r}
-par(mfrow=c(1,2)) #two figures per row
+par(mfrow=c(1,2)) #n figures per row
 size_telecom1 <- telecom1$size
 effort_telecom1 <- telecom1$effort
-hist(size_telecom1, col="blue")
-lines(density(size_telecom1))
+
+hist(size_telecom1, col="blue", xlab='size', ylab = 'Probability', main = 'Histogram of project Size')
+lines(density(size_telecom1, na.rm = T, from = 0, to = max(size_telecom1)))
 plot(density(size_telecom1))
+
+
 hist(effort_telecom1, col="blue")
 plot(density(effort_telecom1))
 
-# violin plots for those two variables
-library(vioplot)
-vioplot(size_telecom1) 
-vioplot(effort_telecom1)
-
 boxplot(size_telecom1)
 boxplot(effort_telecom1)
+
+# violin plots for those two variables
+library(vioplot)
+vioplot(size_telecom1, names = '') 
+title("Violin Plot of Project Size")
+vioplot(effort_telecom1, names = '')
+title("Violin Plot of Project Effort")
 
 par(mfrow=c(1,1))
 qqnorm(size_telecom1, main="Q-Q Plot of 'size'")

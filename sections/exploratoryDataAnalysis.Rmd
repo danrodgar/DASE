@@ -22,4 +22,7 @@ header-includes: \usepackage{amsmath}
     
     + **Scatterplot**: A scatter plot provides a graphical view of the relationship between two sets of numbers: one numerical variable against another. 
     
+    + **Kernel Density Plot**: This plot visualizes the underlying distribution of a variable. Kernel density estimatiion is a non-parametric method of estimating the probability density function of continuous random variable. It helps to identify the distribution of the variable.
+    + **Violin Plot**: A violin plot is a combination of a boxplot and a kernel density plot. 
+    
     

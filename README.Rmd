@@ -18,9 +18,7 @@ It is mainly based on [R](http://cran.r-project.org) and [RStudio](http://www.rs
 
 **_Acknowledgements_** 
 
-The research leading to these results has received funding from the European Union Seventh Framework Programme (FP7/2007-2013) under grant agreement no. 324356.
-
-
+The research leading to these results has received partial funding from the European Union Seventh Framework Programme (FP7/2007-2013) under grant agreement no. 324356, from projects Ministry of Economy of Spain PRESI TIN2013-46928-C3-1-R, TIN2013-46928-C3-2-R and Network SEBASENet TIN2015-71841-REDT.
 
 ***
 
