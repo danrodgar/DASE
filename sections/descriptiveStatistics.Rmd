@@ -67,7 +67,8 @@ plot(density(size_telecom1))
 hist(effort_telecom1, col="blue")
 plot(density(effort_telecom1))
 
-violinplot(size_telecom1)
+# violin plots for those two variables
+violinplot(size_telecom1) 
 violinplot(effort_telecom1)
 
 boxplot(size_telecom1)
