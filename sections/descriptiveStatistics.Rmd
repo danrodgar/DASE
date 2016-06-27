@@ -24,12 +24,12 @@ segments(-8, 0, -8, 0.1)
 segments(8, 0, 8, 0.1)
 ```
 
-  - if we sample from this population we get 
+  - if we sample from this population we get "another population".
   
 ```{r}
 sample.means <- rep(NA, 1000)
 for (i in 1:1000) {
-  sample.40 <- rnorm(40, mean = 60, sd = 4)
+  sample.40 <- rnorm(40, mean = 60, sd = 4) #rnorm generates random numbers from normal distribution
   sample.means[i] <- mean(sample.40)
 }
 means40 <- mean(sample.means)
@@ -37,7 +37,7 @@ sd40 <- sd(sample.means)
 means40
 sd40
 ```
-- the sampling distribution of the sample mean is normally distributed
+- These sample means are another "population". The sampling distribution of the sample mean is normally distributed meaning that the "mean of a representative sample provides an estimate of the unknown population mean".
 ```{r}
 hist(sample.means)
 ```
