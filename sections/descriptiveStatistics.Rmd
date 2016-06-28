@@ -1,6 +1,9 @@
 
-# Descriptive Statistics
-
+---
+title: "Descriptive Statistics"
+output: html_document
+header-includes: \usepackage{amsmath}
+---
 
 ## Normality 
   - A normal distribution is an arrangement of a data set in which most values cluster in the middle of the range
@@ -57,7 +60,9 @@ summary(telecom1)
     + effort: the dependent variable
     + EstTotal: the estimates coming from an estimation method
   - Basic Plots
-```{r}
+  
+  
+```{r message=FALSE, warning=FALSE}
 par(mfrow=c(1,2)) #n figures per row
 size_telecom1 <- telecom1$size
 effort_telecom1 <- telecom1$effort
@@ -98,7 +103,7 @@ plot(size_telecom1, effort_telecom1)
 ## China dataset 
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(foreign)
 china <- read.arff("../datasets/china.arff")
 china_size <- china$AFP
@@ -121,7 +126,7 @@ qqline(china_effort)
   - It is the data based on the famous 1885 Francis Galton's study about the relationship between the heights of adult children and the heights of their parents.
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # library(UsingR); data(galton)
 galton <- read.csv("../datasets/galton.csv")
 par(mfrow=c(1,2))
@@ -146,12 +151,14 @@ qqnorm(logchina_effort)
 ```
 
 
-- If the log-log transformation is used the estimation equation is $$y= e^{b_0 + b_1 log(x)} $$
+- If the log-log transformation is used the estimation equation is:
+
+  $$y= e^{b_0 + b_1 log(x)} $$
 
 ## China dataset. Correlation. 
 
   - **Correlation** is a statistical relationship between two sets of data.
-  - With the whole dataset we may check for the linear Correlation of the variables we are interested in
+  - With the whole dataset we may check for the linear Correlation of the variables we are interested in.
   
   
 ```{r}
