@@ -3,24 +3,27 @@ title: "Text Mining Soft Eng Data"
 output: html_document
 ---
 
-In software engineering, there is a lot of information that can be extracted from Software Configuration Management System (SCM). 
+In software engineering, there is a lot of information that can be extracted from Software Configuration Management System (SCM), or Bug Tracking Systems such as Bugzilla. 
 
-The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).
 
-### Classifying bugs from Bugzilla 
+
+# Classifying bugs from Bugzilla 
+
 
 Bugzilla is Issue Tracking System that allow us to maintain and track the evolution of a project.
+The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).
 
-```{r}
+
+```{r message=FALSE, warning=FALSE}
 library(foreign)
 
 d <- read.arff("../datasets/textMining/compendium.arff")
 head(d,2)
 ```
 
-Creating Document-Term Matrix (DTM)
+Creating a Document-Term Matrix (DTM)
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tm)
 
 dfcomp <- data.frame(textCol = d$Description)  # , d$Category)
@@ -34,7 +37,7 @@ dsc <-Corpus(ds)
 
 # Other options of DTM
 # These are not really needed, if preprocessing has been carried out:
-# stemming = TRUE stemming is applied
+# stemming=TRUE stemming is applied
 # stopwords=TRUE stopwords are eliminated
 # removeNumbers=TRUE numbers are eliminated
 
