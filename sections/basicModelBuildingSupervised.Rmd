@@ -244,6 +244,46 @@ plsClasses <- predict(plsFit3x10cv, newdata = kc1.test, type = "raw")
 confusionMatrix(data=plsClasses,kc1.test$Defective)
 ```
 
+### Predicting the number of defects (numerical class)
+
+From the Bug Predictiono Repository [http://bug.inf.usi.ch/download.php](http://bug.inf.usi.ch/download.php)
+
+Some datasets contain CK and other 11 object oriented metrics for the last version of the system plus categorized (with severity and priority) post-release defects. Using such dataset:
+
+```{r warning=FALSE}
+jdt <- read.csv("../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
+
+# We just use the number of bugs, so we removed others
+jdt$classname <- NULL
+jdt$nonTrivialBugs <- NULL
+jdt$majorBugs <- NULL
+jdt$minorBugs <- NULL
+jdt$criticalBugs <- NULL
+jdt$highPriorityBugs <- NULL
+jdt$X <- NULL
+
+# Caret
+library(caret)
+
+# Split data into training and test datasets
+set.seed(1)
+inTrain <- createDataPartition(y=jdt$bugs,p=.8,list=FALSE)
+jdt.train <- jdt[inTrain,]
+jdt.test <- jdt[-inTrain,]
+
+ctrl <- trainControl(method = "repeatedcv",repeats=3)
+glmModel <- train (bugs ~ ., data=jdt.train, method="glm")
+glmModel
+
+ctrl <- trainControl(method = "repeatedcv",repeats=3)
+glmModel <- train (bugs ~ ., data=jdt.train, method="glm", trControl=ctrl, preProc=c("center","scale"))
+glmModel
+
+glmnetModel <- train (bugs ~ ., data=jdt.train, method="glmnet", trControl=ctrl, preProc=c("center","scale"))
+glmnetModel
+```
+
+
 
 ## Classification Trees
 
