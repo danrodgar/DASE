@@ -141,17 +141,17 @@ $(document).ready(function () {
 <li>bias resulting from differences between missing and complete data.</li>
 </ol>
 <p>Imputation consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and imputation methods are needed.</p>
-<p>In R, a missing value is represented with <span class="math inline">\(NA\)</span> and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the <em>na.rm</em> option.</p>
+<p>In R, a missing value is represented with <code>NA</code> and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the <code>na.rm</code> option.</p>
 <div id="imputation-methods" class="section level3">
 <h3>Imputation methods</h3>
 <p>We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute.</p>
 <p>More elaborated approaches include:</p>
 <ul>
-<li><p>EM (Expectation-Maximisation)</p></li>
-<li><p>Distance-based</p>
+<li>EM (Expectation-Maximisation)</li>
+<li>Distance-based
 <ul>
-<li><p>kNN (k Nearest Neighbours)</p></li>
-<li><p>Clustering</p></li>
+<li>kNN (k Nearest Neighbours)</li>
+<li>Clustering</li>
 </ul></li>
 </ul>
 </div>
@@ -165,8 +165,11 @@ $(document).ready(function () {
 <div id="outliers" class="section level2">
 <h2>Outliers</h2>
 <p>There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist.</p>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## Loading required package: grid</code></pre>
+<pre class="r"><code>library(DMwR)
+library(foreign)
+
+kc1 &lt;- read.arff(&quot;../datasets/defectPred/D1/KC1.arff&quot;)</code></pre>
+<p>The LOF algorithm (<code>lofactor</code>), given a data set it produces a vector of local outlier factors for each case.</p>
 <pre class="r"><code>kc1num &lt;- kc1[,1:21]
 outlier.scores &lt;- lofactor(kc1num, k=5)
 plot(density(na.omit(outlier.scores)))</code></pre>
@@ -176,8 +179,8 @@ print(outliers)</code></pre>
 <pre><code>## [1]  1  6 14 31 33</code></pre>
 <p>Another simple method of Hiridoglou and Berthelot for positive observations.</p>
 </div>
-<div id="feature-selection" class="section level2">
-<h2>Feature selection</h2>
+<div id="feature-selection-fs" class="section level2">
+<h2>Feature selection (FS)</h2>
 <p>Feature Selection (FS) aims at identifying the most relevant attributes from a dataset. It is important in different ways:</p>
 <ul>
 <li><p>A reduced volume of data allows different data mining or searching techniques to be applied.</p></li>
@@ -219,39 +222,31 @@ print(outliers)</code></pre>
 <h2>Discretization</h2>
 <p>This process transforms continuous attributes into discrete ones, by associating categorical values to intervals and thus transforming quantitative data into qualitative data.</p>
 <p>-square</p>
+</div>
+<div id="correlation-coefficient-and-covariance-for-numeric-data" class="section level2">
+<h2>Correlation Coefficient and Covariance for Numeric Data</h2>
 <p>Two random variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are called independent if the probability distribution of one variable is not affected by the presence of another.</p>
 <p><span class="math inline">\(\tilde{\chi}^2=\frac{1}{d}\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}\)</span></p>
-<pre class="r"><code>library(foreign)
-kc1 &lt;- read.arff(&quot;../datasets/defectPred/D1/KC1.arff&quot;)
-
-chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre>
-<pre><code>## Warning in chisq.test(kc1$LOC_BLANK, kc1$BRANCH_TOTAL): Chi-squared
-## approximation may be incorrect</code></pre>
+<pre class="r"><code>chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  kc1$LOC_BLANK
 ## X-squared = 17705, df = 2095, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>chisq.test(kc1$DESIGN_COMPLEXITY,kc1$CYCLOMATIC_COMPLEXITY)</code></pre>
-<pre><code>## Warning in chisq.test(kc1$DESIGN_COMPLEXITY, kc1$CYCLOMATIC_COMPLEXITY):
-## Chi-squared approximation may be incorrect</code></pre>
 <pre><code>## 
 ##  Pearson's Chi-squared test
 ## 
 ## data:  kc1$DESIGN_COMPLEXITY and kc1$CYCLOMATIC_COMPLEXITY
 ## X-squared = 25101, df = 696, p-value &lt; 2.2e-16</code></pre>
-<div id="correlation-coefficient-and-covariance-for-numeric-data" class="section level3">
-<h3>Correlation Coefficient and Covariance for Numeric Data</h3>
-</div>
 </div>
 <div id="normalization" class="section level2">
 <h2>Normalization</h2>
 <div id="min-max-normalization" class="section level3">
 <h3>Min-Max Normalization</h3>
 <p><span class="math inline">\(z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)}\)</span></p>
-<pre class="r"><code>library(caret)</code></pre>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<pre class="r"><code>preObj &lt;- preProcess(kc1[, -22], method=c(&quot;center&quot;, &quot;scale&quot;))</code></pre>
+<pre class="r"><code>library(caret)
+preObj &lt;- preProcess(kc1[, -22], method=c(&quot;center&quot;, &quot;scale&quot;))</code></pre>
 </div>
 <div id="z-score-normalization" class="section level3">
 <h3>Z-score normalization</h3>
@@ -260,8 +255,8 @@ chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre>
 </div>
 <div id="transformations" class="section level2">
 <h2>Transformations</h2>
-<div id="linear-transformations-and-quadratic-transformations" class="section level3">
-<h3>Linear Transformations and Quadratic Transformations</h3>
+<div id="linear-transformations-and-quadratic-trans-formations" class="section level3">
+<h3>Linear Transformations and Quadratic Trans formations</h3>
 <p>TBD</p>
 </div>
 <div id="box-cox-transformation" class="section level3">
@@ -272,10 +267,11 @@ chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre>
 <h3>Nominal to Binary tranformations</h3>
 <p>TBD</p>
 </div>
-<div id="pre-processing-in-r" class="section level3">
-<h3>Pre-processing in R</h3>
-<div id="dplyr-package" class="section level4">
-<h4>dplyr package</h4>
+</div>
+<div id="preprocessing-in-r" class="section level1">
+<h1>Preprocessing in R</h1>
+<div id="the-dplyr-package" class="section level2">
+<h2>The dplyr package</h2>
 <p>The <em><a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a></em> package created by Hadley Wickham. Some functions are similar to SQL syntax and it key functions in dplyr include:</p>
 <ul>
 <li>select: select columns from a dataframe</li>
@@ -288,16 +284,6 @@ chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre>
 <p>Tutorial: <a href="https://github.com/justmarkham/dplyr-tutorial" class="uri">https://github.com/justmarkham/dplyr-tutorial</a></p>
 <p>Examples</p>
 <pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>data(kc1)</code></pre>
-<pre><code>## Warning in data(kc1): data set 'kc1' not found</code></pre>
 <p>Describe the dataframe:</p>
 <pre class="r"><code>str(kc1)</code></pre>
 <pre><code>## 'data.frame':    2096 obs. of  22 variables:
@@ -323,7 +309,7 @@ chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre>
 ##  $ NUM_UNIQUE_OPERATORS : num  4 1 1 1 5 4 1 1 1 6 ...
 ##  $ LOC_TOTAL            : num  5 3 3 3 12 5 3 3 3 13 ...
 ##  $ Defective            : Factor w/ 2 levels &quot;N&quot;,&quot;Y&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
-<p>tbl_df creates a “local data frame” as a wrapper for better printing</p>
+<p><code>tbl_df</code> creates a “local data frame” as a wrapper for better printing</p>
 <pre class="r"><code>kc1_tbl &lt;- tbl_df(kc1)</code></pre>
 <p>Filter:</p>
 <pre class="r"><code># Filter rows: use comma or &amp; to represent AND condition
@@ -331,7 +317,7 @@ filter(kc1_tbl, Defective == &quot;Y&quot; &amp; LOC_BLANK != 0)</code></pre>
 <pre><code>## Source: local data frame [251 x 22]
 ## 
 ##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
-##        (dbl)        (dbl)                (dbl)        (dbl)
+##        &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
 ## 1          6           21                    0           10
 ## 2          5           15                    0            2
 ## 3          2            5                    0            0
@@ -343,20 +329,20 @@ filter(kc1_tbl, Defective == &quot;Y&quot; &amp; LOC_BLANK != 0)</code></pre>
 ## 9          2           17                    0            2
 ## 10         3            1                    0            0
 ## ..       ...          ...                  ...          ...
-## Variables not shown: CYCLOMATIC_COMPLEXITY (dbl), DESIGN_COMPLEXITY (dbl),
-##   ESSENTIAL_COMPLEXITY (dbl), LOC_EXECUTABLE (dbl), HALSTEAD_CONTENT
-##   (dbl), HALSTEAD_DIFFICULTY (dbl), HALSTEAD_EFFORT (dbl),
-##   HALSTEAD_ERROR_EST (dbl), HALSTEAD_LENGTH (dbl), HALSTEAD_LEVEL (dbl),
-##   HALSTEAD_PROG_TIME (dbl), HALSTEAD_VOLUME (dbl), NUM_OPERANDS (dbl),
-##   NUM_OPERATORS (dbl), NUM_UNIQUE_OPERANDS (dbl), NUM_UNIQUE_OPERATORS
-##   (dbl), LOC_TOTAL (dbl), Defective (fctr)</code></pre>
+## Variables not shown: CYCLOMATIC_COMPLEXITY &lt;dbl&gt;, DESIGN_COMPLEXITY &lt;dbl&gt;,
+##   ESSENTIAL_COMPLEXITY &lt;dbl&gt;, LOC_EXECUTABLE &lt;dbl&gt;, HALSTEAD_CONTENT
+##   &lt;dbl&gt;, HALSTEAD_DIFFICULTY &lt;dbl&gt;, HALSTEAD_EFFORT &lt;dbl&gt;,
+##   HALSTEAD_ERROR_EST &lt;dbl&gt;, HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;,
+##   HALSTEAD_PROG_TIME &lt;dbl&gt;, HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;,
+##   NUM_OPERATORS &lt;dbl&gt;, NUM_UNIQUE_OPERANDS &lt;dbl&gt;, NUM_UNIQUE_OPERATORS
+##   &lt;dbl&gt;, LOC_TOTAL &lt;dbl&gt;, Defective &lt;fctr&gt;.</code></pre>
 <p>Another operator is <code>%in%</code>.</p>
 <p>Select:</p>
 <pre class="r"><code>select(kc1_tbl, contains(&quot;LOC&quot;), Defective)</code></pre>
 <pre><code>## Source: local data frame [2,096 x 6]
 ## 
 ##    LOC_BLANK LOC_CODE_AND_COMMENT LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
-##        (dbl)                (dbl)        (dbl)          (dbl)     (dbl)
+##        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
 ## 1          0                    0            0              3         5
 ## 2          0                    0            0              1         3
 ## 3          0                    0            0              1         3
@@ -368,15 +354,15 @@ filter(kc1_tbl, Defective == &quot;Y&quot; &amp; LOC_BLANK != 0)</code></pre>
 ## 9          0                    0            0              1         3
 ## 10         2                    0            0              9        13
 ## ..       ...                  ...          ...            ...       ...
-## Variables not shown: Defective (fctr)</code></pre>
-<p>c1_tbl, contains(“LOC”), Defective</p>
+## Variables not shown: Defective &lt;fctr&gt;.</code></pre>
+<p>Now, <code>kc1_tbl</code> contains(“LOC”), Defective</p>
 <p>Filter and Select together:</p>
 <pre class="r"><code># nesting method
 filter(select(kc1_tbl, contains(&quot;LOC&quot;), Defective), Defective !=0)</code></pre>
 <pre><code>## Source: local data frame [2,096 x 6]
 ## 
 ##    LOC_BLANK LOC_CODE_AND_COMMENT LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
-##        (dbl)                (dbl)        (dbl)          (dbl)     (dbl)
+##        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
 ## 1          0                    0            0              3         5
 ## 2          0                    0            0              1         3
 ## 3          0                    0            0              1         3
@@ -388,7 +374,7 @@ filter(select(kc1_tbl, contains(&quot;LOC&quot;), Defective), Defective !=0)</co
 ## 9          0                    0            0              1         3
 ## 10         2                    0            0              9        13
 ## ..       ...                  ...          ...            ...       ...
-## Variables not shown: Defective (fctr)</code></pre>
+## Variables not shown: Defective &lt;fctr&gt;.</code></pre>
 <p>It is easier usign the chaining method:</p>
 <pre class="r"><code># chaining method
 kc1_tbl %&gt;%
@@ -397,7 +383,7 @@ kc1_tbl %&gt;%
 <pre><code>## Source: local data frame [2,096 x 6]
 ## 
 ##    LOC_BLANK LOC_CODE_AND_COMMENT LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
-##        (dbl)                (dbl)        (dbl)          (dbl)     (dbl)
+##        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
 ## 1          0                    0            0              3         5
 ## 2          0                    0            0              1         3
 ## 3          0                    0            0              1         3
@@ -409,7 +395,7 @@ kc1_tbl %&gt;%
 ## 9          0                    0            0              1         3
 ## 10         2                    0            0              9        13
 ## ..       ...                  ...          ...            ...       ...
-## Variables not shown: Defective (fctr)</code></pre>
+## Variables not shown: Defective &lt;fctr&gt;.</code></pre>
 <p>Arrange ascending</p>
 <pre class="r"><code># 
 kc1_tbl %&gt;%
@@ -418,7 +404,7 @@ kc1_tbl %&gt;%
 <pre><code>## Source: local data frame [2,096 x 2]
 ## 
 ##    LOC_TOTAL Defective
-##        (dbl)    (fctr)
+##        &lt;dbl&gt;    &lt;fctr&gt;
 ## 1          1         N
 ## 2          1         N
 ## 3          1         N
@@ -430,14 +416,14 @@ kc1_tbl %&gt;%
 ## 9          1         N
 ## 10         1         N
 ## ..       ...       ...</code></pre>
-<p>Arrange descending</p>
+<p>Arrange descending:</p>
 <pre class="r"><code>kc1_tbl %&gt;%
     select(LOC_TOTAL, Defective) %&gt;%
     arrange(desc(LOC_TOTAL))</code></pre>
 <pre><code>## Source: local data frame [2,096 x 2]
 ## 
 ##    LOC_TOTAL Defective
-##        (dbl)    (fctr)
+##        &lt;dbl&gt;    &lt;fctr&gt;
 ## 1        288         Y
 ## 2        286         Y
 ## 3        283         N
@@ -457,7 +443,7 @@ kc1_tbl %&gt;%
 <pre><code>## Source: local data frame [325 x 4]
 ## 
 ##    NUM_OPERANDS NUM_OPERATORS Defective HalsteadLength
-##           (dbl)         (dbl)    (fctr)          (dbl)
+##           &lt;dbl&gt;         &lt;dbl&gt;    &lt;fctr&gt;          &lt;dbl&gt;
 ## 1            64           107         Y            171
 ## 2            52            89         Y            141
 ## 3            17            41         Y             58
@@ -477,7 +463,7 @@ kc1_tbl %&gt;%
 <pre><code>## Source: local data frame [2 x 2]
 ## 
 ##   Defective  avg_loc
-##      (fctr)    (dbl)
+##      &lt;fctr&gt;    &lt;dbl&gt;
 ## 1         N 15.89723
 ## 2         Y 44.74462</code></pre>
 <pre class="r"><code># Create a table grouped by Defective, and then summarise each group by taking the mean of loc
@@ -487,13 +473,13 @@ kc1_tbl %&gt;%
 <pre><code>## Source: local data frame [2 x 7]
 ## 
 ##   Defective BRANCH_COUNT_mean LOC_TOTAL_mean BRANCH_COUNT_min
-##      (fctr)             (dbl)          (dbl)            (dbl)
+##      &lt;fctr&gt;             &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;
 ## 1         N          3.677019       15.89723                1
 ## 2         Y         10.120000       44.74462                1
-## Variables not shown: LOC_TOTAL_min (dbl), BRANCH_COUNT_max (dbl),
-##   LOC_TOTAL_max (dbl)</code></pre>
+## Variables not shown: LOC_TOTAL_min &lt;dbl&gt;, BRANCH_COUNT_max &lt;dbl&gt;,
+##   LOC_TOTAL_max &lt;dbl&gt;.</code></pre>
 <p>It seems than Defective modules are larger than the non-Defective ones.</p>
-<p>Count with</p>
+<p>Count with:</p>
 <pre class="r"><code># n() or tally
 kc1_tbl %&gt;%
     group_by(Defective) %&gt;%
@@ -501,49 +487,49 @@ kc1_tbl %&gt;%
 <pre><code>## Source: local data frame [2 x 2]
 ## 
 ##   Defective     n
-##      (fctr) (int)
+##      &lt;fctr&gt; &lt;int&gt;
 ## 1         N  1771
 ## 2         Y   325</code></pre>
-<p>Upps! It seems that it’s an imbalanced dataset</p>
+<p>It seems that it’s an imbalanced dataset…</p>
 <pre class="r"><code># randomly sample a fixed number of rows, without replacement
 kc1_tbl %&gt;% sample_n(2)</code></pre>
 <pre><code>## Source: local data frame [2 x 22]
 ## 
 ##   LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
-##       (dbl)        (dbl)                (dbl)        (dbl)
-## 1         0            1                    0            0
-## 2         1            3                    0            0
-## Variables not shown: CYCLOMATIC_COMPLEXITY (dbl), DESIGN_COMPLEXITY (dbl),
-##   ESSENTIAL_COMPLEXITY (dbl), LOC_EXECUTABLE (dbl), HALSTEAD_CONTENT
-##   (dbl), HALSTEAD_DIFFICULTY (dbl), HALSTEAD_EFFORT (dbl),
-##   HALSTEAD_ERROR_EST (dbl), HALSTEAD_LENGTH (dbl), HALSTEAD_LEVEL (dbl),
-##   HALSTEAD_PROG_TIME (dbl), HALSTEAD_VOLUME (dbl), NUM_OPERANDS (dbl),
-##   NUM_OPERATORS (dbl), NUM_UNIQUE_OPERANDS (dbl), NUM_UNIQUE_OPERATORS
-##   (dbl), LOC_TOTAL (dbl), Defective (fctr)</code></pre>
+##       &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+## 1         0            1                    0            3
+## 2         0            1                    0            0
+## Variables not shown: CYCLOMATIC_COMPLEXITY &lt;dbl&gt;, DESIGN_COMPLEXITY &lt;dbl&gt;,
+##   ESSENTIAL_COMPLEXITY &lt;dbl&gt;, LOC_EXECUTABLE &lt;dbl&gt;, HALSTEAD_CONTENT
+##   &lt;dbl&gt;, HALSTEAD_DIFFICULTY &lt;dbl&gt;, HALSTEAD_EFFORT &lt;dbl&gt;,
+##   HALSTEAD_ERROR_EST &lt;dbl&gt;, HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;,
+##   HALSTEAD_PROG_TIME &lt;dbl&gt;, HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;,
+##   NUM_OPERATORS &lt;dbl&gt;, NUM_UNIQUE_OPERANDS &lt;dbl&gt;, NUM_UNIQUE_OPERATORS
+##   &lt;dbl&gt;, LOC_TOTAL &lt;dbl&gt;, Defective &lt;fctr&gt;.</code></pre>
 <pre class="r"><code># randomly sample a fraction of rows, with replacement
 kc1_tbl %&gt;% sample_frac(0.05, replace=TRUE)</code></pre>
 <pre><code>## Source: local data frame [105 x 22]
 ## 
 ##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
-##        (dbl)        (dbl)                (dbl)        (dbl)
-## 1          0            1                    0            0
+##        &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+## 1          1            1                    0            2
 ## 2          0            1                    0            0
 ## 3          0            1                    0            0
-## 4          2            3                    0            2
-## 5          0            1                    0            0
-## 6          7            7                    0            3
+## 4          0            3                    0            0
+## 5          0            3                    0            0
+## 6          0            1                    0            0
 ## 7          0            1                    0            0
-## 8          0            1                    0            0
+## 8          0            1                    1            0
 ## 9          0            1                    0            0
 ## 10         0            3                    0            0
 ## ..       ...          ...                  ...          ...
-## Variables not shown: CYCLOMATIC_COMPLEXITY (dbl), DESIGN_COMPLEXITY (dbl),
-##   ESSENTIAL_COMPLEXITY (dbl), LOC_EXECUTABLE (dbl), HALSTEAD_CONTENT
-##   (dbl), HALSTEAD_DIFFICULTY (dbl), HALSTEAD_EFFORT (dbl),
-##   HALSTEAD_ERROR_EST (dbl), HALSTEAD_LENGTH (dbl), HALSTEAD_LEVEL (dbl),
-##   HALSTEAD_PROG_TIME (dbl), HALSTEAD_VOLUME (dbl), NUM_OPERANDS (dbl),
-##   NUM_OPERATORS (dbl), NUM_UNIQUE_OPERANDS (dbl), NUM_UNIQUE_OPERATORS
-##   (dbl), LOC_TOTAL (dbl), Defective (fctr)</code></pre>
+## Variables not shown: CYCLOMATIC_COMPLEXITY &lt;dbl&gt;, DESIGN_COMPLEXITY &lt;dbl&gt;,
+##   ESSENTIAL_COMPLEXITY &lt;dbl&gt;, LOC_EXECUTABLE &lt;dbl&gt;, HALSTEAD_CONTENT
+##   &lt;dbl&gt;, HALSTEAD_DIFFICULTY &lt;dbl&gt;, HALSTEAD_EFFORT &lt;dbl&gt;,
+##   HALSTEAD_ERROR_EST &lt;dbl&gt;, HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;,
+##   HALSTEAD_PROG_TIME &lt;dbl&gt;, HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;,
+##   NUM_OPERATORS &lt;dbl&gt;, NUM_UNIQUE_OPERANDS &lt;dbl&gt;, NUM_UNIQUE_OPERATORS
+##   &lt;dbl&gt;, LOC_TOTAL &lt;dbl&gt;, Defective &lt;fctr&gt;.</code></pre>
 <pre class="r"><code># Better formatting adapted to the screen width
 glimpse(kc1_tbl)</code></pre>
 <pre><code>## Observations: 2,096
@@ -571,21 +557,15 @@ glimpse(kc1_tbl)</code></pre>
 ## $ LOC_TOTAL             (dbl) 5, 3, 3, 3, 12, 5, 3, 3, 3, 13, 12, 3, 1...
 ## $ Defective             (fctr) N, N, N, N, N, N, N, N, N, N, N, N, N, ...</code></pre>
 </div>
-</div>
-</div>
 <div id="other-libraries-and-tricks" class="section level2">
 <h2>Other libraries and tricks</h2>
-<p>lubridate package contains a number of functions facilitating the conversion of text to POSIX dates. As an example, consider the following code.</p>
+<p>The <code>lubridate</code> package contains a number of functions facilitating the conversion of text to POSIX dates. As an example, consider the following code. We may use this, for example, with time series.</p>
 <p>For example <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf" class="uri">https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf</a></p>
-<pre class="r"><code>library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: 'lubridate'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
-## 
-##     date</code></pre>
-<pre class="r"><code>dates &lt;- c(&quot;15/02/2013&quot;, &quot;15 Feb 13&quot;, &quot;It happened on 15 02 '13&quot;)
+<pre class="r"><code>library(lubridate)
+dates &lt;- c(&quot;15/02/2013&quot;, &quot;15 Feb 13&quot;, &quot;It happened on 15 02 '13&quot;)
 dmy(dates)</code></pre>
 <pre><code>## [1] &quot;2013-02-15&quot; &quot;2013-02-15&quot; &quot;2013-02-15&quot;</code></pre>
+</div>
 </div>
 
 

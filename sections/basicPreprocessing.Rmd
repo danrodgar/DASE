@@ -32,7 +32,7 @@ Three types of problems are usually associated with MVs in DM [5]:
 
 Imputation consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and imputation methods are needed. 
 
-In R, a missing value is represented with $NA$ and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the *na.rm* option.
+In R, a missing value is represented with `NA` and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the `na.rm` option.
 
 
 
@@ -43,13 +43,9 @@ We can use simple approaches such as the replacing the missing values with the m
 More elaborated approaches include:
 
   + EM (Expectation-Maximisation)
-
   + Distance-based
-    
       + kNN (k Nearest Neighbours)
-      
       + Clustering
-      
 
 ## Noise
 
@@ -72,15 +68,16 @@ Types of Noise Data:
 
 There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist. 
 
-```{r echo=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(DMwR)
 library(foreign)
 
 kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
 ```
 
+The LOF algorithm (`lofactor`), given a data set it produces a vector of local outlier factors for each case.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 kc1num <- kc1[,1:21]
 outlier.scores <- lofactor(kc1num, k=5)
 plot(density(na.omit(outlier.scores)))
@@ -93,7 +90,7 @@ print(outliers)
 Another simple method of Hiridoglou and Berthelot for positive observations.
 
 
-## Feature selection
+## Feature selection (FS)
 
 Feature Selection (FS) aims at identifying the most relevant attributes from a dataset. It is important in different ways:
 
@@ -166,28 +163,27 @@ This process transforms continuous attributes into discrete ones, by associating
 
 -square
 
+
+
+## Correlation Coefficient and Covariance for Numeric Data
+
 Two random variables $x$ and $y$ are called independent if the probability distribution of one variable is not affected by the presence of another.
 
 
 $\tilde{\chi}^2=\frac{1}{d}\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}$
 
-```{r}
-library(foreign)
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+```{r message=FALSE, warning=FALSE}
 
 chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)
 chisq.test(kc1$DESIGN_COMPLEXITY,kc1$CYCLOMATIC_COMPLEXITY)
 ```
-
-### Correlation Coefficient and Covariance for Numeric Data
-
 ## Normalization
 
 ### Min-Max Normalization
 
 $z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)}$
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(caret)
 preObj <- preProcess(kc1[, -22], method=c("center", "scale"))
 ```
@@ -198,7 +194,7 @@ TBD
 
 ## Transformations
 
-### Linear Transformations and  Quadratic Transformations
+### Linear Transformations and  Quadratic Trans formations
 TBD
 
 ### Box-cox transformation 
@@ -207,9 +203,11 @@ TBD
 ### Nominal to Binary tranformations
 TBD
 
-###  Pre-processing in R
 
-#### dplyr package
+#  Preprocessing in R
+
+
+## The dplyr package
 
 The *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* package created by Hadley Wickham. Some functions are similar to SQL syntax and it key functions in dplyr include:
 
@@ -225,9 +223,8 @@ Tutorial:
 
 Examples
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(dplyr)
-data(kc1)
 ```
 
 Describe the dataframe:
@@ -236,7 +233,7 @@ Describe the dataframe:
 str(kc1)
 ```
 
-tbl_df creates a “local data frame” as a wrapper for better printing
+`tbl_df` creates a “local data frame” as a wrapper for better printing
 
 ```{r}
 kc1_tbl <- tbl_df(kc1)
@@ -255,7 +252,8 @@ Select:
 ```{r}
 select(kc1_tbl, contains("LOC"), Defective)
 ```
-c1_tbl, contains("LOC"), Defective
+
+Now, `kc1_tbl` contains("LOC"), Defective
 
 
 Filter and Select together:
@@ -282,7 +280,7 @@ kc1_tbl %>%
     arrange(LOC_TOTAL)
 ```
 
-Arrange descending
+Arrange descending:
 ```{r}
 kc1_tbl %>%
     select(LOC_TOTAL, Defective) %>%
@@ -291,7 +289,6 @@ kc1_tbl %>%
 
 
 Mutate:
-
 ```{r}
 kc1_tbl %>%
     filter(Defective == "Y") %>%
@@ -317,7 +314,7 @@ kc1_tbl %>%
 ```
 It seems than Defective modules are larger than the non-Defective ones.
 
-Count with 
+Count with:
 ```{r}
 # n() or tally
 kc1_tbl %>%
@@ -325,8 +322,8 @@ kc1_tbl %>%
     tally()
 ```
 
+It seems that it's an imbalanced dataset...
 
-Upps! It seems that it's an imbalanced dataset
 
 
 ```{r}
@@ -342,12 +339,14 @@ glimpse(kc1_tbl)
 
 ## Other libraries and tricks
 
-lubridate package contains a number of functions facilitating the conversion of text to
-POSIX dates. As an example, consider the following code.
+The `lubridate` package contains a number of functions facilitating the conversion of text to
+POSIX dates. As an example, consider the following code. We may use this, for example, with time series.
 
 
 For example [https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf](https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf)
-```{r}
+
+
+```{r message=FALSE, warning=FALSE}
 library(lubridate)
 dates <- c("15/02/2013", "15 Feb 13", "It happened on 15 02 '13")
 dmy(dates)
