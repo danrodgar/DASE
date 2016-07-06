@@ -487,7 +487,7 @@ confusionMatrix(data=plsClasses,kc1.test$Defective)</code></pre>
 <p>Some datasets contain CK and other 11 object oriented metrics for the last version of the system plus categorized (with severity and priority) post-release defects. Using such dataset:</p>
 <pre class="r"><code>jdt &lt;- read.csv(&quot;../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv&quot;, sep=&quot;;&quot;)
 
-# We just use the number of bugs
+# We just use the number of bugs, so we removed others
 jdt$classname &lt;- NULL
 jdt$nonTrivialBugs &lt;- NULL
 jdt$majorBugs &lt;- NULL
@@ -503,9 +503,13 @@ library(caret)
 set.seed(1)
 inTrain &lt;- createDataPartition(y=jdt$bugs,p=.8,list=FALSE)
 jdt.train &lt;- jdt[inTrain,]
-jdt.test &lt;- jdt[-inTrain,]
-
-ctrl &lt;- trainControl(method = &quot;repeatedcv&quot;,repeats=3)
+jdt.test &lt;- jdt[-inTrain,]</code></pre>
+<p>For example, using Binary Logistic Regression (BLR)</p>
+<p>BLR models fault-proneness are as follows</p>
+<p><span class="math display">\[fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}\]</span></p>
+<p>where the simplest form for logit is:</p>
+<p><span class="math inline">\(logit(X) = c_{0} + c_{1}X\)</span></p>
+<pre class="r"><code># logit regression
 glmModel &lt;- train (bugs ~ ., data=jdt.train, method=&quot;glm&quot;)
 glmModel</code></pre>
 <pre><code>## Generalized Linear Model 
@@ -522,6 +526,9 @@ glmModel</code></pre>
 ##   0.9307226  0.3116436
 ## 
 ## </code></pre>
+<p>TO do. Draw the results</p>
+<p>results &lt;- predict(glmModel, jdt.test, type = “raw”) head(results,3)</p>
+<p>x &lt;- seq(0, 1, 0.01) lines(x, results)</p>
 <pre class="r"><code>ctrl &lt;- trainControl(method = &quot;repeatedcv&quot;,repeats=3)
 glmModel &lt;- train (bugs ~ ., data=jdt.train, method=&quot;glm&quot;, trControl=ctrl, preProc=c(&quot;center&quot;,&quot;scale&quot;))
 glmModel</code></pre>
@@ -539,6 +546,7 @@ glmModel</code></pre>
 ##   0.7916707  0.3964421
 ## 
 ## </code></pre>
+<p>Others such as Elasticnet:</p>
 <pre class="r"><code>glmnetModel &lt;- train (bugs ~ ., data=jdt.train, method=&quot;glmnet&quot;, trControl=ctrl, preProc=c(&quot;center&quot;,&quot;scale&quot;))</code></pre>
 <pre><code>## Loading required package: glmnet</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
@@ -647,7 +655,7 @@ summary(c50t)</code></pre>
 ##  kc1.train[, ncol(kc1.train)])
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Mon Jul  4 22:44:01 2016
+## C5.0 [Release 2.07 GPL Edition]      Wed Jul  6 10:00:13 2016
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'
@@ -729,7 +737,7 @@ summary(c50r)</code></pre>
 ##  kc1.train[, ncol(kc1.train)], rules = TRUE)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Mon Jul  4 22:44:02 2016
+## C5.0 [Release 2.07 GPL Edition]      Wed Jul  6 10:00:15 2016
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'

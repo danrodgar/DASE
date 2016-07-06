@@ -270,15 +270,42 @@ set.seed(1)
 inTrain <- createDataPartition(y=jdt$bugs,p=.8,list=FALSE)
 jdt.train <- jdt[inTrain,]
 jdt.test <- jdt[-inTrain,]
+```
 
-ctrl <- trainControl(method = "repeatedcv",repeats=3)
+For example, using Binary Logistic Regression (BLR)
+
+BLR models fault-proneness are as follows
+
+$$fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}$$
+
+where the simplest form for logit is:
+
+$logit(X) = c_{0} + c_{1}X$
+
+```{r warning=FALSE}
+# logit regression
 glmModel <- train (bugs ~ ., data=jdt.train, method="glm")
 glmModel
+```
 
+TO do. Draw the results
+
+results <- predict(glmModel, jdt.test, type = "raw")
+head(results,3)
+
+x <- seq(0, 1, 0.01)
+lines(x, results)
+
+```{r warning=FALSE}
 ctrl <- trainControl(method = "repeatedcv",repeats=3)
 glmModel <- train (bugs ~ ., data=jdt.train, method="glm", trControl=ctrl, preProc=c("center","scale"))
 glmModel
+```
 
+
+Others such as Elasticnet:
+
+```{r warning=FALSE}
 glmnetModel <- train (bugs ~ ., data=jdt.train, method="glmnet", trControl=ctrl, preProc=c("center","scale"))
 glmnetModel
 ```
