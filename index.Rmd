@@ -68,11 +68,13 @@ Javier Dolado (UPV/EHU) and Daniel Rodriguez (UAH)
    + p-values
    + Equivalence Hypothesis Testing
    
-11 [Time Series](./sections/timeSeries.html)
+11 [Text Mining](./sections/textMiningSE.html)   
+   
+12 [Time Series](./sections/timeSeries.html)
 
-12 [Social Network Analysis](./sections/SNAinSE.html)
+13 [Social Network Analysis](./sections/SNAinSE.html)
 
-13 [Dealing with Large Volumes of Data](./sections/bigData.html)
+14 [Dealing with Large Volumes of Data](./sections/bigData.html)
 
    + Apache Spark Introduction
 
