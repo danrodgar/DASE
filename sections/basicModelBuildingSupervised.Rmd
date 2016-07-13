@@ -272,30 +272,6 @@ jdt.train <- jdt[inTrain,]
 jdt.test <- jdt[-inTrain,]
 ```
 
-For example, using Binary Logistic Regression (BLR)
-
-BLR models fault-proneness are as follows
-
-$$fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}$$
-
-where the simplest form for logit is:
-
-$logit(X) = c_{0} + c_{1}X$
-
-```{r warning=FALSE}
-# logit regression
-glmModel <- train (bugs ~ ., data=jdt.train, method="glm")
-glmModel
-```
-
-TO do. Draw the results
-
-results <- predict(glmModel, jdt.test, type = "raw")
-head(results,3)
-
-x <- seq(0, 1, 0.01)
-lines(x, results)
-
 ```{r warning=FALSE}
 ctrl <- trainControl(method = "repeatedcv",repeats=3)
 glmModel <- train (bugs ~ ., data=jdt.train, method="glm", trControl=ctrl, preProc=c("center","scale"))
@@ -308,6 +284,77 @@ Others such as Elasticnet:
 ```{r warning=FALSE}
 glmnetModel <- train (bugs ~ ., data=jdt.train, method="glmnet", trControl=ctrl, preProc=c("center","scale"))
 glmnetModel
+```
+
+
+
+
+# Binary Logistic Regression (BLR)
+
+```{r warning=FALSE}
+jdt <- read.csv("../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
+
+# Caret
+library(caret)
+
+# Convert the response variable into a boolean variable (0/1)
+jdt$bugs[jdt$bugs>=1]<-1
+
+cbo <- jdt$cbo
+bugs <- jdt$bugs
+
+# Split data into training and test datasets
+jdt2 = data.frame(cbo, bugs)
+inTrain <- createDataPartition(y=jdt2$bugs,p=.8,list=FALSE)
+jdtTrain <- jdt2[inTrain,]
+jdtTest <- jdt2[-inTrain,]
+```
+
+BLR models fault-proneness are as follows
+
+$$fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}$$
+
+where the simplest form for logit is:
+
+$logit(X) = c_{0} + c_{1}X$
+
+```{r warning=FALSE}
+# logit regression
+# glmLogit <- train (bugs ~ ., data=jdt.train, method="glm", family=binomial(link = logit))       
+
+glmLogit <- glm (bugs ~ ., data=jdtTrain, family=binomial(link = logit))
+summary(glmLogit)
+
+```
+
+
+Predict a single point:
+```{r warning=FALSE}
+newData = data.frame(cbo = 3)
+predict(glmLogit, newData, type = "response")
+```
+
+Draw the results, modified from:
+http://www.shizukalab.com/toolkits/plotting-logistic-regression-in-r
+
+
+```{r warning=FALSE}
+results <- predict(glmLogit, jdtTest, type = "response")
+
+range(jdtTrain$cbo)
+range(results)
+
+plot(jdt2$cbo,jdt2$bugs)
+curve(predict(glmLogit, data.frame(cbo=x), type = "response"),add=TRUE)
+# points(jdtTrain$cbo,fitted(glmLogit))
+```
+
+
+Another type of graph:
+
+```{r warning=FALSE}
+library(popbio)
+logi.hist.plot(jdt2$cbo,jdt2$bugs,boxp=FALSE,type="hist",col="gray")
 ```
 
 
