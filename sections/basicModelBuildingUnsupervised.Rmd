@@ -23,7 +23,7 @@ From the predictive (unsupervised) point of view, patterns are found to predict 
 library(foreign)
 library(fpc)
 
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
 
 # Split into training and test datasets
 set.seed(1)

@@ -44,7 +44,7 @@ t.test(data, mu=50, alternative = 'greater')
 
 ```{r echo=FALSE}
 library(foreign)
-chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("./datasets/china3AttSelectedAFPTrain.arff")
 logchina_size <- log(chinaTrain$AFP)
 logchina_effort <- log(chinaTrain$Effort)
 linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)

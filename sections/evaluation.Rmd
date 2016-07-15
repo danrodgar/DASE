@@ -61,7 +61,7 @@ Having done this for all $k$ we estimate the accuracy of the method by averaging
   
 ```{r}
 library(foreign)
-chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("./datasets/china3AttSelectedAFPTrain.arff")
 nrow(chinaTrain)
 logchina_size <- log(chinaTrain$AFP)
 logchina_effort <- log(chinaTrain$Effort)

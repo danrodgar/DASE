@@ -37,15 +37,15 @@ In R, we can use the "rgp" package
 library(foreign)
 
 #read data
-telecom1 <- read.table("../datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") 
+telecom1 <- read.table("./datasets/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") 
  
 size_telecom1 <- telecom1$size
 effort_telecom1 <- telecom1$effort
 
-chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("./datasets/china3AttSelectedAFPTrain.arff")
 china_train_size <- chinaTrain$AFP 
 china_train_effort <- chinaTrain$Effort
-chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
+chinaTest <- read.arff("./datasets/china3AttSelectedAFPTest.arff")
 china_size_test <- chinaTest$AFP
 actualEffort <- chinaTest$Effort
 ```
@@ -153,12 +153,12 @@ TO BE FIXED!!!: The following is an example with the neuralnet package (TO DO, d
 library(foreign)
 library(neuralnet)
 
-chinaTrain <- read.arff("../datasets/china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("./datasets/china3AttSelectedAFPTrain.arff")
 
 afpsize <- chinaTrain$AFP
 effort_china <- chinaTrain$Effort
 
-chinaTest <- read.arff("../datasets/china3AttSelectedAFPTest.arff")
+chinaTest <- read.arff("./datasets/china3AttSelectedAFPTest.arff")
 AFPTest <- chinaTest$AFP
 actualEffort <- chinaTest$Effort
 
@@ -265,7 +265,7 @@ getModelInfo()$gbm$type
 ```{r}
 library(foreign)
 library(caret)
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
 
 # Split data into training and test datasets
 # TODO: Improve this with createDataParticion from Caret

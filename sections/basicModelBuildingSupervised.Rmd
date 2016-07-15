@@ -68,10 +68,9 @@ Fitting a linear model to log-log
   - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.
 
 
-
-```{r}
+```{r warning=FALSE}
 library(foreign)
-china <- read.arff("../datasets/china.arff")
+china <- read.arff("./datasets/china.arff")
 china_size <- china$AFP
 summary(china_size)
 china_effort <- china$Effort
@@ -151,7 +150,7 @@ For example, using one of the NASA datasets used extensively in defect predictio
 library(caret)
 library(foreign)
 
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
 str(kc1)
 ```
 
@@ -251,7 +250,7 @@ From the Bug Predictiono Repository [http://bug.inf.usi.ch/download.php](http://
 Some datasets contain CK and other 11 object oriented metrics for the last version of the system plus categorized (with severity and priority) post-release defects. Using such dataset:
 
 ```{r warning=FALSE}
-jdt <- read.csv("../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
+jdt <- read.csv("./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
 
 # We just use the number of bugs, so we removed others
 jdt$classname <- NULL
@@ -292,7 +291,7 @@ glmnetModel
 # Binary Logistic Regression (BLR)
 
 ```{r warning=FALSE}
-jdt <- read.csv("../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
+jdt <- read.csv("./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
 
 # Caret
 library(caret)
@@ -368,7 +367,7 @@ There are several packages for inducing classification trees, for example with t
 # Build a decision tree
 library(party)
 
-kc2 <- read.arff("../datasets/defectPred/D1/MC1.arff")
+kc2 <- read.arff("./datasets/defectPred/D1/MC1.arff")
 str(kc2)
 
 set.seed(1)

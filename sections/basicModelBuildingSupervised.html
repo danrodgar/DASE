@@ -226,7 +226,7 @@ abline(c(0,0),col=&quot;red&quot;,lwd=3)</code></pre>
 <h3>Effort estimation</h3>
 <p>Fitting a linear model to log-log - the predictive power equation is <span class="math inline">\(y= e^{b_0 + b_1 log(x)}\)</span>, ignoring the bias corrections - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.</p>
 <pre class="r"><code>library(foreign)
-china &lt;- read.arff(&quot;../datasets/china.arff&quot;)
+china &lt;- read.arff(&quot;./datasets/china.arff&quot;)
 china_size &lt;- china$AFP
 summary(china_size)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -298,7 +298,7 @@ plot(linmodel_logchina, ask = FALSE)</code></pre>
 ##     cluster</code></pre>
 <pre class="r"><code>library(foreign)
 
-kc1 &lt;- read.arff(&quot;../datasets/defectPred/D1/KC1.arff&quot;)
+kc1 &lt;- read.arff(&quot;./datasets/defectPred/D1/KC1.arff&quot;)
 str(kc1)</code></pre>
 <pre><code>## 'data.frame':    2096 obs. of  22 variables:
 ##  $ LOC_BLANK            : num  0 0 0 0 2 0 0 0 0 2 ...
@@ -485,7 +485,7 @@ confusionMatrix(data=plsClasses,kc1.test$Defective)</code></pre>
 <h3>Predicting the number of defects (numerical class)</h3>
 <p>From the Bug Predictiono Repository <a href="http://bug.inf.usi.ch/download.php" class="uri">http://bug.inf.usi.ch/download.php</a></p>
 <p>Some datasets contain CK and other 11 object oriented metrics for the last version of the system plus categorized (with severity and priority) post-release defects. Using such dataset:</p>
-<pre class="r"><code>jdt &lt;- read.csv(&quot;../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv&quot;, sep=&quot;;&quot;)
+<pre class="r"><code>jdt &lt;- read.csv(&quot;./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv&quot;, sep=&quot;;&quot;)
 
 # We just use the number of bugs, so we removed others
 jdt$classname &lt;- NULL
@@ -556,7 +556,7 @@ glmModel</code></pre>
 </div>
 <div id="binary-logistic-regression-blr" class="section level1">
 <h1>Binary Logistic Regression (BLR)</h1>
-<pre class="r"><code>jdt &lt;- read.csv(&quot;../datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv&quot;, sep=&quot;;&quot;)
+<pre class="r"><code>jdt &lt;- read.csv(&quot;./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv&quot;, sep=&quot;;&quot;)
 
 # Caret
 library(caret)
@@ -634,7 +634,7 @@ curve(predict(glmLogit, data.frame(cbo=x), type = &quot;response&quot;),add=TRUE
 <pre class="r"><code># Build a decision tree
 library(party)
 
-kc2 &lt;- read.arff(&quot;../datasets/defectPred/D1/MC1.arff&quot;)
+kc2 &lt;- read.arff(&quot;./datasets/defectPred/D1/MC1.arff&quot;)
 str(kc2)</code></pre>
 <pre><code>## 'data.frame':    9277 obs. of  39 variables:
 ##  $ LOC_BLANK                      : num  0 0 0 0 0 0 0 0 0 0 ...
@@ -704,7 +704,7 @@ summary(c50t)</code></pre>
 ##  kc1.train[, ncol(kc1.train)])
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Wed Jul 13 23:15:03 2016
+## C5.0 [Release 2.07 GPL Edition]      Fri Jul 15 22:26:59 2016
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'
@@ -786,7 +786,7 @@ summary(c50r)</code></pre>
 ##  kc1.train[, ncol(kc1.train)], rules = TRUE)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]      Wed Jul 13 23:15:04 2016
+## C5.0 [Release 2.07 GPL Edition]      Fri Jul 15 22:27:00 2016
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'

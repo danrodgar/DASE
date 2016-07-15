@@ -18,7 +18,7 @@ library(foreign)
 ### Use the segmentationData from caret
 # Load the data and construct indices to divided it into training and test data sets.
 #set.seed(10)
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
 ```
 
 
@@ -76,7 +76,7 @@ plsFit <- train(Defective ~ .,
 ```
 
 ```{r}
-testPred <- predict(gbmFit1, testing)
+testPred <- predict(plsFit, testing)
 postResample(testPred, testing$Defective)
 sensitivity(testPred, testing$Defective)
 confusionMatrix(testPred, testing$Defective)

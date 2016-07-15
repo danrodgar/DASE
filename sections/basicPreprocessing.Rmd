@@ -72,7 +72,7 @@ There is a large amount of literature related to outlier detection, and furtherm
 library(DMwR)
 library(foreign)
 
-kc1 <- read.arff("../datasets/defectPred/D1/KC1.arff")
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
 ```
 
 The LOF algorithm (`lofactor`), given a data set it produces a vector of local outlier factors for each case.
