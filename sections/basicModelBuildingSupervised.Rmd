@@ -35,7 +35,7 @@ Columns are usually called attributes and there is class attribute, which can be
 
 Not related to Software Engineering but ...
 
-```{r}
+```{r warning=FALSE}
 library(UsingR); data(galton)
 par(mfrow=c(1,2))
 hist(galton$child,col="blue",breaks=100)
