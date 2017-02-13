@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis in Software Engineering with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="DASE with bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis in Software Engineering with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="DASE with bookdown::gitbook." />
+  <meta name="github-repo" content="danrodgar/dasedown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis in Software Engineering with R" />
+  
+  <meta name="twitter:description" content="DASE with bookdown::gitbook." />
+  
+
+<meta name="author" content="Javier Dolado and Daniel Rodriguez">
+
+
+<meta name="date" content="2017-02-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis in Software Engineering with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="part"><span><b>I Introduction to the R Language</b></span></li>
+<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-intro.html"><a href="r-intro.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.2</b> Basic Data Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-intro.html"><a href="r-intro.html#mising-values"><i class="fa fa-check"></i><b>1.2.1</b> Mising values</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.3</b> Vectors</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="r-intro.html"><a href="r-intro.html#coercion-for-vectors"><i class="fa fa-check"></i><b>1.3.1</b> Coercion for vectors</a></li>
+<li class="chapter" data-level="1.3.2" data-path="r-intro.html"><a href="r-intro.html#vector-arithmetic"><i class="fa fa-check"></i><b>1.3.2</b> Vector arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#arrays-and-matrices"><i class="fa fa-check"></i><b>1.4</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="1.5" data-path="r-intro.html"><a href="r-intro.html#factors"><i class="fa fa-check"></i><b>1.5</b> Factors</a></li>
+<li class="chapter" data-level="1.6" data-path="r-intro.html"><a href="r-intro.html#lists"><i class="fa fa-check"></i><b>1.6</b> Lists</a></li>
+<li class="chapter" data-level="1.7" data-path="r-intro.html"><a href="r-intro.html#data-frames"><i class="fa fa-check"></i><b>1.7</b> Data frames</a></li>
+<li class="chapter" data-level="1.8" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.8</b> Reading Data</a></li>
+<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.9</b> Plots</a></li>
+<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.10</b> Flow of Control</a></li>
+</ul></li>
+<li class="part"><span><b>II Introduction to Data Mining</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#the-aim-of-data-analysis-and-statistical-learning"><i class="fa fa-check"></i><b>2.1</b> The Aim of Data Analysis and Statistical Learning</a></li>
+<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#basic-references"><i class="fa fa-check"></i><b>2.2</b> Basic References</a></li>
+<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-r"><i class="fa fa-check"></i><b>2.3</b> Data Mining with R</a></li>
+<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.4</b> Data Mining with Weka</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#types-of-information-stored-in-the-repositories"><i class="fa fa-check"></i><b>3.1</b> Types of information stored in the repositories</a></li>
+<li class="chapter" data-level="3.2" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#repositories"><i class="fa fa-check"></i><b>3.2</b> Repositories</a></li>
+<li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-tools-to-extract-data-and-dashboards"><i class="fa fa-check"></i><b>3.3</b> Some Tools to extract data and dashboards</a></li>
+<li class="chapter" data-level="3.4" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#references-to-be-fixed"><i class="fa fa-check"></i><b>3.4</b> References (To be fixed)</a></li>
+</ul></li>
+<li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>4.2</b> Basic Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html"><i class="fa fa-check"></i><b>5</b> Descriptive Statistics</a><ul>
+<li class="chapter" data-level="5.1" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#normality"><i class="fa fa-check"></i><b>5.1</b> Normality</a></li>
+<li class="chapter" data-level="5.2" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#getting-the-data.-descriptive-statistics."><i class="fa fa-check"></i><b>5.2</b> Getting the Data. Descriptive statistics.</a></li>
+<li class="chapter" data-level="5.3" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#china-dataset"><i class="fa fa-check"></i><b>5.3</b> China dataset</a></li>
+<li class="chapter" data-level="5.4" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#normality.-galton-data"><i class="fa fa-check"></i><b>5.4</b> Normality. Galton data</a></li>
+<li class="chapter" data-level="5.5" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#normalization"><i class="fa fa-check"></i><b>5.5</b> Normalization</a></li>
+<li class="chapter" data-level="5.6" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#china-dataset.-correlation."><i class="fa fa-check"></i><b>5.6</b> China dataset. Correlation.</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Classical Hypothesis Testing</a><ul>
+<li class="chapter" data-level="6.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>6.1</b> p-values</a></li>
+</ul></li>
+<li class="part"><span><b>IV Basic Models</b></span></li>
+<li class="chapter" data-level="7" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html"><i class="fa fa-check"></i><b>7</b> Basics of Preprocessing</a><ul>
+<li class="chapter" data-level="7.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#missing-values"><i class="fa fa-check"></i><b>7.2</b> Missing values</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#imputation-methods"><i class="fa fa-check"></i><b>7.2.1</b> Imputation methods</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#noise"><i class="fa fa-check"></i><b>7.3</b> Noise</a></li>
+<li class="chapter" data-level="7.4" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#outliers"><i class="fa fa-check"></i><b>7.4</b> Outliers</a></li>
+<li class="chapter" data-level="7.5" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#feature-selection-fs"><i class="fa fa-check"></i><b>7.5</b> Feature selection (FS)</a></li>
+<li class="chapter" data-level="7.6" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>7.6</b> Instance selection</a></li>
+<li class="chapter" data-level="7.7" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#discretization"><i class="fa fa-check"></i><b>7.7</b> Discretization</a></li>
+<li class="chapter" data-level="7.8" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>7.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
+<li class="chapter" data-level="7.9" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>7.9</b> Normalization</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#min-max-normalization"><i class="fa fa-check"></i><b>7.9.1</b> Min-Max Normalization</a></li>
+<li class="chapter" data-level="7.9.2" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#z-score-normalization"><i class="fa fa-check"></i><b>7.9.2</b> Z-score normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#transformations"><i class="fa fa-check"></i><b>7.10</b> Transformations</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>7.10.1</b> Linear Transformations and Quadratic Trans formations</a></li>
+<li class="chapter" data-level="7.10.2" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#box-cox-transformation"><i class="fa fa-check"></i><b>7.10.2</b> Box-cox transformation</a></li>
+<li class="chapter" data-level="7.10.3" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>7.10.3</b> Nominal to Binary tranformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html"><i class="fa fa-check"></i><b>8</b> Preprocessing in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html#the-dplyr-package"><i class="fa fa-check"></i><b>8.1</b> The dplyr package</a></li>
+<li class="chapter" data-level="8.2" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>8.2</b> Other libraries and tricks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a><ul>
+<li class="chapter" data-level="9.1" data-path="supervised-classification.html"><a href="supervised-classification.html#regression"><i class="fa fa-check"></i><b>9.1</b> Regression</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-regression"><i class="fa fa-check"></i><b>9.1.1</b> Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-classification.html"><a href="supervised-classification.html#regression-galton-data"><i class="fa fa-check"></i><b>9.2</b> Regression: Galton Data</a></li>
+<li class="chapter" data-level="9.3" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>9.3</b> Linear Regression Diagnostics</a></li>
+<li class="chapter" data-level="9.4" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-regression-1"><i class="fa fa-check"></i><b>9.4</b> Linear regression</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="supervised-classification.html"><a href="supervised-classification.html#effort-estimation"><i class="fa fa-check"></i><b>9.4.1</b> Effort estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="supervised-classification.html"><a href="supervised-classification.html#supervised-classification-1"><i class="fa fa-check"></i><b>9.5</b> Supervised Classification</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="supervised-classification.html"><a href="supervised-classification.html#the-caret-package"><i class="fa fa-check"></i><b>9.5.1</b> The caret package</a></li>
+<li class="chapter" data-level="9.5.2" data-path="supervised-classification.html"><a href="supervised-classification.html#defect-prediction-as-a-running-example"><i class="fa fa-check"></i><b>9.5.2</b> Defect Prediction as a running example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.6</b> Linear Discriminant Analysis (LDA)</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="supervised-classification.html"><a href="supervised-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>9.6.1</b> Predicting the number of defects (numerical class)</a></li>
+<li class="chapter" data-level="9.6.2" data-path="supervised-classification.html"><a href="supervised-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>9.6.2</b> Binary Logistic Regression (BLR)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#classification-trees"><i class="fa fa-check"></i><b>9.7</b> Classification Trees</a></li>
+<li class="chapter" data-level="9.8" data-path="supervised-classification.html"><a href="supervised-classification.html#rules"><i class="fa fa-check"></i><b>9.8</b> Rules</a></li>
+<li class="chapter" data-level="9.9" data-path="supervised-classification.html"><a href="supervised-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>9.9</b> Distanced-based Methods</a></li>
+<li class="chapter" data-level="9.10" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.10</b> Probabilistic Methods</a><ul>
+<li class="chapter" data-level="9.10.1" data-path="supervised-classification.html"><a href="supervised-classification.html#naive-bayes"><i class="fa fa-check"></i><b>9.10.1</b> Naive Bayes</a></li>
+<li class="chapter" data-level="9.10.2" data-path="supervised-classification.html"><a href="supervised-classification.html#bayesian-networks"><i class="fa fa-check"></i><b>9.10.2</b> Bayesian Networks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Classification</a><ul>
+<li class="chapter" data-level="10.1" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html#clustering"><i class="fa fa-check"></i><b>10.1</b> Clustering</a></li>
+<li class="chapter" data-level="10.2" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html#association-rules"><i class="fa fa-check"></i><b>10.2</b> Association rules</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>11</b> Evaluation of Models</a><ul>
+<li class="chapter" data-level="11.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#underfitting-vs.overfitting"><i class="fa fa-check"></i><b>11.1</b> Underfitting vs. Overfitting</a></li>
+<li class="chapter" data-level="11.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>11.2</b> Building and Validating a Model</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>11.2.1</b> Holdout approach</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>11.3</b> Cross Validation (CV)</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#china-dataset.-split-data-into-training-and-testing"><i class="fa fa-check"></i><b>11.3.1</b> China dataset. Split data into Training and Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classifiers"><i class="fa fa-check"></i><b>11.4</b> Evaluation of Classifiers</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#discrete-evaluation"><i class="fa fa-check"></i><b>11.4.1</b> Discrete Evaluation</a></li>
+<li class="chapter" data-level="11.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>11.4.2</b> Prediction in probabilistic classifiers</a></li>
+<li class="chapter" data-level="11.4.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>11.4.3</b> Graphical Evaluation</a></li>
+<li class="chapter" data-level="11.4.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#metrics-used-in-software-engineering-and-defect-classification"><i class="fa fa-check"></i><b>11.4.4</b> Metrics used in Software Engineering and Defect Classification</a></li>
+<li class="chapter" data-level="11.4.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>11.4.5</b> Numeric Prediction Evaluation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html"><i class="fa fa-check"></i><b>12</b> Measures of Evaluation used in Software Engineering</a><ul>
+<li class="chapter" data-level="12.1" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>12.1</b> Evaluation of the model in the Testing data</a></li>
+<li class="chapter" data-level="12.2" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>12.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
+<li class="chapter" data-level="12.3" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>12.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
+<li class="chapter" data-level="12.4" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>12.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
+<li class="chapter" data-level="12.5" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>12.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>12.5.1</b> MARP0 in the Atkinson dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>12.6</b> Confidence Intervals. Bootstrap</a></li>
+<li class="chapter" data-level="12.7" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>12.7</b> Nonparametric Bootstrap</a></li>
+</ul></li>
+<li class="part"><span><b>V Advanced Topics</b></span></li>
+<li class="chapter" data-level="13" data-path="feature-selection.html"><a href="feature-selection.html"><i class="fa fa-check"></i><b>13</b> Feature Selection</a><ul>
+<li class="chapter" data-level="13.1" data-path="feature-selection.html"><a href="feature-selection.html#instance-selection-1"><i class="fa fa-check"></i><b>13.1</b> Instance Selection</a></li>
+<li class="chapter" data-level="13.2" data-path="feature-selection.html"><a href="feature-selection.html#missing-data-imputation"><i class="fa fa-check"></i><b>13.2</b> Missing Data Imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>14</b> Feature Selection Example</a></li>
+<li class="chapter" data-level="15" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>15</b> Advanced Models</a><ul>
+<li class="chapter" data-level="15.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>15.1</b> Genetic Programming for Symbolic Regression</a></li>
+<li class="chapter" data-level="15.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>15.2</b> Genetic Programming Example</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>15.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="15.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>15.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
+<li class="chapter" data-level="15.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>15.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks"><i class="fa fa-check"></i><b>15.3</b> Neural Networks</a></li>
+<li class="chapter" data-level="15.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>15.4</b> Support Vector Machines</a></li>
+<li class="chapter" data-level="15.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>15.5</b> Ensembles</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>15.5.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>15.5.2</b> Boosting</a></li>
+<li class="chapter" data-level="15.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>15.5.3</b> Rotation Forests</a></li>
+<li class="chapter" data-level="15.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>15.5.4</b> Boosting in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>16</b> Further Classification Models</a><ul>
+<li class="chapter" data-level="16.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>16.1</b> Multilabel classification</a></li>
+<li class="chapter" data-level="16.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>16.2</b> Semi-supervised Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>17</b> Social Network Analysis in SE</a></li>
+<li class="chapter" data-level="18" data-path="to-fix-and-to-do.html"><a href="to-fix-and-to-do.html"><i class="fa fa-check"></i><b>18</b> To fix and to do:</a></li>
+<li class="chapter" data-level="19" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html"><i class="fa fa-check"></i><b>19</b> Text Mining Soft Eng Data</a><ul>
+<li class="chapter" data-level="19.1" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>19.1</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="19.2" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>19.2</b> Extracting data from Twitter</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>20</b> Time Series</a><ul>
+<li class="chapter" data-level="20.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>20.1</b> Web tutorials about Time Series:</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis in Software Engineering with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-intro" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction to R</h1>
+<p>The goal of the first part of this book is to get you up to speed with the basics of <strong>R</strong> as quickly as possible.</p>
+<div id="r-and-rstudio" class="section level2">
+<h2><span class="header-section-number">1.1</span> R and RStudio</h2>
+<ul>
+<li>R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See <a href="https://en.wikipedia.org/wiki/R_(programming_language)">R in Wikipedia</a></li>
+<li>RStudio, RCommander and RKWard are the best known GUIs for R.</li>
+<li>R has multiple online resources and books.</li>
+<li><a href="https://google.github.io/styleguide/Rguide.xml">R coding style</a></li>
+<li>Getting help in R
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf">RStudio cheat sheet</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf">Base R cheat sheet</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf">Advanced R cheat sheet</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf">Data Visualization cheat sheet</a></li>
+<li>help(&quot; “) command</li>
+</ul></li>
+<li>R as a calculator. Console: It uses the command-line interface.</li>
+</ul>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)   <span class="co"># Create ordered collection (vector)</span>
+y &lt;-<span class="st"> </span>x^<span class="dv">2</span>              <span class="co"># Square the elements of x</span>
+<span class="kw">print</span>(y)              <span class="co"># print (vector) y</span></code></pre></div>
+<pre><code>## [1]  1  4  9 16 25 36</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(y)               <span class="co"># Calculate average (arithmetic mean) of (vector) y; result is scalar</span></code></pre></div>
+<pre><code>## [1] 15.16667</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(y)                <span class="co"># Calculate sample variance</span></code></pre></div>
+<pre><code>## [1] 178.9667</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm_1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x)     <span class="co"># Fit a linear regression model &quot;y = f(x)&quot; or &quot;y = B0 + (B1 * x)&quot;</span>
+                      <span class="co"># store the results as lm_1</span>
+<span class="kw">print</span>(lm_1)           <span class="co"># Print the model from the (linear model object) lm_1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      -9.333        7.000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm_1)         <span class="co"># Compute and print statistics for the fit</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##       1       2       3       4       5       6 
+##  3.3333 -0.6667 -2.6667 -2.6667 -0.6667  3.3333 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -9.3333     2.8441  -3.282 0.030453 *  
+## x             7.0000     0.7303   9.585 0.000662 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.055 on 4 degrees of freedom
+## Multiple R-squared:  0.9583, Adjusted R-squared:  0.9478 
+## F-statistic: 91.88 on 1 and 4 DF,  p-value: 0.000662</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">                      <span class="co"># of the (linear model object) lm_1</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))    <span class="co"># Request 2x2 plot layout</span>
+<span class="kw">plot</span>(lm_1)            <span class="co"># Diagnostic plot of regression model</span></code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-1-1.png" width="672" /> - R script. # A file with R commands # comments source(“filewithcommands.R”) sink(“recordmycommands.lis”) savehistory() - From command line: + Rscript<br />
+Rscript file | -e (e.g. Rscript -e 2+2)<br />
+quit()</p>
+<ul>
+<li>Variables</li>
+<li>Operators
+<ul>
+<li>assign operator &lt;-<br />
+</li>
+<li>sequence operator : Example: mynums &lt;- 0:20</li>
+<li>arithmetic operators: + - = / ^ %/% (integer division) %% (modulus operator)</li>
+</ul></li>
+<li>The workspace. Objects.
+<ul>
+<li>ls() objects() ls.str() lists and describes<br />
+</li>
+<li>rm(x) delete a variable</li>
+<li>s.str()</li>
+<li>objects()</li>
+<li>rm(totalCost)</li>
+<li>str( ) #(Structure) provides information about the variable</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li>Four # create an environment in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names.
+<ul>
+<li><a href="http://adv-r.had.co.nz/Environments.html#env-basics">Environment basics</a></li>
+</ul></li>
+</ul>
+<p><img src="figures/environments.png" width="75%" /></p>
+<p>Working directories:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set your working directory</span>
+<span class="co"># setwd(&quot;~/workingDir/&quot;)</span>
+<span class="kw">getwd</span>()</code></pre></div>
+<pre><code>## [1] &quot;/home/drg/Projects/DASEdown&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># record R commands:</span>
+<span class="co"># sink(&quot;recordmycommands.txt&quot;, append = TRUE)</span></code></pre></div>
+<hr />
+</div>
+<div id="basic-data-types" class="section level2">
+<h2><span class="header-section-number">1.2</span> Basic Data Types</h2>
+<ul>
+<li>class( )</li>
+<li>logical: TRUE FALSE</li>
+<li>numeric, integer:
+<ul>
+<li>is.numeric( )</li>
+<li>is.integer( )<br />
+</li>
+</ul></li>
+<li>character</li>
+</ul>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">FALSE</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">NA</span>  <span class="co"># missing</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="ot">NA</span>)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">T</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">F</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># numeric data type</span>
+<span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">2.5</span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">2L  <span class="co"># integer</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(2L)</code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.numeric</span>(<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.numeric</span>(2L)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.integer</span>(<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.integer</span>(2L)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<ul>
+<li>data type coercion:
+<ul>
+<li>as.numeric( )</li>
+<li>as.character( )<br />
+</li>
+<li>as.integer( )</li>
+</ul></li>
+</ul>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">truenum &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="ot">TRUE</span>)
+truenum</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(truenum)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">falsenum &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="ot">FALSE</span>)
+falsenum</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num2char &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="dv">55</span>)
+num2char</code></pre></div>
+<pre><code>## [1] &quot;55&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">char2num  &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="st">&quot;55.3&quot;</span>)
+
+char2int  &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="st">&quot;55.3&quot;</span>)</code></pre></div>
+<div id="mising-values" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Mising values</h3>
+<ul>
+<li>NA Not Available, which is not a number as well. It applies to missing values.</li>
+<li>NaN means ‘Not a Number’</li>
+</ul>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">NA</span> +<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="ot">NA</span>,<span class="dv">7</span>))</code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="ot">NA</span>,<span class="dv">7</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)  <span class="co"># some functions allow to remove NAs</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<hr />
+</div>
+</div>
+<div id="vectors" class="section level2">
+<h2><span class="header-section-number">1.3</span> Vectors</h2>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phases &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;reqs&quot;</span>, <span class="st">&quot;dev&quot;</span>, <span class="st">&quot;test1&quot;</span>, <span class="st">&quot;test2&quot;</span>, <span class="st">&quot;maint&quot;</span>)
+<span class="kw">str</span>(phases)</code></pre></div>
+<pre><code>##  chr [1:5] &quot;reqs&quot; &quot;dev&quot; &quot;test1&quot; &quot;test2&quot; &quot;maint&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(phases)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thevalues &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">60</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">22</span>)
+<span class="kw">names</span>(thevalues) &lt;-<span class="st"> </span>phases
+<span class="kw">str</span>(thevalues)</code></pre></div>
+<pre><code>##  Named num [1:5] 15 60 30 35 22
+##  - attr(*, &quot;names&quot;)= chr [1:5] &quot;reqs&quot; &quot;dev&quot; &quot;test1&quot; &quot;test2&quot; ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thevalues</code></pre></div>
+<pre><code>##  reqs   dev test1 test2 maint 
+##    15    60    30    35    22</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a single value is a vector</span>
+aphase &lt;-<span class="st"> </span><span class="dv">44</span>
+<span class="kw">is.vector</span>(aphase)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>A single value is a vector! Example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aphase &lt;-<span class="st"> </span><span class="dv">44</span>
+<span class="kw">is.vector</span>(aphase)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(aphase)</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(thevalues)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div id="coercion-for-vectors" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Coercion for vectors</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thevalues1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">60</span>, <span class="st">&quot;30&quot;</span>, <span class="dv">35</span>, <span class="dv">22</span>)
+<span class="kw">class</span>(thevalues1)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thevalues1</code></pre></div>
+<pre><code>## [1] &quot;15&quot; &quot;60&quot; &quot;30&quot; &quot;35&quot; &quot;22&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># &lt;-  is equivalent to   assign ( )</span>
+
+<span class="kw">assign</span>(<span class="st">&quot;costs&quot;</span>, <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">30</span>))</code></pre></div>
+</div>
+<div id="vector-arithmetic" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Vector arithmetic</h3>
+<p>It is done in all elements. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assign</span>(<span class="st">&quot;costs&quot;</span>, <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">30</span>))
+costs/<span class="dv">3</span></code></pre></div>
+<pre><code>## [1] 16.66667 33.33333 10.00000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">costs -<span class="st"> </span><span class="dv">5</span></code></pre></div>
+<pre><code>## [1] 45 95 25</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">costs &lt;-<span class="st"> </span>costs -<span class="st"> </span><span class="dv">5</span>
+
+incomes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">200</span>, <span class="dv">800</span>, <span class="dv">10</span>)
+earnings &lt;-<span class="st"> </span>incomes -<span class="st"> </span>costs
+<span class="kw">sum</span>(earnings)</code></pre></div>
+<pre><code>## [1] 845</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R recycles values in vectors!</span></code></pre></div>
+<p>Subsetting vectors</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Subsetting vectors  []
+
+phase1 &lt;-<span class="st"> </span>phases[<span class="dv">1</span>]
+phase1</code></pre></div>
+<pre><code>## [1] &quot;reqs&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phase3 &lt;-<span class="st"> </span>phases[<span class="dv">3</span>]
+phase3</code></pre></div>
+<pre><code>## [1] &quot;test1&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thevalues[phase1]</code></pre></div>
+<pre><code>## reqs 
+##   15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thevalues[<span class="st">&quot;reqs&quot;</span>]</code></pre></div>
+<pre><code>## reqs 
+##   15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testphases &lt;-<span class="st"> </span>phases[<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)]
+thevalues[testphases]</code></pre></div>
+<pre><code>## test1 test2 
+##    30    35</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Negative indexes
+
+phases1 &lt;-<span class="st"> </span>phases[-<span class="dv">5</span>]
+phases</code></pre></div>
+<pre><code>## [1] &quot;reqs&quot;  &quot;dev&quot;   &quot;test1&quot; &quot;test2&quot; &quot;maint&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phases1</code></pre></div>
+<pre><code>## [1] &quot;reqs&quot;  &quot;dev&quot;   &quot;test1&quot; &quot;test2&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#phases2 &lt;- phases[-testphases] ## error in argument</span>
+phases2 &lt;-<span class="st"> </span>phases[-<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)]
+phases2</code></pre></div>
+<pre><code>## [1] &quot;reqs&quot;  &quot;dev&quot;   &quot;maint&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### subset using logical vector
+
+phases3 &lt;-<span class="st"> </span>phases[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)] <span class="co">#recicled first value</span>
+phases3</code></pre></div>
+<pre><code>## [1] &quot;dev&quot;   &quot;test1&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selectionv &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+phases3 &lt;-<span class="st"> </span>phases[selectionv]
+phases3</code></pre></div>
+<pre><code>## [1] &quot;dev&quot;   &quot;test1&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selectionvec2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+
+thevalues2 &lt;-<span class="st"> </span>thevalues[selectionvec2]
+thevalues2</code></pre></div>
+<pre><code>##  reqs test1 maint 
+##    15    30    22</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Generating regular sequenceswith  : and seq
+
+aseqofvalues &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">20</span>
+
+aseqofvalues2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span>-<span class="dv">3</span>, <span class="dt">to=</span><span class="dv">3</span>, <span class="dt">by=</span><span class="fl">0.5</span> )
+aseqofvalues2</code></pre></div>
+<pre><code>##  [1] -3.0 -2.5 -2.0 -1.5 -1.0 -0.5  0.0  0.5  1.0  1.5  2.0  2.5  3.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues3 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dt">by=</span><span class="dv">10</span>)
+aseqofvalues4 &lt;-<span class="st"> </span>aseqofvalues3[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)]
+aseqofvalues4</code></pre></div>
+<pre><code>## [1] 10 30 50 70</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues4 &lt;-<span class="st"> </span>aseqofvalues3[-<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)]
+aseqofvalues4</code></pre></div>
+<pre><code>## [1]   0  20  40  60  80  90 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues3[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">666</span>,<span class="dv">888</span>)
+aseqofvalues3</code></pre></div>
+<pre><code>##  [1] 666 888  20  30  40  50  60  70  80  90 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Logical values in vectors TRUE/FALSE
+
+aseqofvalues3 &gt;<span class="st"> </span><span class="dv">50</span></code></pre></div>
+<pre><code>##  [1]  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues5 &lt;-<span class="st"> </span>aseqofvalues3[aseqofvalues3 &gt;<span class="st"> </span><span class="dv">50</span>]
+aseqofvalues5</code></pre></div>
+<pre><code>## [1] 666 888  60  70  80  90 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues6 &lt;-<span class="st"> </span>aseqofvalues3[!(aseqofvalues3 &gt;<span class="st"> </span><span class="dv">50</span>)]
+aseqofvalues6</code></pre></div>
+<pre><code>## [1] 20 30 40 50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Comparison functions
+
+aseqofvalues7 &lt;-<span class="st"> </span>aseqofvalues3[aseqofvalues3 ==<span class="st"> </span><span class="dv">50</span>]
+aseqofvalues7</code></pre></div>
+<pre><code>## [1] 50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues8 &lt;-<span class="st"> </span>aseqofvalues3[aseqofvalues3 ==<span class="st"> </span><span class="dv">22</span>]
+aseqofvalues8</code></pre></div>
+<pre><code>## numeric(0)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues9 &lt;-<span class="st"> </span>aseqofvalues3[aseqofvalues3 !=<span class="st"> </span><span class="dv">50</span>]
+aseqofvalues9</code></pre></div>
+<pre><code>##  [1] 666 888  20  30  40  60  70  80  90 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logicalcond &lt;-<span class="st"> </span>aseqofvalues3 &gt;=<span class="st"> </span><span class="dv">50</span>
+aseqofvalues10 &lt;-<span class="st"> </span>aseqofvalues3[logicalcond]
+aseqofvalues10</code></pre></div>
+<pre><code>## [1] 666 888  50  60  70  80  90 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Remove Missing Values (NAs)
+
+aseqofvalues3[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>,<span class="ot">NA</span>)
+aseqofvalues3</code></pre></div>
+<pre><code>##  [1]  NA  NA  20  30  40  50  60  70  80  90 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">aseqofvalues3 &lt;-<span class="st"> </span>aseqofvalues3[!<span class="kw">is.na</span>(aseqofvalues3)]
+aseqofvalues3</code></pre></div>
+<pre><code>## [1]  20  30  40  50  60  70  80  90 100</code></pre>
+<hr />
+</div>
+</div>
+<div id="arrays-and-matrices" class="section level2">
+<h2><span class="header-section-number">1.4</span> Arrays and Matrices</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">nrow =</span><span class="dv">2</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    3    5    7    9   11
+## [2,]    2    4    6    8   10   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">ncol =</span><span class="dv">3</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+## [3,]    3    7   11
+## [4,]    4    8   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    2    3    4    5    6
+## [2,]    7    8    9   10   11   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">4</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    7   10
+## [2,]    2    5    8   11
+## [3,]    3    6    9   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">4</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8
+## [3,]    9   10   11   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### recycling
+mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">5</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">4</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Warning in matrix(1:5, nrow = 3, ncol = 4, byrow = TRUE): data length [5]
+## is not a sub-multiple or multiple of the number of rows [3]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    1    2    3
+## [3,]    4    5    1    2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### rbind  cbind
+
+<span class="kw">cbind</span>(<span class="dv">1</span>:<span class="dv">3</span>, <span class="dv">1</span>:<span class="dv">3</span>)</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbind</span>(<span class="dv">1</span>:<span class="dv">3</span>, <span class="dv">1</span>:<span class="dv">3</span>)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    1    2    3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>)
+
+mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">8</span>, <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">4</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbind</span>(mymat, <span class="dv">9</span>:<span class="dv">12</span>)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8
+## [3,]    9   10   11   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat &lt;-<span class="st"> </span><span class="kw">cbind</span>(mymat, <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">9</span>))
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    5    6    7    8    9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">8</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(mymat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;row1&quot;</span>, <span class="st">&quot;row2&quot;</span>)
+mymat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## row1    1    2    3    4
+## row2    5    6    7    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(mymat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>, <span class="st">&quot;col4&quot;</span>)
+mymat</code></pre></div>
+<pre><code>##      col1 col2 col3 col4
+## row1    1    2    3    4
+## row2    5    6    7    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">dimnames=</span><span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;row1&quot;</span>, <span class="st">&quot;row2&quot;</span>, <span class="st">&quot;row3&quot;</span>),
+                                                         <span class="kw">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>, <span class="st">&quot;col4&quot;</span>)))
+mymat2</code></pre></div>
+<pre><code>##      col1 col2 col3 col4
+## row1    1    2    3    4
+## row2    5    6    7    8
+## row3    9   10   11   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Coercion in Arrays
+
+matnum &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">8</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)
+matnum</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    5
+## [2,]    2    6
+## [3,]    3    7
+## [4,]    4    8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matchar &lt;-<span class="st"> </span><span class="kw">matrix</span>(LETTERS[<span class="dv">1</span>:<span class="dv">6</span>], <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)
+matchar</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,] &quot;A&quot;  &quot;E&quot;  &quot;C&quot; 
+## [2,] &quot;B&quot;  &quot;F&quot;  &quot;D&quot; 
+## [3,] &quot;C&quot;  &quot;A&quot;  &quot;E&quot; 
+## [4,] &quot;D&quot;  &quot;B&quot;  &quot;F&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matchars &lt;-<span class="st"> </span><span class="kw">cbind</span>(matnum, matchar)
+matchars</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,] &quot;1&quot;  &quot;5&quot;  &quot;A&quot;  &quot;E&quot;  &quot;C&quot; 
+## [2,] &quot;2&quot;  &quot;6&quot;  &quot;B&quot;  &quot;F&quot;  &quot;D&quot; 
+## [3,] &quot;3&quot;  &quot;7&quot;  &quot;C&quot;  &quot;A&quot;  &quot;E&quot; 
+## [4,] &quot;4&quot;  &quot;8&quot;  &quot;D&quot;  &quot;B&quot;  &quot;F&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Subsetting  
+
+mymat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(-<span class="dv">8</span>:<span class="dv">15</span>, <span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">3</span>)
+mymat3</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    9   -2   13    5
+## [2,]   11    7   15   14
+## [3,]    8    4    1   -4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">1</span>,<span class="dv">4</span>]</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">3</span>,]</code></pre></div>
+<pre><code>## [1]  8  4  1 -4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[,<span class="dv">4</span>]</code></pre></div>
+<pre><code>## [1]  5 14 -4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">5</span>] <span class="co"># counts elements by column</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">9</span>]</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Subsetting multiple elements
+
+mymat3[<span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</code></pre></div>
+<pre><code>## [1] 11 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)]</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   11   15   14
+## [2,]    8    1   -4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(mymat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;r1&quot;</span>, <span class="st">&quot;r2&quot;</span>, <span class="st">&quot;r3&quot;</span>)
+<span class="kw">colnames</span>(mymat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c2&quot;</span>, <span class="st">&quot;c3&quot;</span>, <span class="st">&quot;c4&quot;</span>)
+mymat3[<span class="st">&quot;r2&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c3&quot;</span>)]</code></pre></div>
+<pre><code>## c1 c3 
+## 11 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Subset by logical vector
+mymat3[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>),
+       <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</code></pre></div>
+<pre><code>## c1 c3 
+## 11 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>),
+       <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>)]</code></pre></div>
+<pre><code>##    c1 c3 c4
+## r2 11 15 14
+## r3  8  1 -4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### matrix arithmetic
+
+row1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">220</span>, <span class="dv">137</span>)
+row2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">345</span>, <span class="dv">987</span>)
+row3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">111</span>, <span class="dv">777</span>)
+
+mymat4 &lt;-<span class="st"> </span><span class="kw">rbind</span>(row1, row2, row3)
+<span class="kw">rownames</span>(mymat4) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;row_1&quot;</span>, <span class="st">&quot;row_2&quot;</span>, <span class="st">&quot;row_3&quot;</span>)
+<span class="kw">colnames</span>(mymat4) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;col_1&quot;</span>, <span class="st">&quot;col_2&quot;</span>)
+mymat4</code></pre></div>
+<pre><code>##       col_1 col_2
+## row_1   220   137
+## row_2   345   987
+## row_3   111   777</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat4/<span class="dv">10</span></code></pre></div>
+<pre><code>##       col_1 col_2
+## row_1  22.0  13.7
+## row_2  34.5  98.7
+## row_3  11.1  77.7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat4 -<span class="dv">100</span></code></pre></div>
+<pre><code>##       col_1 col_2
+## row_1   120    37
+## row_2   245   887
+## row_3    11   677</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat5 &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">50</span>), <span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">10</span>), <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">100</span>))
+mymat5</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]   50   50
+## [2,]   10   10
+## [3,]  100  100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat4 -<span class="st"> </span>mymat5</code></pre></div>
+<pre><code>##       col_1 col_2
+## row_1   170    87
+## row_2   335   977
+## row_3    11   677</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat4 *<span class="st"> </span>(mymat5/<span class="dv">100</span>)</code></pre></div>
+<pre><code>##       col_1 col_2
+## row_1 110.0  68.5
+## row_2  34.5  98.7
+## row_3 111.0 777.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### index matrices
+
+m1 &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">1</span>:<span class="dv">20</span>, <span class="dt">dim=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>))
+m1</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    5    9   13   17
+## [2,]    2    6   10   14   18
+## [3,]    3    7   11   15   19
+## [4,]    4    8   12   16   20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">index &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">3</span>, <span class="dv">3</span>:<span class="dv">1</span>), <span class="dt">dim=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>))
+index</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    2
+## [3,]    3    1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m1[index] &lt;-<span class="dv">0</span>
+m1</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    5    0   13   17
+## [2,]    2    0   10   14   18
+## [3,]    0    7   11   15   19
+## [4,]    4    8   12   16   20</code></pre>
+<hr />
+</div>
+<div id="factors" class="section level2">
+<h2><span class="header-section-number">1.5</span> Factors</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personnel &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Analyst1&quot;</span>, <span class="st">&quot;ManagerL2&quot;</span>, <span class="st">&quot;Analyst1&quot;</span>, <span class="st">&quot;Analyst2&quot;</span>,  <span class="st">&quot;Boss&quot;</span>, <span class="st">&quot;ManagerL1&quot;</span>, <span class="st">&quot;ManagerL2&quot;</span>, <span class="st">&quot;Programmer1&quot;</span>, <span class="st">&quot;Programmer2&quot;</span>, <span class="st">&quot;Programmer3&quot;</span>, <span class="st">&quot;Designer1&quot;</span>,<span class="st">&quot;Designer2&quot;</span>, <span class="st">&quot;OtherStaff&quot;</span>)  <span class="co"># staff in a company</span>
+
+personnel_factors &lt;-<span class="st"> </span><span class="kw">factor</span>(personnel)
+personnel_factors  <span class="co">#sorted alphabetically</span></code></pre></div>
+<pre><code>##  [1] Analyst1    ManagerL2   Analyst1    Analyst2    Boss       
+##  [6] ManagerL1   ManagerL2   Programmer1 Programmer2 Programmer3
+## [11] Designer1   Designer2   OtherStaff 
+## 11 Levels: Analyst1 Analyst2 Boss Designer1 Designer2 ... Programmer3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(personnel_factors)</code></pre></div>
+<pre><code>##  Factor w/ 11 levels &quot;Analyst1&quot;,&quot;Analyst2&quot;,..: 1 7 1 2 3 6 7 9 10 11 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personnel2 &lt;-<span class="st"> </span><span class="kw">factor</span>(personnel, 
+                       <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Boss&quot;</span>, <span class="st">&quot;ManagerL1&quot;</span>, <span class="st">&quot;ManagerL2&quot;</span>, <span class="st">&quot;Analyst1&quot;</span>, <span class="st">&quot;Analyst2&quot;</span>,  <span class="st">&quot;Designer1&quot;</span>,<span class="st">&quot;Designer2&quot;</span>, <span class="st">&quot;Programmer1&quot;</span>, <span class="st">&quot;Programmer2&quot;</span>, <span class="st">&quot;Programmer3&quot;</span>, <span class="st">&quot;OtherStaff&quot;</span>))  <span class="co">#do not duplicate the same factors</span>
+personnel2</code></pre></div>
+<pre><code>##  [1] Analyst1    ManagerL2   Analyst1    Analyst2    Boss       
+##  [6] ManagerL1   ManagerL2   Programmer1 Programmer2 Programmer3
+## [11] Designer1   Designer2   OtherStaff 
+## 11 Levels: Boss ManagerL1 ManagerL2 Analyst1 Analyst2 ... OtherStaff</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(personnel2)</code></pre></div>
+<pre><code>##  Factor w/ 11 levels &quot;Boss&quot;,&quot;ManagerL1&quot;,..: 4 3 4 5 1 2 3 8 9 10 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(personnel2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A2&quot;</span>, <span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;P1&quot;</span>, <span class="st">&quot;P2&quot;</span>, <span class="st">&quot;P3&quot;</span>, <span class="st">&quot;OS&quot;</span>)
+personnel2</code></pre></div>
+<pre><code>##  [1] A1 M2 A1 A2 B  M1 M2 P1 P2 P3 D1 D2 OS
+## Levels: B M1 M2 A1 A2 D1 D2 P1 P2 P3 OS</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personnel3 &lt;-<span class="st"> </span><span class="kw">factor</span>(personnel,
+                     <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Boss&quot;</span>, <span class="st">&quot;ManagerL1&quot;</span>, <span class="st">&quot;ManagerL2&quot;</span>, <span class="st">&quot;Analyst1&quot;</span>, <span class="st">&quot;Analyst2&quot;</span>,  <span class="st">&quot;Designer1&quot;</span>,<span class="st">&quot;Designer2&quot;</span>, <span class="st">&quot;Programmer1&quot;</span>, <span class="st">&quot;Programmer2&quot;</span>, <span class="st">&quot;Programmer3&quot;</span>, <span class="st">&quot;OtherStaff&quot;</span>),
+                     <span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A2&quot;</span>, <span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;P1&quot;</span>, <span class="st">&quot;P2&quot;</span>, <span class="st">&quot;P3&quot;</span>, <span class="st">&quot;OS&quot;</span>))
+personnel3</code></pre></div>
+<pre><code>##  [1] A1 M2 A1 A2 B  M1 M2 P1 P2 P3 D1 D2 OS
+## Levels: B M1 M2 A1 A2 D1 D2 P1 P2 P3 OS</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Nominal versus ordinal, ordered factors
+personnel3[<span class="dv">1</span>] &lt;<span class="st"> </span>personnel3[<span class="dv">2</span>]  <span class="co"># error, factors not ordered</span></code></pre></div>
+<pre><code>## Warning in Ops.factor(personnel3[1], personnel3[2]): &#39;&lt;&#39; not meaningful for
+## factors</code></pre>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tshirts &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;S&quot;</span>, <span class="st">&quot;S&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;M&quot;</span>)
+
+tshirt_factor &lt;-<span class="st"> </span><span class="kw">factor</span>(tshirts, <span class="dt">ordered =</span> <span class="ot">TRUE</span>,
+                        <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;S&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;L&quot;</span>))
+tshirt_factor</code></pre></div>
+<pre><code>## [1] M L S S L M L M
+## Levels: S &lt; M &lt; L</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tshirt_factor[<span class="dv">1</span>] &lt;<span class="st"> </span>tshirt_factor[<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<hr />
+</div>
+<div id="lists" class="section level2">
+<h2><span class="header-section-number">1.6</span> Lists</h2>
+<ul>
+<li>‘[’ returns a list</li>
+<li>‘[[’ returns the list element</li>
+<li>‘$’ returns the content of that element in the list</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;R good times&quot;</span>, <span class="dv">190</span>, <span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] &quot;R good times&quot; &quot;190&quot;          &quot;5&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;R good times&quot;</span>, <span class="dv">190</span>, <span class="dv">5</span>)
+<span class="kw">is.list</span>(song)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(song)</code></pre></div>
+<pre><code>## List of 3
+##  $ : chr &quot;R good times&quot;
+##  $ : num 190
+##  $ : num 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(song) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;title&quot;</span>, <span class="st">&quot;duration&quot;</span>, <span class="st">&quot;track&quot;</span>)
+song</code></pre></div>
+<pre><code>## $title
+## [1] &quot;R good times&quot;
+## 
+## $duration
+## [1] 190
+## 
+## $track
+## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song$title</code></pre></div>
+<pre><code>## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&quot;Good Friends&quot;</span>, 
+              <span class="dt">duration =</span> <span class="dv">125</span>,
+              <span class="dt">track =</span> <span class="dv">2</span>,
+              <span class="dt">rank =</span> <span class="dv">6</span>)
+
+song3 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&quot;Many Friends&quot;</span>, 
+              <span class="dt">duration =</span> <span class="dv">125</span>,
+              <span class="dt">track=</span> <span class="dv">2</span>,
+              <span class="dt">rank =</span> <span class="dv">1</span>,
+              <span class="dt">similar2 =</span> song2)
+
+song[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## $title
+## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song$title</code></pre></div>
+<pre><code>## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(song[<span class="dv">1</span>])</code></pre></div>
+<pre><code>## List of 1
+##  $ title: chr &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song[[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(song[[<span class="dv">1</span>]])</code></pre></div>
+<pre><code>##  chr &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song2[<span class="dv">3</span>]</code></pre></div>
+<pre><code>## $track
+## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song3[<span class="dv">5</span>]  <span class="co"># a list</span></code></pre></div>
+<pre><code>## $similar2
+## $similar2$title
+## [1] &quot;Good Friends&quot;
+## 
+## $similar2$duration
+## [1] 125
+## 
+## $similar2$track
+## [1] 2
+## 
+## $similar2$rank
+## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(song3[<span class="dv">5</span>])</code></pre></div>
+<pre><code>## List of 1
+##  $ similar2:List of 4
+##   ..$ title   : chr &quot;Good Friends&quot;
+##   ..$ duration: num 125
+##   ..$ track   : num 2
+##   ..$ rank    : num 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song3[[<span class="dv">5</span>]]</code></pre></div>
+<pre><code>## $title
+## [1] &quot;Good Friends&quot;
+## 
+## $duration
+## [1] 125
+## 
+## $track
+## [1] 2
+## 
+## $rank
+## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song3$similar2</code></pre></div>
+<pre><code>## $title
+## [1] &quot;Good Friends&quot;
+## 
+## $duration
+## [1] 125
+## 
+## $track
+## [1] 2
+## 
+## $rank
+## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</code></pre></div>
+<pre><code>## $title
+## [1] &quot;R good times&quot;
+## 
+## $track
+## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(song[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)])</code></pre></div>
+<pre><code>## List of 2
+##  $ title: chr &quot;R good times&quot;
+##  $ track: num 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>song[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]
+result[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## $title
+## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result[[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(result)</code></pre></div>
+<pre><code>## List of 2
+##  $ title: chr &quot;R good times&quot;
+##  $ track: num 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result$title</code></pre></div>
+<pre><code>## [1] &quot;R good times&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result$track</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access with [[ to content </span>
+song3[[<span class="dv">5</span>]][[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## [1] &quot;Good Friends&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song3$similar2[[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>## [1] &quot;Good Friends&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subsets</span>
+### subset by names
+song[<span class="kw">c</span>(<span class="st">&quot;title&quot;</span>, <span class="st">&quot;track&quot;</span>)]</code></pre></div>
+<pre><code>## $title
+## [1] &quot;R good times&quot;
+## 
+## $track
+## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">song3[<span class="st">&quot;similar2&quot;</span>]</code></pre></div>
+<pre><code>## $similar2
+## $similar2$title
+## [1] &quot;Good Friends&quot;
+## 
+## $similar2$duration
+## [1] 125
+## 
+## $similar2$track
+## [1] 2
+## 
+## $similar2$rank
+## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resultsimilar &lt;-<span class="st"> </span>song3[<span class="st">&quot;similar2&quot;</span>]
+<span class="kw">str</span>(resultsimilar)</code></pre></div>
+<pre><code>## List of 1
+##  $ similar2:List of 4
+##   ..$ title   : chr &quot;Good Friends&quot;
+##   ..$ duration: num 125
+##   ..$ track   : num 2
+##   ..$ rank    : num 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resultsimilar1 &lt;-song3[[<span class="st">&quot;similar2&quot;</span>]]
+<span class="kw">str</span>(resultsimilar1)</code></pre></div>
+<pre><code>## List of 4
+##  $ title   : chr &quot;Good Friends&quot;
+##  $ duration: num 125
+##  $ track   : num 2
+##  $ rank    : num 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">resultsimilar1$title</code></pre></div>
+<pre><code>## [1] &quot;Good Friends&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subset by logicals</span>
+song[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</code></pre></div>
+<pre><code>## $title
+## [1] &quot;R good times&quot;
+## 
+## $track
+## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result3 &lt;-<span class="st"> </span>song[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]  <span class="co"># is a list of two elements</span>
+
+<span class="co"># extending the list</span>
+shared &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Hillary&quot;</span>, <span class="st">&quot;Javi&quot;</span>, <span class="st">&quot;Mikel&quot;</span>, <span class="st">&quot;Patty&quot;</span>)
+
+song3$shared &lt;-<span class="st"> </span>shared
+<span class="kw">str</span>(song3)</code></pre></div>
+<pre><code>## List of 6
+##  $ title   : chr &quot;Many Friends&quot;
+##  $ duration: num 125
+##  $ track   : num 2
+##  $ rank    : num 1
+##  $ similar2:List of 4
+##   ..$ title   : chr &quot;Good Friends&quot;
+##   ..$ duration: num 125
+##   ..$ track   : num 2
+##   ..$ rank    : num 6
+##  $ shared  : chr [1:4] &quot;Hillary&quot; &quot;Javi&quot; &quot;Mikel&quot; &quot;Patty&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cities &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Donostia&quot;</span>)
+song3[[<span class="st">&quot;cities&quot;</span>]] &lt;-<span class="st"> </span>cities
+<span class="kw">str</span>(song3)</code></pre></div>
+<pre><code>## List of 7
+##  $ title   : chr &quot;Many Friends&quot;
+##  $ duration: num 125
+##  $ track   : num 2
+##  $ rank    : num 1
+##  $ similar2:List of 4
+##   ..$ title   : chr &quot;Good Friends&quot;
+##   ..$ duration: num 125
+##   ..$ track   : num 2
+##   ..$ rank    : num 6
+##  $ shared  : chr [1:4] &quot;Hillary&quot; &quot;Javi&quot; &quot;Mikel&quot; &quot;Patty&quot;
+##  $ cities  :List of 3
+##   ..$ : chr &quot;Bilbao&quot;
+##   ..$ : chr &quot;New York&quot;
+##   ..$ : chr &quot;Donostia&quot;</code></pre>
+<hr />
+</div>
+<div id="data-frames" class="section level2">
+<h2><span class="header-section-number">1.7</span> Data frames</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thenames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ane&quot;</span>, <span class="st">&quot;Mike&quot;</span>, <span class="st">&quot;Xabi&quot;</span>, <span class="st">&quot;Florentino&quot;</span>, <span class="st">&quot;Edurne&quot;</span>)
+ages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">20</span>, <span class="dv">33</span>, <span class="dv">15</span>, <span class="dv">65</span>)
+employee &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+
+mydataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(thenames, ages, employee)
+mydataframe</code></pre></div>
+<pre><code>##     thenames ages employee
+## 1        Ane   44    FALSE
+## 2       Mike   20    FALSE
+## 3       Xabi   33     TRUE
+## 4 Florentino   15     TRUE
+## 5     Edurne   65    FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(mydataframe) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FirstName&quot;</span>, <span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)
+<span class="kw">str</span>(mydataframe)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  3 variables:
+##  $ FirstName: Factor w/ 5 levels &quot;Ane&quot;,&quot;Edurne&quot;,..: 1 4 5 3 2
+##  $ Age      : num  44 20 33 15 65
+##  $ Employee : logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#strings are not factors!</span>
+
+mydataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(thenames, ages, employee,
+                          <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+<span class="kw">names</span>(mydataframe) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FirstName&quot;</span>, <span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)
+<span class="kw">str</span>(mydataframe)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  3 variables:
+##  $ FirstName: chr  &quot;Ane&quot; &quot;Mike&quot; &quot;Xabi&quot; &quot;Florentino&quot; ...
+##  $ Age      : num  44 20 33 15 65
+##  $ Employee : logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subset data frame</span>
+
+mydataframe[<span class="dv">4</span>,<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[<span class="dv">4</span>, <span class="st">&quot;Age&quot;</span>]</code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[, <span class="st">&quot;FirstName&quot;</span>]</code></pre></div>
+<pre><code>## [1] &quot;Ane&quot;        &quot;Mike&quot;       &quot;Xabi&quot;       &quot;Florentino&quot; &quot;Edurne&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)]</code></pre></div>
+<pre><code>##   Age Employee
+## 2  20    FALSE
+## 5  65    FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matfromframe &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(mydataframe[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)])
+<span class="kw">str</span>(matfromframe)</code></pre></div>
+<pre><code>##  num [1:2, 1:2] 20 65 0 0
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : chr [1:2] &quot;2&quot; &quot;5&quot;
+##   ..$ : chr [1:2] &quot;Age&quot; &quot;Employee&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[<span class="dv">3</span>]</code></pre></div>
+<pre><code>##   Employee
+## 1    FALSE
+## 2    FALSE
+## 3     TRUE
+## 4     TRUE
+## 5    FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># convert to vector</span>
+mydf0 &lt;-<span class="st"> </span>mydataframe[<span class="dv">3</span>] <span class="co">#data.frame</span>
+<span class="kw">str</span>(mydf0)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  1 variable:
+##  $ Employee: logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span>mydataframe[[<span class="dv">3</span>]]  <span class="co">#vector</span>
+<span class="kw">str</span>(myvec)</code></pre></div>
+<pre><code>##  logi [1:5] FALSE FALSE TRUE TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf0asvec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(mydataframe[<span class="dv">3</span>]) <span class="co"># but it doesn&#39;t work </span>
+<span class="kw">str</span>(mydf0asvec)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  1 variable:
+##  $ Employee: logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add column</span>
+height &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">166</span>, <span class="dv">165</span>, <span class="dv">158</span>, <span class="dv">176</span>, <span class="dv">199</span>)
+weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">99</span>, <span class="dv">88</span>, <span class="dv">109</span>)
+mydataframe$height &lt;-<span class="st"> </span>height 
+mydataframe[[<span class="st">&quot;weight&quot;</span>]] &lt;-<span class="st"> </span>weight
+mydataframe</code></pre></div>
+<pre><code>##    FirstName Age Employee height weight
+## 1        Ane  44    FALSE    166     66
+## 2       Mike  20    FALSE    165     77
+## 3       Xabi  33     TRUE    158     99
+## 4 Florentino  15     TRUE    176     88
+## 5     Edurne  65    FALSE    199    109</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a column </span>
+
+birthplace &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tolosa&quot;</span>, <span class="st">&quot;London&quot;</span>, <span class="st">&quot;Zarautz&quot;</span>, <span class="st">&quot;Irun&quot;</span>, <span class="st">&quot;New York&quot;</span>)
+
+mydataframe &lt;-<span class="st"> </span><span class="kw">cbind</span>(mydataframe, birthplace)
+mydataframe</code></pre></div>
+<pre><code>##    FirstName Age Employee height weight birthplace
+## 1        Ane  44    FALSE    166     66     Tolosa
+## 2       Mike  20    FALSE    165     77     London
+## 3       Xabi  33     TRUE    158     99    Zarautz
+## 4 Florentino  15     TRUE    176     88       Irun
+## 5     Edurne  65    FALSE    199    109   New York</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a row </span>
+
+xabier &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FirstName =</span> <span class="st">&quot;Xabier&quot;</span>, <span class="dt">Age =</span> <span class="dv">77</span>, <span class="dt">Employee=</span><span class="ot">TRUE</span>, <span class="dt">height=</span> <span class="dv">170</span>, <span class="dt">weight =</span> <span class="dv">65</span>, <span class="dt">birthplace =</span><span class="st">&quot;Donostia&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+mydataframe &lt;-<span class="st"> </span><span class="kw">rbind</span> (mydataframe, xabier)
+mydataframe</code></pre></div>
+<pre><code>##    FirstName Age Employee height weight birthplace
+## 1        Ane  44    FALSE    166     66     Tolosa
+## 2       Mike  20    FALSE    165     77     London
+## 3       Xabi  33     TRUE    158     99    Zarautz
+## 4 Florentino  15     TRUE    176     88       Irun
+## 5     Edurne  65    FALSE    199    109   New York
+## 6     Xabier  77     TRUE    170     65   Donostia</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sorting </span>
+
+mydataframeSorted &lt;-<span class="st"> </span>mydataframe[<span class="kw">order</span>(mydataframe$Age, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), ]  <span class="co">#all columns</span>
+mydataframeSorted</code></pre></div>
+<pre><code>##    FirstName Age Employee height weight birthplace
+## 6     Xabier  77     TRUE    170     65   Donostia
+## 5     Edurne  65    FALSE    199    109   New York
+## 1        Ane  44    FALSE    166     66     Tolosa
+## 3       Xabi  33     TRUE    158     99    Zarautz
+## 2       Mike  20    FALSE    165     77     London
+## 4 Florentino  15     TRUE    176     88       Irun</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframeSorted2 &lt;-<span class="st"> </span>mydataframe[<span class="kw">order</span>(mydataframe$Age, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>) ]
+mydataframeSorted2</code></pre></div>
+<pre><code>##    FirstName Age birthplace
+## 6     Xabier  77   Donostia
+## 5     Edurne  65   New York
+## 1        Ane  44     Tolosa
+## 3       Xabi  33    Zarautz
+## 2       Mike  20     London
+## 4 Florentino  15       Irun</code></pre>
+</div>
+<div id="reading-data" class="section level2">
+<h2><span class="header-section-number">1.8</span> Reading Data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+isbsg &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/effortEstimation/isbsg10teaser.arff&quot;</span>)
+
+mydataISBSG &lt;-<span class="st"> </span>isbsg[, <span class="kw">c</span>(<span class="st">&quot;FS&quot;</span>, <span class="st">&quot;N_effort&quot;</span>)]
+
+
+mydataISBSG &lt;-<span class="st"> </span>isbsg[, <span class="kw">c</span>(<span class="st">&quot;FS&quot;</span>, <span class="st">&quot;N_effort&quot;</span>)]
+<span class="kw">str</span>(mydataISBSG)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    37 obs. of  2 variables:
+##  $ FS      : num  225 599 333 748 158 427 461 257 115 116 ...
+##  $ N_effort: num  1856 10960 5661 1518 3670 ...</code></pre>
+<hr />
+</div>
+<div id="plots" class="section level2">
+<h2><span class="header-section-number">1.9</span> Plots</h2>
+<p>There are several graphic packages that are recommended, in particular ggplot. However, there is some basic support in the R base for graphics:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(mydataISBSG$FS, mydataISBSG$N_effort)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="flow-of-control" class="section level2">
+<h2><span class="header-section-number">1.10</span> Flow of Control</h2>
+<p>Ifelse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+kc1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/defectPred/D1/KC1.arff&quot;</span>)
+kc1$Defective &lt;-<span class="st"> </span><span class="kw">ifelse</span>(kc1$Defective ==<span class="st"> &quot;Y&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="kw">head</span>(kc1, <span class="dv">1</span>)</code></pre></div>
+<pre><code>##   LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
+## 1         0            1                    0            0
+##   CYCLOMATIC_COMPLEXITY DESIGN_COMPLEXITY ESSENTIAL_COMPLEXITY
+## 1                     1                 1                    1
+##   LOC_EXECUTABLE HALSTEAD_CONTENT HALSTEAD_DIFFICULTY HALSTEAD_EFFORT
+## 1              3            11.58                2.67           82.35
+##   HALSTEAD_ERROR_EST HALSTEAD_LENGTH HALSTEAD_LEVEL HALSTEAD_PROG_TIME
+## 1               0.01              11           0.38               4.57
+##   HALSTEAD_VOLUME NUM_OPERANDS NUM_OPERATORS NUM_UNIQUE_OPERANDS
+## 1           30.88            4             7                   3
+##   NUM_UNIQUE_OPERATORS LOC_TOTAL Defective
+## 1                    4         5         0</code></pre>
+<p><span class="citation">(Torgo <a href="#ref-Torgo2010">2010</a>)</span> <span class="citation">(García, Luengo, and Herrera <a href="#ref-GarciaLH15">2015</a>)</span></p>
+
+</div>
+</div>
+
+
+
+<p>We will provide an overview of data analsyis using different techniques.</p>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Torgo2010">
+<p>Torgo, Luis. 2010. <em>Data Mining with R: Learning with Case Studies</em>. 1st Edt. Chapman &amp; Hall/CRC.</p>
+</div>
+<div id="ref-GarciaLH15">
+<p>García, Salvador, Julián Luengo, and Francisco Herrera. 2015. <em>Data Preprocessing in Data Mining</em>. Springer. <a href="http://link.springer.com/book/10.1007%2F978-3-319-10247-4">http://link.springer.com/book/10.1007%2F978-3-319-10247-4</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/danrodgar/dasedown/edit/master/010-rIntro.Rmd",
+"text": "Edit"
+},
+"download": ["DASE.pdf", "DASE.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

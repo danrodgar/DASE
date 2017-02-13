@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis in Software Engineering with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="DASE with bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis in Software Engineering with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="DASE with bookdown::gitbook." />
+  <meta name="github-repo" content="danrodgar/dasedown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis in Software Engineering with R" />
+  
+  <meta name="twitter:description" content="DASE with bookdown::gitbook." />
+  
+
+<meta name="author" content="Javier Dolado and Daniel Rodriguez">
+
+
+<meta name="date" content="2017-02-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="feature-selection-example.html">
+<link rel="next" href="further-classification-models.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis in Software Engineering with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="part"><span><b>I Introduction to the R Language</b></span></li>
+<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-intro.html"><a href="r-intro.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.2</b> Basic Data Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-intro.html"><a href="r-intro.html#mising-values"><i class="fa fa-check"></i><b>1.2.1</b> Mising values</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.3</b> Vectors</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="r-intro.html"><a href="r-intro.html#coercion-for-vectors"><i class="fa fa-check"></i><b>1.3.1</b> Coercion for vectors</a></li>
+<li class="chapter" data-level="1.3.2" data-path="r-intro.html"><a href="r-intro.html#vector-arithmetic"><i class="fa fa-check"></i><b>1.3.2</b> Vector arithmetic</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#arrays-and-matrices"><i class="fa fa-check"></i><b>1.4</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="1.5" data-path="r-intro.html"><a href="r-intro.html#factors"><i class="fa fa-check"></i><b>1.5</b> Factors</a></li>
+<li class="chapter" data-level="1.6" data-path="r-intro.html"><a href="r-intro.html#lists"><i class="fa fa-check"></i><b>1.6</b> Lists</a></li>
+<li class="chapter" data-level="1.7" data-path="r-intro.html"><a href="r-intro.html#data-frames"><i class="fa fa-check"></i><b>1.7</b> Data frames</a></li>
+<li class="chapter" data-level="1.8" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.8</b> Reading Data</a></li>
+<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.9</b> Plots</a></li>
+<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.10</b> Flow of Control</a></li>
+</ul></li>
+<li class="part"><span><b>II Introduction to Data Mining</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a><ul>
+<li class="chapter" data-level="2.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#the-aim-of-data-analysis-and-statistical-learning"><i class="fa fa-check"></i><b>2.1</b> The Aim of Data Analysis and Statistical Learning</a></li>
+<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#basic-references"><i class="fa fa-check"></i><b>2.2</b> Basic References</a></li>
+<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-r"><i class="fa fa-check"></i><b>2.3</b> Data Mining with R</a></li>
+<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.4</b> Data Mining with Weka</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#types-of-information-stored-in-the-repositories"><i class="fa fa-check"></i><b>3.1</b> Types of information stored in the repositories</a></li>
+<li class="chapter" data-level="3.2" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#repositories"><i class="fa fa-check"></i><b>3.2</b> Repositories</a></li>
+<li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-tools-to-extract-data-and-dashboards"><i class="fa fa-check"></i><b>3.3</b> Some Tools to extract data and dashboards</a></li>
+<li class="chapter" data-level="3.4" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#references-to-be-fixed"><i class="fa fa-check"></i><b>3.4</b> References (To be fixed)</a></li>
+</ul></li>
+<li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>4.2</b> Basic Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html"><i class="fa fa-check"></i><b>5</b> Descriptive Statistics</a><ul>
+<li class="chapter" data-level="5.1" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#normality"><i class="fa fa-check"></i><b>5.1</b> Normality</a></li>
+<li class="chapter" data-level="5.2" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#getting-the-data.-descriptive-statistics."><i class="fa fa-check"></i><b>5.2</b> Getting the Data. Descriptive statistics.</a></li>
+<li class="chapter" data-level="5.3" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#china-dataset"><i class="fa fa-check"></i><b>5.3</b> China dataset</a></li>
+<li class="chapter" data-level="5.4" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#normality.-galton-data"><i class="fa fa-check"></i><b>5.4</b> Normality. Galton data</a></li>
+<li class="chapter" data-level="5.5" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#normalization"><i class="fa fa-check"></i><b>5.5</b> Normalization</a></li>
+<li class="chapter" data-level="5.6" data-path="descriptive-statistics-1.html"><a href="descriptive-statistics-1.html#china-dataset.-correlation."><i class="fa fa-check"></i><b>5.6</b> China dataset. Correlation.</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Classical Hypothesis Testing</a><ul>
+<li class="chapter" data-level="6.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>6.1</b> p-values</a></li>
+</ul></li>
+<li class="part"><span><b>IV Basic Models</b></span></li>
+<li class="chapter" data-level="7" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html"><i class="fa fa-check"></i><b>7</b> Basics of Preprocessing</a><ul>
+<li class="chapter" data-level="7.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#missing-values"><i class="fa fa-check"></i><b>7.2</b> Missing values</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#imputation-methods"><i class="fa fa-check"></i><b>7.2.1</b> Imputation methods</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#noise"><i class="fa fa-check"></i><b>7.3</b> Noise</a></li>
+<li class="chapter" data-level="7.4" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#outliers"><i class="fa fa-check"></i><b>7.4</b> Outliers</a></li>
+<li class="chapter" data-level="7.5" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#feature-selection-fs"><i class="fa fa-check"></i><b>7.5</b> Feature selection (FS)</a></li>
+<li class="chapter" data-level="7.6" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>7.6</b> Instance selection</a></li>
+<li class="chapter" data-level="7.7" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#discretization"><i class="fa fa-check"></i><b>7.7</b> Discretization</a></li>
+<li class="chapter" data-level="7.8" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>7.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
+<li class="chapter" data-level="7.9" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>7.9</b> Normalization</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#min-max-normalization"><i class="fa fa-check"></i><b>7.9.1</b> Min-Max Normalization</a></li>
+<li class="chapter" data-level="7.9.2" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#z-score-normalization"><i class="fa fa-check"></i><b>7.9.2</b> Z-score normalization</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#transformations"><i class="fa fa-check"></i><b>7.10</b> Transformations</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>7.10.1</b> Linear Transformations and Quadratic Trans formations</a></li>
+<li class="chapter" data-level="7.10.2" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#box-cox-transformation"><i class="fa fa-check"></i><b>7.10.2</b> Box-cox transformation</a></li>
+<li class="chapter" data-level="7.10.3" data-path="basics-of-preprocessing.html"><a href="basics-of-preprocessing.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>7.10.3</b> Nominal to Binary tranformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html"><i class="fa fa-check"></i><b>8</b> Preprocessing in R</a><ul>
+<li class="chapter" data-level="8.1" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html#the-dplyr-package"><i class="fa fa-check"></i><b>8.1</b> The dplyr package</a></li>
+<li class="chapter" data-level="8.2" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>8.2</b> Other libraries and tricks</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a><ul>
+<li class="chapter" data-level="9.1" data-path="supervised-classification.html"><a href="supervised-classification.html#regression"><i class="fa fa-check"></i><b>9.1</b> Regression</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-regression"><i class="fa fa-check"></i><b>9.1.1</b> Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-classification.html"><a href="supervised-classification.html#regression-galton-data"><i class="fa fa-check"></i><b>9.2</b> Regression: Galton Data</a></li>
+<li class="chapter" data-level="9.3" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>9.3</b> Linear Regression Diagnostics</a></li>
+<li class="chapter" data-level="9.4" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-regression-1"><i class="fa fa-check"></i><b>9.4</b> Linear regression</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="supervised-classification.html"><a href="supervised-classification.html#effort-estimation"><i class="fa fa-check"></i><b>9.4.1</b> Effort estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="supervised-classification.html"><a href="supervised-classification.html#supervised-classification-1"><i class="fa fa-check"></i><b>9.5</b> Supervised Classification</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="supervised-classification.html"><a href="supervised-classification.html#the-caret-package"><i class="fa fa-check"></i><b>9.5.1</b> The caret package</a></li>
+<li class="chapter" data-level="9.5.2" data-path="supervised-classification.html"><a href="supervised-classification.html#defect-prediction-as-a-running-example"><i class="fa fa-check"></i><b>9.5.2</b> Defect Prediction as a running example</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.6</b> Linear Discriminant Analysis (LDA)</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="supervised-classification.html"><a href="supervised-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>9.6.1</b> Predicting the number of defects (numerical class)</a></li>
+<li class="chapter" data-level="9.6.2" data-path="supervised-classification.html"><a href="supervised-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>9.6.2</b> Binary Logistic Regression (BLR)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#classification-trees"><i class="fa fa-check"></i><b>9.7</b> Classification Trees</a></li>
+<li class="chapter" data-level="9.8" data-path="supervised-classification.html"><a href="supervised-classification.html#rules"><i class="fa fa-check"></i><b>9.8</b> Rules</a></li>
+<li class="chapter" data-level="9.9" data-path="supervised-classification.html"><a href="supervised-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>9.9</b> Distanced-based Methods</a></li>
+<li class="chapter" data-level="9.10" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.10</b> Probabilistic Methods</a><ul>
+<li class="chapter" data-level="9.10.1" data-path="supervised-classification.html"><a href="supervised-classification.html#naive-bayes"><i class="fa fa-check"></i><b>9.10.1</b> Naive Bayes</a></li>
+<li class="chapter" data-level="9.10.2" data-path="supervised-classification.html"><a href="supervised-classification.html#bayesian-networks"><i class="fa fa-check"></i><b>9.10.2</b> Bayesian Networks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Classification</a><ul>
+<li class="chapter" data-level="10.1" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html#clustering"><i class="fa fa-check"></i><b>10.1</b> Clustering</a></li>
+<li class="chapter" data-level="10.2" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html#association-rules"><i class="fa fa-check"></i><b>10.2</b> Association rules</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>11</b> Evaluation of Models</a><ul>
+<li class="chapter" data-level="11.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#underfitting-vs.overfitting"><i class="fa fa-check"></i><b>11.1</b> Underfitting vs. Overfitting</a></li>
+<li class="chapter" data-level="11.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>11.2</b> Building and Validating a Model</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>11.2.1</b> Holdout approach</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>11.3</b> Cross Validation (CV)</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#china-dataset.-split-data-into-training-and-testing"><i class="fa fa-check"></i><b>11.3.1</b> China dataset. Split data into Training and Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classifiers"><i class="fa fa-check"></i><b>11.4</b> Evaluation of Classifiers</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#discrete-evaluation"><i class="fa fa-check"></i><b>11.4.1</b> Discrete Evaluation</a></li>
+<li class="chapter" data-level="11.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>11.4.2</b> Prediction in probabilistic classifiers</a></li>
+<li class="chapter" data-level="11.4.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>11.4.3</b> Graphical Evaluation</a></li>
+<li class="chapter" data-level="11.4.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#metrics-used-in-software-engineering-and-defect-classification"><i class="fa fa-check"></i><b>11.4.4</b> Metrics used in Software Engineering and Defect Classification</a></li>
+<li class="chapter" data-level="11.4.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>11.4.5</b> Numeric Prediction Evaluation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html"><i class="fa fa-check"></i><b>12</b> Measures of Evaluation used in Software Engineering</a><ul>
+<li class="chapter" data-level="12.1" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>12.1</b> Evaluation of the model in the Testing data</a></li>
+<li class="chapter" data-level="12.2" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>12.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
+<li class="chapter" data-level="12.3" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>12.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
+<li class="chapter" data-level="12.4" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>12.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
+<li class="chapter" data-level="12.5" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>12.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>12.5.1</b> MARP0 in the Atkinson dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>12.6</b> Confidence Intervals. Bootstrap</a></li>
+<li class="chapter" data-level="12.7" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>12.7</b> Nonparametric Bootstrap</a></li>
+</ul></li>
+<li class="part"><span><b>V Advanced Topics</b></span></li>
+<li class="chapter" data-level="13" data-path="feature-selection.html"><a href="feature-selection.html"><i class="fa fa-check"></i><b>13</b> Feature Selection</a><ul>
+<li class="chapter" data-level="13.1" data-path="feature-selection.html"><a href="feature-selection.html#instance-selection-1"><i class="fa fa-check"></i><b>13.1</b> Instance Selection</a></li>
+<li class="chapter" data-level="13.2" data-path="feature-selection.html"><a href="feature-selection.html#missing-data-imputation"><i class="fa fa-check"></i><b>13.2</b> Missing Data Imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>14</b> Feature Selection Example</a></li>
+<li class="chapter" data-level="15" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>15</b> Advanced Models</a><ul>
+<li class="chapter" data-level="15.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>15.1</b> Genetic Programming for Symbolic Regression</a></li>
+<li class="chapter" data-level="15.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>15.2</b> Genetic Programming Example</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>15.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="15.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>15.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
+<li class="chapter" data-level="15.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>15.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks"><i class="fa fa-check"></i><b>15.3</b> Neural Networks</a></li>
+<li class="chapter" data-level="15.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>15.4</b> Support Vector Machines</a></li>
+<li class="chapter" data-level="15.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>15.5</b> Ensembles</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>15.5.1</b> Bagging</a></li>
+<li class="chapter" data-level="15.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>15.5.2</b> Boosting</a></li>
+<li class="chapter" data-level="15.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>15.5.3</b> Rotation Forests</a></li>
+<li class="chapter" data-level="15.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>15.5.4</b> Boosting in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>16</b> Further Classification Models</a><ul>
+<li class="chapter" data-level="16.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>16.1</b> Multilabel classification</a></li>
+<li class="chapter" data-level="16.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>16.2</b> Semi-supervised Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>17</b> Social Network Analysis in SE</a></li>
+<li class="chapter" data-level="18" data-path="to-fix-and-to-do.html"><a href="to-fix-and-to-do.html"><i class="fa fa-check"></i><b>18</b> To fix and to do:</a></li>
+<li class="chapter" data-level="19" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html"><i class="fa fa-check"></i><b>19</b> Text Mining Soft Eng Data</a><ul>
+<li class="chapter" data-level="19.1" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>19.1</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="19.2" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>19.2</b> Extracting data from Twitter</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>20</b> Time Series</a><ul>
+<li class="chapter" data-level="20.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>20.1</b> Web tutorials about Time Series:</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis in Software Engineering with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="advanced-models" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Advanced Models</h1>
+<div id="genetic-programming-for-symbolic-regression" class="section level2">
+<h2><span class="header-section-number">15.1</span> Genetic Programming for Symbolic Regression</h2>
+<p>This technique is inspired by Darwin’s evolution theory. + 1960s by I. Rechenberg in his work “Evolution strategies“ + 1975 Genetic Algorithms (GAs) invented by J Holland and published in his book”Adaption in Natural and Artificial Systems“ + 1992 J. Koza has used genetic algorithm to evolve programs to perform certain tasks. He called his method “genetic programming”</p>
+<p>Other reference for GP: Langdon WB, Poli R (2001) Foundations of Genetic Programming. Springer.</p>
+<div class="figure">
+<img src="figures/gpEvolution.png" />
+
+</div>
+<ul>
+<li>Depending on the function set used and the function to be minimised, GP can generate almost any type of curve</li>
+</ul>
+<p><img src="figures/gp1.png" /> <img src="figures/gp2.png" /></p>
+<div class="figure">
+<img src="figures/evoAlg.png" />
+
+</div>
+<p>In R, we can use the “rgp” package</p>
+</div>
+<div id="genetic-programming-example" class="section level2">
+<h2><span class="header-section-number">15.2</span> Genetic Programming Example</h2>
+<div id="load-data" class="section level3">
+<h3><span class="header-section-number">15.2.1</span> Load Data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+
+<span class="co">#read data</span>
+telecom1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./datasets/effortEstimation/Telecom1.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>) 
+ 
+size_telecom1 &lt;-<span class="st"> </span>telecom1$size
+effort_telecom1 &lt;-<span class="st"> </span>telecom1$effort
+
+chinaTrain &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china3AttSelectedAFPTrain.arff&quot;</span>)
+china_train_size &lt;-<span class="st"> </span>chinaTrain$AFP 
+china_train_effort &lt;-<span class="st"> </span>chinaTrain$Effort
+chinaTest &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china3AttSelectedAFPTest.arff&quot;</span>)
+china_size_test &lt;-<span class="st"> </span>chinaTest$AFP
+actualEffort &lt;-<span class="st"> </span>chinaTest$Effort</code></pre></div>
+</div>
+<div id="genetic-programming-for-symbolic-regression-china-dataset." class="section level3">
+<h3><span class="header-section-number">15.2.2</span> Genetic Programming for Symbolic Regression: China dataset.</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;rgp&quot;</span>)</code></pre></div>
+<pre><code>## *** RGP version 0.4-1 initialized successfully.
+##     Type &#39;help(package=&quot;rgp&quot;)&#39; to bring up the RGP help pages,
+##     or type &#39;vignette(&quot;rgp_introduction&quot;)&#39; to show RGP&#39;s package vignette.
+##     Type &#39;symbolicRegressionUi()&#39; to bring up the symbolic regression UI if
+##     the optional package &#39;rgpui&#39; is installed.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">5</span>)
+stepsGenerations &lt;-<span class="st"> </span><span class="dv">1000</span>
+initialPopulation &lt;-<span class="st"> </span><span class="dv">500</span>
+Steps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>)
+y &lt;-<span class="st"> </span>china_train_effort   <span class="co">#</span>
+x &lt;-<span class="st"> </span>china_train_size  <span class="co"># </span>
+
+data2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y, x)  <span class="co"># create a data frame with effort, size</span>
+<span class="co"># newFuncSet &lt;- mathFunctionSet</span>
+<span class="co"># alternatives to mathFunctionSet</span>
+<span class="co"># newFuncSet &lt;- expLogFunctionSet # sqrt&quot;, &quot;exp&quot;, and &quot;ln&quot;</span>
+<span class="co"># newFuncSet &lt;- trigonometricFunctionSet</span>
+<span class="co"># newFuncSet &lt;- arithmeticFunctionSet</span>
+newFuncSet &lt;-<span class="st"> </span><span class="kw">functionSet</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>,<span class="st">&quot;*&quot;</span>, <span class="st">&quot;/&quot;</span>,<span class="st">&quot;sqrt&quot;</span>, <span class="st">&quot;log&quot;</span>, <span class="st">&quot;exp&quot;</span>) <span class="co"># ,, )</span>
+
+gpresult &lt;-<span class="st"> </span><span class="kw">symbolicRegression</span>(y ~<span class="st"> </span>x, 
+                                <span class="dt">data=</span>data2, <span class="dt">functionSet=</span>newFuncSet,
+                                <span class="dt">populationSize=</span>initialPopulation,
+                                <span class="dt">stopCondition=</span><span class="kw">makeStepsStopCondition</span>(stepsGenerations))</code></pre></div>
+<pre><code>## STARTING genetic programming evolution run (Age/Fitness/Complexity Pareto GP search-heuristic) ...</code></pre>
+<pre><code>## evolution step 100, fitness evaluations: 4950, best fitness: 6537.594992, time elapsed: 3.37 seconds</code></pre>
+<pre><code>## evolution step 200, fitness evaluations: 9950, best fitness: 6537.594992, time elapsed: 6.4 seconds</code></pre>
+<pre><code>## evolution step 300, fitness evaluations: 14950, best fitness: 6537.594992, time elapsed: 9.39 seconds</code></pre>
+<pre><code>## evolution step 400, fitness evaluations: 19950, best fitness: 6012.656581, time elapsed: 12.82 seconds</code></pre>
+<pre><code>## evolution step 500, fitness evaluations: 24950, best fitness: 5682.132944, time elapsed: 15.71 seconds</code></pre>
+<pre><code>## evolution step 600, fitness evaluations: 29950, best fitness: 5682.132944, time elapsed: 18.65 seconds</code></pre>
+<pre><code>## evolution step 700, fitness evaluations: 34950, best fitness: 5682.132944, time elapsed: 21.68 seconds</code></pre>
+<pre><code>## evolution step 800, fitness evaluations: 39950, best fitness: 5682.132944, time elapsed: 24.82 seconds</code></pre>
+<pre><code>## evolution step 900, fitness evaluations: 44950, best fitness: 5623.075872, time elapsed: 27.98 seconds</code></pre>
+<pre><code>## evolution step 1000, fitness evaluations: 49950, best fitness: 5209.146640, time elapsed: 31.23 seconds</code></pre>
+<pre><code>## Genetic programming evolution run FINISHED after 1000 evolution steps, 49950 fitness evaluations and 31.23 seconds.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bf &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.min</span>(<span class="kw">sapply</span>(gpresult$population, gpresult$fitnessFunction))]]
+wf &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.max</span>(<span class="kw">sapply</span>(gpresult$population, gpresult$fitnessFunction))]]
+
+bf1 &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.min</span>((gpresult$fitnessValues))]]
+<span class="kw">plot</span>(x,y)
+<span class="kw">lines</span>(x, <span class="kw">bf</span>(x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)
+<span class="kw">lines</span>(x,<span class="kw">wf</span>(x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_test &lt;-<span class="st"> </span>china_size_test
+estim_by_gp &lt;-<span class="st"> </span><span class="kw">bf</span>(x_test)
+ae_gp &lt;-<span class="st"> </span><span class="kw">abs</span>(actualEffort -<span class="st"> </span>estim_by_gp)
+<span class="kw">mean</span>(ae_gp)</code></pre></div>
+<pre><code>## [1] 2419.7</code></pre>
+</div>
+<div id="genetic-programming-for-symbolic-regression.-telecom1-dataset." class="section level3">
+<h3><span class="header-section-number">15.2.3</span> Genetic Programming for Symbolic Regression. Telecom1 dataset.</h3>
+<ul>
+<li>For illustration purposes only. We use all data points.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># y &lt;- effort_telecom1   # all data points</span>
+<span class="co"># x &lt;- size_telecom1   # </span>
+<span class="co"># </span>
+<span class="co"># data2 &lt;- data.frame(y, x)  # create a data frame with effort, size</span>
+<span class="co"># # newFuncSet &lt;- mathFunctionSet</span>
+<span class="co"># # alternatives to mathFunctionSet</span>
+<span class="co"># newFuncSet &lt;- expLogFunctionSet # sqrt&quot;, &quot;exp&quot;, and &quot;ln&quot;</span>
+<span class="co"># # newFuncSet &lt;- trigonometricFunctionSet</span>
+<span class="co"># # newFuncSet &lt;- arithmeticFunctionSet</span>
+<span class="co"># # newFuncSet &lt;- functionSet(&quot;+&quot;,&quot;-&quot;,&quot;*&quot;, &quot;/&quot;,&quot;sqrt&quot;, &quot;log&quot;, &quot;exp&quot;) # ,, )</span>
+<span class="co"># </span>
+<span class="co"># gpresult &lt;- symbolicRegression(y ~ x, </span>
+<span class="co">#                                 data=data2, functionSet=newFuncSet,</span>
+<span class="co">#                                 populationSize=initialPopulation,</span>
+<span class="co">#                                 stopCondition=makeStepsStopCondition(stepsGenerations))</span>
+<span class="co"># </span>
+<span class="co"># bf &lt;- gpresult$population[[which.min(sapply(gpresult$population, gpresult$fitnessFunction))]]</span>
+<span class="co"># wf &lt;- gpresult$population[[which.max(sapply(gpresult$population, gpresult$fitnessFunction))]]</span>
+<span class="co"># </span>
+<span class="co"># bf1 &lt;- gpresult$population[[which.min((gpresult$fitnessValues))]]</span>
+<span class="co"># plot(x,y)</span>
+<span class="co"># lines(x, bf(x), type = &quot;l&quot;, col=&quot;blue&quot;, lwd=3)</span>
+<span class="co"># lines(x,wf(x), type = &quot;l&quot;, col=&quot;red&quot;, lwd=2)</span></code></pre></div>
+</div>
+</div>
+<div id="neural-networks" class="section level2">
+<h2><span class="header-section-number">15.3</span> Neural Networks</h2>
+<p>A neural network (NN) simulates some of the learning functions of the human brain.</p>
+<p>It can recognize patterns and “learn” . Through the use of a trial and error method the system “learns” to become an “expert” in the field.</p>
+<p>A NN is composed of a set of nodes (units, neurons, processing elements) + Each node has input and output + Each node performs a simple computation by its node function</p>
+<p>Weighted connections between nodes + Connectivity gives the structure/architecture of the net + What can be computed by a NN is primarily determined by the connections and their weights</p>
+<p><img src="figures/neuralnet.png" /> <img src="figures/neuralnet2.png" /></p>
+<p>There are several packages in R to work with NNs + <a href="https://cran.r-project.org/web/packages/neuralnet/index.html">neuralnet</a> + <a href="https://cran.r-project.org/web/packages/nnet/index.html">nnet</a> + <a href="https://cran.r-project.org/web/packages/RSNNS/index.html">RSNNS</a></p>
+<p>TO BE FIXED!!!: The following is an example with the neuralnet package (TO DO, denormalize!). Neural nets need scaling of variables to work properly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<span class="kw">library</span>(neuralnet)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;neuralnet&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     compute</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chinaTrain &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/effortEstimation/china3AttSelectedAFPTrain.arff&quot;</span>)
+
+afpsize &lt;-<span class="st"> </span>chinaTrain$AFP
+effort_china &lt;-<span class="st"> </span>chinaTrain$Effort
+
+chinaTest &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/effortEstimation/china3AttSelectedAFPTest.arff&quot;</span>)
+AFPTest &lt;-<span class="st"> </span>chinaTest$AFP
+actualEffort &lt;-<span class="st"> </span>chinaTest$Effort
+
+trainingdata &lt;-<span class="st"> </span><span class="kw">cbind</span>(afpsize,effort_china)
+<span class="kw">colnames</span>(trainingdata) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Input&quot;</span>,<span class="st">&quot;Output&quot;</span>)
+
+testingdata &lt;-<span class="st"> </span><span class="kw">cbind</span>(afpsize,effort_china)
+<span class="kw">colnames</span>(trainingdata) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Input&quot;</span>,<span class="st">&quot;Output&quot;</span>)
+
+<span class="co">#Normalize data</span>
+norm.fun =<span class="st"> </span>function(x){(x -<span class="st"> </span><span class="kw">min</span>(x))/(<span class="kw">max</span>(x) -<span class="st"> </span><span class="kw">min</span>(x))}
+data.norm =<span class="st"> </span><span class="kw">apply</span>(trainingdata, <span class="dv">2</span>, norm.fun)
+<span class="co">#data.norm</span>
+
+testdata.norm &lt;-<span class="st"> </span><span class="kw">apply</span>(trainingdata, <span class="dv">2</span>, norm.fun)
+<span class="co">#testdata.norm</span>
+
+
+<span class="co">#Train the neural network</span>
+<span class="co">#Going to have 10 hidden layers</span>
+<span class="co">#Threshold is a numeric value specifying the threshold for the partial</span>
+<span class="co">#derivatives of the error function as stopping criteria.</span>
+<span class="co">#net_eff &lt;- neuralnet(Output~Input,trainingdata, hidden=5, threshold=0.25)</span>
+net_eff &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(Output~Input, data.norm, <span class="dt">hidden=</span><span class="dv">10</span>, <span class="dt">threshold=</span><span class="fl">0.01</span>)
+
+<span class="co"># Print the network</span>
+<span class="co"># print(net_eff)</span>
+
+<span class="co">#Plot the neural network</span>
+<span class="kw">plot</span>(net_eff)
+
+<span class="co">#Test the neural network on some training data</span>
+<span class="co">#testdata.norm&lt;-data.frame((testdata[,1] - min(data[, &#39;displ&#39;]))/(max(data[, &#39;displ&#39;])-min(data[, &#39;displ&#39;])),(testdata[,2] - min(data[, &#39;year&#39;]))/(max(data[, &#39;year&#39;])-min(data[, &#39;year&#39;])),(testdata[,3] - min(data[, &#39;cyl&#39;]))/(max(data[, &#39;cyl&#39;])-min(data[, &#39;cyl&#39;])),(testdata[,4] - min(data[, &#39;hwy&#39;]))/(max(data[, &#39;hwy&#39;])-min(data[, &#39;hwy&#39;])))</span>
+
+<span class="co"># Run them through the neural network</span>
+<span class="co"># net.results &lt;- compute(net_eff, testdata.norm[,2]) </span>
+
+
+<span class="co">#net.results &lt;- compute(net_eff, dataTest.norm) # With normalized data</span>
+
+<span class="co">#Lets see what properties net.sqrt has</span>
+<span class="co">#ls(net.results)</span>
+<span class="co">#Lets see the results</span>
+<span class="co">#print(net.results$net.result)</span>
+
+<span class="co">#Lets display a better version of the results</span>
+<span class="co">#cleanoutput &lt;- cbind(testdata.norm[,2],actualEffort,</span>
+<span class="co">#                     as.data.frame(net.results$net.result))</span>
+<span class="co">#colnames(cleanoutput) &lt;- c(&quot;Input&quot;,&quot;Expected Output&quot;,&quot;Neural Net Output&quot;)</span>
+<span class="co">#print(cleanoutput)</span></code></pre></div>
+</div>
+<div id="support-vector-machines" class="section level2">
+<h2><span class="header-section-number">15.4</span> Support Vector Machines</h2>
+<p>SVM</p>
+</div>
+<div id="ensembles" class="section level2">
+<h2><span class="header-section-number">15.5</span> Ensembles</h2>
+<p>Ensembles or meta-learners combine multiple models to obtain better predictions i.e., this technique consists in combining single classifiers (sometimes are also called weak classifiers).</p>
+<p>A problem with ensembles is that their models are difficult to interpret (they behave as blackboxes) in comparison to decision trees or rules which provide an explanation of their decision making process.</p>
+<p>They are typically classified as Bagging, Boosting and Stacking (Stacked generalization).</p>
+<div id="bagging" class="section level3">
+<h3><span class="header-section-number">15.5.1</span> Bagging</h3>
+<p>Bagging (also known as Bootstrap aggregating) is an ensemble technique in which a base learner is applied to multiple equal size datasets created from the original data using bootstraping. Predictions are based on voting of the individual predictions. An advantage of bagging is that it does not require any modification to the learning algorithm and takes advantage of the instability of the base classifier to create diversity among individual ensembles so that individual members of the ensemble perform well in different regions of the data. Bagging does not perform well with classifiers if their output is robust to perturbation of the data such as nearest-neighbour (NN) classifiers.</p>
+</div>
+<div id="boosting" class="section level3">
+<h3><span class="header-section-number">15.5.2</span> Boosting</h3>
+<p>Boosting techniques generate multiple models that complement each other inducing models that improve regions of the data where previous induced models preformed poorly. This is achieved by increasing the weights of instances wrongly classified, so new learners focus on those instances. Finally, classification is based on a weighted voted among all members of the ensemble.</p>
+<p>In particular, AdaBoost.M1 [15] is a popular boosting algorithm for classification. The set of training examples is assigned an equal weight at the beginning and the weight of instances is either increased or decreased depending on whether the learner classified that instance incorrectly or not. The following iterations focus on those instances with higher weights. AdaBoost.M1 can be applied to any base learner.</p>
+</div>
+<div id="rotation-forests" class="section level3">
+<h3><span class="header-section-number">15.5.3</span> Rotation Forests</h3>
+<p>Rotation Forests [40] combine randomly chosen subsets of attributes (random subspaces) and bagging approaches with principal components feature generation to construct an ensemble of decision trees. Principal Component Analysis is used as a feature selection technique combining subsets of attributes which are used with a bootstrapped subset of the training data by the base classifier.</p>
+</div>
+<div id="boosting-in-r" class="section level3">
+<h3><span class="header-section-number">15.5.4</span> Boosting in R</h3>
+<p>In R, there are three packages to deal with Boosting: gmb, ada and the mboost packages. An example of gbm using the caret package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load libraries</span>
+<span class="kw">library</span>(caret)
+<span class="kw">library</span>(pROC)
+
+#################################################
+<span class="co"># model it</span>
+#################################################
+
+<span class="co"># Get names of caret supported models (just a few - head)</span>
+<span class="kw">head</span>(<span class="kw">names</span>(<span class="kw">getModelInfo</span>()))</code></pre></div>
+<pre><code>## [1] &quot;ada&quot;         &quot;AdaBag&quot;      &quot;AdaBoost.M1&quot; &quot;adaboost&quot;    &quot;amdai&quot;      
+## [6] &quot;ANFIS&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show model info and find out what type of model it is</span>
+<span class="kw">getModelInfo</span>()$gbm$tags</code></pre></div>
+<pre><code>## [1] &quot;Tree-Based Model&quot;           &quot;Boosting&quot;                  
+## [3] &quot;Ensemble Model&quot;             &quot;Implicit Feature Selection&quot;
+## [5] &quot;Accepts Case Weights&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getModelInfo</span>()$gbm$type</code></pre></div>
+<pre><code>## [1] &quot;Regression&quot;     &quot;Classification&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<span class="kw">library</span>(caret)
+<span class="kw">library</span>(pROC)
+
+kc1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/KC1.arff&quot;</span>)
+
+<span class="co"># Split data into training and test datasets</span>
+<span class="co"># TODO: Improve this with createDataParticion from Caret</span>
+<span class="kw">set.seed</span>(<span class="dv">1234</span>)
+ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2</span>, <span class="kw">nrow</span>(kc1), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))
+kc1.train &lt;-<span class="st"> </span>kc1[ind==<span class="dv">1</span>, ]
+kc1.test &lt;-<span class="st"> </span>kc1[ind==<span class="dv">2</span>, ]
+
+
+<span class="co"># create caret trainControl object to control the number of cross-validations performed</span>
+objControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&#39;cv&#39;</span>, <span class="dt">number=</span><span class="dv">3</span>, <span class="dt">returnResamp=</span><span class="st">&#39;none&#39;</span>, <span class="dt">summaryFunction =</span> twoClassSummary, <span class="dt">classProbs =</span> <span class="ot">TRUE</span>)
+
+
+<span class="co"># run model</span>
+objModel &lt;-<span class="st"> </span><span class="kw">train</span>(Defective ~<span class="st"> </span>.,
+                  <span class="dt">data =</span> kc1.train,
+                  <span class="dt">method =</span> <span class="st">&#39;gbm&#39;</span>, 
+                  <span class="dt">trControl =</span> objControl,  
+                  <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span> <span class="co">#,</span>
+                  <span class="co">#preProc = c(&quot;center&quot;, &quot;scale&quot;)</span>
+                  )</code></pre></div>
+<pre><code>## Loading required package: gbm</code></pre>
+<pre><code>## Loading required package: splines</code></pre>
+<pre><code>## Loaded gbm 2.1.1</code></pre>
+<pre><code>## Loading required package: plyr</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:modeltools&#39;:
+## 
+##     empty</code></pre>
+<pre><code>## The following objects are masked from &#39;package:Hmisc&#39;:
+## 
+##     is.discrete, summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:lubridate&#39;:
+## 
+##     here</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:DMwR&#39;:
+## 
+##     join</code></pre>
+<pre><code>## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8352            -nan     0.1000    0.0136
+##      2        0.8085            -nan     0.1000    0.0106
+##      3        0.7894            -nan     0.1000    0.0084
+##      4        0.7738            -nan     0.1000    0.0074
+##      5        0.7556            -nan     0.1000    0.0072
+##      6        0.7466            -nan     0.1000    0.0029
+##      7        0.7368            -nan     0.1000    0.0052
+##      8        0.7279            -nan     0.1000    0.0046
+##      9        0.7174            -nan     0.1000    0.0037
+##     10        0.7132            -nan     0.1000    0.0014
+##     20        0.6716            -nan     0.1000    0.0000
+##     40        0.6480            -nan     0.1000   -0.0004
+##     60        0.6366            -nan     0.1000   -0.0001
+##     80        0.6229            -nan     0.1000   -0.0003
+##    100        0.6118            -nan     0.1000   -0.0003
+##    120        0.6050            -nan     0.1000   -0.0005
+##    140        0.5969            -nan     0.1000   -0.0003
+##    150        0.5925            -nan     0.1000   -0.0004
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8270            -nan     0.1000    0.0161
+##      2        0.8060            -nan     0.1000    0.0074
+##      3        0.7785            -nan     0.1000    0.0091
+##      4        0.7557            -nan     0.1000    0.0085
+##      5        0.7423            -nan     0.1000    0.0064
+##      6        0.7331            -nan     0.1000    0.0030
+##      7        0.7223            -nan     0.1000    0.0019
+##      8        0.7115            -nan     0.1000    0.0031
+##      9        0.7009            -nan     0.1000    0.0041
+##     10        0.6909            -nan     0.1000    0.0044
+##     20        0.6449            -nan     0.1000   -0.0002
+##     40        0.6005            -nan     0.1000   -0.0008
+##     60        0.5696            -nan     0.1000   -0.0002
+##     80        0.5462            -nan     0.1000   -0.0002
+##    100        0.5274            -nan     0.1000   -0.0008
+##    120        0.5110            -nan     0.1000   -0.0012
+##    140        0.4952            -nan     0.1000   -0.0004
+##    150        0.4880            -nan     0.1000   -0.0006
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8316            -nan     0.1000    0.0133
+##      2        0.7987            -nan     0.1000    0.0126
+##      3        0.7686            -nan     0.1000    0.0116
+##      4        0.7471            -nan     0.1000    0.0086
+##      5        0.7319            -nan     0.1000    0.0051
+##      6        0.7163            -nan     0.1000    0.0049
+##      7        0.7049            -nan     0.1000    0.0027
+##      8        0.6934            -nan     0.1000    0.0038
+##      9        0.6829            -nan     0.1000    0.0035
+##     10        0.6755            -nan     0.1000    0.0027
+##     20        0.6168            -nan     0.1000   -0.0007
+##     40        0.5707            -nan     0.1000   -0.0018
+##     60        0.5396            -nan     0.1000   -0.0012
+##     80        0.5064            -nan     0.1000   -0.0011
+##    100        0.4836            -nan     0.1000   -0.0009
+##    120        0.4574            -nan     0.1000   -0.0003
+##    140        0.4343            -nan     0.1000   -0.0011
+##    150        0.4248            -nan     0.1000   -0.0004
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8399            -nan     0.1000    0.0110
+##      2        0.8180            -nan     0.1000    0.0107
+##      3        0.8033            -nan     0.1000    0.0065
+##      4        0.7887            -nan     0.1000    0.0073
+##      5        0.7762            -nan     0.1000    0.0068
+##      6        0.7630            -nan     0.1000    0.0048
+##      7        0.7571            -nan     0.1000    0.0022
+##      8        0.7497            -nan     0.1000    0.0026
+##      9        0.7403            -nan     0.1000    0.0041
+##     10        0.7344            -nan     0.1000    0.0022
+##     20        0.7032            -nan     0.1000    0.0004
+##     40        0.6799            -nan     0.1000   -0.0002
+##     60        0.6617            -nan     0.1000   -0.0005
+##     80        0.6481            -nan     0.1000   -0.0007
+##    100        0.6392            -nan     0.1000   -0.0006
+##    120        0.6302            -nan     0.1000   -0.0001
+##    140        0.6217            -nan     0.1000   -0.0007
+##    150        0.6171            -nan     0.1000   -0.0004
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8328            -nan     0.1000    0.0172
+##      2        0.8082            -nan     0.1000    0.0096
+##      3        0.7898            -nan     0.1000    0.0087
+##      4        0.7758            -nan     0.1000    0.0035
+##      5        0.7619            -nan     0.1000    0.0041
+##      6        0.7492            -nan     0.1000    0.0049
+##      7        0.7379            -nan     0.1000    0.0048
+##      8        0.7311            -nan     0.1000    0.0011
+##      9        0.7197            -nan     0.1000    0.0035
+##     10        0.7160            -nan     0.1000    0.0007
+##     20        0.6746            -nan     0.1000   -0.0001
+##     40        0.6312            -nan     0.1000    0.0003
+##     60        0.6019            -nan     0.1000   -0.0012
+##     80        0.5818            -nan     0.1000   -0.0006
+##    100        0.5623            -nan     0.1000   -0.0010
+##    120        0.5455            -nan     0.1000   -0.0012
+##    140        0.5317            -nan     0.1000   -0.0005
+##    150        0.5227            -nan     0.1000   -0.0003
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8283            -nan     0.1000    0.0109
+##      2        0.8016            -nan     0.1000    0.0122
+##      3        0.7791            -nan     0.1000    0.0075
+##      4        0.7607            -nan     0.1000    0.0072
+##      5        0.7470            -nan     0.1000    0.0035
+##      6        0.7352            -nan     0.1000    0.0054
+##      7        0.7199            -nan     0.1000    0.0054
+##      8        0.7111            -nan     0.1000    0.0030
+##      9        0.7015            -nan     0.1000    0.0023
+##     10        0.6925            -nan     0.1000    0.0016
+##     20        0.6347            -nan     0.1000    0.0002
+##     40        0.5882            -nan     0.1000   -0.0019
+##     60        0.5546            -nan     0.1000   -0.0014
+##     80        0.5269            -nan     0.1000   -0.0007
+##    100        0.5025            -nan     0.1000   -0.0021
+##    120        0.4782            -nan     0.1000   -0.0008
+##    140        0.4555            -nan     0.1000   -0.0007
+##    150        0.4442            -nan     0.1000   -0.0016
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8443            -nan     0.1000    0.0112
+##      2        0.8248            -nan     0.1000    0.0098
+##      3        0.8068            -nan     0.1000    0.0075
+##      4        0.7962            -nan     0.1000    0.0042
+##      5        0.7816            -nan     0.1000    0.0051
+##      6        0.7711            -nan     0.1000    0.0044
+##      7        0.7597            -nan     0.1000    0.0024
+##      8        0.7528            -nan     0.1000    0.0028
+##      9        0.7464            -nan     0.1000    0.0020
+##     10        0.7384            -nan     0.1000    0.0036
+##     20        0.7041            -nan     0.1000   -0.0007
+##     40        0.6821            -nan     0.1000   -0.0012
+##     60        0.6624            -nan     0.1000   -0.0006
+##     80        0.6505            -nan     0.1000   -0.0003
+##    100        0.6412            -nan     0.1000   -0.0003
+##    120        0.6333            -nan     0.1000   -0.0004
+##    140        0.6242            -nan     0.1000   -0.0004
+##    150        0.6206            -nan     0.1000   -0.0009
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8370            -nan     0.1000    0.0144
+##      2        0.8118            -nan     0.1000    0.0099
+##      3        0.7922            -nan     0.1000    0.0086
+##      4        0.7748            -nan     0.1000    0.0081
+##      5        0.7630            -nan     0.1000    0.0044
+##      6        0.7521            -nan     0.1000    0.0037
+##      7        0.7405            -nan     0.1000    0.0028
+##      8        0.7317            -nan     0.1000    0.0010
+##      9        0.7265            -nan     0.1000    0.0009
+##     10        0.7196            -nan     0.1000    0.0019
+##     20        0.6801            -nan     0.1000   -0.0000
+##     40        0.6347            -nan     0.1000   -0.0006
+##     60        0.6025            -nan     0.1000   -0.0004
+##     80        0.5789            -nan     0.1000   -0.0007
+##    100        0.5579            -nan     0.1000   -0.0015
+##    120        0.5428            -nan     0.1000   -0.0005
+##    140        0.5289            -nan     0.1000   -0.0011
+##    150        0.5200            -nan     0.1000   -0.0003
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8322            -nan     0.1000    0.0125
+##      2        0.8043            -nan     0.1000    0.0118
+##      3        0.7784            -nan     0.1000    0.0087
+##      4        0.7629            -nan     0.1000    0.0043
+##      5        0.7465            -nan     0.1000    0.0065
+##      6        0.7326            -nan     0.1000    0.0045
+##      7        0.7215            -nan     0.1000    0.0017
+##      8        0.7126            -nan     0.1000    0.0013
+##      9        0.7047            -nan     0.1000   -0.0010
+##     10        0.6936            -nan     0.1000    0.0031
+##     20        0.6480            -nan     0.1000   -0.0008
+##     40        0.5896            -nan     0.1000   -0.0005
+##     60        0.5552            -nan     0.1000   -0.0007
+##     80        0.5259            -nan     0.1000   -0.0005
+##    100        0.4969            -nan     0.1000   -0.0007
+##    120        0.4730            -nan     0.1000   -0.0008
+##    140        0.4522            -nan     0.1000   -0.0003
+##    150        0.4448            -nan     0.1000   -0.0009
+## 
+## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+##      1        0.8364            -nan     0.1000    0.0147
+##      2        0.8103            -nan     0.1000    0.0136
+##      3        0.7938            -nan     0.1000    0.0081
+##      4        0.7757            -nan     0.1000    0.0085
+##      5        0.7617            -nan     0.1000    0.0071
+##      6        0.7511            -nan     0.1000    0.0046
+##      7        0.7415            -nan     0.1000    0.0032
+##      8        0.7295            -nan     0.1000    0.0037
+##      9        0.7198            -nan     0.1000    0.0031
+##     10        0.7131            -nan     0.1000    0.0028
+##     20        0.6773            -nan     0.1000   -0.0009
+##     40        0.6413            -nan     0.1000   -0.0006
+##     60        0.6180            -nan     0.1000   -0.0007
+##     80        0.6015            -nan     0.1000   -0.0008
+##    100        0.5866            -nan     0.1000   -0.0002
+##    120        0.5695            -nan     0.1000   -0.0011
+##    140        0.5569            -nan     0.1000   -0.0005
+##    150        0.5518            -nan     0.1000   -0.0006</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find out variable importance</span>
+<span class="kw">summary</span>(objModel)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<pre><code>##                                         var       rel.inf
+## HALSTEAD_CONTENT           HALSTEAD_CONTENT 14.6047519607
+## HALSTEAD_DIFFICULTY     HALSTEAD_DIFFICULTY 10.1873906874
+## NUM_OPERANDS                   NUM_OPERANDS  8.9325104200
+## NUM_OPERATORS                 NUM_OPERATORS  7.9127746116
+## NUM_UNIQUE_OPERATORS   NUM_UNIQUE_OPERATORS  6.7756582333
+## LOC_TOTAL                         LOC_TOTAL  6.2296682519
+## NUM_UNIQUE_OPERANDS     NUM_UNIQUE_OPERANDS  6.1410664847
+## HALSTEAD_EFFORT             HALSTEAD_EFFORT  5.1853100309
+## LOC_COMMENTS                   LOC_COMMENTS  5.1306009233
+## LOC_EXECUTABLE               LOC_EXECUTABLE  4.7274594398
+## LOC_CODE_AND_COMMENT   LOC_CODE_AND_COMMENT  3.8598106671
+## HALSTEAD_LENGTH             HALSTEAD_LENGTH  3.7668756935
+## HALSTEAD_VOLUME             HALSTEAD_VOLUME  3.4277318907
+## ESSENTIAL_COMPLEXITY   ESSENTIAL_COMPLEXITY  3.4005292639
+## BRANCH_COUNT                   BRANCH_COUNT  3.2023641850
+## DESIGN_COMPLEXITY         DESIGN_COMPLEXITY  1.9630713543
+## LOC_BLANK                         LOC_BLANK  1.9252046668
+## HALSTEAD_LEVEL               HALSTEAD_LEVEL  1.1178129374
+## CYCLOMATIC_COMPLEXITY CYCLOMATIC_COMPLEXITY  1.0945057892
+## HALSTEAD_ERROR_EST       HALSTEAD_ERROR_EST  0.4149025082
+## HALSTEAD_PROG_TIME       HALSTEAD_PROG_TIME  0.0000000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># find out model details</span>
+objModel</code></pre></div>
+<pre><code>## Stochastic Gradient Boosting 
+## 
+## 1500 samples
+##   21 predictors
+##    2 classes: &#39;N&#39;, &#39;Y&#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (3 fold) 
+## Summary of sample sizes: 1000, 1000, 1000 
+## Resampling results across tuning parameters:
+## 
+##   interaction.depth  n.trees  ROC           Sens          Spec        
+##   1                   50      0.8054441609  0.9826224329  0.1282051282
+##   1                  100      0.8090442338  0.9802527646  0.1581196581
+##   1                  150      0.8050492162  0.9755134281  0.1794871795
+##   2                   50      0.8068619111  0.9739336493  0.1623931624
+##   2                  100      0.8085834650  0.9763033175  0.2051282051
+##   2                  150      0.8108518654  0.9684044234  0.2307692308
+##   3                   50      0.8042340098  0.9691943128  0.1837606838
+##   3                  100      0.8054694779  0.9668246445  0.2094017094
+##   3                  150      0.8047859197  0.9636650869  0.2478632479
+## 
+## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
+## 
+## Tuning parameter &#39;n.minobsinnode&#39; was held constant at a value of 10
+## ROC was used to select the optimal model using  the largest value.
+## The final values used for the model were n.trees = 150,
+##  interaction.depth = 2, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#################################################
+<span class="co"># evalutate model</span>
+#################################################
+<span class="co"># get predictions on your testing data</span>
+
+<span class="co"># class prediction</span>
+predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object=</span>objModel, kc1.test[,-<span class="dv">22</span>], <span class="dt">type=</span><span class="st">&#39;raw&#39;</span>)
+<span class="kw">head</span>(predictions)</code></pre></div>
+<pre><code>## [1] N N N N N N
+## Levels: N Y</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred=</span>predictions, <span class="dt">obs=</span><span class="kw">as.factor</span>(kc1.test[,<span class="dv">22</span>]))</code></pre></div>
+<pre><code>##     Accuracy        Kappa 
+## 0.8691275168 0.2982095951</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># probabilities </span>
+predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object=</span>objModel, kc1.test[,-<span class="dv">22</span>], <span class="dt">type=</span><span class="st">&#39;prob&#39;</span>)
+<span class="kw">head</span>(predictions)</code></pre></div>
+<pre><code>##              N             Y
+## 1 0.9135315703 0.08646842967
+## 2 0.9756990212 0.02430097876
+## 3 0.8465454841 0.15345451590
+## 4 0.8366086073 0.16339139270
+## 5 0.8333283490 0.16667165098
+## 6 0.9344452820 0.06555471799</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred=</span>predictions[[<span class="dv">2</span>]], <span class="dt">obs=</span><span class="kw">ifelse</span>(kc1.test[,<span class="dv">22</span>]==<span class="st">&#39;yes&#39;</span>,<span class="dv">1</span>,<span class="dv">0</span>))</code></pre></div>
+<pre><code>##         RMSE     Rsquared 
+## 0.2143954918           NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auc &lt;-<span class="st"> </span><span class="kw">roc</span>(<span class="kw">ifelse</span>(kc1.test[,<span class="dv">22</span>]==<span class="st">&quot;Y&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>), predictions[[<span class="dv">2</span>]])
+<span class="kw">print</span>(auc$auc)</code></pre></div>
+<pre><code>## Area under the curve: 0.8049179</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="feature-selection-example.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="further-classification-models.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/danrodgar/dasedown/edit/master/510-advancedModelBuilding.Rmd",
+"text": "Edit"
+},
+"download": ["DASE.pdf", "DASE.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
