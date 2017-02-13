@@ -28,5 +28,6 @@ rmd_files: [
 
   "800-textMiningSE.Rmd",
 
-  "900-timeSeries.Rmd"
+  "900-timeSeries.Rmd",
+  "999-references.Rmd"
 ]

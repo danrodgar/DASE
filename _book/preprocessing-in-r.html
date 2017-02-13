@@ -269,6 +269,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>20</b> Time Series</a><ul>
 <li class="chapter" data-level="20.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>20.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -505,8 +506,8 @@ kc1_tbl %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span cl
 <pre><code>## # A tibble: 2 × 22
 ##   LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
 ##       &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
-## 1         0            1                    0            0
-## 2         0            1                    0            0
+## 1         0            3                    0            0
+## 2         3            9                    0            4
 ## # ... with 18 more variables: CYCLOMATIC_COMPLEXITY &lt;dbl&gt;,
 ## #   DESIGN_COMPLEXITY &lt;dbl&gt;, ESSENTIAL_COMPLEXITY &lt;dbl&gt;,
 ## #   LOC_EXECUTABLE &lt;dbl&gt;, HALSTEAD_CONTENT &lt;dbl&gt;,
@@ -520,15 +521,15 @@ kc1_tbl %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span
 <pre><code>## # A tibble: 105 × 22
 ##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
 ##        &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
-## 1          0            3                    0            0
-## 2          0            1                    0            0
-## 3          0            3                    0            0
-## 4          0            1                    0            0
-## 5          0            1                    0            0
-## 6         18           29                    0            5
-## 7          0            1                    0            0
+## 1          4            3                    0            5
+## 2          5            7                    0            2
+## 3          1            9                    0            2
+## 4          2            1                    0            0
+## 5          1            5                    0            0
+## 6          0            1                    0            0
+## 7          6            9                    0            2
 ## 8          0            1                    0            0
-## 9          1            1                    0            1
+## 9          2            8                    0            1
 ## 10         0            1                    0            0
 ## # ... with 95 more rows, and 18 more variables:
 ## #   CYCLOMATIC_COMPLEXITY &lt;dbl&gt;, DESIGN_COMPLEXITY &lt;dbl&gt;,

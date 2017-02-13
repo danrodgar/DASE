@@ -269,6 +269,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>20</b> Time Series</a><ul>
 <li class="chapter" data-level="20.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>20.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -356,17 +357,17 @@ gpresult &lt;-<span class="st"> </span><span class="kw">symbolicRegression</span
                                 <span class="dt">populationSize=</span>initialPopulation,
                                 <span class="dt">stopCondition=</span><span class="kw">makeStepsStopCondition</span>(stepsGenerations))</code></pre></div>
 <pre><code>## STARTING genetic programming evolution run (Age/Fitness/Complexity Pareto GP search-heuristic) ...</code></pre>
-<pre><code>## evolution step 100, fitness evaluations: 4950, best fitness: 6537.594992, time elapsed: 3.37 seconds</code></pre>
-<pre><code>## evolution step 200, fitness evaluations: 9950, best fitness: 6537.594992, time elapsed: 6.4 seconds</code></pre>
-<pre><code>## evolution step 300, fitness evaluations: 14950, best fitness: 6537.594992, time elapsed: 9.39 seconds</code></pre>
-<pre><code>## evolution step 400, fitness evaluations: 19950, best fitness: 6012.656581, time elapsed: 12.82 seconds</code></pre>
-<pre><code>## evolution step 500, fitness evaluations: 24950, best fitness: 5682.132944, time elapsed: 15.71 seconds</code></pre>
-<pre><code>## evolution step 600, fitness evaluations: 29950, best fitness: 5682.132944, time elapsed: 18.65 seconds</code></pre>
-<pre><code>## evolution step 700, fitness evaluations: 34950, best fitness: 5682.132944, time elapsed: 21.68 seconds</code></pre>
-<pre><code>## evolution step 800, fitness evaluations: 39950, best fitness: 5682.132944, time elapsed: 24.82 seconds</code></pre>
-<pre><code>## evolution step 900, fitness evaluations: 44950, best fitness: 5623.075872, time elapsed: 27.98 seconds</code></pre>
-<pre><code>## evolution step 1000, fitness evaluations: 49950, best fitness: 5209.146640, time elapsed: 31.23 seconds</code></pre>
-<pre><code>## Genetic programming evolution run FINISHED after 1000 evolution steps, 49950 fitness evaluations and 31.23 seconds.</code></pre>
+<pre><code>## evolution step 100, fitness evaluations: 4950, best fitness: 6537.594992, time elapsed: 3.38 seconds</code></pre>
+<pre><code>## evolution step 200, fitness evaluations: 9950, best fitness: 6537.594992, time elapsed: 6.42 seconds</code></pre>
+<pre><code>## evolution step 300, fitness evaluations: 14950, best fitness: 6537.594992, time elapsed: 9.43 seconds</code></pre>
+<pre><code>## evolution step 400, fitness evaluations: 19950, best fitness: 6012.656581, time elapsed: 12.87 seconds</code></pre>
+<pre><code>## evolution step 500, fitness evaluations: 24950, best fitness: 5682.132944, time elapsed: 15.76 seconds</code></pre>
+<pre><code>## evolution step 600, fitness evaluations: 29950, best fitness: 5682.132944, time elapsed: 18.71 seconds</code></pre>
+<pre><code>## evolution step 700, fitness evaluations: 34950, best fitness: 5682.132944, time elapsed: 21.75 seconds</code></pre>
+<pre><code>## evolution step 800, fitness evaluations: 39950, best fitness: 5682.132944, time elapsed: 24.91 seconds</code></pre>
+<pre><code>## evolution step 900, fitness evaluations: 44950, best fitness: 5623.075872, time elapsed: 28.08 seconds</code></pre>
+<pre><code>## evolution step 1000, fitness evaluations: 49950, best fitness: 5209.146640, time elapsed: 31.34 seconds</code></pre>
+<pre><code>## Genetic programming evolution run FINISHED after 1000 evolution steps, 49950 fitness evaluations and 31.34 seconds.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bf &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.min</span>(<span class="kw">sapply</span>(gpresult$population, gpresult$fitnessFunction))]]
 wf &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.max</span>(<span class="kw">sapply</span>(gpresult$population, gpresult$fitnessFunction))]]
 
