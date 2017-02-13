@@ -1,0 +1,83 @@
+
+# Classical Hypothesis Testing
+  
+  - By "classical" we mean the standard "frequentist" approach to hypothesis testing. The "frequentist" approach to probability sees it as the frequency of events in the long run. We repeat experiments over and over and we count the times that our object of interest appears in the sequence. 
+  
+  - The classical approach is usually called **null hypothesis significance testing** (NHST) because the process starts by setting a null hypothesis $H_0$ which is the opposite about what we think is true.
+  
+  - The rationale of the process is that the statistical hypothesis should be *falsifiable*, that is, we can find evidence that the hypothesis is not true. We try to find evidence against the null hypothesis in order to support our alternative hypothesis $H_A$
+  
+  - Usually, the null hypothesis is described as the situation of "no effect" and the alternative hypothesis describes the effect that we are looking for.
+  
+  - After collecting data, taking an actual sample, we measure the distance of our parameter of interest from the hypothesized population parameter, and use the facts of the sampling distribution to determine the probability of obtaining such a sample *assuming the hypothesis is true*. This is amounts to a test of the hypothesis.
+  
+  - If the probability of our sample, given the null hypothesis is high, this provides evidence that the null hypothesis is true. Conversely, if the probability of the sample is low (given the hypothesis), this is evidence against the null hypothesis. The hypothesis being tested in this way is named the *null hypothesis*.
+  
+  - The goal of the test is to determine if the null hypothesis can be rejected. A statistical test can either reject or fail to reject a null hypothesis, but never prove it true. 
+  
+  - We can make two types of errors: false positive (Type I) and false negative (Type II)
+  
+  - Type I and Type II errors
+  
+       ![](figures/typeIandIIwiki.png)
+  
+  
+  - Two-tailed NHST
+  
+       ![](figures/stat_power_ggplot.png)
+    
+    
+  - One-tailed NHST
+  
+       ![](figures/One-tailedNHST.png)
+
+
+  - elementary example
+
+
+```{r}
+data = c(52.7, 53.9, 41.7, 71.5, 47.6, 55.1, 62.2, 56.5, 33.4, 61.8, 54.3, 50.0, 45.3, 63.4, 53.9, 65.5, 66.6, 70.0, 52.4, 38.6, 46.1, 44.4, 60.7, 56.4);
+t.test(data, mu=50, alternative = 'greater')
+```
+
+- Keeping this simple, we could start hypothesis testing about one sample median with the wilcoxon test for non-normal distributions.
+
+```{r echo=FALSE}
+library(foreign)
+chinaTrain <- read.arff("datasets/effortEstimation/china3AttSelectedAFPTrain.arff")
+logchina_size <- log(chinaTrain$AFP)
+logchina_effort <- log(chinaTrain$Effort)
+linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)
+chinaTest <- read.arff("datasets/effortEstimation/china3AttSelectedAFPTest.arff")
+b0 <- linmodel_logchina_train$coefficients[1]
+b1 <- linmodel_logchina_train$coefficients[2]
+china_size_test <- chinaTest$AFP
+actualEffort <- chinaTest$Effort
+predEffort <- exp(b0+b1*log(china_size_test))
+
+err <- actualEffort - predEffort  #error or residual
+ae <- abs(err)
+```
+  
+  
+  - "ae" is the absolute error in the China Test data
+  
+  
+```{r}
+median(ae)
+mean(ae)
+wilcox.test(ae, mu=800, alternative = 'greater') #change the values of mu and see the results
+
+```
+ 
+ - Quick introduction at https://psychstatsworkshop.wordpress.com/2014/08/06/lesson-9-hypothesis-testing/
+  
+
+## p-values
+  - p-value: the p-value of a statistical test is the probability, computed assuming that $H_0$ is true, that the test statistic would take a value as extreme or more extreme than that actually observed. 
+  - http://www.nature.com/news/psychology-journal-bans-p-values-1.17001
+  - https://www.sciencenews.org/blog/context/p-value-ban-small-step-journal-giant-leap-science
+  
+  
+ ![](figures/pvalueBan.png)
+

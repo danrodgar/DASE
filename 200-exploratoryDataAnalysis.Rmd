@@ -1,0 +1,197 @@
+
+# (PART) Exploratory and Descriptive Data analysis {-}
+
+# Exploratory Data Analysis
+
+## Descriptive statistics
+  - The first task with any dataset is to characterise it in terms of summary statistics and graphics
+  - Displaying information graphically will help us to identify the main characteristics of the data. To describe a distribution we often want to know where it is centered and and what the spread is (mean, median, quantiles)
+ 
+ 
+ 
+## Basic Plots
+   
+    + **Histogram**: The histogram defines a sequence of breaks and then counts the number of observations in the bins formed by the breaks.
+    
+    + **Boxplot**: The boxplot is used to summarize data succinctly, quickly displaying if the data is symmetric or has suspected outliers.
+    
+    
+      ![](figures/boxplotexp.png)
+      
+      
+    + **Q-Q plot**: This plot is used to determine if the data is close to being normally distributed. The quantiles of the standard normal distribution is represented by a straight line. The normality of the data can be evaluated by observing the extent in which the points appear on the line. When the data is normally distributed around the mean, then the mean and the median should be equal. 
+    
+    + **Scatterplot**: A scatter plot provides a graphical view of the relationship between two sets of numbers: one numerical variable against another. 
+    
+    + **Kernel Density Plot**: This plot visualizes the underlying distribution of a variable. Kernel density estimatiion is a non-parametric method of estimating the probability density function of continuous random variable. It helps to identify the distribution of the variable.
+    + **Violin Plot**: A violin plot is a combination of a boxplot and a kernel density plot. 
+    
+    
+# Descriptive Statistics
+
+
+## Normality 
+  - A normal distribution is an arrangement of a data set in which most values cluster in the middle of the range
+  - A graphical representation of a normal distribution is sometimes called a *bell curve* because of its shape.
+  - Many procedures in statistics are based on this property. *Parametric* procedures require the normality property.
+  - In a normal distribution about 95% of the probability lies within 2 Standard Deviations of the mean.
+  - Two examples: one population with mean 60 and the standard deviation of 1, and the other with mean 60 and sd=4 (means shifted to 0)
+  
+```{r}
+main.title <- "Area within 2 SD of the mean"
+par(mfrow=c(1,2))
+plot(function(x) dnorm(x, mean = 0, sd = 1),
+xlim = c(-3, 3), main = "SD 1", xlab = "x",
+ylab = "", cex = 2)
+segments(-2, 0, -2, 0.4)
+segments(2, 0, 2, 0.4)
+plot(function(x) dnorm(x, mean = 0, sd = 4),
+xlim = c(-12, 12), main = "SD 4", xlab = "x",
+ylab = "", cex = 2)
+segments(-8, 0, -8, 0.1)
+segments(8, 0, 8, 0.1)
+```
+
+  - if we sample from this population we get "another population".
+  
+```{r}
+sample.means <- rep(NA, 1000)
+for (i in 1:1000) {
+  sample.40 <- rnorm(40, mean = 60, sd = 4) #rnorm generates random numbers from normal distribution
+  sample.means[i] <- mean(sample.40)
+}
+means40 <- mean(sample.means)
+sd40 <- sd(sample.means)
+means40
+sd40
+```
+- These sample means are another "population". The sampling distribution of the sample mean is normally distributed meaning that the "mean of a representative sample provides an estimate of the unknown population mean".
+```{r}
+hist(sample.means)
+```
+
+
+
+## Getting the Data. Descriptive statistics.
+  - Set the path to your files 
+  - Read the Telecom1 dataset and print out the summary statistics with the command *summary*
+```{r}
+options(digits=3)
+telecom1 <- read.table("datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+summary(telecom1)
+```
+  - We see that this dataset has three variables (or parameters) and few data points (18)
+    + size: the independent variable
+    + effort: the dependent variable
+    + EstTotal: the estimates coming from an estimation method
+  - Basic Plots
+  
+  
+```{r message=FALSE, warning=FALSE}
+par(mfrow=c(1,2)) #n figures per row
+size_telecom1 <- telecom1$size
+effort_telecom1 <- telecom1$effort
+
+hist(size_telecom1, col="blue", xlab='size', ylab = 'Probability', main = 'Histogram of project Size')
+lines(density(size_telecom1, na.rm = T, from = 0, to = max(size_telecom1)))
+plot(density(size_telecom1))
+
+
+hist(effort_telecom1, col="blue")
+plot(density(effort_telecom1))
+
+boxplot(size_telecom1)
+boxplot(effort_telecom1)
+
+# violin plots for those two variables
+library(vioplot)
+vioplot(size_telecom1, names = '') 
+title("Violin Plot of Project Size")
+vioplot(effort_telecom1, names = '')
+title("Violin Plot of Project Effort")
+
+par(mfrow=c(1,1))
+qqnorm(size_telecom1, main="Q-Q Plot of 'size'")
+qqline(size_telecom1, col=2, lwd=2, lty=2) #draws a line through the first and third quartiles
+qqnorm(effort_telecom1,  main="Q-Q Plot of 'effort'")
+qqline(effort_telecom1)
+```
+  - We observe the non-normality of the data. 
+  
+  - We may look the posible relationship between size and effort with a scatterplot
+  
+```{r}
+plot(size_telecom1, effort_telecom1)
+```
+
+
+## China dataset 
+
+
+```{r message=FALSE, warning=FALSE}
+library(foreign)
+china <- read.arff("datasets/effortEstimation/china.arff")
+china_size <- china$AFP
+summary(china_size)
+china_effort <- china$Effort
+summary(china_effort)
+par(mfrow=c(1,2))
+hist(china_size, col="blue", xlab="Adjusted Function Points", main="Distribution of AFP")
+hist(china_effort, col="blue",xlab="Effort", main="Distribution of Effort")
+boxplot(china_size)
+boxplot(china_effort)
+qqnorm(china_size)
+qqline(china_size)
+qqnorm(china_effort)
+qqline(china_effort)
+```
+  - We observe the non-normality of the data. 
+
+## Normality. Galton data
+  - It is the data based on the famous 1885 Francis Galton's study about the relationship between the heights of adult children and the heights of their parents.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# library(UsingR); data(galton)
+galton <- read.csv("datasets/other/galton.csv")
+par(mfrow=c(1,2))
+hist(galton$child,col="blue") #,breaks=100)
+hist(galton$parent,col="blue") #,breaks=100)
+```
+
+
+## Normalization
+
+  - China dataset. Take logs in both independent variables. 
+  
+  
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+logchina_size = log(china_size)
+hist(logchina_size, col="blue", xlab="log Adjusted Function Points", main="Distribution of log AFP")
+logchina_effort = log(china_effort)
+hist(logchina_effort, col="blue",xlab="Effort", main="Distribution of log Effort")
+qqnorm(logchina_size)
+qqnorm(logchina_effort)
+```
+
+
+- If the log-log transformation is used the estimation equation is:
+
+  $$y= e^{b_0 + b_1 log(x)} $$
+
+## China dataset. Correlation. 
+
+  - **Correlation** is a statistical relationship between two sets of data.
+  - With the whole dataset we may check for the linear Correlation of the variables we are interested in.
+  
+  
+```{r}
+par(mfrow=c(1,1))
+plot(china_size,china_effort)
+cor(china_size,china_effort)
+cor.test(china_size,china_effort)
+cor(china_size,china_effort, method="spearman")
+cor(china_size,china_effort, method="kendall")
+```
+

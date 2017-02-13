@@ -1,0 +1,351 @@
+
+# (PART) Basic Models {-}
+
+Following the data mining process, we describe what is meant by preprocessing, classical supervised models,  unsupervised models and evaluation in the context of software engineering with examples
+
+# Basics of Preprocessing
+
+This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, tranforming input data, merging variables, etc.
+
+Typically, preprocessing consist of the following tasks (subprocesses):
+ 
+ + Data cleaning (consistency, noise detection, outliers)
+ + Data integration
+ + Data transformation  (normalisation, discretisation) and derivation of new attributes from existing ones (e.g., population density from population and area)
+ + Missing data imputation
+ + Data reduction (feature selection and instace selection)
+
+
+## Data
+
+*Consistent* data are semantically correct based on real-world knowledge of the problem, i.e., no constrains are violated and data that can be used for inducing models and analysis. For example, the LoC or effort is constrained to non-negative values. We can also consider that to multiple attributes are consistent among them, and even datasets (e.g., same metrics but collected by different tools)
+
+
+
+## Missing values
+
+Three types of problems are usually associated with MVs in DM [5]:
+
+  1. loss of efficiency
+  2. complications in handling and analyzing the data
+  3. bias resulting from differences between missing and complete data.
+
+Imputation consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and imputation methods are needed. 
+
+In R, a missing value is represented with `NA` and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the `na.rm` option.
+
+
+
+### Imputation methods
+
+We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute.
+
+More elaborated approaches include:
+
+  + EM (Expectation-Maximisation)
+  + Distance-based
+      + kNN (k Nearest Neighbours)
+      + Clustering
+
+## Noise
+
+Imperfections of the real-world data that influences negatively in the induced machine learning models. 
+
+Approaches to deal with noisy data:
+ + Robust learners capable of handling noisy data (e.g., C4.5 through pruning strategies)
+ + Data polishing methods which aim to correct noisy instances prior training
+ + Noise filters which are used to identify and eliminate noisy instances from the training data.
+ 
+ 
+Types of Noise Data: 
+ + Class Noise (aka label noise). 
+      + There can be contradictory cases (all attributes have the same value except the class)
+      + Misclassifications. The class attribute is not labeled with the true label (golden truth)
+ + Attribute Noise. Values of attributes that are noise, missing or unknown. 
+ 
+
+## Outliers
+
+There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist. 
+
+```{r message=FALSE, warning=FALSE}
+library(DMwR)
+library(foreign)
+
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
+```
+
+The LOF algorithm (`lofactor`), given a data set it produces a vector of local outlier factors for each case.
+
+```{r message=FALSE, warning=FALSE}
+kc1num <- kc1[,1:21]
+outlier.scores <- lofactor(kc1num, k=5)
+plot(density(na.omit(outlier.scores)))
+outliers <- order(outlier.scores, decreasing=T)[1:5]
+print(outliers)
+```
+
+
+
+Another simple method of Hiridoglou and Berthelot for positive observations.
+
+
+## Feature selection (FS)
+
+Feature Selection (FS) aims at identifying the most relevant attributes from a dataset. It is important in different ways:
+
+  + A reduced volume of data allows different data mining or searching techniques to be applied.
+
+  + Irrelevant and redundant attributes can generate less accurate and more complex models. Furthermore, data mining algorithms can be executed faster.
+
+  + It avoids the collection of data for those irrelevant and redundant attributes in the future.
+
+
+The problem of feature selection received a thorough treatment in pattern recognition and machine learning. Most of the feature selection algorithms tackle the task as a search problem, where each
+state in the search specifies a distinct subset of the possible attributes~\cite{BL97}. The search procedure is combined with a criterion to evaluate the merit of each candidate subset of attributes. There are a multiple possible combinations between each procedure search and each attribute measure~\cite{LY05}.
+
+There are two major approaches in FS from the method's output point of view: 
+
+  + Feature subset selection (FSS)
+
+  + Feature ranking in which attributes are ranked as a list of features which are ordered according to evaluation measures (a subset of features is often selected from the top of a ranking list).
+
+
+FFS algorithms designed with different evaluation criteria broadly fall into two categories:
+
+  + The filter model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
+  
+  + The wrapper model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve
+mining performance, but it also tends to be more computationally expensive than filter model~\cite{KJ97,Lan94}.
+
+
+Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure~\cite{LM98} which captures the goodness of each subset. An optimal (or near optimal) subset is
+selected when the search stops.
+
+Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure \cite{DLM00}, the correlation measure \cite{Hal99} and the estimated accuracy of a learning algorithm \cite{KJ97}.
+
+
+ + _Consistency_ measure attempts to find a minimum number of features that separate classes as consistently as the full set of features can. An inconsistency is defined as to instances having the same
+feature values but different class labels.
+
+  + _Correlation_ measure evaluates the goodness of feature subsets based on the hypothesis that good feature subsets contain features highly correlated to the class, yet uncorrelated to each other.
+
+  + _Wrapper-based_ attribute selection uses the target learning algorithm to estimate the worth of attribute subsets. The feature subset selection algorithm conducts a search for a good subset using
+the induction algorithm itself as part of the evaluation function.
+
+
+
+Langley~\cite{Lan94} notes that feature selection algorithms that search through the space of feature subsets must address four main issues: the starting point of the search, the organization of the
+search, the evaluation of features subsets and the criterion used to terminate the search. Different algorithms address theses issues differently.
+
+It is impractical to look at all possible feature subsets, even if the size is small. Feature selection algorithms usually proceed greedily. They can be classified into those that add features to an
+initially empty set (\emph{forward selection}) and those that remove features from an initially complete set (\emph{backwards elimination}). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide
+range of search strategies can be used: best--first, branch--and--bound, simulated annealing, genetic algorithms (see Kohavi and John~\cite{KJ97} for a review).
+
+
+## Instance selection
+
+Removal of samples (complementary to the removal of attributes) in order to scale down the dataset prior to learning a model so that there is (almost) no performance loss.
+
+There are two types of processes: 
+
+ + Prototype Selection (PS) [68] when the subset is used with a distance based method (kNN) and 
+
+ + Training Set Selection (TSS) [21, 130] in which an actual model is learned.
+ 
+ 
+It is also a search problem.
+
+
+## Discretization
+
+This process transforms continuous attributes into discrete ones, by associating categorical values to intervals and thus transforming quantitative data into qualitative data.
+
+-square
+
+
+## Correlation Coefficient and Covariance for Numeric Data
+
+Two random variables $x$ and $y$ are called independent if the probability distribution of one variable is not affected by the presence of another.
+
+
+$\tilde{\chi}^2=\frac{1}{d}\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}$
+
+```{r message=FALSE, warning=FALSE}
+chisq.test(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)
+chisq.test(kc1$DESIGN_COMPLEXITY,kc1$CYCLOMATIC_COMPLEXITY)
+```
+## Normalization
+
+### Min-Max Normalization
+
+$z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)}$
+
+```{r message=FALSE, warning=FALSE}
+library(caret)
+preObj <- preProcess(kc1[, -22], method=c("center", "scale"))
+```
+
+
+### Z-score normalization
+TBD
+
+## Transformations
+
+### Linear Transformations and  Quadratic Trans formations
+TBD
+
+### Box-cox transformation 
+TBD
+
+### Nominal to Binary tranformations
+TBD
+
+
+#  Preprocessing in R
+
+
+## The dplyr package
+
+The *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* package created by Hadley Wickham. Some functions are similar to SQL syntax and it key functions in dplyr include:
+
+ + select: select columns from a dataframe
+ + filter: select rows from a dataframe
+ + summarize: allows us to do summary stats based upon the grouped variable
+ + group_by: group by a factor variable
+ + arrange: order the dataset
+ + joins: as in sql left join
+
+Tutorial:
+[https://github.com/justmarkham/dplyr-tutorial](https://github.com/justmarkham/dplyr-tutorial)
+
+Examples
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+Describe the dataframe:
+
+```{r}
+str(kc1)
+```
+
+`tbl_df` creates a “local data frame” as a wrapper for better printing
+
+```{r}
+kc1_tbl <- tbl_df(kc1)
+```
+
+Filter:
+
+```{r}
+# Filter rows: use comma or & to represent AND condition
+filter(kc1_tbl, Defective == "Y" & LOC_BLANK != 0)
+```
+
+Another operator is `%in%`.
+
+Select:
+```{r}
+select(kc1_tbl, contains("LOC"), Defective)
+```
+
+Now, `kc1_tbl` contains("LOC"), Defective
+
+
+Filter and Select together:
+```{r}
+# nesting method
+filter(select(kc1_tbl, contains("LOC"), Defective), Defective !=0)
+```
+
+It is easier usign the chaining method:
+
+```{r}
+# chaining method
+kc1_tbl %>%
+    select(contains("LOC"), Defective) %>%
+    filter(Defective !=0)
+```
+
+
+Arrange ascending
+```{r}
+# 
+kc1_tbl %>%
+    select(LOC_TOTAL, Defective) %>%
+    arrange(LOC_TOTAL)
+```
+
+Arrange descending:
+```{r}
+kc1_tbl %>%
+    select(LOC_TOTAL, Defective) %>%
+    arrange(desc(LOC_TOTAL))
+```
+
+
+Mutate:
+```{r}
+kc1_tbl %>%
+    filter(Defective == "Y") %>%
+    select(NUM_OPERANDS, NUM_OPERATORS, Defective) %>%
+    mutate(HalsteadLength = NUM_OPERANDS + NUM_OPERATORS)
+```
+
+summarise: Reduce variables to values
+
+```{r}
+# Create a table grouped by Defective, and then summarise each group by taking the mean of loc
+kc1_tbl %>%
+    group_by(Defective) %>%
+    summarise(avg_loc = mean(LOC_TOTAL, na.rm=TRUE))
+```
+
+
+```{r}
+# Create a table grouped by Defective, and then summarise each group by taking the mean of loc
+kc1_tbl %>%
+    group_by(Defective) %>%
+    summarise_each(funs(mean, min, max), BRANCH_COUNT, LOC_TOTAL)
+```
+It seems than Defective modules are larger than the non-Defective ones.
+
+Count with:
+```{r}
+# n() or tally
+kc1_tbl %>%
+    group_by(Defective) %>%
+    tally()
+```
+
+It seems that it's an imbalanced dataset...
+
+
+
+```{r}
+# randomly sample a fixed number of rows, without replacement
+kc1_tbl %>% sample_n(2)
+
+# randomly sample a fraction of rows, with replacement
+kc1_tbl %>% sample_frac(0.05, replace=TRUE)
+
+# Better formatting adapted to the screen width
+glimpse(kc1_tbl)
+```
+
+## Other libraries and tricks
+
+The `lubridate` package contains a number of functions facilitating the conversion of text to
+POSIX dates. As an example, consider the following code. We may use this, for example, with time series.
+
+
+For example [https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf](https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf)
+
+
+```{r message=FALSE, warning=FALSE}
+library(lubridate)
+dates <- c("15/02/2013", "15 Feb 13", "It happened on 15 02 '13")
+dmy(dates)
+```

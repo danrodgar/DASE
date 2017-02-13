@@ -1,0 +1,397 @@
+---
+title: "Preprocessing ISBSG"
+output: html_document
+---
+
+# Preparation and Validation of the ISBSG Repository
+
+## The ISBSG Repository
+
+The International Software Benchmarking Standards Group [ISBSG]{http://www.isbsg.org/}, a non-profit organization, maintains a software project management repository from a variety of organizations. The ISBSG checks the validity and provides benchmarking information to companies submitting data to the repository. Projects are defined using over 60 attributes such us number of function points and type of function points (IFPUG, COSMIC, Mark II, etc.), team size, software lifecycle phases, etc. The ISBSG attributes can be classified as follows:
+
+  + Project context such as type of organization, business area, and type of development.
+  + Product characteristics such as application type user base.
+  + Development characteristics such as development platform, languages, tools, etc.
+  + Project size data: different types of function points (IFPUG, COSMIC, etc.)
+  + Qualitative factors such as experience, use of methodologies, etc.
+
+However, before applying statistical or machine learning approaches to the dataset, there are a number of issues to be taken into consideration regarding data preparation. We first needed to preprocess data as explained in the next section.% to be used more consistently with statistical or machine learning approaches
+
+## Preprocesing
+
+This section describes the preprocessing or data cleaning process carried out across different ISBSG releases. To do so, we performed instance (project) selection and attribute selection.
+
+Firstly, it was necessary to remove projects that have no significance to the analysis due to poor quality or lack of data, inspecting instances for each attribute as follows:
+
+ + *Rating of the data* The ISBSG uses two attributes, _Data Quality Rating_ and \emph{Unadjusted Function Point Rating} as a measure of reliability for each project.
+    \begin{itemize}
+    \item Data Quality Rating. Projects are classified from A (where the submission to the ISBSG consortium satisfied all criteria for seemingly sound data) to D (where the data had some fundamental shortcomings). According to ISBSG, only projects classified as A or B should be used for statistical analysis. Therefore, all project instances labelled as C or D were removed.
+    \item Unadjusted Function Point Rating. This attribute refers to the quality of the functional size. As above, only projects classified as A or B should be used for statistical analysis.
+    \end{itemize}
+
+
+ + *Count Approach*. A description of the technique used to size the project. The projects that used other size estimating method (\emph{Derived count approach}) than [IFPUG]{http://www.ifpug.org/}, [NESMA]{http://www.nesma.nl/}, Albrecht or Dreger were removed, since they represent small portions of the database. NESMA is a compliant variant of IFPUG and the differences between them are considered to have a negligible impact on the results of function point counts. Counts based on Albrecht's~\cite{Albrecht1983_FP} technique were not removed since in fact IFPUG is a revision of these techniques, similarly, the Dreger method refers to the book \cite{dreger89}, which is simply a guide to IFPUG counts. All these variants were included.
+
+  + The \emph{Recording Method} attribute represents the method used to obtain work effort data. Projects with \emph{Recording method} for total effort other than \emph{Staff hours (Recorded)} were removed. This method reports the  work effort from a daily record of all the  work effort expended by each person on project related tasks. Others values such as 
+  
+  + Staff hours(Derived), or \emph{Productive Time Only} are not reliable because they are considered to be more subjective.
+
+  + The \emph{Resource Level} Data is collected about type of effort included in the work effort data reported. Out of the four possible levels, only \emph{Level 1} was considered, i.e., development team effort (e.g., project team, project management, project administration). Development team support, computer operations involvement, and end users or clients, are not included as we are only interested in the project construction effort.
+%, and not for example on the user training time or supporting team effort.
+
+  + Next we considered all nominal attributes. It was necessary to perform a homogenization process, for example, many entries are blank while others are labeled as ``don't know}''. Another example is that the same programming language is described using equivalent but different labels such as COBOL 2 or COBOL II. It is, therefore, necessary to unify them with the same value. A similar process is performed for all attributes. We also tabulated all nominal attributes to obtain their frequencies. Nominal values with less than 1% out of the total number of projects were removed as they were considered not representative. For example, the _Language Type_ attribute can be 2GL, 3GL, 4GL, 5GL, and ApG but the number of projects developed with 2GL, 5GL and ApG languages was less than 1\%; these projects were removed, leaving only 3GL and 4GL.
+
+
+
+Secondly, we performed attribute selection. The entire ISBSG repositories have more than 60 attributes grouped around data rating, sizing, effort, productivity, schedule, quality, grouping attributes, architecture, documents and techniques, project attributes, product attributes, effort attributes, size attributes and size other than functional size measures. After cleaning and removing instances (projects) as described, some attributes contained only one value. Attributes with a single value do not provide any usable information for data mining or statistical analyses. Even then, it was not be possible to consider all remaining attributes in our analysis. Attributes that can confuse the statistical or machine learning algorithms were further removed. For example attributes in which the percentage of missing values is larger than 85\% were removed. 
+
+Several attributes represent different way of measuring the same project characteristic. For example, among all productivity attributes, we selected the \emph{Normalised Level 1 Productivity Delivery Rate} as it is the development productivity recommended by the ISBSG, and as a consequence, the \emph{Normalised Level 1 Work Effort} was also selected for the effort. Other productivity or effort attributes were removed.
+
+A closer look at the remaining data still showed inconsistencies such as typos or clearly wrongly classified labels. For instance, Visual Basic was mainly classified as 4GL but a few instances were classified as 3GL.
+
+
+Table~\ref{tab:descriptionTypeAtt} shows a summary of their types, range and percentage of missing values of the following attributes selected with approximately one third of all instances (951 instances for release 10):
+
+
+  + Functional Size ($FP$). This is the count of unadjusted Function Points (FP)~\cite{Albrecht1983_FP,ifpug2010} using IFPUG or its variants.% (before any adjustment by a Value Adjustment Factor if used).
+
+  + *Summary Work Effort* Provides the total effort in hours
+%  recorded against the project.
+
+%  Pre 2002 Productivity Delivery Rate (adjusted function points)
+%Project productivity delivery rate in hours per functional size unit calculated from
+%Summary Work Effort divided by Adjusted Function Point count. This is the
+%delivery rate for the project that was used and reported by the ISBSG prior to
+%the year 2002. Since that time the Normalised PDR has been used for analysis
+%and reporting.
+
+  + Normalised Level 1 Work Effort (\emph{Eff}). Development team only effort for the full development life-cycle (this can be an estimate when the project did not cover the full life-cycle). Effort is measured in staff hours.
+
+  + Normalised Level 1 Productivity Delivery Rate (\emph{PDR}). Number of hours per functional size unit. This is calculated from \emph{Normalised Level 1 Work Effort} for the development team only divided by \emph{Functional Size} (Unadjusted Function Points). Therefore, smaller values represent better productivity.
+
+% Normalised Level 1 Productivity Delivery Rate (unadjusted function points) Project productivity delivery rate in hours per functional size unit calculated from Normalised Level 1 Work Effort for the  development team only divided by Functional Size (Unadjusted Function Points). This is the delivery rate currently recommended by the ISBSG. Use of normalised effort for the development team and unadjusted count should render the most comparable rates.
+
+% The ISBSG data shows that team size has a significant impact on productivity, after platform and language are
+% taken into account.  Team size impacts the productivity rate of a project because as the size of the team increases, communication becomes more difficult and more management, support & administration are needed.
+% The ISBSG Special Report on team size reveals that teams of nine or more are significantly less productive than
+% smaller teams. Project managers faced with larger teams should adjust their project estimates to reflect this lower productivity expectation.
+
+
+  + [Project Activity Scope] This indicates what tasks were
+%  included in the project work effort data recorded. These are:
+%  Planning, Specify, Design, Build, Test and Implement.
+
+\begin{itemize}
+%   \item Project Elapsed Time ($PET$). It is the total elapsed time for the project in calendar months.  
+
+  \item Development Type (\emph{DevType}). Whether the development was a \textit{new development}, \textit{enhancement} or \textit{re-development}.
+
+  \item Organization type (\emph{OrgType}). Type of organization that submitted the project (e.g.: Banking, Manufacturing, Retail).
+
+%  \item Business Area Type (\emph{BussinessAreaType}). Type of business area  being addressed by the project where this is different to the organization type.
+
+%  \item[Application Type] This identifies the type of application
+%  being addressed by the project. (e.g.: Information system,
+%  transaction/production system, process control).
+
+%  \item $Architecture$.  A derived attribute for the project to indicate if the application is Stand-alone, Multi-tier, Client  server, or Multi-tier with web public interface.
+
+%  \item $Client-Server$. This is an indicator of whether the application or product requires more than one computer to operate different   components or parts of it.
+
+%  \item[Functional Sizing Technique] The technology used to support
+%  the functional sizing process. Certain technologies used in
+%  function point counting can impact on the counts potential accuracy.
+
+%  \item[FP Standard] The functional size metric used to record the
+%  size of the project, (e.g.: IFPUG3, IFPUG4, in-house, etc.).
+
+  \item Development Platform (\emph{Platf}). It defines the primary development platform, (as determined by the operating system used). Each project is classified as: $PC$, $MR$ (Mid-Range), $MF$ (Mainframe) or $Multi$ (Multi-platform).
+
+  \item Language Type (\emph{LangType}). Language type used for the project, $3GL$, $4GL$.
+
+  \item Primary Programming Language (\emph{PrimaryProgLang}). The primary language used for the development: Java, C++, PL/1, Natural, COBOL, etc.
+
+%  \item[CASE Tool Used] Whether the project used any CASE tool.
+
+%  \item[Used Methodology] States whether a development methodology was used by the development team to build the software.
+
+%  \item[How Methodology Acquired] Describes whether the development methodology was purchased or developed in-house, or a combination of these.
+
+  \item Maximum Team Size ($MTS$). The maximum number of people that worked at any time on the project (for the Development Team).
+
+  \item Average Team Size ($ATS$). The average number of people that worked on the project (calculated from the team sizes per phase).
+
+  %\item $Year$. It represents the year of the project.
+\end{itemize}
+
+
+
+
+\begin{table}
+\caption{Relevant ISBSG Attributes, their Types and \% of Missing Values (after preprocessing)}
+\label{tab:descriptionTypeAtt}
+\footnotesize
+\begin{tabular}{l|p{240pt}|r}
+\hline
+\emph{Attribute} 	& \emph{Type (Range)} 		& \emph{\% Missing}\\
+\hline\hline
+$FP$ 			& Ratio [3-4,911]		& 0\% \\
+%AdjustedFP (AFP) 	& Ratio []			& 0\% \\
+%ValueAdjFactor (VAF) 	& Ratio	 		& 33\% \\
+\emph{Eff} 		& Ratio [4-73,920]		& 0\%\\
+%NormWorkEff 		& Ratio 			& 0\%\\
+%SummWorkEff 		& Ratio 			& 0\%\\
+\emph{PDR}		& Ratio [0.1-378.1]		& 0\% \\
+%NormPDR\_(UFP) 	& Ratio 			& 0\% \\
+%Pre2002PDR\_afp 	& Ratio 			& 0\% \\
+%$PET$			& Ratio [0-44]		& 31\% \\
+%ProjectInactiveTime 	& Ratio & 51 \\
+\emph{DevType} 		& Nominal \{Enhancement, NewDev\} 	& 0\% \\
+\emph{OrgType} 		& Nominal \{Insurance, Ordering, VoiceProvisioning, Banking, Manufacturing, Communications, FinPropBusServ\} & 40\% \\
+%\emph{BussinessAreaType} 	& Nominal \{Banking, Telecommunications\} & 77\% \\
+%PackageCustomisation 	& {No} 			& 70\% \\
+%\emph{Architecture} 	& Nominal \{ClientServer, Multitier, MultitierClientServer, StandAlone, MultitierWebInterface\} & 64\% \\
+%\emph{ClientServer} 	& Nominal \{Yes, No\} 			& 72\% \\
+\emph{Platf} 	& Nominal \{MF, PC, Multi, MR\} 	& 51\% \\
+\emph{LangType} 	& Nominal \{3GL, 4GL\} 			& 25\% \\
+\emph{PrimaryProgLang} 	& Nominal \{Java, C, ORACLE, COBOL, PL, VB, SQL, C++, NATURAL\} & 25\% \\
+$MTS$ 			& Ratio [0.5-309]		& 58\% \\
+$ATS$ 			& Ratio [1-41]		& 79\% \\
+%\emph{Year} 		& Ratio [1991-2005]		& 0\%\\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+Table~\ref{tab:descrStatsAllR10} shows the descriptive statistics for the numerical attributes when all 951 project instances of ISBSG release 10 are taken into account.
+
+\begin{table}
+\centering
+\caption{Descriptive Statistics for the Selected Continuous Variables in the ISBSG after Preprocessing}
+\label{tab:descrStatsAllR10}
+\small
+\begin{tabular}{r|rrrrr}
+\hline
+		& $FP$ &  $Eff$ & $PDR$ & $MTS$ & $ATS$ \\
+\hline\hline
+$Count$ 	& 951   &  951  & 951    & 401   & 200 \\
+$Avg$ 		& 302.7 & 3375.3 & 17.9  & 8.4   &  7.9 \\
+$Med$ 		& 135   & 1521  & 11.3   & 5     &  5 \\
+%$Var$ 		& 240234 & 36666900 & 724.1 & 288.5 & 52.0\\
+\textit{Std Dev}& 490.1 &  6055.3 & 26.9 & 17.0 & 7.2 \\
+$Min$ 		& 3     & 4     & 0.1   & 0.5   & 1 \\
+$Max$ 		& 4911  & 73920 & 387.1 & 309   & 41 \\
+$Rng$ 		& 4908  & 73916 &  387  & 308.5 & 40 \\
+%$Q3$ 		& 324   & 3496   & 21   & 8     & 9 &10 \\
+%$StdSk$ 	& 51.6  & 73.7 & 85.7 & 24.9 &116.4 & 10.3 \\
+%$StdKur$ 	& 141.2 & 315.0 &433.0 & 51.3 &  1008.4 &  9.4 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+% \begin{table}
+% \centering
+% \caption{Descriptive Statistics for the Selected Continuous Variables in the ISBSG after Preprocessing}
+% \label{tab:descrStatsAllR10}
+% \small
+% \begin{tabular}{r|rrrrrr}
+% \hline
+% 		& $FP$ &  $Eff$ & $PDR$ & $PET$ & $MTS$ & $ATS$ \\
+% \hline\hline
+% $Count$ 	& 951   &  951  & 951   & 658   & 401   & 200 \\
+% $Avg$ 		& 302.7 & 3375.3 & 17.9 & 6.04  & 8.4   &  7.9 \\
+% $Med$ 		& 135   & 1521  & 11.3  & 5     & 5     &  5 \\
+% %$Var$ 		& 240234 & 36666900 & 724.1 & 23.1 & 288.5 & 52.0\\
+% \textit{Std Dev}& 490.1 &  6055.3 & 26.9 & 4.8 & 17.0 & 7.2 \\
+% $Min$ 		& 3     & 4     & 0.1   & 0 & 0.5 & 1 \\
+% $Max$ 		& 4911  & 73920 & 387.1 & 44 & 309 & 41 \\
+% $Rng$ 		& 4908  & 73916 &  387  & 44 & 308.5 & 40 \\
+% %$Q3$ 		& 324   & 3496   & 21   & 8     & 9 &10 \\
+% %$StdSk$ 	& 51.6  & 73.7 & 85.7 & 24.9 &116.4 & 10.3 \\
+% %$StdKur$ 	& 141.2 & 315.0 &433.0 & 51.3 &  1008.4 &  9.4 \\
+% \hline
+% \end{tabular}
+% \end{table}
+
+
+
+We checked the standard skewness and kurtosis values together with the histograms (Figures~\ref{fig:histogramFP} to~\ref{fig:histogramsMTS_ATS}) and found that none of the relevant variables follows the normal distribution. Although this is quite intuitive from the histograms, it was also confirmed with the Shapiro-Wilk test for normality. Therefore we cannot apply parametric tests with this data.
+
+
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{./figs/density_FP.eps}\\%[
+%   \caption{Density FP}\label{fig:density_FP}
+% \end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\columnwidth]{./figs/histogramFP.eps}\\%[
+  \caption{Histogram for the Functional Size ($FP$) Variable}\label{fig:histogramFP}
+\end{figure}
+
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{./figs/density_PDR.eps}\\%[
+%   \caption{Density Productivity}\label{fig:density_PDR}
+% \end{figure}
+
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.75\columnwidth]{./figs/histogramPDR.eps}\\
+%  \caption{Histogram for the Productivity ($PDR$) Variable}
+%\label{fig:histogramPDR}
+%\end{figure}
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{./figs/density_ATS_MTS.eps}\\%[
+%   \caption{Density ATS and MTS}\label{fig:density_ATS_MTS}
+% \end{figure}
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.5\columnwidth]{./figs/histogramMTS.eps}\\%[
+%   \caption{Histogram for the Maximum Team Size ($MTS$) Variable}\label{fig:histogramMTS}
+% \end{figure}
+% 
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=0.5\columnwidth]{./figs/histogramATS.eps}\\%[
+%   \caption{Histogram for the Average Team Size ($ATS$) Variable}\label{fig:histogramATS}
+% \end{figure}
+
+
+% \begin{figure}
+% \centering
+% \begin{tabular}{cc}
+% \epsfig{file=./figs/histogramMTS.eps,width=0.45\columnwidth} &
+% \epsfig{file=./figs/histogramATS.eps,width=0.45\columnwidth} \\
+% \end{tabular}
+% \caption{Histogram for the Maximum Team Size ($MTS$) and Average Team Size ($ATS$) Variables}
+% \label{fig:histogramsMTS_ATS}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \begin{tabular}{cc}
+% \epsfig{file=./figs/histogramFP.eps,width=0.5\linewidth} &
+% \epsfig{file=./figs/histogramPDR.eps,width=0.5\linewidth,clip=} \\
+% %\epsfig{file=./figs/histogramWE.eps,width=0.5\linewidth,clip=} &
+% %\epsfig{file=./figs/histogramPET.eps,width=0.5\linewidth,clip=}\\
+% \epsfig{file=./figs/histogramMTS.eps,width=0.45\linewidth,clip=} &
+% \epsfig{file=./figs/histogramATS.eps,width=0.45\linewidth,clip=} \\
+% \end{tabular}
+% \caption{Histograms for Most Relevant Attributes}
+% \label{fig:histograms}
+% \end{figure}
+
+
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 1:</STRONG>
+Relevant ISBSG Attributes, their Types and % of Missing Values (after preprocessing)</CAPTION>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE">
+<SPAN  CLASS="textit">Attribute</SPAN> 	</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textit">Type (Range)</SPAN> 		</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> <SPAN  CLASS="textit">% Missing</SPAN></SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+
+<SPAN CLASS="MATH"><IMG
+ WIDTH="34" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$ FP$"></SPAN> </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Ratio [3-4,911]		</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 0% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">Eff</SPAN> 		</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Ratio [4-73,920]		</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 0%</SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">PDR</SPAN>		</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Ratio [0.1-378.1]		</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 0% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">DevType</SPAN> 		</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Nominal {Enhancement, NewDev} 	</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 0% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">OrgType</SPAN> 		</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Nominal {Insurance, Ordering, VoiceProvisioning, Banking, Manufacturing, Communications, FinPropBusServ} </SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 40% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">Platf</SPAN> 	</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Nominal {MF, PC, Multi, MR} 	</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 51% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">LangType</SPAN> 	</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Nominal {3GL, 4GL} 			</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 25% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN  CLASS="textit">PrimaryProgLang</SPAN> 	</SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Nominal {Java, C, ORACLE, COBOL, PL, VB, SQL, C++, NATURAL} </SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 25% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
+ WIDTH="51" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$ MTS$"></SPAN> </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Ratio [0.5-309]		</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 58% </SMALL></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SMALL CLASS="FOOTNOTESIZE"> 
+<SPAN CLASS="MATH"><IMG
+ WIDTH="45" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="$ ATS$"></SPAN> </SMALL></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=241><SMALL CLASS="FOOTNOTESIZE"> Ratio [1-41]		</SMALL></TD>
+<TD ALIGN="RIGHT"><SMALL CLASS="FOOTNOTESIZE"> 79% </SMALL></TD>
+</TR>
+</TABLE>
+
+
+library(foreign)
+d <- read.arff('./datasets/ISBSGv10_AttributesSelected_952Instances_8Att_Train_CLast.arff')
+str(d)
+
+x <- d$MaxTeamSize
+qqnorm(log(x))
+qqline(log(x))
+
+shapiro.test(log(x))
+
+d1 <- density(na.omit(x))
+d2 <- density(log(na.omit(x)))
+plot(range(d1$x, d2$x), range(d1$y, d2$y), type = "n", xlab = "x",
+ylab = "Density")
+lines(d1, col = "red")
+lines(d2, col = "blue")
+
+-------------
+
+
+d <- read.arff('./datasets/ATSNonEmpty_200Inst.arff')
+summary(d)
+ats = d$AverageTeamSize
+prod = d$NormalisedLevel1PDR
+length(ats)
+length(prod)
+boxplot(prod[ats>=9],prod[ats<9])
+
+boxplot(prod[ats>=9],prod[ats<9],horizontal=T)
+wilcox.test(x)
+
+```
+

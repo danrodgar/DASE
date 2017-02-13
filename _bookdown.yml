@@ -1,0 +1,32 @@
+book_filename: "DASE"
+chapter_name: "Chapter "
+
+
+rmd_files: [
+  "index.Rmd",
+  "010-rIntro.Rmd",
+
+  "100-intro.Rmd",
+  "110-dataSources.Rmd",
+
+  "200-exploratoryDataAnalysis.Rmd",
+  "220-classicalHypothesisTesting.Rmd",
+
+  "300-basicPreprocessing.Rmd",
+  "410-basicModelBuildingSupervised.Rmd",
+  "420-basicModelBuildingUnsupervised.Rmd",
+  "430-evaluation.Rmd",
+  "440-evaluationInSoftEng.Rmd",
+
+  "500-advancedPreprocessingTechniques.Rmd",
+  "505-featureSelectionExample.Rmd",
+  "510-advancedModelBuilding.Rmd",
+
+  "600-SSL.Rmd",
+
+  "700-SNAinSE.Rmd",
+
+  "800-textMiningSE.Rmd",
+
+  "900-timeSeries.Rmd"
+]
