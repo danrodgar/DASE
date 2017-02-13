@@ -269,6 +269,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>20</b> Time Series</a><ul>
 <li class="chapter" data-level="20.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>20.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -385,7 +386,7 @@ quit()</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set your working directory</span>
 <span class="co"># setwd(&quot;~/workingDir/&quot;)</span>
 <span class="kw">getwd</span>()</code></pre></div>
-<pre><code>## [1] &quot;/home/drg/Projects/DASEdown&quot;</code></pre>
+<pre><code>## [1] &quot;/home/drg/Projects/DASE&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># record R commands:</span>
 <span class="co"># sink(&quot;recordmycommands.txt&quot;, append = TRUE)</span></code></pre></div>
 <hr />
@@ -747,44 +748,44 @@ matchars</code></pre></div>
 mymat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(-<span class="dv">8</span>:<span class="dv">15</span>, <span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">3</span>)
 mymat3</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]    9   -2   13    5
-## [2,]   11    7   15   14
-## [3,]    8    4    1   -4</code></pre>
+## [1,]   11   -1   -8   12
+## [2,]    3    9   15   -6
+## [3,]    1   -2    5   14</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
 <pre><code>## [1] 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">1</span>,<span class="dv">4</span>]</code></pre></div>
-<pre><code>## [1] 5</code></pre>
+<pre><code>## [1] 12</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">3</span>,]</code></pre></div>
-<pre><code>## [1]  8  4  1 -4</code></pre>
+<pre><code>## [1]  1 -2  5 14</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[,<span class="dv">4</span>]</code></pre></div>
-<pre><code>## [1]  5 14 -4</code></pre>
+<pre><code>## [1] 12 -6 14</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">5</span>] <span class="co"># counts elements by column</span></code></pre></div>
-<pre><code>## [1] 7</code></pre>
+<pre><code>## [1] 9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">9</span>]</code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Subsetting multiple elements
 
 mymat3[<span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</code></pre></div>
-<pre><code>## [1] 11 15</code></pre>
+<pre><code>## [1]  3 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)]</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
-## [1,]   11   15   14
-## [2,]    8    1   -4</code></pre>
+## [1,]    3   15   -6
+## [2,]    1    5   14</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(mymat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;r1&quot;</span>, <span class="st">&quot;r2&quot;</span>, <span class="st">&quot;r3&quot;</span>)
 <span class="kw">colnames</span>(mymat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c2&quot;</span>, <span class="st">&quot;c3&quot;</span>, <span class="st">&quot;c4&quot;</span>)
 mymat3[<span class="st">&quot;r2&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c3&quot;</span>)]</code></pre></div>
 <pre><code>## c1 c3 
-## 11 15</code></pre>
+##  3 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Subset by logical vector
 mymat3[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>),
        <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</code></pre></div>
 <pre><code>## c1 c3 
-## 11 15</code></pre>
+##  3 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>),
        <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>)]</code></pre></div>
 <pre><code>##    c1 c3 c4
-## r2 11 15 14
-## r3  8  1 -4</code></pre>
+## r2  3 15 -6
+## r3  1  5 14</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### matrix arithmetic
 
 row1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">220</span>, <span class="dv">137</span>)
