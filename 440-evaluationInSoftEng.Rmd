@@ -3,9 +3,9 @@
   
 There are several measures usually used:
 
-  - *Mean of the Absolute Error* (MAR): compute the absolute errors and take the mean
+  - *Mean of the Absolute Error (MAR)*: compute the absolute errors and take the mean
 
-  - *Geometric Mean of the Absolute Error* (gMAR): more appropriate when the distribution is skewed
+  - *Geometric Mean of the Absolute Error (gMAR)*: more appropriate when the distribution is skewed
 
   - *Mean Magnitude of the Relative Error (MMRE)*: this measure has been critisized many times as a biased measure 
 ($\frac{\sum_{i=1}^{n}{|{\hat{y}_i-y_i}|}/y_i}{n}$)
@@ -18,6 +18,7 @@ There are several measures usually used:
 ($SA=1-{\frac{MAR}{\overline{MAR}_{P_0}}\times100}$)
 
   - *Random guessing*: $\overline{MAR}_{P_0}$ is defined as: predict a $\hat{y}_t$ for the target case *t* by randomly sampling (with equal probability) over all the remaining n-1 cases and take $\hat{y}_t=y_r$ where $r$ is drawn randomly from $1$ to $n$ and $r\neq t$.
+  - *Exact $\overline{MAR}_{P_0}$*: it is an improvement over $\overline{MAR}_{P_0}$. For small datasets the "random guessing" can be computed exactly by iterating over all data points. 
 
 ## Evaluation of the model in the Testing data
 
@@ -197,6 +198,43 @@ marp0atkinson
 hist(randnaiveruns, main="MARP0 distribution of the Atkinson dataset")
 ```
 
+## Exact MARP0
+# WBL simple R code to calculate Shepperd and MacDonell's marp0 exactly
+
+```{r}
+#example dataset
+atkinson_actual_effort <-
+  c(670,912,218,595,267,344,229,190,869,109,289,616,557,416,578,438)
+myabs <- function(x,y) abs(x-y)
+
+#diffs is square array whose i,jth element = abs(actual_i - actual_j)
+#in practice this is good enough but could be made more efficient by not
+#explicitly storing the matrix and only using the values below the diagonal.
+
+diffs <- outer(atkinson_actual_effort,atkinson_actual_effort,myabs)
+marp0 <- mean(diffs)
+marp0
+
+
+#### same procedure without using the outer function
+act_effort <-
+  c(670,912,218,595,267,344,229,190,869,109,289,616,557,416,578,438)
+n <- length(act_effort)
+diffs_guess <- matrix(nrow=n, ncol=n)
+colnames(diffs_guess) <- act_effort
+rownames(diffs_guess) <- act_effort 
+for (i in 1:n){
+  diffs_guess[i,] <- act_effort - act_effort[i]
+}
+
+diffs_guess <- abs(diffs_guess)
+means_per_point <- apply(diffs_guess, 2, mean)
+marp0 <- mean(means_per_point)
+marp0
+
+```
+
+
 
 ```{r, echo=FALSE}
 ## ISBSG dataset
@@ -205,73 +243,8 @@ hist(randnaiveruns, main="MARP0 distribution of the Atkinson dataset")
 # isbsgTest8 <- read.arff("ISBSGv10_AttributesSelected_952Instances_8Att_Test_CLast.arff")
 ```
 
-
-## Confidence Intervals. Bootstrap
-  - Until now we have generated point estimates
-  - A *confidence interval* (CI) is an interval estimate of a population parameter. The parameter can be the mean, the median or other. The frequentist CI is an observed interval that is different from sample to sample. It frequently includes the value of the unobservable parameter of interes if the experiment is repeated. The *confidence level* is the value that measures the frequency that the constructed intervals contain the true value of the parameter. 
-  - The construction of a confidence interval with an exact value of confidence level for a distribution requires some statistical properties. Usually, *normality* is one of the properties required for computing confidence intervals. 
-    - Not all confidence intervals contain the true value of the parameter.
-    - Simulation of confidence intervals
-
-
-
-```{r, echo=FALSE}
-# code from the book by Ugerte et al. Probability and statistics with R
-  norsim <- function(sims = 100, n = 36, mu = 100, sigma = 18, 
-                   conf.level = 0.95){
-  alpha <- 1 - conf.level
-  CL <- conf.level * 100
-  ll <- numeric(sims)
-  ul <- numeric(sims)
-  for (i in 1:sims){
-    xbar <- mean(rnorm(n , mu, sigma))
-    ll[i] <- xbar - qnorm(1 - alpha/2)*sigma/sqrt(n)
-    ul[i] <- xbar + qnorm(1 - alpha/2)*sigma/sqrt(n)
-  }
-  notin <- sum((ll > mu) + (ul < mu))
-  percentage <- round((notin/sims) * 100, 2)
-  SCL <- 100 - percentage
-  plot(ll, type = "n", ylim = c(min(ll), max(ul)), xlab = " ", 
-       ylab = " ")
-  for (i in 1:sims) {
-    low <- ll[i]
-    high <- ul[i]
-    if (low < mu & high > mu) {
-      segments(i, low, i, high)
-    }
-    else if (low > mu & high > mu) {
-      segments(i, low, i, high, col = "red", lwd = 5)
-    }
-    else {
-      segments(i, low, i, high, col = "blue", lwd = 5)
-    }
-  }
-  abline(h = mu)
-#   cat(SCL, "\b% of the random confidence intervals contain Mu =", mu, "\b.", "\n")
-}
-```
-
-```{r}
-set.seed(10)
-norsim(sims = 100, n = 36, mu = 100, sigma = 18, conf.level = 0.95)
-```
-
-  - The range defined by the confidence interval will vary with each sample, because the sample size will vary each time and the standard deviation will vary too.
-  - 95% confidence interval: it is the probability that the hypothetical confidence intervals (that would be computed from the hypothetical repeated samples) will contain the population mean.
-  - the particular interval that we compute on one sample does not mean that the population mean lies within that interval with a probability of 95%.
-  - recommended reading:  *Robust misinterpretation of confidence intervals*, Rink Hoekstra, Richard D. Morey, Jeffrey N. Rouder, Eric-Jan Wagenmakers.  Psychonomic Bulletin & Review, October 2014 
-
-
-## Nonparametric Bootstrap
-  - For computing CIs the important thing is to know the assumptions that are made to “know” the
-distribution of the statistic.
-  - There is a way to compute confidence intervals without meeting the requirements of parametric methods. 
-  - **Resampling** or **bootstraping** is a method to calculate estimates of a parameter taking samples from the original data and using those *resamples* to calculate statistics. Using the resamples usually gives more accurate results than using the original single sample to calculate an estimate of a parameter. 
   
-  
-  ![](figures/bootstrap.png)
-  
-  - Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:
+## Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:
   
 ```{r}
 library(boot)

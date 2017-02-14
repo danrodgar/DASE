@@ -1,0 +1,92 @@
+@relation MaxwellDev
+
+@attribute size_D numeric
+@attribute duration_D numeric
+@attribute app {InfServ,TransPro,CustServ,ProdCont,MIS}
+@attribute har {PC,Mainfrm,Multi,Mini,Network}
+@attribute dba {Relatnl,Sequential,None,Other}
+@attribute ifc {GUI,TextUI}
+@attribute source {Outsrced,Inhouse}
+@attribute nlan {1,3,2,4}
+@attribute telonuse {No,Yes}
+@attribute t01 {1,3,2,4,5}
+@attribute t02 {1,3,2,4,5}
+@attribute t03 {1,3,2,4,5}
+@attribute t04 {1,3,2,4,5}
+@attribute t05 {1,3,2,4,5}
+@attribute t06 {1,3,2,4,5}
+@attribute t07 {1,3,2,4,5}
+@attribute t08 {1,3,2,4,5}
+@attribute t09 {1,3,2,4,5}
+@attribute t10 {1,3,2,4,5}
+@attribute t11 {1,3,2,4,5}
+@attribute t12 {1,3,2,4,5}
+@attribute t13 {1,3,2,4,5}
+@attribute t14 {1,3,2,4,5}
+@attribute t15 {1,3,2,4,5}
+@attribute effort_D numeric
+
+@data
+562,14,InfServ,PC,Relatnl,GUI,Outsrced,1,No,5,3,3,2,3,4,4,4,3,3,2,4,3,5,3,1062
+647,16,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,3,No,4,3,5,3,3,3,4,5,4,5,4,4,4,4,5,7871
+130,5,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,3,No,2,3,3,3,3,3,2,2,4,3,4,4,4,4,4,845
+254,8,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,2,No,3,3,2,3,3,4,2,3,4,5,4,3,2,3,3,2330
+1056,16,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,3,No,2,2,4,2,2,1,3,5,4,4,5,4,3,2,3,21272
+383,12,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,2,No,3,3,3,4,3,3,4,3,4,4,3,4,5,4,4,4224
+345,12,TransPro,Multi,Relatnl,TextUI,Inhouse,4,Yes,2,3,3,3,3,3,2,2,4,4,4,4,4,5,4,2826
+209,27,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,2,No,4,3,5,4,3,2,3,5,5,5,3,4,4,2,3,7320
+366,24,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,1,No,2,3,3,2,2,2,4,5,4,3,3,3,3,2,3,9125
+1181,54,TransPro,Mini,Sequential,TextUI,Outsrced,2,No,4,3,3,2,1,2,4,5,3,2,2,2,3,4,2,11900
+181,13,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,2,No,2,3,2,3,3,3,2,5,3,4,2,3,2,3,3,4300
+739,21,TransPro,Network,Relatnl,TextUI,Outsrced,1,No,5,3,4,2,3,1,3,3,3,2,2,2,1,1,2,4150
+108,7,CustServ,PC,None,TextUI,Inhouse,2,No,2,2,2,4,3,3,1,4,4,3,4,4,1,5,1,900
+48,10,CustServ,Network,None,TextUI,Inhouse,3,No,2,3,3,4,2,2,2,4,4,3,5,3,3,4,2,583
+249,19,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,2,No,2,3,2,4,3,3,3,5,4,3,3,4,2,4,3,2565
+371,11,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,2,No,3,4,3,3,3,3,3,3,5,5,2,4,3,3,3,4047
+211,13,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,1,No,2,3,2,4,3,3,4,4,4,3,2,4,3,3,3,1520
+1849,32,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,4,Yes,4,1,3,3,3,4,4,5,4,4,4,4,3,3,4,25910
+2482,38,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,4,Yes,4,3,4,3,4,4,5,4,5,4,5,5,3,1,4,37286
+434,40,CustServ,Multi,Relatnl,TextUI,Inhouse,4,No,3,2,3,3,3,2,4,5,4,4,4,4,4,2,3,15052
+292,29,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,3,No,4,3,4,4,4,2,3,4,5,5,3,4,4,2,3,11039
+2954,14,CustServ,Multi,Relatnl,TextUI,Inhouse,4,No,4,4,2,3,3,3,4,3,4,4,5,3,2,3,3,18500
+304,14,TransPro,Multi,Relatnl,TextUI,Inhouse,1,No,4,3,2,4,3,3,4,4,5,4,3,4,2,4,3,9369
+353,28,TransPro,Network,Relatnl,TextUI,Outsrced,1,No,4,3,2,3,2,3,2,4,4,4,2,2,3,3,3,7184
+567,16,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,4,Yes,2,2,2,4,3,3,4,4,5,5,5,4,2,2,4,10447
+467,13,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,3,Yes,4,3,4,3,3,3,3,3,4,4,3,3,2,3,3,5100
+3368,45,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,3,No,4,3,3,4,3,3,4,5,4,4,4,4,4,2,4,63694
+253,4,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,2,Yes,3,3,3,4,3,4,2,4,4,3,2,4,4,2,4,1651
+196,10,ProdCont,Multi,Relatnl,TextUI,Inhouse,3,Yes,1,4,2,3,3,4,2,3,2,3,2,4,2,4,3,1450
+185,12,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,4,No,3,4,2,3,3,4,3,5,3,3,3,4,4,5,3,1745
+387,6,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,2,No,2,4,3,2,2,2,3,4,5,4,4,4,3,3,4,1798
+430,28,MIS,Mainfrm,Relatnl,TextUI,Inhouse,2,No,1,3,3,3,3,2,4,5,3,2,3,3,3,4,3,2957
+204,6,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,2,No,3,4,2,3,3,3,3,4,3,4,2,4,3,3,3,963
+71,6,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,1,No,3,3,3,4,3,3,2,3,4,2,3,4,2,4,3,1233
+840,6,InfServ,Multi,Relatnl,GUI,Outsrced,3,No,4,2,4,3,5,3,4,5,5,4,3,5,4,4,5,3240
+1648,11,TransPro,Multi,Relatnl,GUI,Outsrced,4,No,4,2,4,3,5,3,5,3,5,5,4,5,3,4,5,10000
+1035,8,TransPro,Multi,Relatnl,GUI,Outsrced,4,No,4,2,4,3,5,3,5,3,5,5,4,5,3,4,5,6800
+548,22,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,1,No,3,3,4,2,3,2,3,4,3,3,3,4,4,3,3,3850
+2054,31,CustServ,Multi,Relatnl,TextUI,Inhouse,3,Yes,4,3,4,4,4,3,3,4,4,4,5,5,4,3,4,14000
+302,26,MIS,Mainfrm,Relatnl,TextUI,Inhouse,2,No,2,3,2,4,3,3,3,4,3,3,3,3,2,4,3,5787
+1172,22,CustServ,Multi,Relatnl,TextUI,Inhouse,3,Yes,4,2,2,3,4,4,4,2,4,2,4,3,4,3,4,9700
+253,7,InfServ,Network,Relatnl,GUI,Inhouse,1,No,3,3,3,2,2,3,3,3,4,3,3,4,4,4,3,1100
+227,14,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,2,No,3,4,2,4,3,3,3,3,5,5,3,3,2,3,3,5578
+59,6,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,3,No,4,3,3,3,3,3,2,3,4,3,3,4,3,3,3,1060
+299,6,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,4,Yes,3,3,4,4,4,4,3,4,4,3,5,4,3,2,3,5279
+422,15,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,1,No,3,3,3,4,3,3,3,3,5,3,4,4,3,2,4,8117
+1058,9,TransPro,Network,Relatnl,TextUI,Outsrced,3,No,4,4,3,5,4,4,5,3,4,4,3,5,2,4,4,8710
+65,9,InfServ,Network,Other,TextUI,Inhouse,3,No,4,2,2,3,3,2,4,4,4,4,3,4,4,5,3,796
+390,26,CustServ,Multi,Relatnl,TextUI,Inhouse,3,No,5,5,3,3,2,3,4,5,5,4,4,4,3,4,4,11023
+193,13,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,2,No,4,4,2,3,4,3,2,2,3,3,3,3,2,4,4,1755
+1526,28,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,4,Yes,4,3,2,3,3,3,3,3,4,3,4,4,4,3,3,5931
+575,13,CustServ,Multi,Relatnl,TextUI,Inhouse,2,Yes,2,3,3,3,3,3,4,2,4,3,4,4,2,3,3,4456
+509,13,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,1,No,2,3,3,4,3,3,3,4,4,3,2,4,4,2,3,3600
+583,12,MIS,Mainfrm,Relatnl,TextUI,Inhouse,3,No,1,4,4,2,3,3,2,3,2,2,2,4,5,3,3,4557
+315,14,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,2,No,4,3,5,3,3,3,4,5,4,3,3,4,3,3,3,8752
+138,12,CustServ,Mainfrm,Relatnl,TextUI,Inhouse,2,No,3,4,5,3,3,3,3,3,4,4,2,4,4,3,3,3440
+257,9,TransPro,Multi,Relatnl,TextUI,Inhouse,3,No,3,4,3,3,3,3,3,4,4,4,4,4,4,4,3,1981
+423,30,TransPro,Mainfrm,Relatnl,TextUI,Inhouse,1,No,2,3,3,2,2,2,4,5,4,3,3,4,4,2,3,13700
+495,20,MIS,Network,Relatnl,TextUI,Outsrced,3,No,4,2,4,3,3,3,3,3,5,3,3,4,3,4,4,7105
+622,16,CustServ,Multi,Relatnl,TextUI,Inhouse,4,Yes,2,3,3,4,3,3,3,4,4,3,4,3,2,4,3,6816
+204,12,InfServ,Mainfrm,Relatnl,TextUI,Inhouse,2,Yes,3,3,3,3,3,4,4,5,5,5,5,4,3,2,3,4620
+616,15,CustServ,Multi,Relatnl,TextUI,Inhouse,4,Yes,2,3,2,3,3,2,3,5,5,4,5,5,1,5,4,7451
+3634,33,CustServ,Multi,Relatnl,TextUI,Inhouse,3,No,2,4,3,3,3,3,4,3,5,5,5,4,4,5,4,39479
