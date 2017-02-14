@@ -1,6 +1,6 @@
 --- 
-title: "Data Analysis in Software Engineering with R"
-author: "Javier Dolado and Daniel Rodriguez"
+title: "Data Analysis in Software Engineering using R"
+author: "Daniel Rodriguez and Javier Dolado"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
