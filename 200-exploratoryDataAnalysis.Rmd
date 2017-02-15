@@ -77,7 +77,7 @@ hist(sample.means)
   - Read the Telecom1 dataset and print out the summary statistics with the command *summary*
 ```{r}
 options(digits=3)
-telecom1 <- read.table("datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
 summary(telecom1)
 ```
   - We see that this dataset has three variables (or parameters) and few data points (18)
@@ -130,7 +130,7 @@ plot(size_telecom1, effort_telecom1)
 
 ```{r message=FALSE, warning=FALSE}
 library(foreign)
-china <- read.arff("datasets/effortEstimation/china.arff")
+china <- read.arff("./datasets/effortEstimation/china.arff")
 china_size <- china$AFP
 summary(china_size)
 china_effort <- china$Effort
@@ -153,7 +153,7 @@ qqline(china_effort)
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # library(UsingR); data(galton)
-galton <- read.csv("datasets/other/galton.csv")
+galton <- read.csv("./datasets/other/galton.csv")
 par(mfrow=c(1,2))
 hist(galton$child,col="blue") #,breaks=100)
 hist(galton$parent,col="blue") #,breaks=100)

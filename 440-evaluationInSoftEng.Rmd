@@ -27,13 +27,13 @@ library(foreign)
 gm_mean = function(x, na.rm=TRUE){
   exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))}
 
-chinaTrain <- read.arff("datasets/effortEstimation/china3AttSelectedAFPTrain.arff")
+chinaTrain <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTrain.arff")
 logchina_size <- log(chinaTrain$AFP)
 logchina_effort <- log(chinaTrain$Effort)
 linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)
 
 
-chinaTest <- read.arff("datasets//effortEstimation/china3AttSelectedAFPTest.arff")
+chinaTest <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTest.arff")
 b0 <- linmodel_logchina_train$coefficients[1]
 b1 <- linmodel_logchina_train$coefficients[2]
 china_size_test <- chinaTest$AFP
@@ -69,7 +69,7 @@ Lpred
   - Although there are few datapoints we split the file into Train (2/3) and Test (1/3)
   
 ```{r}
-telecom1 <- read.table("datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
 
 samplesize <- floor(0.66*nrow(telecom1))
 set.seed(012) # to make the partition reproducible
