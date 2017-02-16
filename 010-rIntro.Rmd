@@ -1,8 +1,17 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # (PART) Introduction to the R Language {-}
 
 # Introduction to R {#r-intro}
 
 The goal of the first part of this book is to get you up to speed with the basics of __R__ as quickly as possible. 
+
+## Installation 
+  - Follow the procedures according to your operating system.
+  - Linux: You need to have blas and gfortran installed on your Linux, for installing the 'coin' package.
 
 ## R and RStudio
   - R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
