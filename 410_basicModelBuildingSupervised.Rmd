@@ -1,0 +1,22 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Supervised Classification
+
+A classification problem can be defined as the induction, from a dataset $\cal D$, of a classification function $\psi$ that, given the attribute vector of an instance/example, returns a class ${c}$. A regression problem, on the other hand, returns an numeric value.
+
+Dataset, $\cal D$, is typically composed of $n$ attributes and a class attribute $C$. 
+
+| $Att_1$  | ... | Attn | C   |
+|----------|-----| -----|-----|
+| $a_{11}$ | ... | a1n  | c1  |
+| $a_{21}$ | ... | a2n  | c2  |
+| ...      | ... | ...  | ... |
+| $a_{m1}$ | ... | amn  | cm  |
+
+Columns are usually called attributes and there is class attribute, which can be numeric or discrete. When the class is numeric, it is a regression problem. With discrete values, we talk about binary (two values) classification or multi-label classification
+
+

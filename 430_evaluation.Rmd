@@ -1,0 +1,238 @@
+
+# Evaluation of Models
+
+Once we obtain the model with the training data, we need to evaluate it with some new data (testing data)
+
+We cannnot use the the same data for training and testing (it is like evaluating a student with the exercises previouly solved. Student's marks will be “optimistic” and we don’t know about student capability to generalise the learned concepts).
+
+## Underfitting vs. Overfitting
+
+![Underfitting](figures/underfitting.png) ![Overfitting](figures/overfitting.png)
+
+For example, increasing the tree size, decreases the training and testing errors. However, at some point after (tree complexity), training error keeps decreasing but testing error increases. Many algorithms have parameters to determine the model complexity (e.g., in decision trees is the prunning parameter)
+
+![Overfitting in trees](figures/overfittingTrees.png)
+
+## Building and Validating a Model
+
+### Holdout approach ###
+
+**Holdout approach** consists of dividing the dataset into *training* (approx. 2/3 of the data) and *testing* (approx 1/3 of the data).
+  + Problems: Data can be skewed, missing classes, etc. if randomly divided
+
+Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains aprox 45% of positive cases, the training and testing datasets should mantain similar proportion of positive cases).
+
+Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method)
+
+The error rates on the different iterations are averaged (overall error rate)
+
+
+  - Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.
+  - *Validation Set approach*: it is the simplest method. It consists of randomly dividing the available set of oservations into two parts, a *training set* and a *validation set* or hold-out
+set. Usually 2/3 of the data points are used for training and 1/3 is used for testing purposes.
+
+   ![](figures/validation.png) 
+
+
+## Cross Validation (CV)
+
+
+  - *k-Fold Cross-Validation*: it involves randomly dividing the set of observations into $k$ groups, or folds, of approximately equal size. The first fold is treated as a validation set, the the methods is fit on the remaining k-1 folds. This procedure is repeated k times. If k is equal to n we are in the previous method.
+  
+  + 1st step: split dataset ($\cal D$) into k subsets of approximatelly equal size $C_1, \dots, C_k$ 
+  + 2nd step: we construct a dataset $D_i = D-C_i$ used for training and test the accuracy of the classifier $D_i$ on $C_i$ subset for testing
+Having done this for all $k$ we estimate the accuracy of the method by averaging the accuracy over the $k$ cross-validation trials
+  
+  ![k-fold](figures/kfold.png) 
+  
+
+  - *Leave-One-Out Cross-Validation*: This is a special case of CV. Instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated n times (the total number of observations) and the estimate for the test mean squared error is the average of the n test estimates.
+  
+   ![LOO](figures/leaveone.png) 
+  
+### China dataset. Split data into Training and Testing
+  - The data is already divided into two different files
+  
+  
+```{r}
+library(foreign)
+chinaTrain <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTrain.arff")
+nrow(chinaTrain)
+logchina_size <- log(chinaTrain$AFP)
+logchina_effort <- log(chinaTrain$Effort)
+linmodel_logchina_train <- lm(logchina_effort ~ logchina_size)
+par(mfrow=c(1,1))
+plot(logchina_size, logchina_effort)
+abline(linmodel_logchina_train, lwd=3, col=4)
+par(mfrow=c(1,2))
+plot(linmodel_logchina_train, ask = FALSE)
+linmodel_logchina_train
+```
+
+
+## Evaluation of Classifiers
+
+
+### Discrete Evaluation
+
+The confusion matrix (which can be extended to multiclass problems). The following table shows the possible outcomes for binary classification problems:
+
+|           |$Pred Pos$ | $Pred Neg$ |
+|-----------|-----------|------------|
+| $Act Pos$ |   $TP$    | $FN$       |
+| $Act Neg$ |   $FP$    | $TN$       |
+
+where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
+
+From the confusion matrix, we can calculate:
+
+   + *True positive rate*, or *recall * 
+             $TP_r = recall = r = TP/TP+FN$
+      is the proportion of positive cases correctly classified as belonging to the positive class.
+   + *False negative rate* ($FN_r=FN/TP+FN$) is the proportion of positive cases misclassified as belonging to the negative class.
+   + *False positive rate* ($FP_r=FP/FP+TN$) is the proportion of negative cases misclassified as belonging to the positive class.
+   + *True negative rate* ($TN_r=TN/FP+TN$) is the proportion of negative cases correctly classified as belonging to the negative class.
+
+
+There is a tradeoff between $FP_r$ and $FN_r$ as the objective is minimize both
+metrics (or conversely, maximize the true negative and positive
+rates). It is possible to combine both metrics into a single figure,
+predictive $accuracy$:
+
+($accuracy = \frac{TP + TN}{TP + TN + FP + FN}$)
+
+to measure performance of classifiers (or the complementary value, the
+error rate} which is defined as $1-accuracy$)
+
+f-measure
+
+
+G-mean
+
+$\sqrt{PD \times Precision}$
+
+G-mean2
+
+$\sqrt{PD \times Specificity}$
+
+j-coeff = sensitivity + specificity - 1 = PD -PF
+
+(Jiang, Cubic and Ma, 2008 ESE)
+
+### Prediction in probabilistic classifiers
+
+A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|{x})$. Then, given a new instance, ${x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
+
+$\psi({x}) = argmax_c (P(c|{x}))$
+
+ 
+
+### Graphical Evaluation
+
+ROC
+
+Precision Recall
+
+
+
+
+Another evaluation technique to consider when data is imbalanced is the *Receiver Operating Characteristic* ($ROC$)~\cite{Fawcett2006} curve which provides a graphical visualisation of the results.
+
+
+A simple way to approximate the AUC is with the following equation:
+$AUC=\frac{1+TP_{r}-FP_{r}}{2}$
+
+The Area Under the ROC Curve (AUC) also provides a quality measure between positive and negative rates with a single value. 
+
+
+![Receiver Operating Characteristic](figures/roc.png)
+
+
+
+
+Similarly to ROC, another widely used evaluation technique is the Precision-Recall Curve (PRC), which depicts a trade off between precision and recall and can also be summarised into a single value as the Area Under the Precision-Recall Curve (AUPRC)~\cite{Davis2006}.
+
+%AUPCR is more accurate than the ROC for testing performances when dealing with imbalanced datasets as well as optimising ROC values does not necessarily optimises AUPR values, i.e., a good classifier in AUC space may not be so good in PRC space.
+%The weighted average uses weights proportional to class frequencies in the data.
+%The weighted average is computed by weighting the measure of class (TP rate, precision, recall ...) by the proportion of instances there are in that class. Computing the average can be sometimes be misleading. For instance, if class 1 has 100 instances and you achieve a recall of 30%, and class 2 has 1 instance and you achieve recall of 100% (you predicted the only instance correctly), then when taking the average (65%) you will inflate the recall score because of the one instance you predicted correctly. Taking the weighted average will give you 30.7%, which is much more realistic measure of the performance of the classifier.
+%NB: I gave an example with two classes, but in fact the weighted average make sense only when you have more then two classes. When you have only two classes weighting does not make sense, and the measures should be computed relative to the minority class. In other words, you are interested to know if you are able to detect the minority
+
+### Metrics used in Software Engineering and Defect Classification
+
+In the domain of defect prediction and when two classes are considered, it is also customary to refer to the *probability of detection*, ($pd$) which corresponds to the True Positive rate ($TP_{rate}$ or \emph{Sensitivity}) as a measure of the goodness of the model, and *probability of false alarm* ($pf$) as performance measures~\cite{Menzies07}. 
+
+The objective is to find which techniques that maximise $pd$ and minimise $pf$. As stated by Menzies et al., the balance between these two measures depends on the project characteristics (e.g. real-time systems vs. information management systems) it is formulated as the Euclidean distance from the sweet spot $pf=0$ and $pd=1$ to a pair of $(pf,pd)$. 
+
+$balance=1-\frac{\sqrt{(0-pf^2)+(1-pd^2)}}{\sqrt{2}}$
+
+It is normalized by the maximum possible distance across the ROC square ($\sqrt{2}, 2$), subtracted this value from 1, and expressed it as a
+percentage.
+
+
+
+
+
+ 
+
+### Numeric Prediction Evaluation
+
+RSME
+Mean Square Error = $MSE$ =
+$\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{n}$
+
+${MSE}=\frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2$
+ 
+${RMSD}=\sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}$ 
+ 
+A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew's Correlation Coefficient ($MCC$)~\cite{Matthews1975Comparison}:
+
+$MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$
+
+$MCC$ can also be calculated from the confusion matrix. Its range goes from -1 to +1; the closer to one the better as it indicates perfect prediction whereas a value of 0 means that classification is not better than random prediction and negative values mean that predictions are worst than random.
+
+
+Mean-absolute error $MAE$
+
+$\frac{|p_1-a_1| + \ldots  +|p_n-a_n|}{n}$
+
+Relative absolute error:
+
+$RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | }$
+
+Root relative-squared error:
+
+$RAE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | } }$
+
+where $\hat{\theta}$ is a mean value of $\theta$.
+
+
+Relative-squared error
+$\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}$
+($\hat{a}$ is the mean value over the training data)
+
+
+Relative Absolut Error
+
+Correlation Coefficient
+
+Correlation coefficient between two random
+variables $X$ and $Y$ is defined as $$\rho(X,Y) = \frac{{\bf
+Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}.$$ The {\em sample
+correlation coefficient} $r$ between two samples $x_i$ and $y_j$ is
+defined as $r = S_{xy}/\sqrt{S_{xx}S_{yy}}.$ 
+
+Example: Is there any linear relationship between the effort estimates ($p_i$) and actual effort ($a_i$)? 
+
+$a\|39,43,21,64,57,47,28,75,34,52$
+
+$p\|65,78,52,82,92,89,73,98,56,75$
+
+```{r}
+p<-c(39,43,21,64,57,47,28,75,34,52)
+a<-c(65,78,52,82,92,89,73,98,56,75)
+#
+cor(p,a)
+```
+
+$R^2$
+
