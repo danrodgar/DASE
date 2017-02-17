@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # (PART) Introduction to the R Language {-}
 
 # Introduction to R {#r-intro}

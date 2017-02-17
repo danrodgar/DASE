@@ -1,0 +1,386 @@
+
+## Supervised Classification
+
+
+Here we will use defect prediction as ensample of several machine learning techniques.
+
+> **No Free Lunch theorem**
+> In the absence of any knowledge about the prediction problem, no model
+> can be said to be uniformly better than any other
+
+There are hundreds of packages to perform classification task in R, but many of those can be used throught 'caret' which helps with many of the data mining process task as described next. 
+
+### The caret package
+
+The [caret (Classification And REgression Training) package](http://topepo.github.io/caret/) provides a unified interface for modeling and prediction with around 150 different models with tools for:
+
+    + data splitting
+    + pre-processing
+    + feature selection
+    + model tuning using resampling
+    + variable importance estimation, etc.
+
+Website: [http://caret.r-forge.r-project.org](http://caret.r-forge.r-project.org)
+
+JSS Paper: [www.jstatsoft.org/v28/i05/paper](www.jstatsoft.org/v28/i05/paper)
+
+Book: [Applied Predictive Modeling](http://AppliedPredictiveModeling.com/) 
+
+
+### Defect Prediction as a running example
+
+We will show the use of different classification techniques in the problem of defect prediction. 
+
+Different datasets are composed of classical metrics (Halstead or McCabe metrics) based on counts of operators/operands and like or object-oriented metrics (e.g. Chidamber and Kemerer) and the class attribute indicating whether the module or class was defective.
+
+For example, using one of the NASA datasets used extensively in defect prediction:
+
+```{r}
+library(caret)
+library(foreign)
+
+kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
+str(kc1)
+```
+
+
+Then we need to divide the data into training and testing.
+
+```{r}
+# Split data into training and test datasets
+set.seed(1)
+inTrain <- createDataPartition(y=kc1$Defective,p=.75,list=FALSE)
+kc1.train <- kc1[inTrain,]
+kc1.test <- kc1[-inTrain,]
+```
+
+
+Another approach to dividing the data:
+```{r eval=FALSE}
+# Split data into training and test datasets
+
+set.seed(1)
+ind <- sample(2, nrow(kc1), replace = TRUE, prob = c(0.75, 0.25))
+kc1.train <- kc1[ind==1, ]
+kc1.test <- kc1[ind==2, ]
+```
+
+
+## Linear Discriminant Analysis (LDA)
+
+One classical approach to classification is Linear Discriminant Analysis (LDA). And the basic all would be as follows.
+
+```{r warning=FALSE}
+ldaModel <- train (Defective ~ ., data=kc1.train, method="lda", preProc=c("center","scale"))
+
+ldaModel
+```
+
+We can observe that we are training our model using `Defective ~ .` as a formula were 'Defective is the class variable separed by `~` and the ´.´ means the rest of the variables. Also, we are using a filter for the training data to (preProc) to center and scale. 
+
+Also, as stated in the documentation about the `train` method :
+> http://topepo.github.io/caret/training.html
+
+```{r warning=FALSE}
+ctrl <- trainControl(method = "repeatedcv",repeats=3)
+ldaModel <- train (Defective ~ ., data=kc1.train, method="lda", trControl=ctrl, preProc=c("center","scale"))
+
+ldaModel
+```
+
+Instead of accuracy we can activate other metrics using `summaryFunction=twoClassSummary` such as `ROC`, `sensitivity` and `specificity`. To do so, we also need to speficy `classProbs=TRUE`.
+
+```{r warning=FALSE}
+ctrl <- trainControl(method = "repeatedcv",repeats=3, classProbs=TRUE,
+summaryFunction=twoClassSummary)
+ldaModel3xcv10 <- train (Defective ~ ., data=kc1.train, method="lda", trControl=ctrl, preProc=c("center","scale"))
+
+ldaModel3xcv10
+```
+
+
+Most methods have parameters that need to be optimised and that is one of the
+
+```{r warning=FALSE, message=FALSE}
+plsFit3x10cv <- train (Defective ~ ., data=kc1.train, method="pls", trControl=trainControl(classProbs=TRUE), metric="ROC", preProc=c("center","scale"))
+
+plsFit3x10cv
+
+plot(plsFit3x10cv)
+```
+
+
+The parameter `tuneLength` allow us to specify the number values per parameter to consider.
+
+```{r warning=FALSE}
+plsFit3x10cv <- train (Defective ~ ., data=kc1.train, method="pls", trControl=ctrl, metric="ROC", tuneLength=5, preProc=c("center","scale"))
+
+plsFit3x10cv
+
+plot(plsFit3x10cv)
+``` 
+
+
+Finally to predict new cases, `caret` will use the best classfier obtained for prediction.
+
+```{r warning=FALSE}
+plsProbs <- predict(plsFit3x10cv, newdata = kc1.test, type = "prob")
+```
+
+```{r warning=FALSE}
+plsClasses <- predict(plsFit3x10cv, newdata = kc1.test, type = "raw")
+confusionMatrix(data=plsClasses,kc1.test$Defective)
+```
+
+### Predicting the number of defects (numerical class)
+
+From the Bug Predictiono Repository [http://bug.inf.usi.ch/download.php](http://bug.inf.usi.ch/download.php)
+
+Some datasets contain CK and other 11 object oriented metrics for the last version of the system plus categorized (with severity and priority) post-release defects. Using such dataset:
+
+```{r warning=FALSE}
+jdt <- read.csv("./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
+
+# We just use the number of bugs, so we removed others
+jdt$classname <- NULL
+jdt$nonTrivialBugs <- NULL
+jdt$majorBugs <- NULL
+jdt$minorBugs <- NULL
+jdt$criticalBugs <- NULL
+jdt$highPriorityBugs <- NULL
+jdt$X <- NULL
+
+# Caret
+library(caret)
+
+# Split data into training and test datasets
+set.seed(1)
+inTrain <- createDataPartition(y=jdt$bugs,p=.8,list=FALSE)
+jdt.train <- jdt[inTrain,]
+jdt.test <- jdt[-inTrain,]
+```
+
+```{r warning=FALSE}
+ctrl <- trainControl(method = "repeatedcv",repeats=3)
+glmModel <- train (bugs ~ ., data=jdt.train, method="glm", trControl=ctrl, preProc=c("center","scale"))
+glmModel
+```
+
+
+Others such as Elasticnet:
+
+```{r warning=FALSE}
+glmnetModel <- train (bugs ~ ., data=jdt.train, method="glmnet", trControl=ctrl, preProc=c("center","scale"))
+glmnetModel
+```
+
+
+
+### Binary Logistic Regression (BLR)
+
+Binary Logistic Regression (BLR) can models fault-proneness as follows
+
+$$fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}$$
+
+where the simplest form for logit is:
+
+$logit(X) = c_{0} + c_{1}X$
+
+```{r warning=FALSE}
+jdt <- read.csv("./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
+
+# Caret
+library(caret)
+
+# Convert the response variable into a boolean variable (0/1)
+jdt$bugs[jdt$bugs>=1]<-1
+
+cbo <- jdt$cbo
+bugs <- jdt$bugs
+
+# Split data into training and test datasets
+jdt2 = data.frame(cbo, bugs)
+inTrain <- createDataPartition(y=jdt2$bugs,p=.8,list=FALSE)
+jdtTrain <- jdt2[inTrain,]
+jdtTest <- jdt2[-inTrain,]
+```
+
+BLR models fault-proneness are as follows
+
+$$fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}$$
+
+where the simplest form for logit is:
+
+$logit(X) = c_{0} + c_{1}X$
+
+```{r warning=FALSE}
+# logit regression
+# glmLogit <- train (bugs ~ ., data=jdt.train, method="glm", family=binomial(link = logit))       
+
+glmLogit <- glm (bugs ~ ., data=jdtTrain, family=binomial(link = logit))
+summary(glmLogit)
+
+```
+
+
+Predict a single point:
+```{r warning=FALSE}
+newData = data.frame(cbo = 3)
+predict(glmLogit, newData, type = "response")
+```
+
+Draw the results, modified from:
+http://www.shizukalab.com/toolkits/plotting-logistic-regression-in-r
+
+
+```{r warning=FALSE}
+results <- predict(glmLogit, jdtTest, type = "response")
+
+range(jdtTrain$cbo)
+range(results)
+
+plot(jdt2$cbo,jdt2$bugs)
+curve(predict(glmLogit, data.frame(cbo=x), type = "response"),add=TRUE)
+# points(jdtTrain$cbo,fitted(glmLogit))
+```
+
+
+Another type of graph:
+
+```{r warning=FALSE}
+library(popbio)
+logi.hist.plot(jdt2$cbo,jdt2$bugs,boxp=FALSE,type="hist",col="gray")
+```
+
+
+
+## Classification Trees
+
+There are several packages for inducing classification trees, for example with the [party package](https://cran.r-project.org/web/packages/party/index.html) (recursive partitioning):
+
+
+```{r warning=FALSE, message=FALSE}
+# Build a decision tree
+library(party)
+
+kc2 <- read.arff("./datasets/defectPred/D1/MC1.arff")
+str(kc2)
+
+set.seed(1)
+inTrain <- createDataPartition(y=kc2$Defective,p=.60,list=FALSE)
+kc2.train <- kc2[inTrain,]
+kc2.test <- kc2[-inTrain,]
+
+kc2.formula <- kc2$Defective ~ .
+kc2.ctree <- ctree(kc2.formula, data = kc2.train)
+
+# predict on test data
+pred <- predict(kc2.ctree, newdata = kc2.test)
+# check prediction result
+table(pred, kc2.test$Defective)
+plot(kc2.ctree)
+```
+
+Using the C50, there are two ways, specifying train and testing
+
+```{r}
+library(C50)
+c50t <- C5.0(kc1.train[,-ncol(kc1.train)], kc1.train[,ncol(kc1.train)])
+summary(c50t)
+plot(c50t)
+c50tPred <- predict(c50t, kc1.train)
+table(c50tPred, kc1.train$Defective)
+```
+
+or using the formula approach:
+
+```{r}
+# Using the formula notation
+c50t2 <- C5.0(Defective ~ ., kc1.train)
+c50tPred2 <- predict(c50t2, kc1.train)
+table(c50tPred2, kc1.train$Defective)
+```
+
+Using the ['rpart' package](https://cran.r-project.org/web/packages/rpart/index.html)
+
+``` {r}
+# Using the 'rpart' package
+library(rpart)
+kc1.rpart <- rpart(Defective ~ ., data=kc1.train)
+plot(kc1.rpart)
+
+library(rpart.plot)
+#asRules(kc1.rpart)
+#fancyRpartPlot(kc1.rpart)
+```
+
+
+
+
+## Rules
+
+C5 Rules
+
+```{r}
+library(C50)
+c50r <- C5.0(kc1.train[,-ncol(kc1.train)], kc1.train[,ncol(kc1.train)], rules = TRUE)
+summary(c50r)
+c50rPred <- predict(c50r, kc1.train)
+table(c50rPred, kc1.train$Defective)
+```
+
+## Distanced-based Methods
+
+IB1 and IB-k
+
+```{r}
+library(class)
+
+ind <- sample(2, nrow(iris), replace=T, prob=c(0.7, 0.3))
+kc1.train <- kc1[ind==1, ]
+kc1.test <- kc1[ind==2, ]
+
+m1 <- knn(train=kc1.train[,-22], test=kc1.test[,-22], cl=kc1.train[,22], k=3)
+
+table(kc1.test[,22],m1)
+```
+
+## Probabilistic Methods
+
+### Naive Bayes
+
+Using the `klaR` package with `caret`:
+
+```{r warning=FALSE}
+library(caret)
+library(klaR)
+model <- NaiveBayes(Defective ~ ., data = kc1.train)
+predictions <- predict(model, kc1.test[,-22])
+confusionMatrix(predictions$class, kc1.test$Defective)
+```
+
+
+Using the `e1071` package:
+
+```{r warning=FALSE, message=FALSE}
+library (e1071)
+n1 <-naiveBayes(kc1.train$Defective ~ ., data=kc1.train)
+
+# Show first 3 results using 'class'
+head(predict(n1,kc1.test, type = c("class")),3) # class by default
+
+# Show first 3 results using 'raw'
+head(predict(n1,kc1.test, type = c("raw")),3)
+
+```
+
+
+### Bayesian Networks
+
+To Do
+
+
+
+
+
+

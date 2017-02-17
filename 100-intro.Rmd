@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # (PART) Introduction to Data Mining {-}
 
 We will deal with extracting information from data, either for estimation, defect prediction, planning, etc. 
