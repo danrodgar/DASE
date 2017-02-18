@@ -1,8 +1,13 @@
 
-## Regression
+# Regression
 
-### Linear Regression
-  - This procedure fits a straight line to the data. The idea is that the independent variable x is something the experimenter controls and the dependent variable y is something that the experimenter measures. The line is used to predict the value of y for a known value of x. The variable x is the predictor variable and y the response variable.
+
+# Linear Regression modeling
+
+  - _Linear Regression_ is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. The idea is that the independent variable $x$ is something the experimenter controls and the dependent variable $y$ is something that the experimenter measures. The line is used to predict the value of $y$ for a known value of $x$. The variable $x$ is the predictor variable and y the response variable.
+  
+  - _Multiple linear regression_ uses 2 or more independent variables for building a model <https://www.wikipedia.org/wiki/Linear_regression>.
+  
   - First proposed many years ago. But still very useful...
   
     ![Galton Data](figures/galton.png)
@@ -26,10 +31,6 @@ plot(galton$parent,lm1$residuals,col="blue",pch=1, cex=0.4)
 abline(c(0,0),col="red",lwd=3)
 qqnorm(galton$child)
 ```
-
-# Linear Regression modeling
-
-- **Linear Regression** is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. Multiple linear regression uses 2 or more independent variables for building a model <https://www.wikipedia.org/wiki/Linear_regression>.
 
 ## Simple Linear Regression
 - Given two variables $Y$ (response) and $X$ (predictor), the assumption is that there is an approximate ($\approx$) *linear* relation between those variables. 

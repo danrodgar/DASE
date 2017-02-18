@@ -1,20 +1,21 @@
+# (PART) Unsupervised Classification {-}
+
 # Unsupervised Classification
+
 
 From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This include association rules, clustering, or tree clustering which purpose is to join together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. The dataset will be as the previous table without the $C$ class attribute
 
-| $Att_1$  | ... | Attn |
-|----------|-----| -----|
-| $a_{11}$ | ... | a1n  |
-| $a_{21}$ | ... | a2n  |
-| ...      | ... | ...  |
-| $a_{m1}$ | ... | amn  |
-
-
+| Att~1~|     | Att~n~ |
+|-------|-----| -------|
+| a~11~ | ... | a~1n~  |
+| a~21~ | ... | a~2n~  |
+| ...   | ... | ...    |
+| a~m1~ | ... | a~mn~  |
 
 
 ## Clustering
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(foreign)
 library(fpc)
 
@@ -38,16 +39,15 @@ kc1.kmeans <- kmeans(kc1.train, 2)
 
 kMeans
 
-```{r}
-#library(reshape, quietly=TRUE)
-#kc1.kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
-
+```{r warning=FALSE, message=FALSE}
+library(reshape, quietly=TRUE)
+kc1.kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
 ```
 
 
 ## Association rules
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(arules)
 
 x <- as.numeric(kc1$LOC_TOTAL)

@@ -1,7 +1,6 @@
 
 ## Supervised Classification
 
-
 Here we will use defect prediction as ensample of several machine learning techniques.
 
 > **No Free Lunch theorem**

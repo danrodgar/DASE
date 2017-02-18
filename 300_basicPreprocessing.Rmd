@@ -1,9 +1,8 @@
+# (PART) Preprocessing {-}
 
-# (PART) Basic Models {-}
+# Preprocessing
 
 Following the data mining process, we describe what is meant by preprocessing, classical supervised models,  unsupervised models and evaluation in the context of software engineering with examples
-
-# Basics of Preprocessing
 
 This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, tranforming input data, merging variables, etc.
 
@@ -36,7 +35,7 @@ In R, a missing value is represented with `NA` and the analyst must decide what 
 
 
 
-### Imputation methods
+## Imputation methods
 
 We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute.
 
@@ -57,7 +56,7 @@ Approaches to deal with noisy data:
  + Noise filters which are used to identify and eliminate noisy instances from the training data.
  
  
-Types of Noise Data: 
+Types of noise data: 
  + Class Noise (aka label noise). 
       + There can be contradictory cases (all attributes have the same value except the class)
       + Misclassifications. The class attribute is not labeled with the true label (golden truth)
@@ -90,7 +89,7 @@ print(outliers)
 Another simple method of Hiridoglou and Berthelot for positive observations.
 
 
-## Feature selection (FS)
+# Feature selection (FS)
 
 Feature Selection (FS) aims at identifying the most relevant attributes from a dataset. It is important in different ways:
 
@@ -113,14 +112,13 @@ There are two major approaches in FS from the method's output point of view:
 
 FFS algorithms designed with different evaluation criteria broadly fall into two categories:
 
-  + The filter model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
+  + The _filter_ model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
   
-  + The wrapper model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve
+  + The _wrapper_ model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve
 mining performance, but it also tends to be more computationally expensive than filter model~\cite{KJ97,Lan94}.
 
 
-Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure~\cite{LM98} which captures the goodness of each subset. An optimal (or near optimal) subset is
-selected when the search stops.
+Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure~\cite{LM98} which captures the goodness of each subset. An optimal (or near optimal) subset is selected when the search stops.
 
 Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure \cite{DLM00}, the correlation measure \cite{Hal99} and the estimated accuracy of a learning algorithm \cite{KJ97}.
 
@@ -133,35 +131,27 @@ feature values but different class labels.
   + _Wrapper-based_ attribute selection uses the target learning algorithm to estimate the worth of attribute subsets. The feature subset selection algorithm conducts a search for a good subset using
 the induction algorithm itself as part of the evaluation function.
 
+Langley~\cite{Lan94} notes that feature selection algorithms that search through the space of feature subsets must address four main issues: the starting point of the search, the organization of the search, the evaluation of features subsets and the criterion used to terminate the search. Different algorithms address theses issues differently.
+
+It is impractical to look at all possible feature subsets, even if the size is small. Feature selection algorithms usually proceed greedily. They can be classified into those that add features to an initially empty set (\emph{forward selection}) and those that remove features from an initially complete set (\emph{backwards elimination}). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide range of search strategies can be used: best-first, branch-and-bound, simulated annealing, genetic algorithms (see Kohavi and John~\cite{KJ97} for a review).
 
 
-Langley~\cite{Lan94} notes that feature selection algorithms that search through the space of feature subsets must address four main issues: the starting point of the search, the organization of the
-search, the evaluation of features subsets and the criterion used to terminate the search. Different algorithms address theses issues differently.
-
-It is impractical to look at all possible feature subsets, even if the size is small. Feature selection algorithms usually proceed greedily. They can be classified into those that add features to an
-initially empty set (\emph{forward selection}) and those that remove features from an initially complete set (\emph{backwards elimination}). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide
-range of search strategies can be used: best--first, branch--and--bound, simulated annealing, genetic algorithms (see Kohavi and John~\cite{KJ97} for a review).
-
-
-## Instance selection
+# Instance selection
 
 Removal of samples (complementary to the removal of attributes) in order to scale down the dataset prior to learning a model so that there is (almost) no performance loss.
 
 There are two types of processes: 
 
- + Prototype Selection (PS) [68] when the subset is used with a distance based method (kNN) and 
+ + _Prototype Selection_ (PS) [68] when the subset is used with a distance based method (kNN) and 
 
- + Training Set Selection (TSS) [21, 130] in which an actual model is learned.
+ + _Training Set Selection_ (TSS) [21, 130] in which an actual model is learned.
  
- 
-It is also a search problem.
+It is also a search problem as with _feature selection_.
 
 
 ## Discretization
 
 This process transforms continuous attributes into discrete ones, by associating categorical values to intervals and thus transforming quantitative data into qualitative data.
-
--square
 
 
 ## Correlation Coefficient and Covariance for Numeric Data
@@ -202,8 +192,9 @@ TBD
 TBD
 
 
-#  Preprocessing in R
 
+
+#  Preprocessing in R
 
 ## The dplyr package
 
@@ -294,7 +285,7 @@ kc1_tbl %>%
     mutate(HalsteadLength = NUM_OPERANDS + NUM_OPERATORS)
 ```
 
-summarise: Reduce variables to values
+`summarise`: Reduce variables to values
 
 ```{r}
 # Create a table grouped by Defective, and then summarise each group by taking the mean of loc
@@ -310,9 +301,10 @@ kc1_tbl %>%
     group_by(Defective) %>%
     summarise_each(funs(mean, min, max), BRANCH_COUNT, LOC_TOTAL)
 ```
-It seems than Defective modules are larger than the non-Defective ones.
 
-Count with:
+
+It seems than the number of _Defective_ modules is larger than the _Non-Defective_ ones. We can count them with:
+
 ```{r}
 # n() or tally
 kc1_tbl %>%
@@ -321,8 +313,6 @@ kc1_tbl %>%
 ```
 
 It seems that it's an imbalanced dataset...
-
-
 
 ```{r}
 # randomly sample a fixed number of rows, without replacement

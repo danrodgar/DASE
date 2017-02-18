@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Analysis in Software Engineering using R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="DASE with bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="DASE with bookdown::gitbook." />
+  <meta name="github-repo" content="danrodgar/dasedown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  
+  <meta name="twitter:description" content="DASE with bookdown::gitbook." />
+  
+
+<meta name="author" content="Daniel Rodriguez and Javier Dolado">
+
+
+<meta name="date" content="2017-02-18">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="unsupervised-classification.html">
+<link rel="next" href="evaluation-of-models.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Analysis in Software Engineering with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="part"><span><b>I Introduction to the R Language</b></span></li>
+<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a></li>
+<li class="part"><span><b>II Introduction to Data Mining</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a></li>
+<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a></li>
+<li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="5" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Classical Hypothesis Testing</a></li>
+<li class="part"><span><b>IV Preprocessing</b></span></li>
+<li class="chapter" data-level="6" data-path="filter-rows-use-comma-or-to-represent-and-condition.html"><a href="filter-rows-use-comma-or-to-represent-and-condition.html"><i class="fa fa-check"></i><b>6</b> Filter rows: use comma or &amp; to represent AND condition</a></li>
+<li class="part"><span><b>V Supervised Models</b></span></li>
+<li class="chapter" data-level="7" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>7</b> Placeholder</a></li>
+<li class="chapter" data-level="8" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>8</b> Regression</a></li>
+<li class="chapter" data-level="9" data-path="split-data-into-training-and-test-datasets.html"><a href="split-data-into-training-and-test-datasets.html"><i class="fa fa-check"></i><b>9</b> Split data into training and test datasets</a></li>
+<li class="part"><span><b>VI Unsupervised Classification</b></span></li>
+<li class="chapter" data-level="10" data-path="unsupervised-classification.html"><a href="unsupervised-classification.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Classification</a></li>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#association-rules"><i class="fa fa-check"></i><b>11.1</b> Association rules</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>12</b> Evaluation of Models</a></li>
+<li class="chapter" data-level="13" data-path="measures-of-evaluation-used-in-software-engineering.html"><a href="measures-of-evaluation-used-in-software-engineering.html"><i class="fa fa-check"></i><b>13</b> Measures of Evaluation used in Software Engineering</a></li>
+<li class="part"><span><b>VII Advanced Topics</b></span></li>
+<li class="chapter" data-level="14" data-path="feature-selection.html"><a href="feature-selection.html"><i class="fa fa-check"></i><b>14</b> Feature Selection</a></li>
+<li class="chapter" data-level="15" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>15</b> Feature Selection Example</a></li>
+<li class="chapter" data-level="16" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>16</b> Advanced Models</a></li>
+<li class="chapter" data-level="17" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>17</b> Further Classification Models</a></li>
+<li class="chapter" data-level="18" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>18</b> Social Network Analysis in SE</a></li>
+<li class="chapter" data-level="19" data-path="text-mining-soft-eng-data.html"><a href="text-mining-soft-eng-data.html"><i class="fa fa-check"></i><b>19</b> Text Mining Soft Eng Data</a></li>
+<li class="chapter" data-level="20" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>20</b> Time Series</a></li>
+<li class="chapter" data-level="21" data-path="placeholder-1.html"><a href="placeholder-1.html"><i class="fa fa-check"></i><b>21</b> Placeholder</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis in Software Engineering using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="clustering" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Clustering</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<span class="kw">library</span>(fpc)
+
+kc1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/KC1.arff&quot;</span>)
+
+<span class="co"># Split into training and test datasets</span>
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2</span>, <span class="kw">nrow</span>(kc1), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))
+kc1.train &lt;-<span class="st"> </span>kc1[ind==<span class="dv">1</span>, ]
+kc1.test &lt;-<span class="st"> </span>kc1[ind==<span class="dv">2</span>, ]
+
+<span class="co"># No class</span>
+kc1.train$Defective &lt;-<span class="st"> </span><span class="ot">NULL</span>
+
+ds &lt;-<span class="st"> </span><span class="kw">dbscan</span>(kc1.train, <span class="dt">eps =</span> <span class="fl">0.42</span>, <span class="dt">MinPts =</span> <span class="dv">5</span>)
+
+kc1.kmeans &lt;-<span class="st"> </span><span class="kw">kmeans</span>(kc1.train, <span class="dv">2</span>)</code></pre></div>
+<p>kMeans</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#library(reshape, quietly=TRUE)</span>
+<span class="co">#kc1.kmeans &lt;- kmeans(sapply(na.omit(kc1.train), rescaler, &quot;range&quot;), 10)</span></code></pre></div>
+<div id="association-rules" class="section level2">
+<h2><span class="header-section-number">11.1</span> Association rules</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(arules)</code></pre></div>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## 
+## Attaching package: &#39;arules&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     abbreviate, write</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(kc1$LOC_TOTAL)
+<span class="kw">str</span>(x)</code></pre></div>
+<pre><code>##  num [1:2096] 5 3 3 3 12 5 3 3 3 13 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(x)</code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    3.00    9.00   20.37   24.00  288.00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x, <span class="dt">breaks=</span><span class="dv">30</span>, <span class="dt">main=</span><span class="st">&quot;LoC Total&quot;</span>)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> xDisc &lt;-<span class="st"> </span><span class="kw">discretize</span>(x, <span class="dt">categories=</span><span class="dv">5</span>)
+<span class="co"># table(xDisc)</span>
+
+ for(i in <span class="dv">1</span>:<span class="dv">21</span>) kc1[,i] &lt;-<span class="st"> </span><span class="kw">discretize</span>(kc1[,i],  <span class="st">&quot;frequency&quot;</span>, <span class="dt">categories=</span><span class="dv">5</span>)
+
+<span class="kw">str</span>(kc1)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    2096 obs. of  22 variables:
+##  $ LOC_BLANK            : Factor w/ 4 levels &quot;0&quot;,&quot;1&quot;,&quot;[2, 4)&quot;,..: 1 1 1 1 3 1 1 1 1 3 ...
+##  $ BRANCH_COUNT         : Factor w/ 4 levels &quot;1&quot;,&quot;3&quot;,&quot;[4, 8)&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ LOC_CODE_AND_COMMENT : Factor w/ 2 levels &quot;0&quot;,&quot;[1,12]&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ LOC_COMMENTS         : Factor w/ 3 levels &quot;0&quot;,&quot;1&quot;,&quot;[2,44]&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ CYCLOMATIC_COMPLEXITY: Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;[3, 5)&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ DESIGN_COMPLEXITY    : Factor w/ 3 levels &quot;1&quot;,&quot;[2, 4)&quot;,&quot;[4,45]&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ ESSENTIAL_COMPLEXITY : Factor w/ 2 levels &quot;1&quot;,&quot;[3,26]&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ LOC_EXECUTABLE       : Factor w/ 5 levels &quot; 0&quot;,&quot;[ 1,  3)&quot;,..: 3 2 2 2 3 3 2 2 2 3 ...
+##  $ HALSTEAD_CONTENT     : Factor w/ 5 levels &quot;[ 0.00,  5.80)&quot;,..: 3 1 1 1 3 3 1 1 1 4 ...
+##  $ HALSTEAD_DIFFICULTY  : Factor w/ 5 levels &quot;[ 0.00, 1.57)&quot;,..: 3 1 1 1 3 3 1 1 1 3 ...
+##  $ HALSTEAD_EFFORT      : Factor w/ 5 levels &quot;[   0.0,    12.2)&quot;,..: 3 1 1 1 3 3 1 1 1 3 ...
+##  $ HALSTEAD_ERROR_EST   : Factor w/ 5 levels &quot;0.00&quot;,&quot;0.01&quot;,..: 2 1 1 1 3 2 1 1 1 3 ...
+##  $ HALSTEAD_LENGTH      : Factor w/ 5 levels &quot;[ 0,   5)&quot;,&quot;[ 5,  10)&quot;,..: 3 1 1 1 3 3 1 1 1 4 ...
+##  $ HALSTEAD_LEVEL       : Factor w/ 5 levels &quot;[0.00,0.08)&quot;,..: 4 1 1 1 3 4 1 1 1 3 ...
+##  $ HALSTEAD_PROG_TIME   : Factor w/ 5 levels &quot;[  0.00,    0.68)&quot;,..: 3 1 1 1 3 3 1 1 1 3 ...
+##  $ HALSTEAD_VOLUME      : Factor w/ 5 levels &quot;[  0.0,  10.0)&quot;,..: 3 1 1 1 3 3 1 1 1 4 ...
+##  $ NUM_OPERANDS         : Factor w/ 5 levels &quot;[ 0,  2)&quot;,&quot;[ 2,  4)&quot;,..: 3 1 1 1 3 3 1 1 1 3 ...
+##  $ NUM_OPERATORS        : Factor w/ 5 levels &quot;[ 0,  4)&quot;,&quot;[ 4,  7)&quot;,..: 3 1 1 1 3 3 1 1 1 4 ...
+##  $ NUM_UNIQUE_OPERANDS  : Factor w/ 5 levels &quot;[ 0,  2)&quot;,&quot;[ 2,  4)&quot;,..: 2 1 1 1 3 2 1 1 1 4 ...
+##  $ NUM_UNIQUE_OPERATORS : Factor w/ 5 levels &quot;[ 0, 4)&quot;,&quot;[ 4, 6)&quot;,..: 2 1 1 1 2 2 1 1 1 3 ...
+##  $ LOC_TOTAL            : Factor w/ 5 levels &quot;[ 1,  3)&quot;,&quot;[ 3,  6)&quot;,..: 2 2 2 2 3 2 2 2 2 3 ...
+##  $ Defective            : Factor w/ 2 levels &quot;N&quot;,&quot;Y&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rules &lt;-<span class="st"> </span><span class="kw">apriori</span>(kc1, <span class="dt">parameter =</span> <span class="kw">list</span>(<span class="dt">support=</span><span class="fl">0.60</span>, <span class="dt">confidence=</span><span class="fl">0.800</span>, <span class="dt">minlen=</span><span class="dv">3</span>))</code></pre></div>
+<pre><code>## Apriori
+## 
+## Parameter specification:
+##  confidence minval smax arem  aval originalSupport maxtime support minlen
+##         0.8    0.1    1 none FALSE            TRUE       5     0.6      3
+##  maxlen target   ext
+##      10  rules FALSE
+## 
+## Algorithmic control:
+##  filter tree heap memopt load sort verbose
+##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+## 
+## Absolute minimum support count: 1257 
+## 
+## set item appearances ...[0 item(s)] done [0.00s].
+## set transactions ...[94 item(s), 2096 transaction(s)] done [0.00s].
+## sorting and recoding items ... [5 item(s)] done [0.00s].
+## creating transaction tree ... done [0.00s].
+## checking subsets of size 1 2 3 4 done [0.00s].
+## writing ... [18 rule(s)] done [0.00s].
+## creating S4 object  ... done [0.00s].</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rules</code></pre></div>
+<pre><code>## set of 18 rules</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rules &lt;-<span class="st"> </span><span class="kw">apriori</span>(kc1,
+   <span class="dt">parameter =</span> <span class="kw">list</span>(<span class="dt">minlen=</span><span class="dv">3</span>, <span class="dt">supp=</span><span class="fl">0.6</span>, <span class="dt">conf=</span><span class="fl">0.8</span>),
+   <span class="dt">appearance =</span> <span class="kw">list</span>(<span class="dt">rhs=</span><span class="kw">c</span>(<span class="st">&quot;Defective=Y&quot;</span>, <span class="st">&quot;Defective=N&quot;</span>),
+   <span class="dt">default=</span><span class="st">&quot;lhs&quot;</span>),
+   <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">verbose=</span>F))
+ 
+ <span class="co">#rules &lt;- apriori(kc1,</span>
+ <span class="co">#   parameter = list(minlen=2, supp=0.05, conf=0.3),</span>
+ <span class="co">#   appearance = list(rhs=c(&quot;Defective=Y&quot;, &quot;Defective=N&quot;),</span>
+ <span class="co">#   default=&quot;lhs&quot;))</span>
+  
+ <span class="kw">inspect</span>(rules)</code></pre></div>
+<pre><code>##     lhs                         rhs             support confidence     lift
+## [1] {LOC_COMMENTS=0,                                                       
+##      ESSENTIAL_COMPLEXITY=1} =&gt; {Defective=N} 0.6526718  0.9065606 1.072926
+## [2] {LOC_CODE_AND_COMMENT=0,                                               
+##      LOC_COMMENTS=0}         =&gt; {Defective=N} 0.6684160  0.8867089 1.049431
+## [3] {LOC_CODE_AND_COMMENT=0,                                               
+##      ESSENTIAL_COMPLEXITY=1} =&gt; {Defective=N} 0.7285305  0.8775862 1.038634
+## [4] {LOC_CODE_AND_COMMENT=0,                                               
+##      LOC_COMMENTS=0,                                                       
+##      ESSENTIAL_COMPLEXITY=1} =&gt; {Defective=N} 0.6426527  0.9076819 1.074253</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> rules</code></pre></div>
+<pre><code>## set of 4 rules</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">library</span>(arulesViz)</code></pre></div>
+<pre><code>## Loading required package: grid</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">plot</span>(rules)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unsupervised-classification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="evaluation-of-models.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/danrodgar/dasedown/edit/master/420_basicModelBuildingUnsupervised.Rmd",
+"text": "Edit"
+},
+"download": ["DASE.pdf", "DASE.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -4,30 +4,32 @@ chapter_name: "Chapter "
 
 rmd_files: [
   "index.Rmd",
-  "010-rIntro.Rmd",
+  "010_rIntro.Rmd",
 
-  "100-intro.Rmd",
-  "110-dataSources.Rmd",
+  "100_intro.Rmd",
+  "110_dataSources.Rmd",
 
-  "200-exploratoryDataAnalysis.Rmd",
-  "220-classicalHypothesisTesting.Rmd",
+  "200_exploratoryDataAnalysis.Rmd",
+  "220_classicalHypothesisTesting.Rmd",
 
-  "300-basicPreprocessing.Rmd",
-  "410-basicModelBuildingSupervised.Rmd",
-  "420-basicModelBuildingUnsupervised.Rmd",
-  "430-evaluation.Rmd",
-  "440-evaluationInSoftEng.Rmd",
+  "300_basicPreprocessing.Rmd",
+  "410_basicModelBuildingSupervised.Rmd",
+  "412_regression.Rmd",
+  "415_basicModelBuildingSupervised.Rmd",
+  "420_basicModelBuildingUnsupervised.Rmd",
+  "430_evaluation.Rmd",
+  "440_evaluationInSoftEng.Rmd",
 
-  "500-advancedPreprocessingTechniques.Rmd",
-  "505-featureSelectionExample.Rmd",
-  "510-advancedModelBuilding.Rmd",
+  "500_advancedPreprocessingTechniques.Rmd",
+  "505_featureSelectionExample.Rmd",
+  "510_advancedModelBuilding.Rmd",
 
-  "600-SSL.Rmd",
+  "600_SSL.Rmd",
 
-  "700-SNAinSE.Rmd",
+  "700_SNAinSE.Rmd",
 
-  "800-textMiningSE.Rmd",
+  "800_textMiningSE.Rmd",
 
-  "900-timeSeries.Rmd",
-  "999-references.Rmd"
+  "900_timeSeries.Rmd",
+  "999_references.Rmd"
 ]

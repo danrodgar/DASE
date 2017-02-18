@@ -100,9 +100,7 @@ head(metrics)
 
 
 
-# To fix and to do:
-
-Explain metrics and better graphs
+To fix and to do: Explain metrics and better graphs
 
 ```{r eval = FALSE}
 library(ggplot2)
