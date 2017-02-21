@@ -1,7 +1,32 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
-# Text Mining Soft Eng Data
+# Text Mining Software Engineering Data
 
 In software engineering, there is a lot of information that can be extracted from Software Configuration Management System (SCM), or Bug Tracking Systems such as Bugzilla. 
+
+The main packages for Text Mining are "tm", "wordcloud".
+```{r}
+# - Install packages
+
+# pckgs_needed <- c("tm", "wordcloud")
+# install.packages(pckgs_needed, dependencies = TRUE)
+```
+  - Importing data. A "Corpus" is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). tm provides several corpus constructors: DirSource, VectorSource, or DataframeSource (getSources()). readerControl of the corpus constructor has to be a list with the named components reader and language
+  - Preprocessing 
+  - Inspecting and exploring data: Individual documents can be accessed via [[
+  - Transformations: Transformations are done via the tm_map() function. tm_map(_____, stripWhitespace)  tm_map(_____, content_transformer(tolower))  tm_map(_____, removeWords, stopwords("english"))  tm_map(tm_map(reuters, stemDocument), stemDocument)
+  - Creating Term-Document Matrices: TermDocumentMatrix and DocumentTermMatrix
+  - Relationships between terms.
+    findFreqTerms(_____, anumber)
+    findAssocs(_dtm____, "aterm", anumbercorrelation)
+    A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.
+  - Clustering
+    
+
 
 
 
@@ -14,9 +39,12 @@ The following example shows how to work with entries from Bugzilla. It is assume
 
 ```{r message=FALSE, warning=FALSE}
 library(foreign)
+# path_name <- file.path("C:", "datasets", "textMining")
+# path_name
+# dir(path_name)
 
 d <- read.arff("./datasets/textMining/compendium.arff")
-head(d,2)
+head(d,5)
 ```
 
 Creating a Document-Term Matrix (DTM)
@@ -131,3 +159,6 @@ wordcloud(words=names(wordFreqs),freq=wordFreqs)
 ## Extracting data from Twitter
 
 The hardest bit is to link with Twitter. Using the TwitteR package is explained following this [example](./twitter.Rmd).
+
+## References 
+  - Ingo Feinerer, tm: Text Mining Package, 2015. R package version 0.6.2 2015-07-03
