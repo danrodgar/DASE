@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [references/references.bib,references/dataSources.bib]
+bibliography: [./references/references.bib,./references/dataSources.bib,./references/RandStatistics.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: danrodgar/dasedown

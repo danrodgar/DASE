@@ -1,7 +1,7 @@
 
-# Measures of Evaluation used in Software Engineering
+# Measures of Evaluation in Software Engineering {#evaluationSE}
   
-There are several measures usually used:
+There are several measures typically used in software engieering. In particular for effort estimation, the following metrics are extensively used in addition or instead of statistical measures.
 
   - *Mean of the Absolute Error (MAR)*: compute the absolute errors and take the mean
 

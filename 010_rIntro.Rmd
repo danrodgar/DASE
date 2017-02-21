@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 # (PART) Introduction to the R Language {-}
 
@@ -11,7 +16,6 @@ The goal of the first part of this book is to get you up to speed with the basic
 
 ## R and RStudio
   - R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
-  - RStudio, RCommander and RKWard are the best known GUIs for R. 
   - R has multiple online resources and books.
   - [R coding style](https://google.github.io/styleguide/Rguide.xml)
   - Getting help in R
@@ -59,14 +63,14 @@ plot(lm_1)            # Diagnostic plot of regression model
     + objects()
     + rm(totalCost)
     + str(   ) #(Structure) provides information about the variable
+  -RStudio, RCommander and RKWard are the best known IDEs for R. 
 
 ***
-  
-  - Four # create an environment in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names. 
+  - Four # ('####') create an environment in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names. 
     + [Environment basics](http://adv-r.had.co.nz/Environments.html#env-basics)
 
 
-```{r echo = FALSE, out.width = "75%"}
+```{r rstudio, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("figures/environments.png")
 ```
 
@@ -605,14 +609,13 @@ mydataframeSorted2
 ```
 
 ## Reading Data
+
 ```{r}
 library(foreign)
 isbsg <- read.arff("datasets/effortEstimation/isbsg10teaser.arff")
 
 mydataISBSG <- isbsg[, c("FS", "N_effort")]
 
-
-mydataISBSG <- isbsg[, c("FS", "N_effort")]
 str(mydataISBSG)
 ```
 
@@ -620,11 +623,13 @@ str(mydataISBSG)
 
 ## Plots
 
-There are several graphic packages that are recommended, in particular ggplot. However, there is some basic support in the R base for graphics:
+There are several graphic packages that are recommended, in particular `ggplot`. However, there is some basic support in the R base for graphics. The following Figure \@ref(fig:plotExample) shows a simple plot.
 
-```{r}
+```{r plotExample, fig.cap="Simple plot"}
 plot(mydataISBSG$FS, mydataISBSG$N_effort)
 ```
+
+
 
 ***
 ## Flow of Control 
@@ -638,6 +643,10 @@ kc1$Defective <- ifelse(kc1$Defective == "Y", 1, 0)
 head(kc1, 1)
 ```
 
+## Rattle
 
-[@Torgo2010]
-[@GarciaLH15]
+There is graphical interface, Rattle, that allow us to perform some data mining tasks [@Williams11].  
+
+
+![Rattle: GUI for Data mining with R](./figures/rattle.png)
+

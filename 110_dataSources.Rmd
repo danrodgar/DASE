@@ -59,27 +59,26 @@ There is a number of open research repositories in Software Engineering. Among t
   + PROMISE (PRedictOr Models In Software Engineering) [8]: 
 [http://openscience.us/repo/](http://openscience.us/repo/)
 
-  + Qualitas Corpus (QC) [9]: 
+  + Qualitas Corpus (QC) [@QualitasCorpus2010]: 
 [http://qualitascorpus.com/](http://qualitascorpus.com/)
 
-  + Sourcerer Project [10]: 
+  + Sourcerer Project [@LBNRB09]: 
 [http://sourcerer.ics.uci.edu/](http://sourcerer.ics.uci.edu/)
 
-  + Ultimate Debian Database (UDD) [11] 
+  + Ultimate Debian Database (UDD) [@NZ10] 
 [http://udd.debian.org/](http://udd.debian.org/)
 
-  + Software-artifact Infrastructure Repository (SIR) [16] 
-http://sir.unl.edu
-
-  + OpenHub:
-[https://www.openhub.net/](https://www.openhub.net/)
-(before Ohloh [17])
-
-  + SourceForge Research Data Archive (SRDA) [18] 
+  + SourceForge Research Data Archive (SRDA) [@VanAntwerpM2008] 
 [http://zerlot.cse.nd.edu/](http://zerlot.cse.nd.edu/)
 
   + SECOLD (Source code ECOsystem Linked Data): 
-    [http://www.secold.org/]()
+    [http://www.secold.org/](http://www.secold.org/)
+
+  + Software-artifact Infrastructure Repository (SIR) 
+[http://sir.unl.edu]
+
+  + OpenHub:
+[https://www.openhub.net/](https://www.openhub.net/)
 
 
 Not openly available:
@@ -93,17 +92,19 @@ Not openly available:
 
 Some papers and publications/theses that have been used in the literature:
 
-  + Helix Data Set [19]: 
+  + Helix Data Set [@Vasa2010]: 
     [http://www.ict.swin.edu.au/research/projects/helix/](http://www.ict.swin.edu.au/research/projects/helix/)
 
-  + Bug Prediction Dataset (BPD) [12,13]: 
+  + Bug Prediction Dataset (BPD) [@DAmb2010a,@ALR11]: 
     [http://bug.inf.usi.ch/](http://bug.inf.usi.ch/)
 
-  + Eclipse Bug Data (EBD) [11,15]: 
+  + Eclipse Bug Data (EBD) [@ZPZ07,@NZZH12]: 
     [http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/](http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/)
 
 
-## Some Tools to extract data and dashboards
+## Some Tools/Dashboards to extract data
+
+Within the open source community, two toolkits allow us to extract data that can be used to explore projects:
 
 Metrics Grimoire
 [http://metricsgrimoire.github.io/](http://metricsgrimoire.github.io/)
@@ -111,35 +112,3 @@ Metrics Grimoire
 SonarQube
 [http://www.sonarqube.org/](http://www.sonarqube.org/)
 
-
-
-
-## References (To be fixed)
-
-6 J. Howison, M. Conklin, and K. Crowston, ``FLOSSmole: A collaborative repository for FLOSS research data and analyses,'' International Journal of Information Technology and Web Engineering, vol. 1, no. 3, 2006.
-
-7 I. Herraiz, D. Izquierdo-Cortazar, F. Rivas-Hernandez, J. M. Gonzalez-Barahona, G. Robles, S. D. nas Dominguez, C. Garcia-Campos, J. F. Gato, and L. Tovar, ``FLOSSMetrics: Free / libre / open source software metrics,'' in Proceedings of the 13th European Conference on Software Maintenance and Reengineering (CSMR).IEEE Computer Society, 2009.
-
-8 G. Boetticher, T. Menzies, and T. Ostrand. (2007) Promise repository of empirical software engineering data. West Virginia University, Department of Computer Science. [Online]. Available: http://promisedata.org/repository
-
-9 E. Tempero, C. Anslow, J. Dietrich, T. Han, J. Li, M. Lumpe, H. Melton, and J. Noble, ``Qualitas corpus: A curated collection of java code for empirical studies,'' in 2010 Asia Pacific Software Engineering Conference (APSEC2010), Dec 2010.
-
-10 E. Linstead, S. Bajracharya, T. Ngo, P. Rigor, C. Lopes, and P. Baldi, ``Sourcerer: mining and searching internet-scale software repositories,'' Data Mining and Knowledge Discovery, vol. 18, pp. 300-336, 2009, 10.1007/s10618-008-0118-x.
-
-11 T. Zimmermann, R. Premraj, and A. Zeller, ``Predicting defects for eclipse,'' in Proceedings of the Third International Workshop on Predictor Models in Software Engineering (PROMISE'07), ser. PROMISE '07.Washington, DC, USA: IEEE Computer Society, 2007, pp. 9-.
-
-12 M. D'Ambros, M. Lanza, and R. Robbes, ``An extensive comparison of bug prediction approaches,'' in Proceedings of the 7th IEEE Working Conference on Mining Software Repositories (MSR07).IEEE CS Press, 2010, pp. 31 - 41.
-
-13 M. D'Ambros, M. Lanza, and R. Robbes, ``Evaluating defect prediction approaches: a benchmark and an extensive comparison,'' Empirical Software Engineering, pp. 1-47, 10.1007/s10664-011-9173-9.
-
-14 C. Lokan, T. Wright, P. Hill, and M. Stringer, ``Organizational benchmarking using the isbsg data repository,'' IEEE Software, vol. 18, no. 5, pp. 26 -32, sep/oct 2001.
-
-15 N. Nagappan, A. Zeller, T. Zimmermann, K. Herzig, and B. Murphy, ``Change bursts as defect predictors,'' in Proceedings of the 21st IEEE International Symposium on Software Reliability Engineering (ISSRE 2012), November 2010.
-
-16 H. Do, S. Elbaum, and G. Rothermel, ``Supporting controlled experimentation with testing techniques: An infrastructure and its potential impact,'' Empirical Software Engineering, vol. 10, pp. 405-435, October 2005. [Online]. Available: http://dl.acm.org/citation.cfm?id=1089922.1089928
-
-17 Ohloh, ``Ohloh.'' [Online]. Available: http://www.ohloh.net/
-
-18 M. Van Antwerp and G. Madey, ``Advances in the sourceforge research data archive (srda),'' in Fourth International Conference on Open Source Systems, IFIP 2.13 (WoPDaSD 2008), Milan, Italy, September 2008.
-
-19 R. Vasa, ``Growth and change dynamics in open source software systems,'' Ph.D. dissertation, Faculty of Information and Communication Technologies Swinburne University of Technology Melbourne, Australia, 2010.

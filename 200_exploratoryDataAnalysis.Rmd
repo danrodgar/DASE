@@ -12,10 +12,7 @@
    
     + **Histogram**: The histogram defines a sequence of breaks and then counts the number of observations in the bins formed by the breaks.
     
-    + **Boxplot**: The boxplot is used to summarize data succinctly, quickly displaying if the data is symmetric or has suspected outliers.
-    
-    
-      ![](figures/boxplotexp.png)
+    + **Boxplot**: The boxplot is used to summarize data succinctly, quickly displaying if the data is symmetric or has suspected outliers.  ![](./figures/boxplotexp.png)
       
       
     + **Q-Q plot**: This plot is used to determine if the data is close to being normally distributed. The quantiles of the standard normal distribution is represented by a straight line. The normality of the data can be evaluated by observing the extent in which the points appear on the line. When the data is normally distributed around the mean, then the mean and the median should be equal. 
@@ -26,15 +23,12 @@
     + **Violin Plot**: A violin plot is a combination of a boxplot and a kernel density plot. 
     
     
-# Descriptive Statistics
-
-
 ## Normality 
   - A normal distribution is an arrangement of a data set in which most values cluster in the middle of the range
   - A graphical representation of a normal distribution is sometimes called a *bell curve* because of its shape.
   - Many procedures in statistics are based on this property. *Parametric* procedures require the normality property.
   - In a normal distribution about 95% of the probability lies within 2 Standard Deviations of the mean.
-  - Two examples: one population with mean 60 and the standard deviation of 1, and the other with mean 60 and sd=4 (means shifted to 0)
+  - Two examples: one population with mean 60 and the standard deviation of 1, and the other with mean 60 and $sd=4$ (means shifted to 0)
   
 ```{r}
 main.title <- "Area within 2 SD of the mean"
@@ -51,7 +45,7 @@ segments(-8, 0, -8, 0.1)
 segments(8, 0, 8, 0.1)
 ```
 
-  - if we sample from this population we get "another population".
+  - if we sample from this population we get "another population".fig.cap="Simple plot"
   
 ```{r}
 sample.means <- rep(NA, 1000)
@@ -64,21 +58,27 @@ sd40 <- sd(sample.means)
 means40
 sd40
 ```
-- These sample means are another "population". The sampling distribution of the sample mean is normally distributed meaning that the "mean of a representative sample provides an estimate of the unknown population mean".
-```{r}
+
+- These sample means are another "population". The sampling distribution of the sample mean is normally distributed meaning that the "mean of a representative sample provides an estimate of the unknown population mean". This is shown in Figure \@ref(fig:sampleMeansExample)
+
+```{r sampleMeansExample, fig.cap="Sample means histogram"}
 hist(sample.means)
 ```
 
 
 
-## Getting the Data. Descriptive statistics.
+## Running Example 
+
   - Set the path to your files 
-  - Read the Telecom1 dataset and print out the summary statistics with the command *summary*
+  - Read the _Telecom1_ dataset and print out the summary statistics with the command `summary`
+  
+  
 ```{r}
 options(digits=3)
 telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
 summary(telecom1)
 ```
+
   - We see that this dataset has three variables (or parameters) and few data points (18)
     + size: the independent variable
     + effort: the dependent variable
@@ -124,7 +124,7 @@ plot(size_telecom1, effort_telecom1)
 ```
 
 
-## China dataset 
+### Example with the China dataset (Promise Repository)
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -146,7 +146,7 @@ qqline(china_effort)
 ```
   - We observe the non-normality of the data. 
 
-## Normality. Galton data
+#### Normality. Galton data
   - It is the data based on the famous 1885 Francis Galton's study about the relationship between the heights of adult children and the heights of their parents.
 
 
@@ -159,10 +159,9 @@ hist(galton$parent,col="blue") #,breaks=100)
 ```
 
 
-## Normalization
+#### Normalization
 
-  - China dataset. Take logs in both independent variables. 
-  
+  - Take $log$s in both independent variables. For example, with the _China_ dataset. 
   
 ```{r, echo=FALSE}
 par(mfrow=c(1,2))
@@ -174,16 +173,17 @@ qqnorm(logchina_size)
 qqnorm(logchina_effort)
 ```
 
-
-- If the log-log transformation is used the estimation equation is:
-
+- If the $log$ transformation is used the estimation equation is:
   $$y= e^{b_0 + b_1 log(x)} $$
 
-## Correlation. China dataset. 
+
+## Correlation
 
   - **Correlation** is a statistical relationship between two sets of data.
   - With the whole dataset we may check for the linear Correlation of the variables we are interested in.
   
+
+As an example with the China dataset
   
 ```{r}
 par(mfrow=c(1,1))
@@ -203,12 +203,11 @@ cor(china_size,china_effort, method="kendall")
     - Not all confidence intervals contain the true value of the parameter.
     - Simulation of confidence intervals
 
-
+An example from Ugarte et al. [@ugarte2015probability]
 
 ```{r, echo=FALSE}
-# code from the book by Ugerte et al. Probability and statistics with R
-  norsim <- function(sims = 100, n = 36, mu = 100, sigma = 18, 
-                   conf.level = 0.95){
+# code from the book by Ugarte et al.
+  norsim <- function(sims = 100, n = 36, mu = 100, sigma = 18, conf.level = 0.95){
   alpha <- 1 - conf.level
   CL <- conf.level * 100
   ll <- numeric(sims)
@@ -249,7 +248,7 @@ norsim(sims = 100, n = 36, mu = 100, sigma = 18, conf.level = 0.95)
   - The range defined by the confidence interval will vary with each sample, because the sample size will vary each time and the standard deviation will vary too.
   - 95% confidence interval: it is the probability that the hypothetical confidence intervals (that would be computed from the hypothetical repeated samples) will contain the population mean.
   - the particular interval that we compute on one sample does not mean that the population mean lies within that interval with a probability of 95%.
-  - recommended reading:  *Robust misinterpretation of confidence intervals*, Rink Hoekstra, Richard D. Morey, Jeffrey N. Rouder, Eric-Jan Wagenmakers.  Psychonomic Bulletin & Review, October 2014 
+  - Recommended reading: [@Hoekstra2014] *Robust misinterpretation of confidence intervals* 
 
 
 ## Nonparametric Bootstrap
@@ -258,5 +257,5 @@ distribution of the statistic.
   - There is a way to compute confidence intervals without meeting the requirements of parametric methods. 
   - **Resampling** or **bootstraping** is a method to calculate estimates of a parameter taking samples from the original data and using those *resamples* to calculate statistics. Using the resamples usually gives more accurate results than using the original single sample to calculate an estimate of a parameter. 
   
-  ![](figures/bootstrap.png)
-  - An example of bootstrap CI can be found in the section "Evaluation in Software Engineering"
+  ![Bootstrap](figures/bootstrap.png)
+  - An example of bootstrap CI can be found in Chapter \@ref(evaluationSE), "Evaluation in Software Engineering"

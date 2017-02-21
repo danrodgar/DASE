@@ -26,7 +26,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-02-18">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -123,6 +123,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.9</b> Reading Data</a></li>
 <li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.10</b> Plots</a></li>
 <li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.11</b> Flow of Control</a></li>
+<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.12</b> Rattle</a></li>
 </ul></li>
 <li class="part"><span><b>II Introduction to Data Mining</b></span></li>
 <li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a><ul>
@@ -134,8 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#types-of-information-stored-in-the-repositories"><i class="fa fa-check"></i><b>3.1</b> Types of information stored in the repositories</a></li>
 <li class="chapter" data-level="3.2" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#repositories"><i class="fa fa-check"></i><b>3.2</b> Repositories</a></li>
-<li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-tools-to-extract-data-and-dashboards"><i class="fa fa-check"></i><b>3.3</b> Some Tools to extract data and dashboards</a></li>
-<li class="chapter" data-level="3.4" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#references-to-be-fixed"><i class="fa fa-check"></i><b>3.4</b> References (To be fixed)</a></li>
+<li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-toolsdashboards-to-extract-data"><i class="fa fa-check"></i><b>3.3</b> Some Tools/Dashboards to extract data</a></li>
 </ul></li>
 <li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
 <li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
@@ -336,7 +336,7 @@ predEffort &lt;-<span class="st"> </span><span class="kw">exp</span>(b0+b1*<span
 err &lt;-<span class="st"> </span>actualEffort -<span class="st"> </span>predEffort  <span class="co">#error or residual</span>
 ae &lt;-<span class="st"> </span><span class="kw">abs</span>(err)
 <span class="kw">hist</span>(ae, <span class="dt">main=</span><span class="st">&quot;Absolute Error in the China Test data&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mar &lt;-<span class="st"> </span><span class="kw">mean</span>(ae)
 mre &lt;-<span class="st"> </span>ae/actualEffort
 mmre &lt;-<span class="st"> </span><span class="kw">mean</span>(mre)
@@ -378,7 +378,7 @@ ytrain &lt;-<span class="st"> </span><span class="kw">log</span>(telecom1_train$
 lmtelecom1 &lt;-<span class="st"> </span><span class="kw">lm</span>( ytrain ~<span class="st"> </span>xtrain)
 <span class="kw">plot</span>(xtrain, ytrain)
 <span class="kw">abline</span>(lmtelecom1, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b0_tel1 &lt;-<span class="st"> </span>lmtelecom1$coefficients[<span class="dv">1</span>]
 b1_tel1 &lt;-<span class="st"> </span>lmtelecom1$coefficients[<span class="dv">2</span>]
 <span class="co"># calculate residuals and predicted values</span>
@@ -391,7 +391,7 @@ pre_tel1 &lt;-<span class="st"> </span><span class="kw">exp</span>(b0+b1*<span c
 <span class="kw">plot</span>(xtest, ytest)
 <span class="kw">curve</span>(<span class="kw">exp</span>(b0_tel1+b1_tel1*<span class="kw">log</span>(x)), <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">300</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
 <span class="kw">segments</span>(xtest, ytest, xtest, pre_tel1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-94-2.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
 </div>
 <div id="building-a-linear-model-on-the-telecom1-dataset-with-all-observations" class="section level2">
 <h2><span class="header-section-number">15.3</span> Building a Linear Model on the Telecom1 dataset with all observations</h2>
@@ -421,7 +421,7 @@ Lpred</code></pre></div>
 <pre><code>## [1] 0.444</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Visually plot lpred</span>
 <span class="kw">segments</span>(size_telecom1, lowpred, size_telecom1, uppred, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">err_telecom1 &lt;-<span class="st"> </span><span class="kw">abs</span>(effort_telecom1 -<span class="st"> </span>predicted)
 mar_tel1 &lt;-<span class="st"> </span><span class="kw">mean</span>(err_telecom1)
 mar_tel1</code></pre></div>
@@ -444,7 +444,7 @@ marp0Chinatest &lt;-<span class="st"> </span><span class="kw">mean</span>(randgu
 marp0Chinatest</code></pre></div>
 <pre><code>## [1] 3956</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(randguessruns, <span class="dt">main=</span><span class="st">&quot;MARP0 distribution of the China dataset&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saChina =<span class="st"> </span>(<span class="dv">1</span>-<span class="st"> </span>mar/marp0Chinatest)*<span class="dv">100</span>
 saChina</code></pre></div>
 <pre><code>## [1] 52.8</code></pre>
@@ -470,7 +470,7 @@ marp0telecom1 &lt;-<span class="st"> </span><span class="kw">mean</span>(randgue
 marp0telecom1</code></pre></div>
 <pre><code>## [1] 271</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(randguessruns, <span class="dt">main=</span><span class="st">&quot;MARP0 distribution of the Telecom1 dataset&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saTelecom1 &lt;-<span class="st"> </span>(<span class="dv">1</span>-<span class="st"> </span>mar_tel1/marp0telecom1)*<span class="dv">100</span>
 saTelecom1</code></pre></div>
 <pre><code>## [1] 54</code></pre>
@@ -480,7 +480,7 @@ saTelecom1</code></pre></div>
 <li>For checking results you may use figure Atkinson in Shepperd&amp;MacDonnell</li>
 </ul>
 <pre><code>## [1] 281</code></pre>
-<p><img src="DASE_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 </div>
 </div>
 <div id="exact-marp0" class="section level2">
