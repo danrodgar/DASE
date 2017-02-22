@@ -31,6 +31,7 @@ The main packages for Text Mining are "tm", "wordcloud".
 ## Basic commands
 ### load a tm dataset  20 news articles with additional meta information from the Reuters-21578 dataset
 ```{r}
+library('tm')
 data("crude")
 crude
 ```
