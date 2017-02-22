@@ -23,9 +23,184 @@ The main packages for Text Mining are "tm", "wordcloud".
   - Relationships between terms.
     findFreqTerms(_____, anumber)
     findAssocs(_dtm____, "aterm", anumbercorrelation)
-    A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.
+    A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
+    inspect(DocumentTermMatrix(_reuters__________, list(dictionary = c("term1", "term2", "term3"))))
   - Clustering
     
+
+## Basic commands
+### load a tm dataset  20 news articles with additional meta information from the Reuters-21578 dataset
+```{r}
+data("crude")
+crude
+```
+
+
+
+####Create a data frame source
+```{r}
+# Create a vector source.
+docs <- c("This is a text.", "This another one.")
+(vs <- VectorSource(docs))
+inspect(VCorpus(vs))
+
+# create a data frame source
+docs <- data.frame(c("This is a text.", "This another one."))
+(ds <- DataframeSource(docs))
+inspect(VCorpus(ds))
+
+# accessind documents, terms
+# For Docs and Terms, a character vector with document IDs and terms, respectively.
+# For nDocs and nTerms, an integer with the number of document IDs and terms, respectively.
+
+tdm <- TermDocumentMatrix(crude)[1:10,1:20]
+Docs(tdm)
+nDocs(tdm)
+nTerms(tdm)
+Terms(tdm)
+
+# Inspect, i.e., display detailed information on a corpus or a term-document matrix.
+inspect(crude[1:3])
+tdm <- TermDocumentMatrix(crude)[1:10, 1:10]
+inspect(tdm)
+
+
+# TermDocumentMatrix  Constructs or coerces to a term-document matrix or a document-term matrix.
+
+data("crude")
+tdm <- TermDocumentMatrix(crude, control = list(removePunctuation = TRUE,
+                                                stopwords = TRUE))
+dtm <- DocumentTermMatrix(crude, control = list(weighting = function(x) weightTfIdf(x, normalize =
+FALSE),
+stopwords = TRUE))
+inspect(tdm[202:205, 1:5])
+inspect(tdm[c("price", "texas"), c("127", "144", "191", "194")])
+inspect(dtm[1:5, 273:276])
+
+
+```
+
+
+
+
+```{r}
+
+
+
+# Visualize correlations between terms of a term-document matrix. Visualization requires that package Rgraphviz is available
+tdm <- TermDocumentMatrix(crude,
+control = list(removePunctuation = TRUE,
+removeNumbers = TRUE,
+stopwords = TRUE))
+plot(tdm, corThreshold = 0.2, weighting = TRUE)
+```
+
+
+
+
+```{r}
+# Find associations in a document-term or term-document matrix.
+tdm <- TermDocumentMatrix(crude)
+findAssocs(tdm, c("oil", "opec", "xyz"), c(0.7, 0.75, 0.1))
+
+# Find frequent terms in a document-term or term-document matrix
+findFreqTerms(tdm, 2, 3)
+
+# termFreq   Generate a term frequency vector from a text document
+data("crude")
+termFreq(crude[[14]])
+strsplit_space_tokenizer <- function(x) unlist(strsplit(as.character(x), "[[:space:]]+"))
+ctrl <- list(tokenize = strsplit_space_tokenizer, removePunctuation = list(preserve_intra_word_dashes = TRUE),
+             stopwords = c("reuter", "that"),
+             stemming = TRUE,
+             wordLengths = c(4, Inf))
+termFreq(crude[[14]], control = ctrl)
+
+#weights
+# weightBin(m) Weight Binary Binary weight a term-document matrix.
+# WeightFunction Construct a weighting function for term-document matrices.
+weightCutBin <- WeightFunction(function(m, cutoff) m > cutoff,
+                               "binary with cutoff", "bincut")
+# weightSMART Weight a term-document matrix according to a combination of weights specified in SMART notation.
+TermDocumentMatrix(crude, 
+                   control = list(removePunctuation = TRUE,
+                                  stopwords = TRUE,
+                                  weighting = function(x) weightSMART(x, spec = "ntc")))
+
+# weightTf Weight by Term Frequency   weightTf(m)
+
+# weightTfIdf Weight by Term Frequency - Inverse Document Frequency
+
+```
+
+
+
+```{r}
+
+# Transformations
+# Remove Numbers from a Text Document
+crude[[1]]
+removeNumbers(crude[[1]])
+
+# Remove Punctuation Marks from a Text Document
+crude[[14]]
+cruderem <- removePunctuation(crude[[14]])
+removePunctuation(crude[[14]], preserve_intra_word_dashes = TRUE)
+
+# Remove sparse terms from a document-term or term-document matrix.
+tdm <- TermDocumentMatrix(crude)
+removeSparseTerms(tdm, 0.2)
+
+# Remove words from a text document.
+
+crude[[1]]
+cruderemword <- removeWords(crude[[1]], stopwords("english"))
+
+# Stem words in a text document using Porter’s stemming algorithm.
+
+crude[[1]]
+crudestem <- stemDocument(crude[[1]])
+
+# Return various kinds of stopwords with support for different languages.
+stopwords("en")
+stopwords("SMART")
+stopwords("german")
+
+# Strip Whitespace from a Text Document
+crude[[1]]
+stripWhitespace(crude[[1]])
+
+# getTransformations  Predefined transformations (mappings) which can be used with tm_map
+## Document access triggers the stemming function
+## (i.e., all other documents are not stemmed yet)
+tm_map(crude, stemDocument, lazy = TRUE)[[1]]
+## Use wrapper to apply character processing function
+tm_map(crude, content_transformer(tolower))
+## Generate a custom transformation function which takes the heading as new content
+headings <- function(x)
+PlainTextDocument(meta(x, "heading"), id = meta(x, "id"),
+                  language = meta(x, "language"))
+inspect(tm_map(crude, headings))
+
+
+```
+
+
+
+
+
+```{r}
+
+
+```
+
+
+
+
+```{r}
+
+
+```
 
 
 
