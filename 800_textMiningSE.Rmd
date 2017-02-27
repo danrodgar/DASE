@@ -1,25 +1,24 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+# Text Mining Software Engineering Data 
 
-# Text Mining Software Engineering Data
+In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons,  etc.  Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple's AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.
 
-In software engineering, there is a lot of information that can be extracted from Software Configuration Management System (SCM), or Bug Tracking Systems such as Bugzilla. 
+The main package for _text mining_ is `tm` [@FeinererH15][@FeinererHM08]. Another popular package is `wordcloud`. 
 
-The main packages for Text Mining are "tm", "wordcloud".
 ```{r}
 # - Install packages
 
 # pckgs_needed <- c("tm", "wordcloud")
 # install.packages(pckgs_needed, dependencies = TRUE)
 ```
-  - Importing data. A "Corpus" is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). tm provides several corpus constructors: DirSource, VectorSource, or DataframeSource (getSources()). readerControl of the corpus constructor has to be a list with the named components reader and language
+
+## Terminology 
+
+We need to consider:
+  - Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). readerControl of the corpus constructor has to be a list with the named components reader and language
   - Preprocessing 
   - Inspecting and exploring data: Individual documents can be accessed via [[
   - Transformations: Transformations are done via the tm_map() function. tm_map(_____, stripWhitespace)  tm_map(_____, content_transformer(tolower))  tm_map(_____, removeWords, stopwords("english"))  tm_map(tm_map(reuters, stemDocument), stemDocument)
-  - Creating Term-Document Matrices: TermDocumentMatrix and DocumentTermMatrix
+  - Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
   - Relationships between terms.
     findFreqTerms(_____, anumber)
     findAssocs(_dtm____, "aterm", anumbercorrelation)
@@ -28,8 +27,10 @@ The main packages for Text Mining are "tm", "wordcloud".
   - Clustering
     
 
-## Basic commands
-### load a tm dataset  20 news articles with additional meta information from the Reuters-21578 dataset
+## Basic `tm` commands
+
+For example, load a tm dataset  20 news articles with additional meta information from the Reuters-21578 dataset
+
 ```{r}
 library('tm')
 data("crude")
@@ -37,8 +38,8 @@ crude
 ```
 
 
+Create a data frame source:
 
-####Create a data frame source
 ```{r}
 # Create a vector source.
 docs <- c("This is a text.", "This another one.")
@@ -188,24 +189,6 @@ inspect(tm_map(crude, headings))
 
 
 
-
-
-```{r}
-
-
-```
-
-
-
-
-```{r}
-
-
-```
-
-
-
-
 ## Example of classifying bugs from Bugzilla 
 
 
@@ -219,8 +202,9 @@ library(foreign)
 # path_name
 # dir(path_name)
 
-d <- read.arff("./datasets/textMining/compendium.arff")
-head(d,5)
+#d <- read.arff("./datasets/textMining/compendium.arff")
+d <- read.arff("./datasets/textMining/reviewsBugs.arff")
+head(d,3)
 ```
 
 Creating a Document-Term Matrix (DTM)
@@ -228,7 +212,7 @@ Creating a Document-Term Matrix (DTM)
 ```{r message=FALSE, warning=FALSE}
 library(tm)
 
-dfcomp <- data.frame(textCol = d$Description)  # , d$Category)
+dfcomp <- data.frame(textCol = d$revContent)  # , d$Category)
 
 ds <- DataframeSource(dfcomp)
 dsc <-Corpus(ds)
@@ -266,15 +250,14 @@ As data frame:
 dtmdf <- as.data.frame(inspect(dtm.90))
 # rownames(dtm)<- 1:nrow(dtm)
 
-
-class <- d$Category
+class <- d$revBug
 dtmdf <- cbind(dtmdf,class)
 ```
 
 Now, we can explore things such as "which words are associated with "feature"?"
 ```{r}
 # which words are associated with "feature"?
-findAssocs(dtm, 'feature', 0.40)
+findAssocs(dtm, 'bug', .3)
 ```
 
 And find frequent terms.
@@ -336,5 +319,4 @@ wordcloud(words=names(wordFreqs),freq=wordFreqs)
 
 The hardest bit is to link with Twitter. Using the TwitteR package is explained following this [example](./twitter.Rmd).
 
-## References 
-  - Ingo Feinerer, tm: Text Mining Package, 2015. R package version 0.6.2 2015-07-03
+

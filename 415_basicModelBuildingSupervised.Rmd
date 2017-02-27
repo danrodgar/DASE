@@ -1,15 +1,14 @@
 
-## Supervised Classification
+# Discrete Classification
 
-Here we will use defect prediction as ensample of several machine learning techniques.
+We also have several types of models such as trees, rules, and probabilistic classifiers that can be used to classify instances in There are many p
 
-> **No Free Lunch theorem**
-> In the absence of any knowledge about the prediction problem, no model
-> can be said to be uniformly better than any other
+We will show the use of different classification techniques in the problem of defect prediction as running example. In this example, the different datasets are composed of classical metrics (Halstead or McCabe metrics) based on counts of operators/operands and like or object-oriented metrics (e.g. Chidamber and Kemerer) and the class attribute indicating whether the module or class was defective.
 
-There are hundreds of packages to perform classification task in R, but many of those can be used throught 'caret' which helps with many of the data mining process task as described next. 
 
-### The caret package
+## The caret package
+
+There are hundreds of packages to perform classification task in R, but many of those can be used throught the 'caret' package which helps with many of the data mining process task as described next. 
 
 The [caret (Classification And REgression Training) package](http://topepo.github.io/caret/) provides a unified interface for modeling and prediction with around 150 different models with tools for:
 
@@ -26,11 +25,7 @@ JSS Paper: [www.jstatsoft.org/v28/i05/paper](www.jstatsoft.org/v28/i05/paper)
 Book: [Applied Predictive Modeling](http://AppliedPredictiveModeling.com/) 
 
 
-### Defect Prediction as a running example
 
-We will show the use of different classification techniques in the problem of defect prediction. 
-
-Different datasets are composed of classical metrics (Halstead or McCabe metrics) based on counts of operators/operands and like or object-oriented metrics (e.g. Chidamber and Kemerer) and the class attribute indicating whether the module or class was defective.
 
 For example, using one of the NASA datasets used extensively in defect prediction:
 
@@ -64,10 +59,11 @@ kc1.train <- kc1[ind==1, ]
 kc1.test <- kc1[ind==2, ]
 ```
 
+Next we will use different types of models to predict defective modules.
 
 ## Linear Discriminant Analysis (LDA)
 
-One classical approach to classification is Linear Discriminant Analysis (LDA). And the basic all would be as follows.
+One classical approach to classification is Linear Discriminant Analysis (LDA). 
 
 ```{r warning=FALSE}
 ldaModel <- train (Defective ~ ., data=kc1.train, method="lda", preProc=c("center","scale"))
@@ -137,7 +133,7 @@ From the Bug Predictiono Repository [http://bug.inf.usi.ch/download.php](http://
 
 Some datasets contain CK and other 11 object oriented metrics for the last version of the system plus categorized (with severity and priority) post-release defects. Using such dataset:
 
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 jdt <- read.csv("./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
 
 # We just use the number of bugs, so we removed others
@@ -175,7 +171,7 @@ glmnetModel
 
 
 
-### Binary Logistic Regression (BLR)
+## Binary Logistic Regression (BLR)
 
 Binary Logistic Regression (BLR) can models fault-proneness as follows
 
@@ -330,7 +326,7 @@ table(c50rPred, kc1.train$Defective)
 
 ## Distanced-based Methods
 
-IB1 and IB-k
+In this case, there is no model as such. Given a new instance to classify, this approach finds the closest $k$-neighbours to the given instance. 
 
 ```{r}
 library(class)
@@ -377,7 +373,6 @@ head(predict(n1,kc1.test, type = c("raw")),3)
 ### Bayesian Networks
 
 To Do
-
 
 
 

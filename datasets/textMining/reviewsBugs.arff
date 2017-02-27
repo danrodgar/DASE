@@ -1,0 +1,795 @@
+@relation reviewsExample
+
+@attribute revContent string
+@attribute revBug {Y,N}
+
+@data
+"Can't see traffic colors now With latest updates I can't see the traffic green/red/yellow - I have to pull over and zoom in the map so that one road fills the entire screen. Traffic checks are (were) the only reason I use google maps!",Y
+"Google Map I like it so far, it has not steered me wrong.",N
+"Could be 100X better Google should start listening to customers then they'd actually build a proper product.",N
+"I like that! Easily more helpful than the map app that comes with your phone.",N
+"Just deleted No I don't want to sign in or sign up for anything stop asking",N
+"Good Let's keep this simple, it's a good app and very helpful.",N
+"Crashes I have been using Google Maps for several years. On my iPhone 6 it crashes every hour or so, forgetting where it is going. It seems to do it right before the app needs to announce new direction information.  Getting it back often requires pulling over or waiting for a red traffic light. \n\nIt still does a lot of good stuff but the crashes have caused problems, especially when I am alone in the vehicle. \n\nMaybe it is time to revisit the Apple Maps.",Y
+"Beyond Expectations This app is amazingly accurate. Much better than my GPS and much better at locating points of interest. I live in NYC and use it constantly. Also used it recently in Honolulu, HI and I couldn't get lost even if I tried ??. I'm a fan.",N
+"App crashes all the time I really liked this app when I first started using it. The voice is pleasant and it has more roads than the apple map app. However, every time I've used it in the past couple months to drive 1,000 mile trips it crashes multiple times an hour. It's a real pain to be driving and have to re type the address into the app constantly as it crashes so much. Really wish they would fix this problem, because otherwise it's a really good app.",Y
+"Much better than Apple maps Much better.",N
+"Still new here, but.. So much better than Apple!",N
+"It's been better Transit times have been more accurate in the past. I'm not sure if it's the app or just my city's public transit company.",Y
+"real crap service im an uber driver in dc and i use to use google maps alot but since the last update i did it has made my life miserable im hating google maps it never shows any route even though i have very good internet service now im using scout or waze or imaps but seriously google maps are the worst worst worst now ?? hate u google",Y
+"Dangerous Just up and quit working 3 times this weekend on a trip.  Always failed at a critical turn on the route. Had to stop and re-enter destination all 3 times.\n\niPhone6+",Y
+"Great app! My go to maps app.",N
+"Great App before , BUT now getibg worse Selecting incorrect Routes \nAnd some time stuck in previous position.\nI hope you fixed this things soon",Y
+"Good Nice",N
+"Prefect This app has helped me from Los Angeles to Chicago.",N
+"Grey app Loads fast and accurate most times, no complaints.",N
+"Best GPS I have ever used Stand alone,built in or IPhone related, this is least confusing most up to date in my experience.",N
+"New update is garbage Whoever wrote the software for the new update needs to find a new job. I hate to say it but Apple maps is now much much much much much better than Google maps. I happen to be in Idaho and select in Idaho address and next thing I know it thinks I want a buffalo wild wings in Atlanta Georgia. From a list of suggested addresses I chose one and it asked if I meant another one and the only option was to either cancel or select the wrong address. How is someone supposed to navigate when you were only able to find the wrong places. Perhaps this was Google's intention in making people explore the world more. I'm sorry but I don't want to end up in Scotland if I'm trying to find my way to Japan. Whoops sorry you drowned have fun in Scotland oh never mind you sent me to Japan. Six the app Google come on",Y
+"Much better than Apple Maps but still buggy I use this app all the time and have for years. Recently I've noticed it's been pretty buggy. It'll sometimes lock on to my position and not let me pan anywhere without it jumping back to my location. It sometimes when zooming in, jumps hundreds of miles east to some random spot in the Atlantic. Search can send you across the world when you search for the name of a restaurant within a couple miles of your location. \nAgain this is probably the best option for maps on iOS but definitely needs improvement.",Y
+"Terrific My must-have app. Great for navigation and finding nearby places and their phone numbers, operating hours, etc",N
+"Best free option Google's brand is always a great option",N
+"Phenomenal Highly accurate for use!",N
+"What is going on with this application? The updates seem to be making it worse instead of better. I used to depend solely on this app for GPS when riding my motorcycle but now I'm afraid to follow it. Wrong locations, missed turns... And in Tokyo it's not as easy as just going around the block to find where you are supposed to be",Y
+"Awesome! Best map app ever.",N
+"It's a ver functional app It is great when you are new to a city and you have an specific address you have to be, very well made",N
+"GPS never turns off After update, GPS never turns off. My battery is always dead. Even force closing app doesn't help. Google, please fix! Otherwise, one of the best map apps available. Right now, it's too big of a hassle to go into location services under settings and turn the app on and off each time you want to use it.",Y
+"Maps Easy to use you will not get lost.",N
+"Excellent app Much better than the Apple Maps app",N
+"Google Maps I have Loved this app until a recent update. I have tried to deal with an issue.The blue arrow is not tracking. It goes in the opposite direction. How do I get it to track like usual? Is there something that can be adjusted in the settings. Until then I will use another app. I have tried to contact you guys through customer support. No response.  \n\n3rd review - Addendum 7/2--I finally got my direction arrow to track in the direction I am going and not the opposite. I had to delete the app and then had to reinstall. Will keep track of how it is going. Will continue to post.",Y
+"?? Good stuff",N
+"Maps Love the convenience of being able to type in 'gas' and google gives the option of a list of gas stations nearby",N
+"Why use apple maps??? This app just plain works... The only other GPS service is use is TomTom USA, only when I have not cell signal.",N
+"Like I like this app. Good maps for Ukraine",N
+"Love the last updates!!! Navigation has gotten so much better since the last couple of updates. It automatically pops up on my screen now to ask me if I want to 'reroute 'if it sees too much traffic. The lane assist feature is really handy too.",N
+"Terrible Before the google maps update, this app was pretty good. Since I've upgraded to the newer version of google maps, I've noticed it's not as responsive as it was before. When I'm driving the icon doesn't reflect the pace my car is going, instead it moves laggy. I'm using att's 3G data service in the central New Jersey area. ThNk you",Y
+"Lags Google maps lags sooo much now. I have 5c ios 7.1.1 iphone maps is superior. Sorry. You lost me google.",Y
+"Handy app!! Great for traveling!!",N
+"This update kills your battery I love google maps and was using it for years. This update has many positives like lane info and extended trip information. But there is major flaw - it uses your iphone battery like no tomorrow! Initially I just felt it, but today I confirmed. Here is how. Yesterday I drove to work 30 mins trip and my battery went from 100\% to 79\% (21\% used), today I did same trip using waze (another google-owned great navigation app) and battery went from 100\% to 96\% (only 4\% reduction). So this battery drainage can not be explained just by usage of GPS sensor, it seems that there is something very wrong with google maps-battery interaction. Google, please fix it! Until then, I'm switching to Waze :(",Y
+"Awesome additions Continually adding cool new features requested by users and otherwise is ensuring Google Maps keeps its spot as the best maps app on iOS.",N
+"Best map app Best map app on iOS!",N
+"Ehh I use this app quite a bit but I always end up having to switch back to the dreaded apple maps. Google maps always loses my directions and always conveniently when I need them the most. I always start out using it because it finds the best routes but it's just not reliable enough for me.",Y
+"My favorite App on iOS A must have for a traveller!",N
+"Nag nag nag Rating one star because the app nagged me to rate it.",N
+"Best app ever !!",N
+"Great This map is AMAZING...",N
+"Best mapping application Sync with your google account from desktop, laptop, iPhone or any smartphone, and tablets.",N
+"Good Good",N
+"Google Maps Awesome! Very accurate and easy to use.",N
+"Sponsored stuff? Not updating for that! You add in sponsored junk and want us to download the update? No thank you.",N
+"Nice Best nav app",N
+"Best app ever! This is the best maps app ever I use GPS maps for my job I have mapquest and Magellan, they have failed me with google maps I can rest assured I'll find an address!",N
+"Awesome Gets better all the time.",N
+"Google maps is the best Up to date, easy to use, quick. I love it.",N
+"CM Review I LOVE IT!!!",N
+"This app used to be great Then voice guidance stopped working and it went to crap!",Y
+"Very helpful This app helped me out when I was lost traveling to a new city. I use it anywhere I travel unfamiliar. It knows which roads go which way, but sometimes may mistake where some small not so popular places may be so just make sure they are actually there before heading off following googles directions, it's just every so often it does it. Not much. Best GPS app around by far still.",Y
+"Google map No need for Garmin with this bad boy... Goes right through my voice system in my BMW... So i just got my NAVIGATION system : no need for upgrades...!!! Go Google Go....!",N
+"Good navigation Has sent me to the wrong place twice but a very good app overall",N
+"Great app Great app! Keeps me from getting lost!",N
+"Love Google Maps It just keeps getting better",N
+"Best map app The one I go to when I'm lost. Simple to use. Rarely makes a wrong turn even in rural areas.",N
+"Great app All good.",N
+"Awesome The maps is just awesome... The best map that I have ever used... Comparing with Nokia, BB, and iPhone.... Always give.s the best results..",N
+"Great GPS This is a grea navigation system!!!",N
+"Very good! Nice!",N
+"Great Great map directions and visual and voice",N
+"Love it I love this map app!!!!!!!!!!!!!!!!!",N
+"Google map Awesome",N
+"Mr. What a great app.",N
+"Great Really helpful",N
+"The greatest map app Googles pod is the best app on the market. I Judy moved to a new city and would be lost without it. Pam",N
+"Nice Nice",N
+"Pretty but much worse 3D flying is very pretty. But traffic and directions have taken a huge hit, much much worse, really useless now. Apple maps got better, google maps got worse. Ying and yang...",N
+"Best map app The best map app available in this universe.",N
+"Best map app out there Extremely useful, can be used (even zoom) with one hand, loud and clear directions, very flexible (train/walking/bike/bus routes). BEST ROUTING METHODS TOO",N
+"very nice very good",N
+"Great app! So glad to have it backing I-Phone.",N
+"Much better than Apple maps. So much more convenient to locate businesses. It's like a more full featured, accurate apple maps combined with yelp, all in one, with the very useful Street view.",N
+"The best Absolutely the best map service in the iphone !!!!!",N
+"Yes! It's so great and with this new version it's even better!",N
+"I like it Works good",N
+"Awesome Way better than Apple maps or anything else out there. Inside maps of malls and airports are great!",N
+"Maps I just live this app works with no problems never sends me to the wrong place gives extra details I could go in",N
+"Great app Map is easy to read. Voice directions are easy to understand. Simple controls.",N
+"The only one you need I use this for traffic all the time in the DC area and its better than ever!!",N
+"Remark Very good! Thanks google maps,",N
+"Glad glad glad, to have Google Maps Back on iPad! Finally,  lets face it, ipad iOS Mpas does not hold a candle to Google Maps.\nAnd even though this is different than the original, it's leaps and bounds better, due to search and the sheer mass of POIs.",N
+"Finally! A map application that works!!  Thank you Google!! Much better than Apple Maps!!",N
+"Easy to use Useful and very user friendly",N
+"Great app Nough said",N
+"Disappointing While the nav and directions have been accurate for me, the app auto-dims my screen and I can't see anything until I go back into settings to adjust my screen's brightness. Not exactly safe while driving.",Y
+"Auto dims screen and won't allow it to go back bright. App dims screen when in use which is annoying and won't allow the phone screen return to bright. You have to go into settings and turn it back up. If the app is not fully closed out it will continue to turn off your screen.",Y
+"Great Great application. Accurate maps and traffic. Dims when plugged in. Kind of annoying.",Y
+"Review I love it",N
+"Ineffective Voice navigation doesn't work. It simply doesn't give voice commands except when I'm driving on the interstate and it tells me over and over to continue to drive straight. When I have to make a turn though´┐¢. it's silent.",Y
+"Good It's ok, but I like Apple maps more",N
+"Excellent App. Mapping Done Right! Phenomenal app with no downsides I can think of. Once again, Google has shown why they're a leader in any field they compete in.",N
+"Close but no cigar I love google and their app is certainly well done and have used my iPhone 5 as a GPS ever since the google maps app was released. However, the app absolutely demolishes my battery life and causes my phone to get pretty hot as well. Not entirely sure why this is, but it almost tempts me to go back to my tomtom for GPS purposes. If these are fixable problems, I hope they will be resolved soon.",Y
+"Quit complaining I see this is a HUGe step in the right direction (no pun intended), I bet the next update will fix the contact list info problem.. I look forward to finally using google maps on a Apple IOS, yes it will have some bugs but in the end it will be a lot better then 'MAPS'",Y
+"Finally came. Finally came",N
+"Good, but needs improvement It doesn't have access to the contact book, and street view takes too many steps to bring up. Also, the entire application is very chunky and laggy on the iPhone 4 (in comparison to Apple Maps, thanks to vectors). Google Maps has much more information than Apple Maps but runs like a sloth.",Y
+"I Love It! Amazing App. Good Work. Definitely Better Than Apple Maps. ;oo Sorry Apple. x)",N
+"Without the ability to access Contact this isn't much better than the native app Please fix this.",Y
+"Street View Love this app!!! Better than any other map app including apple maps! My favorite feature is the Street View. It's way better than the 3D map apple has! Great job Google!",N
+"Love it Love it",N
+"Bad In Ukraine is unusefull. Not everyone house has number. Not corectly!",Y
+"Thank you Apple and Google Good for you, Apple, for not being too proud. And thanks, Google, for being persistent. This is definitely an improvement over the original Google Maps for iOS. It's a massive improvement over Apple's maps. I like the new directions UI, the speed at certain map resolution, the integration into my Google starred items, and getting back internal support for public transport.",N
+"While it was Apples own application While Google maps was apples own application, it was much more convenient, user friendly and fast..",N
+"Steve Jobs would have liked this App. Let's face it, Jobs would have never allowed Apple's version of the map app out in shape it was even with the fixes.  Apple, you'll really need to hit it out of the park on you're next try... But hey, this is about google's return to the iPhone and wow what a return it is! Great work Google map team!!",N
+"Finally! We get this back! Thank god for google maps! If it was up to Apple no one would get anywhere!!",N
+"Finally! Thank thank thank you!! Finally apple has seen its HUGE mistake on the maps debacle and I finally get a native google maps app!! Makes my iPhone worth having again.",N
+"Student My iPhone can finally get me to places accurately!",N
+"Nice Relieved",N
+"I was excited, but the first thing was wrong I was excited to get what I used to have in a map app. The new look was nice, but the first thing I looked up was wrong. I looked up the apple store in cool springs, and it showed it about a half a mile from where it is located. It shows it down the street from the mall not in it. So Apples Map app is not much different. Why is it that the app google made before was better? Why could they not offer what was there before, and then improve it. Over all I like it, but no better than any other map app. Hopefully someone calls out google publicly like the did with Apple!",N
+"Great! Goodbye Apple Maps!",N
+"It's 2012, thank you for navigation. About time! Get it now!",N
+"Finally! Thx Google! We needed this. Apple maps is the worst!",N
+"The best!!! The best!!!",N
+"Awesome! Five stars! The maps load incredibly fast, and the interface is user-friendly.",N
+"Finally! So much better than Apple",N
+"Google Maps It's good.",N
+"Google map Very nice!:)",N
+"Useful but privacy? Nice to have a functional maps app, but considering Google's attitude toward privacy, I intend to delete this app as soon as there is a decent alternative available.",N
+"No google no life Waiting so long since upgrade to IOS 6",Y
+"Finally Arrived!!! I'm so thrilled!!!",N
+"finally about time",N
+"Fun Very",N
+"I mean I'm a girl but I LOVE THIS Even though I'm a girl this app is awesome!!!???????? and I'm not writing a SUPER long review so BYE PEEPS???????? also my coc name is Taylorluv",N
+"It's ok The game is not bad. However once you get to the higher levels it takes way to long to upgrade (them trying to get you to buy gems and it cost way to much for you to use gems) if the upgrade time wasn't days upon days it would get 5 stars. But seriously 14 days for the lvl 9 town hall wow.",N
+"Clash of clans Very good game but you need to put more troops different fighters and to be able to upgrade town hall to level 12 at least cause I have it full upgrade",N
+"Awsome!!!!! This game is Awsome in every way!!!",N
+"Literally the best game I have ever downloaded on the app store How do you make these kind of games ,supercell you rock (=",N
+"The best game ever played The game the best game I've ever seen ????",N
+"Wow I love this game who ever made it is awsome",N
+"Great Clash of clans is the best game. You can build your own village.fight and defend.If you ask me Clash Of Clans is the best game ever.",N
+"Awesome Game! I suggest you get it!",N
+"Great game Love it have a good time with friends highly recommend",N
+"so hot good",N
+"I Love Clash of Clans Clash of clans is My one of the Best Game in AppStore????????????????????????????\nAnd Thanking to Supercell for giving Clash of Clans ????????????????",N
+"Awesome Game!! Great game overall.",N
+"Great game! Good game enjoy it alot",N
+"???? ?. ????. ???????????",N
+"Asome It is so much fun.????????????????",N
+"Awesome game!!! Fun and extremely addicting!!!",N
+"Good game Good",N
+"Awesome Love the game. Tons of fun and not getting tired of it (rarity for me)",N
+"hi hi",N
+"Awesome But takes to long",Y
+"Addicting Best game ever...just wish they didnt add the dumb air sweeper",N
+"Great game If there was a 9,000 stars I'll give it 9,000 stars",N
+"The best game on earth This is the best game on earth it is my life??",N
+"Great app I've had this app for years and I still love it..",N
+"Fun!!!! This game is so fun and addicting!!!!but my iPod wont let me play the game because I have to update it but I can't update anything. You should really fix that and even if you have updated the game or not you should still be able to play.",Y
+"Gem Costs Seriously guys. You have Boom Beach and FarmVille. Do you guys really need buying gems to be something insane?! I mean, there's a video on YouTube about a person who spent ??$12,000?? maxing out his base! SERIOUSLY?! Come on Supercell, you need to start making up for this. Please.",N
+"I love it IM ADDICTED AND I JUST CAN'T GET ENOUGH!!!!!! I've been playing this since April or march every afflicting what can I tell u I freakin am in love",N
+"Clash Love it",N
+"It's pretty awesome This is an awesome game ! \nI love it so much and I'm a girl trust me I'm a huge gamer and I just enjoy this game. The only downside right now would be, when you kick someone out they can't join back in again :/ \nOther than that it's just amazing.",N
+"Best game ever in the entire mobile world This is the game that has the sense of thinking on how you build your own soldiers, create defensive and offensive strategies, alied team or clan, time management and patience of mind. And Its not only because of the popularity of the game Its self. But the excitement and continuous and better competition \n\nMore power supercell\n\nAriva ariva TAU GAMMA PHI Clan and Triskelion Clash of Clan\n\n- znaht",N
+"Clash of clans is love clash of clans is life but like shrek, that is not a good thing This game began as a small hobby but it became more than that eventually. It became love and life, simultaneously. It became an addiction. I'm a student and it consumed me completely. Playing all day and all night, but it was just yesterday I realized the damage it had done to me. Wiring my brain around it and not school. I had to do something so I deleted it, and gave the account to an acquaintance. I am now happily living the clash free life and progressing well in rehab!! Be careful with this game!!",N
+"Y Awesome",N
+"Glitch with war Hey gang you have a glitch in the war mode. We are still in day one of war, it says that the war has ended when you go to either clans personnel n try to check out thier bases, just thought you should know.",Y
+"Great game Ive played this type of games before, like g of war, but thhis game is by far the best ive played.",N
+"Clash of clans Good game",N
+"Could be better After a while the game just gets boring.You just keep doing the same thing over and over again.Attack,defense,train,\nthen sometimes you buy something.You might have fun with it at first.But when you get to level 30 you will \nprobably delete the game like me.",N
+"Everyone is doing it You will be surprised how many people actually play this game. I know like 10 people that play. It's a great, easy to play, and fun to destroy other peoples things.",N
+"Best game ever!!! ???????????? This is an outstanding game but after ever win you should get 1 gem",N
+"James This game is awesome!!!!!!!",N
+"My swag review This is swag",N
+"Not working The application for clash of clans is not letting me get in or even loading at all",Y
+"Clash of Clans This game is such a great strategy game, can't get enough of it.",N
+"Won't load I used to play this a lot then I decided not to play for a while. When I felt like playing it again, it's just stuck on the loading screen. I deleted and downloaded it again and thought it was fixed but when I left the app I'm back on the the loading screen. Also, I was going to try their other game, boom beach, but that won't load either, and I haven't even played it yet! Is it because I have the iPhone 4?",Y
+"Stole my money I purchased $9.99 of gems on clash of clans and I have not received my gems please help me",Y
+"Awesome!! ?? I play this game every-single day. It's so much fun! I will give this game a 10/10",N
+"Hey oh South Park said it best",N
+"Awesome Awesome",N
+"Best game I've ever played This is a awesome and addicting game.I love it!",N
+"Great Game! Hands down the best app I have. Really fun strategy game between attacking and upgrading. Plus, now that clan wars have been added makes it a lot of fun to work together with friends to dominate. Thanks Super Cell!",N
+"Fun game Great fun game. Addictive, instructive, fair.",N
+"Fix It I like the game a lot until the new update came and i can't Play it loads but then it kicks me out Plz fix the problem",Y
+"Clash of clans Great app.??",N
+"Great game This game is very addictive? Love this game.",N
+"Bad I hate this app",N
+"AWSOMENESS This game is the best in the WORLD!!!!!",N
+"World Dominator Just so much fun",N
+"ADDICTIVE not just like any old game, this has been my life for the past few years!!!",N
+"RIP OFF This game is fun and all but I bought $30 worth gems and it never gave it which is stupid and won't give my money back",Y
+"Best game ever This game is so much fun so I recommend you getting it!!",N
+"Pointless but totally worth it Yeah.",N
+"Is There Realy A New Hero? I've heard some rumors that there's a new hero\nIt's supposed to be like a hog rider king???\nAre these rumors true?\nI love the new update though it's 100\% awsome",N
+"Coc Love it, Looking to see future updates with more troops",N
+"Good get it The attacking system is great and it's fun",N
+"Attack!!! Fun game",N
+"Cool Game Get on with friends and it is that much better!",N
+"Family fun Nice app..pretty kid friendly, but fun for adults, too.",N
+"Great app but some problems Ever since the new update I haven't been able to even open the app and hope you would work on that.",Y
+"Great game Fun game to play. \n\nIf you're patient you can buy ALMOST everything with gold earned in game.",N
+"Unusable As much as I love playing this AMAZING game as much as the next guy\nI cannot able to get to my village whenever it's on the loading screen it crashes and I play it on a iPod 5 with the iOS 8\nSo plead to the creators to fix it\nI can't leave my village with its defense down and constant getting raided and can't do anything about\nPLEASE FIX THE CRASHES!!!!",Y
+"Game good Game is good",N
+"Awesome This game is the beat ge i ever played i love how you can destroy other villages and towns and give troops to ur friends online good job guys",N
+"Great app!!!!! Get it!!!",N
+"Great game but please fix the issue that I have! I play it on my iphone 4s and whenever i go on it crashes while loading and wont let me play! I have a clan war going on and i cant do anything but sit and listen to all the cool stories that my friends have about it. Overall this is my favorite game of all time but this really frusturates me! Please fix this!!!",Y
+"Amazing I can't stop playing",N
+"U have to get it If you don't have this game then what have you been doing in life it's so fun10 out of 10 must get.",N
+"Highly Addictive Easily waste time with this game...",N
+"Great game Very addicting and lots of fun. Make sure you get into a clan and participate in the clan wars and get the war loot bonus.",N
+"Awesome, Addicting, 5 stars Most addicting game!! once installed i eventually deleted all other games!! Highly reccomend clash of clans",N
+"Clash of clans Good stuff",N
+"Very fun This is a very fun game that you can come back day after day!!!! 6 stars!!! : D",N
+"Good Take it easy",N
+"Fun stuff Fantastic free app. Hours of entertainment in this game.",N
+"Amazing!!!! Truly love everything about this game,it's like crazy addictive world your in and u simply don't want to come outside",N
+"Be Aware This game is so addictive!!!",N
+"Clash of Clans Great game. Constant updates and more to come make the game always fun to play",N
+"Addictive Awesome game, wish it was easier to get gems",N
+"Love it! Good fun! My entire family is addicted.....get the kids an iTunes gift card though, they are going to need it!",N
+"CRASH of Clans Game has been crashing frequently when I begin an attack, causing a loss and loss of trophies!",Y
+"Clash of clans I really enjoy this game",N
+"great game great game!!! so much fun!!! no lag!!!",N
+"Coc Man... Too much time but sooooooooo addicting! Too much fun",N
+"5 Star Awesome So when I first got the game I didn't understand anything and thought it was the worst game ever. Then my brother told he to get it (many months later). So when I got it, I fell in love it (after I went to him for advice more than 10 times). I have been addicted and can't stop playing it! Better than any piano tiles game!",N
+"Boobies This game is almost as good as tities",N
+"VERY DISAPPOINTED in your staff *******************. SERIOUSLY?!?!  All these complaints about the app crashing, and your next update is a Halloween one?!  I haven't been able to get on for 3 weeks!  Sorry... You've lost another customer.\n\nSincerely, \nSomeone who has spent $65 on this game.",Y
+"Horrible update Wow what a crappy update. Game won't even load now.  Fix this please",Y
+"Great game, super addictive Love Clash of Clans... This game only gets better each upgrade. Supercell always fixes glitches fast and efficiently. Very addictive game and lots of fun to play with all your friends. I highly suggest downloading and starting a clan today! You won't be sorry!!",N
+"Awesome game I'm having a problem in the loading screen it puts me on the home screen",Y
+"Perfect One of the best games ever!!!!! ????????",N
+"Clash Great app.  A lot of fun to play without all the blood and gore of the video games.  Good job!",N
+"Awesome app! Great game to play. Just download it!",N
+"Clash Ocay you can made more trops",N
+"Awesome Awesome game love it can't stop playing it.",N
+"Addicting Been playing over a year now. Still addicted to it",N
+"Great! An idea This Is a great app I love it! I have a troop idea- A troop that's specific target is Town Halls.",N
+"Clash I like the game but it won't let me download the update and I'ts been a whole that I haven't gotten to play:(",Y
+"Great Game Strategy game that is always entertaining. Love it.",N
+"Clash of clans Fun game! Would suggest to friends.",N
+"TarLoten Crashes on startup. Well done!",Y
+"Great game Great game all around but you should a like dark oil or some new kind of currency",N
+"What a game I love it!!! I love this game I spend most of my day playing this game",N
+"WARNING: This game will take hours of your life away from you This game has a great beginning, the upgrades take less than a week, no one attacks you, and the goblin missions are easy. At my level every upgrade is taking over 24 hours and even with four builders the game barely moves.\n\n Besides that this game is pretty solid and it is definitely worth a try.",N
+"Crash It doesnt work",Y
+"First review New update is awesome",N
+"This game is awesome Love it",N
+"Good Good game",N
+"BEST iPHONE GAME! This is the best game I've played on iPhone.",N
+"good fun",N
+"Best Game Ever Created I've never gotten tired of clashing. Can't put it down and don't intend to",N
+"Clash of clans Great game",N
+"Awesome Yay yay yay yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaayayayayyayayayyayayyayyayyya",N
+"CLASH OF CLANS...BEST GAME EVER!!!!!!! Get it",N
+"Great game It starts off really strong allowing you to move up quickly and then it gets hard to move up without paying money but it still is a great game.",N
+"GREAT GAME this game requires patients when your upgrading your town but it's very fun",N
+"Great Good game. Fun to play. Brand new clan I just started. Level 75+ Adults only. Look up Saint's. Max level troops. ?? Look for me (walkashaw)",N
+"It's lame I get bored of it sometimes",N
+"Best game Besttttt",N
+"Great game Very addicting",N
+"Great game Other than all of my troops attacking random buildings instead of the more important ones, this game has a great concept, and is easy to keep up with. There are days where I don't play at all and it has little to no effect on my village.",Y
+"CoC Tuff to start but fun to plan if you have time to come back over and over everyday. Generally enjoyable",N
+"Clash of Clans Fun game !!",N
+"Clash It's a fun game and just gives you something fun to do when your bored",N
+"good but bad this game is really fun but it is full of people hacking it!!!!!!",N
+"clash of clans this was the best game on my iPad!",N
+"The best and most addicting game I've played in awhile This game is awesome even tho it has some minor setbacks it is still fun as a twelve year boy playing this with friends in the same clan 10/10 best game!",N
+"Great game!!! Addictive!",N
+"Some people can't get in People are texting me that they can't get on clash ( friends) idk what's wrong please make an update to fix their problem by the way I have dragons now :) thanks u",Y
+"Best game ever Awesome",N
+"Wow Wow. This game literally changed my life. Wow.",N
+"Addicting I have been playing for a while now...lvl 91 in game. Waited until I knew for sure...great game",N
+"BEST GAME EVER BUT ITS CRASHING Hey guys this game is the best ever but it saddens me because I can't even get on it anymore! It keeps crashing whenever I try to get on! The loading thing only gets to half then it starts to turn black and then it crash, going back to the homescreen! I haven't been playing for 4 days cuz of the crashes and my clan is very strict and might kick me! Plz fix it so I can play again!!! THANK YOU!!!!\n\nP.s. I am a level 81 and I'm at a clan called CyberCommandos",Y
+"How fun! This is very very exciting game!",N
+"Clashes  of clan's My name is nickie797 the game that I play with is awsome game it is for kid 's and for all Agnes.",N
+"This app Is very good app??",N
+"I can't log in!!!!!!!!! I've tried over and over to log in and I can't it just loads and loads im so mad every time i try and log in I have full bars of wifi and I even tried using data it still does not work plz fix this!",Y
+"Greatest app ever created! Absolutely addicting & so much fun. I love Clash.",N
+"Awesome!! Awesome and highly addicting game.",N
+"Awesome!!! Yay",N
+"Fun and Addictive I have been gaming since Atari and I can say without a doubt, this is one of the most engaging and addictive games that I have played on any platform. \nI have been playing this game for nearly a year and can say that you can advance rapidly if you know how to raid. At my level of experience i raid 250k of each resoirce per raid. You do not need to spend cash on this game to advance, but it is nice for speeding up some upgrades ata higher levels. \nGreat game i recommend it to anyone",N
+"Love the game it is awesome!!!!!!!!!!!!!!! I LOVE THE GAME I PLAY IT A LOT AND I LIKE IT SO MUCH NOW 2 OF MY FRIENDS PLAY IT BUT SOMETIMES IT SAY CONNECTION LOST WHEN I ATTACK!!!!!!!!! 5 STARS",Y
+"Notifications This game is fun and all, I'm giving it 3 stars because it annoys me that whenever I get a notification from it, once I open the app, the little notification number doesn't go away until I close the app and open it again. It's not really a big deal, but it really annoys me. And I'm sure it's easily fixable. So please fix it.",Y
+"Amazing game! Must play ! I love this game ! If you don't have it , get it !\nI'm addicted lol ??",N
+"I love this game I PLAY THIS GAME EVERYDAY PLAY IT WORTH DOWNLOADING. ??It",N
+"lots of fun. good times all around",N
+"Loads of fun Love it",N
+"Horrible I can't login.",Y
+"Awesome Hello",N
+"Supersell's worst update ever!!! Horrible update, they just stripped away everyone who has put time, effort, and money into leveling up heroes, .. So disappointed with this update and how they try to hide how they make my level 40 king into a level 20! saying they readjusted strength of heroes. Many have put so much work into their heroes and it does not make sense. Heroes went up to level 30, then supersell doesn't think they are strong enough so adds another 10 levels to make it level 40.. With this update they make max heroes as weak as a level 20!! Good job supersell, .. The genius who thought up this idea should be fired!!!",N
+"Lost connection Sometimes when I am raiding it sais lost connection. then when I get back on the game it sais I lost the raid even though I had 1 or 2 stars already. I am loosing trophies because of this.",Y
+"forced close problems I love the game but for some reason the game will load up then just go black and goes back to the home screen like some sort of forced close. I don't know why I try everything but can't even open into the game.",Y
+"Heroes are now useless This game gets less fun every time a major update occurs. Really wish I never invested so much time.",N
+"Great games Can't stop playing, keep up the good work",N
+"Clash of Clans The new update makes it crash every time it tries to load",Y
+"Locking up Latest update is locking up.  Very frustrating.",Y
+"Well made game Nice!",N
+"Sneaky I got the game because my dad has the game and I'm planning to sneak up on him and attack",N
+"Good ! This new update is very helpful",N
+"Great Amazing improvements! Giving the people what they want? I- excuse me, i mean we love it!",N
+"One star Pay to play game , not recommended.",N
+"Great!! This game offers a great little getaway from reality for a couple minutes at a time!",N
+"Great Game! Love it! Had no issues with it so far! It's also extremely addictive but you only have to look at it like once or twice a day to maintain progress.",N
+"It's fun Yup",N
+"Best game ever Best multiplayer game ever play with friends anywhere in the world love it",N
+"Bored Getting soooooo bored of it now can we get something besides a new wait time",N
+"Clash of Clan Review This game is the best game that I have ever played on my iPod ever!! I love everything about it! I hope that the game continues to expand and grow, however one thing I do think would benefit is lowering the prices of the gems a little because right now it is very expensive.",N
+"Just awesome The best game for devices best stradegy game and u feel like a leader when your playing it",N
+"I bought gams .. Never gets them :(",Y
+"Time All about time. War time. If you fail to plan, you plan to fail. No time for slowpoke.",N
+"freak!!!!! every since the last fix bugs or crash on start update my game doesn't let me on. it crashes while it loads. i have tried to delete and download again but it does not work.",Y
+"EPIC Such a fun game, I could play it all day!!!!",N
+"Clash of Clans Best and most afflicting game I have played!",N
+"Clash of Clans Rules! Best game/app you can possibly download!",N
+"Awesome Great game fun to play",N
+"Love playing this game Really fun game. Excited to play high level units!!",N
+"Awesome but now I can't play :( Ever since the last update the app keeps crashing. It was fine before even with the wifi connection I had, please check that out for me.",Y
+"Good Nice game",N
+"BEST GAME EVER HANDS DOWN!!! This games amazing i love the troops and upgrades clearly the best game ever supercell keep on makin amazin games you guys ROCK.KEEP ON CLASHIN!!!",N
+"Good game get it now This is the 1 of the best games I played. I'm 10 but I like it beacose it's all about strategy and you can join clans and chat with people and clan wars is so fun.",N
+"Great game, but one problem. Please read. This is an awesome game, but lately there has been one problem. Every time I open the app, it crashes before it even starts. Please fix this as soon as possible because this is a great game, and I wouldn't want to have to stop playing it.",Y
+"Amazing THIS IS THE BEST GAME EVER FAVORITE ALL TIME GAME!!!!!!",N
+"Great Game!!! Game is very entertaining, I have no complaints!",N
+"Yeaaahhheaaa! Sweeet!",N
+"Good game Good game but y'all should change the two attacks from the clan war  for more",N
+"Good to a certain point Fun to start with but gets very hard to upgrade anything. Need to lower prices",N
+"BEST GAME EVER THIS IS AN AWESOME GAME AND IT HAS NO BUGS! YOU SHOULD DEFINATELY TRY IT OUT!",N
+"Coc This by far is the best game I've ever played",N
+"AWESOME One of the best games I have ever played! Let's you interact with people all around the world. A must download app. Join TH´┐¢ND3RC´┐¢´┐¢NNTS´┐¢",N
+"Problems attacking My town hall is in level 7 and I have 3gold league and I just find a town hall level 5 to attack",Y
+"Very interactive and exciting Great game everyone should play at least once! It keeps the gamer attracted to it to constantly be the best clan. Well done!",N
+"Clash of #clans The best game I've ever played in the app store!!!!! :) $$$$$$$",N
+"Addicting! It's an extremely fun and addicting game. Just be prepared to check on your village every 5 minutes....",N
+"Clash of clans I live it",N
+"Best app This is by far my favorite application. This game has everything make your own base destroy other opponents and best of all clan wars was added. My opinion this game deserves 5 stars. :)",N
+"FIrST FIRST",N
+"BOUSSSSS Bousss",N
+"Really good So good",N
+"Good game Overall good game but it ripped me off for some of my gold and elixir war winnings? Not cool bro",Y
+"Best ever This I a great game join us in the fight and download right away",N
+"Buttons Great game! But there's problems, the buttons don't always work on my 5s\nPLEASE FIXXX!!!",Y
+"nice very good",N
+"So cool The giants are cool all of them are",N
+"It best game ever Fun for all ages",N
+"Fun Very fun",N
+"Best game ever Awesome",N
+"Great Game for Groups Fun game. Easy to get into with a group of friends!",N
+"MEXICAN FLAG great game, but will give one start until you guys put in a Mexican flag in the decorations. this is ridiculous",N
+"Great game! Awesome!",N
+"Hate it Crashes every 5 frecken minutes",Y
+"RAD That's right,I said that",N
+"Great Great",N
+"Review Great game",N
+"Great Great game and very addicting",N
+"CRASH of Clans I had this game at 4 stars it's really fun and addicting but now it crashes so much I can barely play. Fix and I'll rate it 5 stars.",Y
+"Great game So much fun",N
+"Clash of clans Best game on the world",N
+"Totally awesomeee! Love this game",N
+"Glitch I love this game so much, its my favorite game ever but since the update on clan wars is TOYALY glitching my game by that I mean I can't click the scout or attack button in the clan wars menu. Same goes for collecting loot, I can't click the elixr, gold, or dark elixr button on top of the collector. Please fix this, Thanks! ??",Y
+"Clan wars.... Very disappointing Great game i love it but clan wars has many issues. I cant attack or scout enemy clans and it has even come to where i cant train troops and my clan chat messages wont show up. Basically everything is useless. I hope supercell fixes this or I might just quit. I cant really do ANYTHING at all",Y
+"Good game Game is good but I can't attack or get resources",Y
+"Update No Good Clan wars page is worthless. Try to attack, scout, or look at anything and nothing happens. Perhaps run some betas before opening a junk feature?",Y
+"Fun looking, expensive to play. Ahhhhh... Remember the days you went to a store, plunked down $40 and raced home to veg out in front of your computer with the latest software game?  Pay as you go is the greatest rip off of all time.  It is worse than gambling, because at least with games of chance you have a chance of winning something real.  There isn't even a veiled attempt at trying to disguise that the real clash here is between the creators of this game and your wallet.  The absurd, costly and time eating requirements of this game are such that anyone wishing to advance faster than the speed of watching paint dry will feel compelled to open the floodgates  of their finances to buy imaginary stuff to beat anonymous players.  Set the dang price and settle for a reasonable fee .  I wish gaming would return to something less whorish.",N
+"New Update Please make a new update, ever since clan wars both my devices will allow clash to run but on both devices I cannot attack, scout, collect gold/elixir/dark elixir, and I cannot donate. Please get an update that will fix these major errors.\n\nP.S I have an iPad mini and iPhone 4 both with ios7 if that is helpful",Y
+"Clan Wars So I really like this game. I have been playing it for about 5 months and it is great! Highly addictive. When I heard about clan wars I was super pumped, but now that it has come out, I'm very disappointed. I am the leader in my clan and I created a clan war just a few hours after the update arrived. A day later, it is still searching for a match. My clan members are getting very anxious. I like this game, but I am losing respect for it because it is not working.  Please fix and I will change my rating to 5 stars.",Y
+"Awesome Best defense game I've ever played.",N
+"New update Ok I love the game and I saw nothing wrong with it. Until the new update it's not bad but once you go into clans clash mode you cannot gather any resources and you can't attack it's annoying a hope to see it get fixed",Y
+"clan wars what the heck is going on ?!?! fix this with a hurry PLEASE sisto",Y
+"Decent game Ran out of gems fast, couldn't figure out where troops were going to attack without releasing them first. Game play slows down to a crawl once you get past level 3.",N
+"CLAN WARS!!!!! Love it. Hands down best game ever. ?? But there are bugs that make it go slow.",Y
+"Clash of clans One word to describe COC BOSS",N
+"Clan Wars Update There are so many bugs with the new update. People in my clan including myself can't click on clan wars, can't type, can't search for anything including clans. When we click on each of those things the app freezes for a second then backs us out of the app and into the apple apps section or the main menu.",Y
+"Clash Of Clans I love the new update of Clash of clans and not only that I read the new update and it has some good ideas",N
+"Amazingly cool new update This game is awesome enough said",N
+"Won't work Won't open actual game it just switches from loading screen to home screen",Y
+"Latest Update Where is le clan warz?!",N
+"Fun AF Fun game. Best game on my phone and on my iPad.",N
+"Clash of clans Good fun",N
+"Awesome Great game",N
+"Clash I like this game a lot.  I play this almost everyday because it's SO addicting",N
+"Great game! This game is tons of fun, but be careful because it is highly addictive!",N
+"Clash BEST GAME I HAVE EVER HAD you need to download this it's great so fun and addicting",N
+"Great game Great",N
+"Best game ever.. As I said its the best game ever! I really enjoy raiding my friends or making alliances with them in clans. I can't wait for new features to come out. Cool game!",N
+"Clash of clans Great game very fun to play",N
+"Clash of Clans Really fun game. You can just keep on battling and battling and the fun never ends.",N
+"Awesome This game is dope",N
+"Great Great",N
+"Bugs This game has a lot of bugs now so pls update",Y
+"Clash of clans Great game very addictive.",N
+"Fix This Best game in the world but it keeps on crashing so i cant open it please fix this",Y
+"Beware very addicting It's fun, patience is the way to go, fun fun fun. Very addicting....",N
+"Great game Once you start it's hard to stop playing",N
+"Why it's 4 I spent 92 gems, I believe for the gold, I lost the gems and got no gold? Excuse me but I spent work on getting that gold!",Y
+"Crash App crashes on loading screen",Y
+"Good Good game",N
+"I keep crashing on my I can't play it because it keeps crashing",Y
+"Kool Upgraded version of backyard monsters",N
+"Greatest phone Game I ever played I am totally hooked to this game I love playing it it entertains me and its very fun!",N
+"Social suicide Endless fun, for the low low cost of: your social life, the constant fear of being raided and loosing your resources, waiting days to upgrade while slowly driving yourself into an endless rage of frustration and hatred.\n\n10/10 wouldn't use again\n(Nick name was for other games i deem bad)",N
+"Exellent Best game ever!! Adicting and fun. You share with other people its a great experience.",N
+"Good Good",N
+"Coc Fun",N
+"Awesome! This is a truly awesome game! I do have a warning though; once you get going in the game and start to figure it out, you're hooked!! You've been warned! :-)",N
+"Great Game I love this game",N
+"Really fun game I really like this game but all I want them to add is a way to get gems easier and to donate gold and elixir \n\nOver all the games fun u have a clan that does so much for u and is very aswome  and donates a lot and the clan I'm in dying prophecy is the best in the world",N
+"Archer queen When i tap her for the royal clock she should not take damage but she does? Can u if it for us?",N
+"Nothing to complain about No complaints here! Highly Additive!",N
+"Amazing 4 words better than flappy bird",N
+"Addicting Best game ever!!",N
+"GamerGirl Way fun!",N
+"Pay to win is the name of this game To be honest I like the game, it's fun it's got real time action (unlike the hobbit) but I have spent months now stuck in a rut because every time I get close to having resources someone RIDICULOUSLY stronger than me takes it. And the league placement doesn't help you because players will demote themselves for easier prey. I'd say it's fun for a week or so till your shield runs out, then I'd move on",N
+"Dumb This game is dumb. I played for 30 seconds and got bored and deleted it. DONT BUY!!!!",N
+"Perfect Best game ever",N
+"MY TROOPS WONT TRAIN I usually train all my troops and get if the game.....but when I get back on an hour later there are no troops in my army camps please fix this",Y
+"Best game! Best game ever, I can't stop playing it!",N
+"Keeps crashing The game keeps crashing when it loads. Awesome game but please fix this problem.",Y
+"Clash of clans I love this game",N
+"Great game Great game. Many possibilities. Never ending and doesn't get boring.",N
+"Great Game Didnt like it at first, but then it grew on me and now im addicted.",N
+"Love/hate relationship I love the game play, it's prolly the best game 'app' for the App Store in my opinion .... But the frequent crashes are really bout to get on my last nerve! Please update and fix this.",Y
+"Best game ever Only game that I enjoy",N
+"Good Good",N
+"Amazing Game This is the best app I have bought by far (as far as games go) I recommend this to everyone!",N
+"Doesnt even open.... This game crashes EVERY SINGLE TIME before it loads.",Y
+"Awsome game!! One of the best games I've played!",N
+"+++ +++",N
+"Awesome Very fun! And very addicting. All around great game.",N
+"Help Me How do you restart?",N
+"Nice! I'm pretty picky with my games. Not to many strike me well but when I find one I write a review. This is a fun game and super addictive. Thanks! \n-quick loading\n-a solid guild environment\n-easy to use\n-doesn't have a 'goes on forever' tutorial but gets the job done \n-I could keep going but I need to check on my army status!",N
+"Awesomely fun The game is exactly described on the commercials. Super fun and very addictive.",N
+"Thumbs-up! Really cool and fun!",N
+"Good I like it",N
+"Client crashes I have problems with this update crashing during the loading of the game . I'm on an iPhone 4S ..",Y
+"I'm addicted This game has got me playing only because I love to upgrade",N
+"Wouldn't let me play What the hell? This game on my iPad was fine... Now u said u fixed the bugs on the so called update... It won't let me play it takes me out... Plz fix this or u will lose EVERYONE who plays this game...",Y
+"Okay The game is great but the update made it crash every time I try to play it plz fix",Y
+"Great game Love laying it",N
+"Clash of the clans Cool but pure better than movies!",N
+"Very nice! I like this game a lot!",N
+"Best game This is nice . I love it .",N
+"Superfun Yup. This game rocks mah socks.",N
+"Addictive Good game.time killer",N
+"Omg Omg this game is a must play!!!!!",N
+"Loads of fun I didn't  think I would like this game But I'm hooked on it.",N
+"I'm addicted. Addicting. Period.",N
+"NOOOO! Supercell you messed it up :(",N
+"No reason not to like it. New to this game but already love it. I could complain about in app purchases but I'd use them if I ever need to. Great game.",N
+"My review So addicting. Great way to pass time. Unlike anything I've played before. Can't wait for Clash of Clans 2.",N
+"Great game Awesome game except it keeps kicking me out when loading. Please fix",Y
+"Love Not a lackin feature with this game build to build more and destroy others",N
+"Great fun Lots to do and it has replay appeal! I can't get enough!",N
+"Crash fix? All of the sudden when i try to open the game it crashes at the loading screen? Fix this please.",Y
+"Great Game Really fun game!",N
+"Too much fun Way too much fun!",N
+"Lots of fun Great!",N
+"Bad It will not let me in the game",Y
+"good game good game",N
+"Review Love it, pretty fun so far.",N
+"Pretty good Not bad but only way to get high fast is to spend money",N
+"Cats meow Bees knees",N
+"Great but... I wish you could send resources to friends in Game Center and clan members. Thanks for the great app!",N
+"Colorboy33 Great review I love this game!! Just protect your elixir and gold and upgrade walls and defenses when you first start!",N
+"Great game Enjoy this very much.",N
+"Clash of clans It's awesome",N
+"Great game The most addictive game ever.",N
+"One of the greatest games for iOS Enough said!",N
+"Great Game! A lot of fun, reminds me of Warcraft in a lot of ways,  very addicting and well designed.",N
+"Amazing Best village attack game around",N
+"Tooo addicting They give you a few gems like crack and force you to buy more. But I can't help my self.",N
+"Good game I like the game",N
+"READ!!! I spent 10 dollars on 1200 gems and I did not receive it I want my money back or gems",Y
+"Awesome app Nothing like it!",N
+"^^ Very good",N
+"Novelty strategy Love this game! A great new way of playing strategy games. You can find yourself waking up in the middle of the night to make he beat use of your resources! I highly recommend clash of clans to anyone who is a strategist or action gamer.",N
+"Great Defender! It's great to see some strategy games that are fun to play! ????",N
+"Clash of clans Great game over all nice texture all ways updated and its addictive so jea",N
+"Awesome Awesome game. Very addicting and fun with friends.",N
+"Great game Great",N
+"Awesome Play every day.",N
+"Clash of clans Best game I ever play by far",N
+"Game One of the best games I ever played.",N
+"Please fix I can't open the game. It will load to about 90\% then crash. I've already tried uninstalling it,and reinstalling it,but it doesn't work. Otherwise great game!",Y
+"Addictive as all heck Addictive",N
+"Clash of Clans Great",N
+"Clash not working! I have had this game since it first came out and now it won't let me on. I can get on my lower account but not my good one. PLEASE FIX IT",Y
+"Bad download great game I have downloaded this game recently spent five dollars on Jim's and five dollars just went down the drain it said that I have not purchased it and five dollars on my iTunes credit this went down the chain otherwise it is a great game",N
+"Good game Cool best game",N
+"Won't load >:| During the loading page, it will load halfway then it will crash and exit the game. Haven't been able to check my game in 5 days. It's not my iPad because everything else is working perfectly. I have tried restarting my iPad, tried re downloading the game. Just won't work.",Y
+"HOLY MOTHER OF GOD THIS GAME IS GOSH DANG FUN I MIGHT BE IN LOVE!!!!!!!!!!!!!!",N
+"Great!!! Great game would definitely recommend downloading.",N
+"Best Best",N
+"I hate/love this game! Ok let's talk about this game .\n\nI love this game because it is strategy and fun!!\n\nI hate this game because it keeps crashing and I can't even go on it. I have not played this game in 3 months because every time it keeps crashing, please fix it or I will delete this game.:(",Y
+"Stop the force closing I've been playing this game for a long long time. Recently (with the past update) my game has been constantly force closing. I've been losing so many trophies, troops and, as a result, elixir over it. I tried uninstalling and reinstalling the game and the force closing persisted. As of now I cannot play. Please look into this issue and I will be more than happy to change my review to 5 stars.",Y
+"Crashing Great game but crashes a lot! Its annoying and has to be stopped.",Y
+"major bugs There is a major bug causing iPad mini users to crash the game. Can you please fix it?",Y
+"Pretty good A friend of mine recommended this app, I said 'it's just like the others' but, despite it's poorly made commercials, this is pretty fun",N
+"Yes Good game",N
+"???????? ??",N
+"Nice Great game!",N
+"Clash of clans is a great game Clash of clans is a great game. Not only is it a great game its educational. It teaches you how to build and design fortresses. It is a very good game and is an amazing typing resource. I give it 5 stars!! By Logan smith-nov 7,2013",N
+"Money hogs It was a good game till TH lvl 8 after that everything goes south , they want you to spend crazy amount of money, even though I spend $20 for them, the loot percentage cant make for the upgrades, it takes 30 minutes to train troops for 3 minute battle, very time consuming , I just wished I wouldn't have spend my money for this game. Any questions pleas let me know and I'll answer to you honestly. Thank you and moving to something better",N
+"The waiting game You have to upgrade each bomb? What a waste of coins! It should have been like the laboratory when one upgrade affects all bombs. All of this waiting is making this a boring game -_-",N
+"Freaking AMAZING!!!! This is hands down the most addictive app ever I love this game sooo much!!!",N
+"Hot Hot!!!!",N
+"Crashing Great game, but I am unable to play because it continually crashes before loading completely.",Y
+"Love it I love this game it was my favorite game till I tried out the new edit mode, it took me 20 minutes to re-design my base. I hit save changes and it went back to my old base, 20 minutes goes to waste",N
+"I get less sleep because of this game! ...",N
+"Clash of clans $,20 store Clash of clans help $500,99 store\n\n????ilove clash of clans??????",N
+"Fantastic app but It's crashing a lot and it fails to keep me signed into Game Center then it tells me I put the wrong password in and it won't start up some times like when I have music playing or even with out music",Y
+"Awesome Can't stop playing :)",N
+"Awesome Best game I've ever played!!!",N
+"Great game, still buggy I love this game! But on my iPad it has been quitting unexpectedly every time I play. I can either get into the game for a few seconds or not at all. Please fix!",Y
+"Cool game It's a really good game, I love it, it's awesome",N
+"Great game Really like the game but playing with friends is complicated.",N
+"Best game ever You should play this game because it is the best game I have ever played",N
+"Crashes Probably the best game on the app store but crashes way too much",Y
+"Great game Though gameplay can be slow at times, this game is very easy to get into quickly. Just don't get sucked into paying for gems, coins, etc.",Y
+"How to fix crashing Hold down the lock and home button at the same time until the ipod turns off. Wait 1 minute the go back and the app wont crash. If the screen flashes white when u hold the buttons down do it try it again until the screen turns black.( The way it works is the device gets full on memory and needs to reset, by hilding the buttons down it automaticly turns of the device and turns it on again) Please read this it helped me when i couldnt open the app . If the steps aren't easy i understand look it up on the internet and type somethin like 'how to reset an apple product' or 'ho to make clash of clans stop crashing'",Y
+"Cool game Awsome update i? pumpkin boom",N
+"Wow..... So i updated this game and tried the new thing to make the base and i spent 30mins doing it and i put SAVE and it saved after that when i come back it restarted all over back to my old base fix please.",Y
+"Awesome Number one game ever!",N
+"NO MORE 50\% REFUND I WAS A CLOSE I WOULD HAVE A LEV 9 TOWN HALL TOMORROW BUT NO I ACADENTLY HIT UPGRADE CLAN CASTLE NOW ITS GONNA TAKE LIKE 5 DAYS TO GAT BACK TO WHERE I WAS",N
+"Fix it Everytime I go to open the app it crashes. Been like this since the new update. Please fix!!!",Y
+"GREATEST APP EVER!!!!! Best game I have ever played",N
+"ClashO'Okay I would waste more time on this if it was cheaper. I understand this is a EPIC game in all but still to much money for simple stuff.Uuugggg.Update BOO.??Let's be positive now have you ever noticed when barbarians hold out their swords it look like a bowl of oatmeal with a spoon in it.??Funny right check it out!",N
+"Awesome Love it",N
+"Goid The goals aren't spaced out well and the prices are a but high.",N
+"good very good",N
+"Addicting This game is so addicting you just want to keep expanding your kingdom and upgrade everything.the only flaw is later on its take days to upgrade things and the only way to speed up the process is by gems which cost $1 per 100 gems which is annoying but you wont regret this download",N
+"Awesome game Awesome game but why do I have to wait for everything to be built",N
+"Clash Best game ever can't stop playing it.",N
+"KEEPS CRASHING NON STOP Dont u guys have enough money to fix this problem? Get with the program and fix it now!",Y
+"Clash Love it",N
+"My profile is bugged It says I'm not a clan but when I search up the clan i made 'UnCharted Ghost' it says I'm the leader but when I hit the clan tab the game acts like I'm not in a clan at all please fix this",Y
+"Great game but latest update crashed. Highly addictive game. Last update made my game crash and not able to open it.",Y
+"Best game Cool game cool update",N
+"Goody I thought it was fine",N
+"Decent Not bad but it will take your money if your not careful $350 in a week cause of up grade times are BS. Be smart out there",N
+"Clash of clans This is by far the best game I have ever played!! It's so addictive and fun!",N
+"A great game thats a bit addictive, the only negitive Thing is the upgrade time",N
+"Wow So sad to see these reviews, quite honestly I think this game is phenomenal, don't what all the hassle is about this time thing. :/",N
+"Awesome I love this game and I can play with all my friends, it's just a little hard to upgrade considering it is hard as crap to get gems",N
+"Update the app It's too expensive to upgrade and takes 2 long! And it always crashes",Y
+"Clash of clans Best game ever",N
+"This is the best game ever! This is awesome",N
+"Unbelievably good. Love this game :-) Download it ASAP:-) brilliant",N
+"Best Very good",N
+"BEST GAME EVER What a game!!!!!!!!!!!!!!!!!!!!!!!",N
+"Outrageously expensive game! Believe the negative reviews: if you don't have lots of time and lots of lots of money to spend on in-app upgrades, there's no point to playing this game. The game virtually requires you to spend money to build faster and keep up your defenses and there's no way to turn that option off. Players with far more resources can repeatedly attack you with impunity, which slows your progress and keeps you from getting anywhere.\n\nHighly recommend both versions of Kingdom Rush as an alternative, and I've heard Galaxy Life is also good. This game simply isn't worth the time and money it requires you to spend, and why anyone would spend hundreds of dollars on an iPhone game is beyond me. Deleted.",N
+"amazing :D ive been playing for a long time and i love it :)",N
+"Good game It's a good game once you get into it :)",N
+"Great game Very fun game. One of my favorite mobile games ever!!!",N
+"Good game! It makes me forget my worries. It's a lot of fun.",N
+"Nice Nice game",N
+"?????????????????????????????????????????? This game is amazing and completely fun if you have extra time I would highly recommend this good luck",N
+"Good, but crashes The game is awesome, however it crashes on me after like 5 min of gameplay please fix as soon as possible. Also everything takes forever to upgrade I mean 4 days for a level 6 town hall really.",Y
+"Awesome Best game ever",N
+"Crashing problem Game keeps crashing at the loading screen",Y
+"Fixed finally Thank for the update on troops and bugs",N
+"Great but crashes. Addictive. But is crashing non-stop on my iPod touch 4th gen and is so annoying I can't stand it. Can't even play .",Y
+"Great game but has been crashing a lot This is a great game but the upgrade time on each item gets a little long and the game has been crashing a lot lately.",Y
+"Game crashes every day, won't even load it used to be fun now it's just a challenge opening the app Okay",Y
+"Love it Very fun & addictive game",N
+"Crashes I could give this game a 5 star but it crashes I love this game but can't open it fix plzz",Y
+"Clash of Clans Great game, easy and fun to play. Down side is the cost to upgrade",N
+"Awesome !!!",N
+"Half and half I have loved this game ever since I got my iPod but the only problem is that sometimes when I attack the game logs itself off and I loose the fight and waste more than half my troops and a lot of my trophies.",Y
+"Great game Love the game!",N
+"Cool game Just started playing. They give you a way to speed the game up in the beginning. It worked I'm hooked! One complaint is it crashes a lot! Still love it.",Y
+"Too expensive I really like this game but its getting old on how everything is getting xpensive to level up, of course im not paying money just to upgrade a game!!",N
+"Fun! It's pretty fun but challenging to get started which always keeps the game moving. Plus the graphics are cool and way better than most games like this one.",N
+"Fix your game I love this game and its fun and amazing but things cost so much gold elxir and its very difficult to contain that elxir and gold also since the last update I play for about 30 seconds then it crashes so I can never upgrade my things",Y
+"Walls Walls are too expensive !! Reduce the price !",N
+"The best The best game in ios",N
+"Legend We won't a new game army of clan",N
+"Crashing It was an amazing game that was super easy to get addicted to but recently it won't stop crashing. I can't even load up the game anymore without it crashing >:( they need to make a crash update fast because people keep raiding me and I can't do anything about it!!!",Y
+"Okay I keep I on getting matched with people who have very little loot and crappy villages the match making is not everything is super expensive in money and elixir",N
+"Yummy Best game ever get it",N
+"Crash! When at the loading screen the game just crashes every time!",Y
+"Clash of Clans Review Good quality game for strategic players.",N
+"Great game just started and it is addicting",N
+"Hooked Love this game! I'm hooked",N
+"Clash of Clans Great game but crashes frequently.",Y
+"It's alright I recently started its fun but you need money to play.",N
+"Not happy Every since I did the last update the game won't open, was a good game other then the fact the only way to go anywhere they make you pay and it ain't cheap",Y
+"I can't get in I've tried everything but I can't get in",Y
+"Pretty fun Pretty fun. They have made some adjustments that are better than when I first began.",N
+"Try it! Just started playing and I enjoy every moment of it but I refuse to invest my money into it.... I'll just see how good I can get",N
+"ADDICTING!!!!! Game is way to ADDICTING! Great game",N
+"Faster Faster build time or a way to increase it",N
+"Pretty nice Good strategic game.",N
+"Awesome game Really fun game that gets addicting",N
+"Fun game Best game in the app store",N
+"Force closes a lot since update Please fix",Y
+"The best This is probably the best of this game type that I've ever played. :)",N
+"Awesome Game!!! Very addictive and fun!",N
+"Great game Addicting and fun. Get it now.",N
+"Crashes!!!:( This game is very addictive and fun but every time I try to play it goes 2/3 of the way, pauses and crashes:/ please fix!!!!",Y
+"Clashing One of the best games out there. Highly recommend it.",N
+"VERY GOOD It has chat room you can join clans and you can raid other people who doesn't like that.I highly recommend this game for people are into fighting and building.    This is one of my favorite games.",N
+"Great Best game to have when you have some extra time on your hands to play a phone game",N
+"Update/Game The game will not open/load, and when it does, it continuously crashes. This is a great games when it works, but right now it is just a waste if space.",Y
+"Awesome!!!! Such an awesome app!!!!!!",N
+"Best Game Ever Made. Clash of Clans2 If you don't want the game to keep crashing turn of your device completely all the way off were the little apple show in the middle of the screen the turn it back on and it won't crash again",Y
+"BEST GAME EVER The best game ever!",N
+"Can't play Have to delete if no updates , crashes before it even loads won't open so can't play",Y
+"Was great but... It never loads anymore, its not a game if you cant play it. I would vote 5 but it has like 1\% chance of loading and if it does it crashes after like 1 min. Its more like crash of clans!",Y
+"Awesome Great game lots of fun things to do",N
+"This game is awesome I love the game and I would recommend it to anyone",N
+"Clash of clans!!!!!!!!!! This game is great but the gems are expensive.",N
+"epic Most bestest game ever",N
+"Mad mad mad Crashed my game, will not load, stuck on waiting to load screen.\n:(",Y
+"Update Crash Please fix this annoying crash.",Y
+"It is awsome It really cool with the giants andgolems you can even make clans.\nIt is really really really awsome",N
+"Ahhhh crash!!!!! This game is my favorite game but it crashes every time I start the game please fix I enjoy playin clash of clans!",Y
+"Clash of clans What a game!! I love it, it's very addictive and it's so fun!!!",N
+"Clash of Clans At first I did not play much but now I am addicted to this game.  I am building up my army and my village.  Patience is a virtue and my patience is being tested as I wait for the builders to complete my structures.  Town Hall upgrade is underway and next I will have to rebuild the Clan Castle",N
+"Awesome Game! Great game, lots of fun, gets me through the work day. However, crashes CAN be a prob at times. Overall reminds me of first AoE.",Y
+"update crashes every time i opened it after the update",Y
+"Addicting Can't stop playing",N
+"Fun strategy game that teaches patience is a virtue Came over from playing BattleNations and found this game to be refreshingly good. Quick load time with no delays. Love the challenge of laying out my base as well as figuring out how to infiltrate other bases during raids. The build and upgrade times for things get a bit long in my opinion as you progress, but still fun. Love the clan concept and being able to talk to friends in-game - makes the game so much more enjoyable and social.",N
+"Crash of Clans This game be crashing every time I try to play it. It happens like a little after the loading bar reaches half.",Y
+"Fix NOW Ever Since The Update It Has Crashed At The Loading Screen EVERY SINGLE TIME I CANT EVEN PLAY IT ANYMORE if you are a first timer reading reviews before getting the game i would not recommend getting it until it is fixed at the stage it is in the game is a piece of ????????????????",Y
+"WHAT? WOW this is SO addicting",N
+"Pretty good game! Great game if you can manage to be patient and actually wait for things instead of buying them with real money",N
+"Clash of clans Amazing!",N
+"Crashes. For the first time Lots of crashes on the 1st iPad after this update. Crashes during loading, crashes when switching between bases in attack mode, hangups during the attack. No new heavy graphic features were introduced, so I see no reason for these crashes. Please, don't forget, that many people still use the 1st iPad. Clash of clans is not a 3D shooter or some racing game with powerful graphics.",Y
+"Clash of clans update Ever since ive updated my game it would always close on the loading screen. >:(",Y
+"Crash Love the game but the new inferno fortress update causes the game to crash repeatedly.",Y
+"Awesome! Great game!",N
+"Unique Interesting and unique concept for an iOS game.",N
+"Good game How can I upgrade town hall to lvl 6 when my gold storage needs to be upgraded to hold enough to upgrade town hall but needs the town hall upgraded 1st in order to do so? Seems like you HAVE to spend money to advance!",N
+"Best! I like this game :))",N
+"Buying ingame purchasing does not work Buying ingame purchasing does not work!!!!",Y
+"Awesome I can't stop playing!! This game is too good!!",N
+"Addicting Only been playing for a few days and I'm already hooked!",N
+"Awesome ????????",N
+"Excellent game I like it a lot.",N
+"Awsome This game Is best game in the world",N
+"Love it Pretty awesome game. But even after running out of 'gems' it's still fun to use even if you can't build certain things without the right amount of money and gems and elixir. It's all about strategy and saving for the right stuff to upgrade.",N
+"Cool game Fun build destroy easy just starting and love it!!!",N
+"EPIC The best game I have ever played I am addicted to this game!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! :D !!!!!!!!!!!!!!!!!",N
+"An excellent and layered game experience I've been enjoying Clash of Clans immensely. It's not a new game premise (I played 'Backyard Monsters' on Facebook a year or so ago that was nearly identical), but the execution is balanced and enjoyable. Definitely NOT a game for those who want to play in isolation... The community is a vital part of the game and hard wired into everything.  If you're okay with that, you'll enjoy exploring diverse strategies and layouts and units to achieve dominion and carve out your own little slice of fame.",N
+"Great game! Awesome gameplay and amazing graphics!",N
+"Awsome I love the dark barbricks it is awsome!",N
+"Awesome game Soooo cooolllll",N
+"connection don't get this game if you don't have PERFECT connection, you will go nowhere, (that is until they fix the fact that you lose trophies when connection fails in the middle of an attack)",Y
+"Great fun A blast to play and burn some time while waiting for anything.",N
+"Sweet like cream cheese on beagles So much fun",N
+"Awesome I love this game it's so addicting!",N
+"Good stuff! Indeed!",N
+"So far so good It is nice game",N
+"I like it There are not a lot of apps/games on my phone that I like or get addicted to but this one is really fun and makes me want to keep coming back",N
+"Great game ever 1 game ever",N
+"Can't connect to Facebook I can't connect to facebook",Y
+"Best game ever This is the best tycoon type of app I have ever played .There is always something to do and it is very very addictive.",N
+"Awesome Great game!",N
+"The best Its really addicting",N
+"Crashes way too much I've never had a game crash on my iPhone like I have this one. What's the point if playing if it crashes every ten seconds? Fun game beside the crashing, please fix because right now the game is terrible",Y
+"Great The best battle game I ever played in Iphone!",N
+"Addicting Fun",N
+"God gems ???? ??? ??",N
+"Amazing That is the only word that describes this game",N
+"Good Join my clan M.I.S.T",N
+"Awesome Game! This game might be the best game out there for the iPhone and iPad. Correction, is! Been playing it for months now and it's never been dull.",N
+"Idk Everybody is saying this app is great so I decided to get it and it won't load HUGE DISSAPOINTMENT",Y
+"Good Really good game.",N
+"addicting I am not even a video game person but I am stuck on this little gem",N
+"Clash of clans I got on the game to help my son a week ago and I won't give it back the game is fun. I even stopped playing my game to play this.",N
+"Bout Time!! Crazy Addicting! Super Fun...if you're into that sort of thing...",N
+"Never loads!!! This game hasn't loaded even once in the past week.",Y
+"Clash of clans I love this game",N
+"Amazing Great game. It is super addictive.",N
+"Great game! I haven't had any problems, and the game is engaging and fun. Requires patience, unless you want to waste your gems! If you have friends that can play this with you, it's much more worth it.",N
+"Great game great game!",N
+"Great. Game is awesome. I just wish there was more walls.",N
+"Reduced \% of resources gain thru attack? While it is nice to reduced \% of resources gain thru attack for new player benefit, but it hurts old player who need alot of resources to upgrade,  we cant wait for resource from our own mines and collector, we get them from stealing from other. So bad upgrade on that part. The other upgrades are good",N
+"Crash Game is fun the piece of crap keeps crashing on me",Y
+"Update is killing me Ever since the update I get kicked out of the app every 5 minutes",Y
+"Dig it! Addicting It's pretty awesome",N
+"Game Great game but makers charge too much to where you have to spend real money to get things.  Need to bring prices down",N
+"el miro nice app",N
+"Clash Excellent",N
+"Game Very good",N
+"Great Really awesome game",N
+"Best game EVER! Hey supercell great job but plz update fast also can you make a trade system that will make the game awesome",N
+"Amazing Very addicting. Great to play as a free app. In app purchases not required but help speed progress.",N
+"Get it! Epic fun",N
+"Fun Very cool game!",N
+"Teraoak Fun!  Time goes by too quickly!",N
+"Good It's pretty good but sometimes doesn't work",Y
+"AWESOME I love this game, it is so hard to put my iPod down!!! It is basically the only game I play. It's the greatest game ever invented by humans!!!!!!",N
+"Boring, Not Fun, Does not give you enough builders I find this game really boring and it takes forever to build anything.  They only give you 2 builders.  I'm surprised at all the reviews and don't understand why this game is highly rated.  Not fun at all",N
+"Godly Game is great",N
+"Fun This game is great to play with friends",N
+"Addictive !!! This game is fun and addictive. You will probably end up buying gems at store.",N
+"Omgomgomgomgomgomg This game is great! I've got a lot of people turned onto this game.",N
+"Great game One of the best",N
+"Fun and Addicting! It is a great game",N
+"Great Such a fun game play it all the time. It is a play and leave the game and come back the next day.",N
+"Great game Best game I ever played!",N
+"Very good This is a very strategic game. I like strategic games I just love the game.",N
+"Perfect Well thought out. One of the best games",N
+"clash of clans i love this game",N
+"Awesome game This game is great.",N
+"Awesome Most fun and addicting game I've played on my iPhone in long time!",N
+"What the heck Used to work got the update now the game won't stop crashing I can't even play this piece of crap any more fix it now!!!!!!!!!!!!!!",Y
+"Great! Pretty addicting to say the least!",N
+"Won't open I am a coc fan but ever since this last update it won't work. It loads and then just sits there. Can't wait until it is fixed.",Y
+"Great game! On a clan with my kids.. Another thing to connect with..",N
+"Addictive Can't stop playing",N
+"Pro snowboarder Awesome game",N
+"A epic long strategy game !! Awesome Awesome",N
+"Yeah, fun. Review done. I'm going back to playing.",N
+"Problems Half the time I go to play the game it says that there is an update available and there is not, and it won't let me log on for hours and just repeats the new update message.  Most other times when I log in it acts like I have never played the game and restarts to a new village.  Please fix these problems, I am tired of not being able to play a game I have payed good money for.",Y
+"Clash of the clans Great game addicting as well must play",N
+"Clash of the clans BEAST my new favorite game",N
+"Amazing Great game",N
+"Addicting Really great game",N
+"Amazing app Dont have to say anything but addicting  \nToo much fun to just play on your spare time.\nJoin my clan Enzos leader is I Lord Bell",N
+"Awesome game. Really fun to play. Very addicting.",N
+"Good game Awesome",N
+"Awesome Greatest game ever!!!!",N
+"Great game Provides hours an hours of fun",N
+"Entertaining This is a fun game.",N
+"Clash of clans really cool, adventures, and interactive game love it ! Hi",N
+"My fianc´┐¢ has me hooked.... Love it fun game.",N
+"Coc Awesome",N
+"Awesome Awesome game, if you love to strategize then this is the game for you!!!",N
+"Nice 10 thumbs up",N
+"Best game in Appstore This is the best game I've played on the ipad so far. Most games similar to this lack strategy because the battles are text based. Clash is the perfect combination of castle builder and strategic combat.",N
+"AMAZING Sooo adicting!!!!",N
+"Awesome game Soo addicting can't get enough of it",N
+"Awesome! A++",N
+"Omg This is fun:)",N
+"Best strategy game. Hands down more fun than tossing Birds!",N
+"Clash of the clans Five stars so much fun on my ipod touch but you need wifi very adictive i play every day",N
+"Fun Easy to play and very fun",N
+"Awesome So addicting",N
+"Luv it Nothing wrong super fun, something to do all the time, everyone I knows would die to play, good job",N
+"Fun. Game is addicting.",N
+"Review Awesome game",N
+"Fun It's simple to play and fun. Join clan prison planet",N
+"Addictive!!! This game is highly addictive but a lot fun. Reminds me so much of Evony! MP is back!!",N
+"Dd This is a great game to play",N
+"Great game Second only to Lords and Knights",N
+"Addicting This game is crack. Best free game ever",N
+"My name is david MY NAMES DAVID I LOVE THIS GAME!!!!",N
+"Great Game Yourladywantsme is our clan. Join us. Fun game!!",N
+"Fantastic Great game",N
+"The best Great game",N
+"???? WARNING: Highly addictive game!",N
+"glitching been sucky lately. hasn't let me play in over a week. update was what messed it up. hope it's fixed soon. wouldn't download it",Y
+"Clash of clans Awesome game. Farming and very strategic gameplay.",N
+"Great game and lots of fun! ^^",N
+"Clash of the clans AWESOMENESS but time consumer",N
+"Jgreen OUTSTANDING!!!",N
+"Great game! !",N
+"Desirable Real fun",N
+"Addictive i love this game...",N
+"Great fun! It's simple but still keeps you engaged. At later levels the wait times get boring but it seems to have the right amount of focus on actual fighting (vs all the other similar games that get boring with only building).  The fact that units can't be controlled but are specialized makes for novel strategy.",N
+"Awesome and addictive Fun to play",N
+"Great It's great",N
+"Nice Fun game!!",N
+"Clash of clans I like this app alot so much",N
+"Clash of clans Awesome..!!!",N
+"Aweseome Very good game",N
+"Awesome Awesomeness",N
+"Fix this! Refuses to load on some Wifi networks...fix this already!!",Y
+":-) Love this app get it and donate troops plzz",N
+"Oxycodone<3 give me all of yours.. Whataboutwhitekids@yahoo Awesome game! And free too! Come get your chops rocked",N
+"Clash One of the best game out here!",N
+"Amazing I love it",N
+"Great gameplay Good game",N
+"Very fun A fun game and time consuming.",N
+"bad connection took me 10-15 sec to search an enemy. fix this please.",Y
+"Hahahaha Best game ever",N
+"Glitch The game keeps on freezing when I try to move around my village pliz fix besides thAt I love it",Y
+"Fun Cool",N
+"Really fun and addicting Reminds me of age of empires. I'm surprised it was free. Great game",N
+"Awesome!!!!!! Best app ever!!!!!!!!!!",N
+"Very addictive!!! Very fun!!! Great game. Good to pass the time by. Rebuild times could be a Lil less time. And it's so hard to get through the game without having to spend money on gems. The lvl i am at takes so many gems to just complete a upgrade. But still a fun game.",N
+"Can't start over I want to start over like in valor or townets because I can't destroy building and restart  my city because I built stuff all over the place",Y
+"Stupid Stupid game",N
+"Good game Good !!!!",N
+"Expensive!!! you get to a point in the game where you have to spend a lot of $$ to progress.  Takes to long to do anything unless you buy gems to speed up the process.  Takes about 30 minutes to attack and then another 20 minutes to find a match that gives you a chance.  Upgrades take 5+days.  Unless you plan on dropping a lot of $$ this game is a waste of time.",N
+"Endless Fun Such a great game! Perfect for when I just need a few minutes to escape my day. Or I can play for the entire day fighting battles. Love the clan aspect.",N
+"Addicting & Fun! Haven't found a game in a while that's free and worth playing. Super fun & addicting!!!",N
+"Awesome the best gamee everr!",N
+"Sweet Sweet game. Only thing gems are a little pricey",N

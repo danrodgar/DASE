@@ -5,16 +5,16 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [./references/references.bib,./references/dataSources.bib,./references/RandStatistics.bib]
+bibliography: [./references/references.bib,./references/dataSources.bib,./references/RandStatistics.bib,./references/RPackages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: danrodgar/dasedown
-description: "DASE with bookdown::gitbook."
+description: "DASE  Data Analysis in Software Engineering"
 ---
 
 # Welcome {-}
 
-This is the website for __Data Analysis in Software Engineering (DASE)__. This book will teach you how to do data science with R in SE. 
+This is the website for __Data Analysis in Software Engineering (DASE)__. This book/notes will try teach you how to do data science with R in Software Engineering. 
 
 This work is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/) United States License. 
 

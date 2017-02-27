@@ -1,26 +1,26 @@
 
-# Regression
+# Regression {#regression}
 
+## Linear Regression modeling
 
-# Linear Regression modeling
-
-  - _Linear Regression_ is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. The idea is that the independent variable $x$ is something the experimenter controls and the dependent variable $y$ is something that the experimenter measures. The line is used to predict the value of $y$ for a known value of $x$. The variable $x$ is the predictor variable and y the response variable.
+  - _Linear Regression_ is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. The idea is that the independent variable $x$ is something the experimenter controls and the dependent variable $y$ is something that the experimenter measures. The line is used to predict the value of $y$ for a known value of $x$. The variable $x$ is the predictor variable and $y$ the response variable.
   
   - _Multiple linear regression_ uses 2 or more independent variables for building a model <https://www.wikipedia.org/wiki/Linear_regression>.
   
-  - First proposed many years ago. But still very useful...
+  - First proposed many years ago but still very useful...
   
-    ![Galton Data](figures/galton.png)
+   ![Galton Data](figures/galton.png)
   
   - The equation takes the form $\hat{y}=b_0+b_1 * x$
   - The method used to choose the values $b_0$ and $b_1$ is to minimize the sum of the squares of the residual errors.
 
-## Regression: Galton Data
+### Regression: Galton Data
 
 Not related to Software Engineering but ...
 
-```{r warning=FALSE}
-library(UsingR); data(galton)
+```{r warning=FALSE, message=FALSE}
+library(UsingR)
+data(galton)
 par(mfrow=c(1,2))
 hist(galton$child,col="blue",breaks=100)
 hist(galton$parent,col="blue",breaks=100)
@@ -32,7 +32,8 @@ abline(c(0,0),col="red",lwd=3)
 qqnorm(galton$child)
 ```
 
-## Simple Linear Regression
+### Simple Linear Regression
+
 - Given two variables $Y$ (response) and $X$ (predictor), the assumption is that there is an approximate ($\approx$) *linear* relation between those variables. 
 - The mathematical model of the observed data is described as (for the case of simple linear regression):
 $$ Y \approx \beta_0 + \beta_1 X$$
@@ -69,9 +70,13 @@ $$\hat\sigma^2 = {RSS}/{(n-2)}$$ where n is the number of observations
 - where $$ SE(\hat{\beta}_1) = \sqrt{\frac{\sigma^2}{\sum_{i=1}^{n}(x_i-\bar{x})^2}}$$
 
 ### Linear regression in R
-- The basic function is ``lm()``, that returns an object with the model. 
-- Other commands: ``summary`` prints out information about the regression, ``coef`` gives the coefficients for the linear model, `` fitted `` gives the predictd value of y for each value of x, ``residuals```contains the differences between observed and fitted values. 
-- ``predict`` will generate predicted values of the response for the values of the explanatory variable.
+
+The following are the basic commands in R:
+
+- The basic function is `lm()`, that returns an object with the model. 
+- Other commands: `summary` prints out information about the regression, `coef` gives the coefficients for the linear model, `fitted` gives the predictd value of $y$ for each value of $x$, `residuals` contains the differences between observed and fitted values. 
+- `predict` will generate predicted values of the response for the values of the explanatory variable.
+  
   
 ## Linear Regression Diagnostics
 
@@ -83,6 +88,7 @@ $$\hat\sigma^2 = {RSS}/{(n-2)}$$ where n is the number of observations
 
 
 ### Simulation example
+
 #### Simulate a dataset
 ```{r}
 set.seed(3456)
@@ -114,6 +120,7 @@ abline(a = a, b = b, col= "black", lwd=1) #original line
 
 ```
 
+
 ##### Subset a set of points from the same sample
 ```{r}
 
@@ -144,6 +151,7 @@ abline(a = cfa21, b = cfb22, col= "red", lwd=2) #new line
 
 
 ##### Compute a confidence interval on the original sample regression line
+
 ```{r}
 
 newx <- seq(xmin, xmax)
@@ -199,33 +207,30 @@ lines(newx,ypredicted$fit[,3],col="red",lty=2, lwd=2)
 
 ```
 
+
 ### Diagnostics fro assessing the regression line
+
 #### Residual Standard Error
 
 #### $R^2$ statistic
 
 
-### Multiple Linear Regression
+## Multiple Linear Regression
 
-#### Partial Least Squares
+### Partial Least Squares
 - If several predictors are highly correlated, the least squares approach has high variability. 
 - PLS finds linear combinations of the predictors, that are called *components* or *latent* variables. 
 
 
-### References
-- The New Statistics with R, Andy Hector, 2015
-- An Introduction to R, W.N. Venables and D.M. Smith and the R Development Core Team
-- Practical Data Science with R, Nina Zumel and John Mount
-- G. James et al, An Introduction to Statistical Learning with Applications in R, Springer, 2013 
 
-### Linear regression in Effort estimation
+## Linear regression in Software Effort estimation
 
 Fitting a linear model to log-log
   - the predictive power equation is $y= e^{b_0 + b_1 log(x)}$, ignoring the bias corrections
   - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.
 
 
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 library(foreign)
 china <- read.arff("./datasets/effortEstimation/china.arff")
 china_size <- china$AFP
@@ -243,6 +248,7 @@ qqnorm(china_effort)
 qqline(china_effort)
 ```
   
+Applying the `log` function
 
 ```{r, echo=FALSE}
 par(mfrow=c(1,2))
@@ -266,3 +272,11 @@ plot(linmodel_logchina, ask = FALSE)
 linmodel_logchina
 ```
 
+
+
+## References
+
+- The New Statistics with R, Andy Hector, 2015
+- An Introduction to R, W.N. Venables and D.M. Smith and the R Development Core Team
+- Practical Data Science with R, Nina Zumel and John Mount
+- G. James et al, An Introduction to Statistical Learning with Applications in R, Springer, 2013 

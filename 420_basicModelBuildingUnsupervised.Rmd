@@ -1,9 +1,8 @@
-# (PART) Unsupervised Classification {-}
+# (PART) Unsupervised Models {-}
 
-# Unsupervised Classification
+# Unsupervised or Descriptive modeling
 
-
-From the predictive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This include association rules, clustering, or tree clustering which purpose is to join together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. The dataset will be as the previous table without the $C$ class attribute
+From the descriptive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This include association rules, clustering, or tree clustering which aim at grouping together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. The dataset will be as the previous table without the $C$ class attribute
 
 | Att~1~|     | Att~n~ |
 |-------|-----| -------|
@@ -36,8 +35,7 @@ kc1.kmeans <- kmeans(kc1.train, 2)
 
 ```
 
-
-kMeans
+### k-Means
 
 ```{r warning=FALSE, message=FALSE}
 library(reshape, quietly=TRUE)

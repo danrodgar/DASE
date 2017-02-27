@@ -4,6 +4,7 @@
 *.bib~
 *.html~
 *.bak
+*.log
 .Rhistory
 .Rproj.user
 .Rdata

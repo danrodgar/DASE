@@ -1,3 +1,4 @@
+# (PART) Evaluation {-}
 
 # Evaluation of Models
 
@@ -119,6 +120,14 @@ j-coeff = sensitivity + specificity - 1 = PD -PF
 
 (Jiang, Cubic and Ma, 2008 ESE)
 
+
+> **No Free Lunch theorem**
+> In the absence of any knowledge about the prediction problem, no model
+> can be said to be uniformly better than any other
+
+
+
+
 ### Prediction in probabilistic classifiers
 
 A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|{x})$. Then, given a new instance, ${x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
@@ -132,8 +141,6 @@ $\psi({x}) = argmax_c (P(c|{x}))$
 ROC
 
 Precision Recall
-
-
 
 
 Another evaluation technique to consider when data is imbalanced is the *Receiver Operating Characteristic* ($ROC$)~\cite{Fawcett2006} curve which provides a graphical visualisation of the results.
