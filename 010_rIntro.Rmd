@@ -19,6 +19,8 @@ The goal of the first part of this book is to get you up to speed with the basic
     + [Base R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
     + [Advanced R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
     + [Data Visualization cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf)
+    + [R Markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+    + [R Markdown Basics] (http://rmarkdown.rstudio.com/authoring_basics.html)
     + help("    ") command 
   - R as a calculator. Console: It uses the command-line interface. 
 

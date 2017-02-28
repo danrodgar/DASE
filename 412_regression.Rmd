@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 
 # Regression {#regression}
 
@@ -5,7 +10,7 @@
 
   - _Linear Regression_ is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. The idea is that the independent variable $x$ is something the experimenter controls and the dependent variable $y$ is something that the experimenter measures. The line is used to predict the value of $y$ for a known value of $x$. The variable $x$ is the predictor variable and $y$ the response variable.
   
-  - _Multiple linear regression_ uses 2 or more independent variables for building a model <https://www.wikipedia.org/wiki/Linear_regression>.
+  - _Multiple linear regression_ uses 2 or more independent variables for building a model. See  <https://www.wikipedia.org/wiki/Linear_regression>.
   
   - First proposed many years ago but still very useful...
   
@@ -75,7 +80,7 @@ The following are the basic commands in R:
 
 - The basic function is `lm()`, that returns an object with the model. 
 - Other commands: `summary` prints out information about the regression, `coef` gives the coefficients for the linear model, `fitted` gives the predictd value of $y$ for each value of $x$, `residuals` contains the differences between observed and fitted values. 
-- `predict` will generate predicted values of the response for the values of the explanatory variable.
+- [`predict`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.lm.html) will generate predicted values of the response for the values of the explanatory variable. 
   
   
 ## Linear Regression Diagnostics
@@ -83,7 +88,7 @@ The following are the basic commands in R:
   - Several plots help to evaluate the suitability of the linear regression 
     + *Residuals vs fitted*: The residuals should be randomly distributed around the horizontal line representing a residual error of zero; that is, there should not be a distinct trend in the distribution of points. 
     + *Standard Q-Q plot*: residual errors are normally distributed
-    + *Square root of the standardized residuals vs the fitted value*s: there should be no obvious trend.
+    + *Square root of the standardized residuals vs the fitted values*: there should be no obvious trend. This plot is similar to the residuals versus fitted values plot, but it uses the square root of the standardized residuals. 
     + *Leverage*: measures the importance of each point in determining the regression result. Smaller values means that removing the observation has little effect on the regression result. 
 
 
@@ -211,8 +216,10 @@ lines(newx,ypredicted$fit[,3],col="red",lty=2, lwd=2)
 ### Diagnostics fro assessing the regression line
 
 #### Residual Standard Error
+- It gives us an idea of the typical or average error of the model. It is the estimated standard deviation of the residuals.
 
 #### $R^2$ statistic
+- This is the proportion of variability in the data that is explained by the model. Best values are those close to 1.
 
 
 ## Multiple Linear Regression
