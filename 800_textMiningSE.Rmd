@@ -17,17 +17,22 @@ We need to consider:
   - Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). readerControl of the corpus constructor has to be a list with the named components reader and language
   - Preprocessing 
   - Inspecting and exploring data: Individual documents can be accessed via [[
-  - Transformations: Transformations are done via the tm_map() function. tm_map(_____, stripWhitespace)  tm_map(_____, content_transformer(tolower))  tm_map(_____, removeWords, stopwords("english"))  tm_map(tm_map(reuters, stemDocument), stemDocument)
+  - Transformations: Transformations are done via the tm_map() function. 
+    -- tm_map(_____, stripWhitespace)  
+    -- tm_map(_____, content_transformer(tolower))  
+    -- tm_map(_____, removeWords, stopwords("english"))  
+    -- tm_map(tm_map(reuters, stemDocument), stemDocument)
   - Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
+    -- 
   - Relationships between terms.
-    findFreqTerms(_____, anumber)
-    findAssocs(_dtm____, "aterm", anumbercorrelation)
-    A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
-    inspect(DocumentTermMatrix(_reuters__________, list(dictionary = c("term1", "term2", "term3"))))
+    -- findFreqTerms(_____, anumber)
+    -- findAssocs(Mydtm, "aterm", anumbercorrelation)
+    -- A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
+    -- inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3")))).   It displays detailed information on a corpus or a term-document matrix.
   - Clustering
     
 
-## Basic `tm` commands
+## Basic **tm** commands
 
 For example, load a tm dataset  20 news articles with additional meta information from the Reuters-21578 dataset
 
@@ -35,6 +40,7 @@ For example, load a tm dataset  20 news articles with additional meta informatio
 library('tm')
 data("crude")
 crude
+crude[[2]]$content  # returns the text content of the second news article
 ```
 
 
@@ -51,11 +57,13 @@ docs <- data.frame(c("This is a text.", "This another one."))
 (ds <- DataframeSource(docs))
 inspect(VCorpus(ds))
 
-# accessind documents, terms
+# accessing documents, terms
 # For Docs and Terms, a character vector with document IDs and terms, respectively.
 # For nDocs and nTerms, an integer with the number of document IDs and terms, respectively.
 
-tdm <- TermDocumentMatrix(crude)[1:10,1:20]
+tdm <- TermDocumentMatrix(crude)[1:10,1:20] # 10 terms, 20 documents
+tdm1 <- TermDocumentMatrix(crude)
+
 Docs(tdm)
 nDocs(tdm)
 nTerms(tdm)
@@ -70,15 +78,22 @@ inspect(tdm)
 # TermDocumentMatrix  Constructs or coerces to a term-document matrix or a document-term matrix.
 
 data("crude")
-tdm <- TermDocumentMatrix(crude, control = list(removePunctuation = TRUE,
+tdmRmPct <- TermDocumentMatrix(crude, control = list(removePunctuation = TRUE,
                                                 stopwords = TRUE))
 dtm <- DocumentTermMatrix(crude, control = list(weighting = function(x) weightTfIdf(x, normalize =
 FALSE),
 stopwords = TRUE))
-inspect(tdm[202:205, 1:5])
-inspect(tdm[c("price", "texas"), c("127", "144", "191", "194")])
+inspect(tdmRmPct[202:205, 1:5])
+inspect(tdmRmPct[c("price", "texas"), c("127", "144", "191", "194")])
 inspect(dtm[1:5, 273:276])
 
+#10 terms 
+tdmRmPct10 <- TermDocumentMatrix(crude, control = list(removePunctuation = TRUE,
+                                                stopwords = TRUE))[1:10, 1:10]
+Docs(tdmRmPct10)
+nDocs(tdmRmPct10)
+nTerms(tdmRmPct10)
+Terms(tdmRmPct10)
 
 ```
 
@@ -90,12 +105,15 @@ inspect(dtm[1:5, 273:276])
 
 
 # Visualize correlations between terms of a term-document matrix. Visualization requires that package Rgraphviz is available
+
+# here we remove punctuation, numbers, stopwords
 tdm <- TermDocumentMatrix(crude,
-control = list(removePunctuation = TRUE,
-removeNumbers = TRUE,
-stopwords = TRUE))
-plot(tdm, corThreshold = 0.2, weighting = TRUE)
+                          control = list(removePunctuation = TRUE,
+                                         removeNumbers = TRUE,
+                                         stopwords = TRUE))
+plot(tdm, corThreshold = 0.6, weighting = TRUE)
 ```
+
 
 
 
@@ -106,17 +124,21 @@ tdm <- TermDocumentMatrix(crude)
 findAssocs(tdm, c("oil", "opec", "xyz"), c(0.7, 0.75, 0.1))
 
 # Find frequent terms in a document-term or term-document matrix
-findFreqTerms(tdm, 2, 3)
+findFreqTerms(tdm, 6, 8)
 
 # termFreq   Generate a term frequency vector from a text document
 data("crude")
-termFreq(crude[[14]])
+tmfq1 <- termFreq(crude[[14]])
+tmfq1
+str(tmfq1)
 strsplit_space_tokenizer <- function(x) unlist(strsplit(as.character(x), "[[:space:]]+"))
 ctrl <- list(tokenize = strsplit_space_tokenizer, removePunctuation = list(preserve_intra_word_dashes = TRUE),
              stopwords = c("reuter", "that"),
              stemming = TRUE,
              wordLengths = c(4, Inf))
-termFreq(crude[[14]], control = ctrl)
+tmfq2 <- termFreq(crude[[14]], control = ctrl)
+str(tmfq2)
+
 
 #weights
 # weightBin(m) Weight Binary Binary weight a term-document matrix.
@@ -151,12 +173,22 @@ removePunctuation(crude[[14]], preserve_intra_word_dashes = TRUE)
 
 # Remove sparse terms from a document-term or term-document matrix.
 tdm <- TermDocumentMatrix(crude)
-removeSparseTerms(tdm, 0.2)
+tdm_lssparse <- removeSparseTerms(tdm, 0.2) 
+tdm_lssparse
+tdm_lssparse2 <- removeSparseTerms(tdm, 0.7) #allow more terms
+tdm_lssparse2
+Terms(tdm_lssparse2)
+Terms(tdm_lssparse)
+tdm_lssparse3 <- removeSparseTerms(tdm, 0.05) # remove almost all sparsity and empty terms
+tdm_lssparse3
+Terms(tdm_lssparse3)
 
 # Remove words from a text document.
 
-crude[[1]]
+crude[[1]]$content
+# remove common words in English
 cruderemword <- removeWords(crude[[1]], stopwords("english"))
+cruderemword$content
 
 # Stem words in a text document using Porter’s stemming algorithm.
 
@@ -169,15 +201,17 @@ stopwords("SMART")
 stopwords("german")
 
 # Strip Whitespace from a Text Document
-crude[[1]]
-stripWhitespace(crude[[1]])
+crude[[1]]$content
+stripWhitespace(crude[[1]]$content)
 
 # getTransformations  Predefined transformations (mappings) which can be used with tm_map
 ## Document access triggers the stemming function
 ## (i.e., all other documents are not stemmed yet)
 tm_map(crude, stemDocument, lazy = TRUE)[[1]]
+
 ## Use wrapper to apply character processing function
 tm_map(crude, content_transformer(tolower))
+
 ## Generate a custom transformation function which takes the heading as new content
 headings <- function(x)
 PlainTextDocument(meta(x, "heading"), id = meta(x, "id"),
@@ -203,8 +237,13 @@ library(foreign)
 # dir(path_name)
 
 #d <- read.arff("./datasets/textMining/compendium.arff")
-d <- read.arff("./datasets/textMining/reviewsBugs.arff")
-head(d,3)
+options(stringsAsFactors = FALSE)
+d <- read.arff("./datasets/textMining/reviewsBugs.arff" )
+str(d)
+head(d,2)
+# fifth entry
+d$revContent[5]
+d$revBug[5]
 ```
 
 Creating a Document-Term Matrix (DTM)
@@ -212,11 +251,10 @@ Creating a Document-Term Matrix (DTM)
 ```{r message=FALSE, warning=FALSE}
 library(tm)
 
-dfcomp <- data.frame(textCol = d$revContent)  # , d$Category)
+ds <- DataframeSource(as.data.frame(d$revContent))
+dsc <- Corpus(ds)
 
-ds <- DataframeSource(dfcomp)
-dsc <-Corpus(ds)
-
+  
 # weighting=TfIdf weighting is Tf-Idf
 # minWordLength=WL the minimum word length is WL
 # minDocFreq=ND each word must appear at least in ND docs
@@ -228,7 +266,7 @@ dsc <-Corpus(ds)
 # removeNumbers=TRUE numbers are eliminated
 
 
-dtm<- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
+dtm <- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
 
 # dim(dtm)
 # inspect(dtm) #[1:10,1:10])
@@ -238,32 +276,34 @@ dtm<- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq
 # note that the term-document matrix needs to be transformed (casted)
 # to a matrix form in the following barplot command
 
-dtm.90=removeSparseTerms(dtm,sparse=0.9)
-
-barplot(as.matrix(dtm),xlab="terms",ylab="number of occurrences",main="Most frequent terms (sparseness=0.9)")
+sparseparam <- 0.90
+dtm_sprs <- removeSparseTerms(dtm,sparse=sparseparam)
+maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")
+barplot(as.matrix(dtm_sprs),xlab="terms",ylab="number of occurrences", main=maintitle)
 ```
 
 As data frame:
 
 ```{r results='hide'}
 #dtmdf <- as.data.frame(dtm.90)
-dtmdf <- as.data.frame(inspect(dtm.90))
+dtmdf <- as.data.frame(inspect(dtm_sprs))
 # rownames(dtm)<- 1:nrow(dtm)
 
 class <- d$revBug
 dtmdf <- cbind(dtmdf,class)
+head(dtmdf, 3)
 ```
 
 Now, we can explore things such as "which words are associated with "feature"?"
 ```{r}
-# which words are associated with "feature"?
+# which words are associated with "bug"?
 findAssocs(dtm, 'bug', .3)
 ```
 
 And find frequent terms.
 
 ```{r}
-findFreqTerms(dtm,5)
+findFreqTerms(dtm,15)
 ```
 
 Use any classifier now:
@@ -300,8 +340,8 @@ plot(gbmFit1, metric = "Kappa")
 
 head(predict(gbmFit1, testing, type = "prob"))
 
-confusionMatrix(testing$class, predict(gbmFit1, testing))
-
+conf_mat <- confusionMatrix(testing$class, predict(gbmFit1, testing))
+conf_mat
 ```
 
 
@@ -310,7 +350,7 @@ And finally, a word cloud as an example that appears everywhere these days.
 ```{r}
 library(wordcloud)
 # calculate the frequency of words and sort in descending order.
-wordFreqs=sort(colSums(as.matrix(dtm.90)),decreasing=TRUE)
+wordFreqs=sort(colSums(as.matrix(dtm_sprs)),decreasing=TRUE)
 wordcloud(words=names(wordFreqs),freq=wordFreqs)
 ```
 
