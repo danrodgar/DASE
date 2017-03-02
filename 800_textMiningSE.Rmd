@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Text Mining Software Engineering Data 
 
 In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons,  etc.  Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple's AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.
@@ -14,22 +19,22 @@ The main package for _text mining_ is `tm` [@FeinererH15][@FeinererHM08]. Anothe
 ## Terminology 
 
 We need to consider:
-  - Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). readerControl of the corpus constructor has to be a list with the named components reader and language
-  - Preprocessing 
-  - Inspecting and exploring data: Individual documents can be accessed via [[
-  - Transformations: Transformations are done via the tm_map() function. 
-    -- tm_map(_____, stripWhitespace)  
-    -- tm_map(_____, content_transformer(tolower))  
-    -- tm_map(_____, removeWords, stopwords("english"))  
-    -- tm_map(tm_map(reuters, stemDocument), stemDocument)
-  - Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
-    -- 
-  - Relationships between terms.
-    -- findFreqTerms(_____, anumber)
-    -- findAssocs(Mydtm, "aterm", anumbercorrelation)
-    -- A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
-    -- inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3")))).   It displays detailed information on a corpus or a term-document matrix.
-  - Clustering
+  * Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). readerControl of the corpus constructor has to be a list with the named components reader and language
+  * Preprocessing 
+  * Inspecting and exploring data: Individual documents can be accessed via [[
+  * Transformations: Transformations are done via the tm_map() function. 
+    ++ tm_map(_____, stripWhitespace)  
+    ++ tm_map(_____, content_transformer(tolower))  
+    ++ tm_map(_____, removeWords, stopwords("english"))  
+    ++ tm_map(reuters, stemDocument)
+  * Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
+    ++ 
+  * Relationships between terms.
+    ++ findFreqTerms(_____, anumber)
+    ++ findAssocs(Mydtm, "aterm", anumbercorrelation)
+    ++ A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
+    ++ inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3")))).   It displays detailed information on a corpus or a term-document matrix.
+  * Clustering
     
 
 ## Basic **tm** commands
@@ -163,15 +168,18 @@ TermDocumentMatrix(crude,
 
 # Transformations
 # Remove Numbers from a Text Document
-crude[[1]]
-removeNumbers(crude[[1]])
-
+crude[[1]]$content
+crude1 <- removeNumbers(crude[[1]])
+crude1
 # Remove Punctuation Marks from a Text Document
-crude[[14]]
+crude[[14]]$content
 cruderem <- removePunctuation(crude[[14]])
-removePunctuation(crude[[14]], preserve_intra_word_dashes = TRUE)
+cruderem
+cruderem1 <- removePunctuation(crude[[14]], preserve_intra_word_dashes = TRUE)
+cruderem1$content
 
-# Remove sparse terms from a document-term or term-document matrix.
+# Remove sparse terms from a document-term or term-document matrix. sparse: A numeric for the maximal allowed sparsity in the range from bigger zero to smaller one
+
 tdm <- TermDocumentMatrix(crude)
 tdm_lssparse <- removeSparseTerms(tdm, 0.2) 
 tdm_lssparse
@@ -332,11 +340,11 @@ gbmFit1 <- train(class ~ ., data = training,
 
 gbmFit1
 
-trellis.par.set(caretTheme())
-plot(gbmFit1)
-
-trellis.par.set(caretTheme())
-plot(gbmFit1, metric = "Kappa")
+# trellis.par.set(caretTheme())
+# plot(gbmFit1)
+# 
+# trellis.par.set(caretTheme())
+# plot(gbmFit1, metric = "Kappa")
 
 head(predict(gbmFit1, testing, type = "prob"))
 
