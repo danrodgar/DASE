@@ -15,7 +15,7 @@
   
   
   <meta property="og:description" content="DASE Data Analysis in Software Engineering" />
-  <meta name="github-repo" content="danrodgar/dasedown" />
+  <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
@@ -26,7 +26,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-02-27">
+<meta name="date" content="2017-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -136,6 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#types-of-information-stored-in-the-repositories"><i class="fa fa-check"></i><b>3.1</b> Types of information stored in the repositories</a></li>
 <li class="chapter" data-level="3.2" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#repositories"><i class="fa fa-check"></i><b>3.2</b> Repositories</a></li>
 <li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-toolsdashboards-to-extract-data"><i class="fa fa-check"></i><b>3.3</b> Some Tools/Dashboards to extract data</a></li>
+<li class="chapter" data-level="3.4" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#effort-estimation-data-in-software-engineering"><i class="fa fa-check"></i><b>3.4</b> Effort Estimation Data in Software Engineering</a></li>
 </ul></li>
 <li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
 <li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
@@ -277,7 +278,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="21" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>21</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="22" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>22</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="22.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>22.1</b> Terminology</a></li>
-<li class="chapter" data-level="22.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>22.2</b> Basic <code>tm</code> commands</a></li>
+<li class="chapter" data-level="22.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>22.2</b> Basic <strong>tm</strong> commands</a></li>
 <li class="chapter" data-level="22.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>22.3</b> Example of classifying bugs from Bugzilla</a></li>
 <li class="chapter" data-level="22.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>22.4</b> Extracting data from Twitter</a></li>
 </ul></li>
@@ -328,6 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf">Base R cheat sheet</a></li>
 <li><a href="https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf">Advanced R cheat sheet</a></li>
 <li><a href="https://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf">Data Visualization cheat sheet</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown cheat sheet</a></li>
+<li>[R Markdown Basics] (<a href="http://rmarkdown.rstudio.com/authoring_basics.html" class="uri">http://rmarkdown.rstudio.com/authoring_basics.html</a>)</li>
 <li>help(&quot; “) command</li>
 </ul></li>
 <li>R as a calculator. Console: It uses the command-line interface.</li>
@@ -770,44 +773,44 @@ matchars</code></pre></div>
 mymat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(-<span class="dv">8</span>:<span class="dv">15</span>, <span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">3</span>)
 mymat3</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]   -6   10   -5   11
-## [2,]   -1    3    9   -4
-## [3,]   -2    2    5   14</code></pre>
+## [1,]   -7   -8    5    7
+## [2,]    4   -3   -1   -6
+## [3,]   10   11   12    9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
-<pre><code>## [1] 9</code></pre>
+<pre><code>## [1] -1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">1</span>,<span class="dv">4</span>]</code></pre></div>
-<pre><code>## [1] 11</code></pre>
+<pre><code>## [1] 7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">3</span>,]</code></pre></div>
-<pre><code>## [1] -2  2  5 14</code></pre>
+<pre><code>## [1] 10 11 12  9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[,<span class="dv">4</span>]</code></pre></div>
-<pre><code>## [1] 11 -4 14</code></pre>
+<pre><code>## [1]  7 -6  9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">5</span>] <span class="co"># counts elements by column</span></code></pre></div>
-<pre><code>## [1] 3</code></pre>
+<pre><code>## [1] -3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="dv">9</span>]</code></pre></div>
-<pre><code>## [1] 5</code></pre>
+<pre><code>## [1] 12</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Subsetting multiple elements
 
 mymat3[<span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</code></pre></div>
-<pre><code>## [1] -1  9</code></pre>
+<pre><code>## [1]  4 -1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)]</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
-## [1,]   -1    9   -4
-## [2,]   -2    5   14</code></pre>
+## [1,]    4   -1   -6
+## [2,]   10   12    9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(mymat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;r1&quot;</span>, <span class="st">&quot;r2&quot;</span>, <span class="st">&quot;r3&quot;</span>)
 <span class="kw">colnames</span>(mymat3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c2&quot;</span>, <span class="st">&quot;c3&quot;</span>, <span class="st">&quot;c4&quot;</span>)
 mymat3[<span class="st">&quot;r2&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c3&quot;</span>)]</code></pre></div>
 <pre><code>## c1 c3 
-## -1  9</code></pre>
+##  4 -1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Subset by logical vector
 mymat3[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>),
        <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</code></pre></div>
 <pre><code>## c1 c3 
-## -1  9</code></pre>
+##  4 -1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mymat3[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>),
        <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>)]</code></pre></div>
 <pre><code>##    c1 c3 c4
-## r2 -1  9 -4
-## r3 -2  5 14</code></pre>
+## r2  4 -1 -6
+## r3 10 12  9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### matrix arithmetic
 
 row1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">220</span>, <span class="dv">137</span>)
@@ -874,6 +877,9 @@ m1</code></pre></div>
 </div>
 <div id="factors" class="section level2">
 <h2><span class="header-section-number">1.6</span> Factors</h2>
+<ul>
+<li>Factors in R are stored as a vector of integer values with a corresponding set of character values to use when the factor is displayed.</li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personnel &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Analyst1&quot;</span>, <span class="st">&quot;ManagerL2&quot;</span>, <span class="st">&quot;Analyst1&quot;</span>, <span class="st">&quot;Analyst2&quot;</span>,  <span class="st">&quot;Boss&quot;</span>, <span class="st">&quot;ManagerL1&quot;</span>, <span class="st">&quot;ManagerL2&quot;</span>, <span class="st">&quot;Programmer1&quot;</span>, <span class="st">&quot;Programmer2&quot;</span>, <span class="st">&quot;Programmer3&quot;</span>, <span class="st">&quot;Designer1&quot;</span>,<span class="st">&quot;Designer2&quot;</span>, <span class="st">&quot;OtherStaff&quot;</span>)  <span class="co"># staff in a company</span>
 
 personnel_factors &lt;-<span class="st"> </span><span class="kw">factor</span>(personnel)
@@ -893,7 +899,9 @@ personnel2</code></pre></div>
 ## 11 Levels: Boss ManagerL1 ManagerL2 Analyst1 Analyst2 ... OtherStaff</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(personnel2)</code></pre></div>
 <pre><code>##  Factor w/ 11 levels &quot;Boss&quot;,&quot;ManagerL1&quot;,..: 4 3 4 5 1 2 3 8 9 10 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(personnel2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A2&quot;</span>, <span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;P1&quot;</span>, <span class="st">&quot;P2&quot;</span>, <span class="st">&quot;P3&quot;</span>, <span class="st">&quot;OS&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a factor&#39;s levels will always be character values.</span>
+
+<span class="kw">levels</span>(personnel2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;M1&quot;</span>, <span class="st">&quot;M2&quot;</span>, <span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A2&quot;</span>, <span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;P1&quot;</span>, <span class="st">&quot;P2&quot;</span>, <span class="st">&quot;P3&quot;</span>, <span class="st">&quot;OS&quot;</span>)
 personnel2</code></pre></div>
 <pre><code>##  [1] A1 M2 A1 A2 B  M1 M2 P1 P2 P3 D1 D2 OS
 ## Levels: B M1 M2 A1 A2 D1 D2 P1 P2 P3 OS</code></pre>
@@ -1110,7 +1118,7 @@ song3$shared &lt;-<span class="st"> </span>shared
 ##   ..$ track   : num 2
 ##   ..$ rank    : num 6
 ##  $ shared  : chr [1:4] &quot;Hillary&quot; &quot;Javi&quot; &quot;Mikel&quot; &quot;Patty&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cities &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Donostia&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cities &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Tartu&quot;</span>)
 song3[[<span class="st">&quot;cities&quot;</span>]] &lt;-<span class="st"> </span>cities
 <span class="kw">str</span>(song3)</code></pre></div>
 <pre><code>## List of 7
@@ -1127,27 +1135,27 @@ song3[[<span class="st">&quot;cities&quot;</span>]] &lt;-<span class="st"> </spa
 ##  $ cities  :List of 3
 ##   ..$ : chr &quot;Bilbao&quot;
 ##   ..$ : chr &quot;New York&quot;
-##   ..$ : chr &quot;Donostia&quot;</code></pre>
+##   ..$ : chr &quot;Tartu&quot;</code></pre>
 <hr />
 </div>
 <div id="data-frames" class="section level2">
 <h2><span class="header-section-number">1.8</span> Data frames</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thenames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ane&quot;</span>, <span class="st">&quot;Mike&quot;</span>, <span class="st">&quot;Xabi&quot;</span>, <span class="st">&quot;Florentino&quot;</span>, <span class="st">&quot;Edurne&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">thenames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ane&quot;</span>, <span class="st">&quot;Mike&quot;</span>, <span class="st">&quot;Xabi&quot;</span>, <span class="st">&quot;Viktoria&quot;</span>, <span class="st">&quot;Edurne&quot;</span>)
 ages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">20</span>, <span class="dv">33</span>, <span class="dv">15</span>, <span class="dv">65</span>)
 employee &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
 
 mydataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(thenames, ages, employee)
 mydataframe</code></pre></div>
-<pre><code>##     thenames ages employee
-## 1        Ane   44    FALSE
-## 2       Mike   20    FALSE
-## 3       Xabi   33     TRUE
-## 4 Florentino   15     TRUE
-## 5     Edurne   65    FALSE</code></pre>
+<pre><code>##   thenames ages employee
+## 1      Ane   44    FALSE
+## 2     Mike   20    FALSE
+## 3     Xabi   33     TRUE
+## 4 Viktoria   15     TRUE
+## 5   Edurne   65    FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(mydataframe) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FirstName&quot;</span>, <span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)
 <span class="kw">str</span>(mydataframe)</code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    5 obs. of  3 variables:
-##  $ FirstName: Factor w/ 5 levels &quot;Ane&quot;,&quot;Edurne&quot;,..: 1 4 5 3 2
+##  $ FirstName: Factor w/ 5 levels &quot;Ane&quot;,&quot;Edurne&quot;,..: 1 3 5 4 2
 ##  $ Age      : num  44 20 33 15 65
 ##  $ Employee : logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#strings are not factors!</span>
@@ -1157,7 +1165,7 @@ mydataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(the
 <span class="kw">names</span>(mydataframe) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FirstName&quot;</span>, <span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)
 <span class="kw">str</span>(mydataframe)</code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    5 obs. of  3 variables:
-##  $ FirstName: chr  &quot;Ane&quot; &quot;Mike&quot; &quot;Xabi&quot; &quot;Florentino&quot; ...
+##  $ FirstName: chr  &quot;Ane&quot; &quot;Mike&quot; &quot;Xabi&quot; &quot;Viktoria&quot; ...
 ##  $ Age      : num  44 20 33 15 65
 ##  $ Employee : logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subset data frame</span>
@@ -1167,7 +1175,7 @@ mydataframe[<span class="dv">4</span>,<span class="dv">2</span>]</code></pre></d
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[<span class="dv">4</span>, <span class="st">&quot;Age&quot;</span>]</code></pre></div>
 <pre><code>## [1] 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[, <span class="st">&quot;FirstName&quot;</span>]</code></pre></div>
-<pre><code>## [1] &quot;Ane&quot;        &quot;Mike&quot;       &quot;Xabi&quot;       &quot;Florentino&quot; &quot;Edurne&quot;</code></pre>
+<pre><code>## [1] &quot;Ane&quot;      &quot;Mike&quot;     &quot;Xabi&quot;     &quot;Viktoria&quot; &quot;Edurne&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframe[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Employee&quot;</span>)]</code></pre></div>
 <pre><code>##   Age Employee
 ## 2  20    FALSE
@@ -1193,66 +1201,69 @@ mydf0 &lt;-<span class="st"> </span>mydataframe[<span class="dv">3</span>] <span
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span>mydataframe[[<span class="dv">3</span>]]  <span class="co">#vector</span>
 <span class="kw">str</span>(myvec)</code></pre></div>
 <pre><code>##  logi [1:5] FALSE FALSE TRUE TRUE FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf0asvec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(mydataframe[<span class="dv">3</span>]) <span class="co"># but it doesn&#39;t work </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf0asvec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(mydataframe[<span class="dv">3</span>]) <span class="co"># but it doesn&#39;t work . Use [[]]</span>
 <span class="kw">str</span>(mydf0asvec)</code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    5 obs. of  1 variable:
 ##  $ Employee: logi  FALSE FALSE TRUE TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydf0asvec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(mydataframe[[<span class="dv">3</span>]])
+<span class="kw">str</span>(mydf0asvec)</code></pre></div>
+<pre><code>##  logi [1:5] FALSE FALSE TRUE TRUE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add column</span>
 height &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">166</span>, <span class="dv">165</span>, <span class="dv">158</span>, <span class="dv">176</span>, <span class="dv">199</span>)
 weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">99</span>, <span class="dv">88</span>, <span class="dv">109</span>)
 mydataframe$height &lt;-<span class="st"> </span>height 
 mydataframe[[<span class="st">&quot;weight&quot;</span>]] &lt;-<span class="st"> </span>weight
 mydataframe</code></pre></div>
-<pre><code>##    FirstName Age Employee height weight
-## 1        Ane  44    FALSE    166     66
-## 2       Mike  20    FALSE    165     77
-## 3       Xabi  33     TRUE    158     99
-## 4 Florentino  15     TRUE    176     88
-## 5     Edurne  65    FALSE    199    109</code></pre>
+<pre><code>##   FirstName Age Employee height weight
+## 1       Ane  44    FALSE    166     66
+## 2      Mike  20    FALSE    165     77
+## 3      Xabi  33     TRUE    158     99
+## 4  Viktoria  15     TRUE    176     88
+## 5    Edurne  65    FALSE    199    109</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a column </span>
 
-birthplace &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tolosa&quot;</span>, <span class="st">&quot;London&quot;</span>, <span class="st">&quot;Zarautz&quot;</span>, <span class="st">&quot;Irun&quot;</span>, <span class="st">&quot;New York&quot;</span>)
+birthplace &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tallinn&quot;</span>, <span class="st">&quot;London&quot;</span>, <span class="st">&quot;Donostia&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;New York&quot;</span>)
 
 mydataframe &lt;-<span class="st"> </span><span class="kw">cbind</span>(mydataframe, birthplace)
 mydataframe</code></pre></div>
-<pre><code>##    FirstName Age Employee height weight birthplace
-## 1        Ane  44    FALSE    166     66     Tolosa
-## 2       Mike  20    FALSE    165     77     London
-## 3       Xabi  33     TRUE    158     99    Zarautz
-## 4 Florentino  15     TRUE    176     88       Irun
-## 5     Edurne  65    FALSE    199    109   New York</code></pre>
+<pre><code>##   FirstName Age Employee height weight birthplace
+## 1       Ane  44    FALSE    166     66    Tallinn
+## 2      Mike  20    FALSE    165     77     London
+## 3      Xabi  33     TRUE    158     99   Donostia
+## 4  Viktoria  15     TRUE    176     88      Paris
+## 5    Edurne  65    FALSE    199    109   New York</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a row </span>
 
-xabier &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FirstName =</span> <span class="st">&quot;Xabier&quot;</span>, <span class="dt">Age =</span> <span class="dv">77</span>, <span class="dt">Employee=</span><span class="ot">TRUE</span>, <span class="dt">height=</span> <span class="dv">170</span>, <span class="dt">weight =</span> <span class="dv">65</span>, <span class="dt">birthplace =</span><span class="st">&quot;Donostia&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
-mydataframe &lt;-<span class="st"> </span><span class="kw">rbind</span> (mydataframe, xabier)
+anton &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FirstName =</span> <span class="st">&quot;Anton&quot;</span>, <span class="dt">Age =</span> <span class="dv">77</span>, <span class="dt">Employee=</span><span class="ot">TRUE</span>, <span class="dt">height=</span> <span class="dv">170</span>, <span class="dt">weight =</span> <span class="dv">65</span>, <span class="dt">birthplace =</span><span class="st">&quot;Amsterdam&quot;</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+mydataframe &lt;-<span class="st"> </span><span class="kw">rbind</span> (mydataframe, anton)
 mydataframe</code></pre></div>
-<pre><code>##    FirstName Age Employee height weight birthplace
-## 1        Ane  44    FALSE    166     66     Tolosa
-## 2       Mike  20    FALSE    165     77     London
-## 3       Xabi  33     TRUE    158     99    Zarautz
-## 4 Florentino  15     TRUE    176     88       Irun
-## 5     Edurne  65    FALSE    199    109   New York
-## 6     Xabier  77     TRUE    170     65   Donostia</code></pre>
+<pre><code>##   FirstName Age Employee height weight birthplace
+## 1       Ane  44    FALSE    166     66    Tallinn
+## 2      Mike  20    FALSE    165     77     London
+## 3      Xabi  33     TRUE    158     99   Donostia
+## 4  Viktoria  15     TRUE    176     88      Paris
+## 5    Edurne  65    FALSE    199    109   New York
+## 6     Anton  77     TRUE    170     65  Amsterdam</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sorting </span>
 
 mydataframeSorted &lt;-<span class="st"> </span>mydataframe[<span class="kw">order</span>(mydataframe$Age, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), ]  <span class="co">#all columns</span>
 mydataframeSorted</code></pre></div>
-<pre><code>##    FirstName Age Employee height weight birthplace
-## 6     Xabier  77     TRUE    170     65   Donostia
-## 5     Edurne  65    FALSE    199    109   New York
-## 1        Ane  44    FALSE    166     66     Tolosa
-## 3       Xabi  33     TRUE    158     99    Zarautz
-## 2       Mike  20    FALSE    165     77     London
-## 4 Florentino  15     TRUE    176     88       Irun</code></pre>
+<pre><code>##   FirstName Age Employee height weight birthplace
+## 6     Anton  77     TRUE    170     65  Amsterdam
+## 5    Edurne  65    FALSE    199    109   New York
+## 1       Ane  44    FALSE    166     66    Tallinn
+## 3      Xabi  33     TRUE    158     99   Donostia
+## 2      Mike  20    FALSE    165     77     London
+## 4  Viktoria  15     TRUE    176     88      Paris</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydataframeSorted2 &lt;-<span class="st"> </span>mydataframe[<span class="kw">order</span>(mydataframe$Age, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>) ]
 mydataframeSorted2</code></pre></div>
-<pre><code>##    FirstName Age birthplace
-## 6     Xabier  77   Donostia
-## 5     Edurne  65   New York
-## 1        Ane  44     Tolosa
-## 3       Xabi  33    Zarautz
-## 2       Mike  20     London
-## 4 Florentino  15       Irun</code></pre>
+<pre><code>##   FirstName Age birthplace
+## 6     Anton  77  Amsterdam
+## 5    Edurne  65   New York
+## 1       Ane  44    Tallinn
+## 3      Xabi  33   Donostia
+## 2      Mike  20     London
+## 4  Viktoria  15      Paris</code></pre>
 </div>
 <div id="reading-data" class="section level2">
 <h2><span class="header-section-number">1.9</span> Reading Data</h2>

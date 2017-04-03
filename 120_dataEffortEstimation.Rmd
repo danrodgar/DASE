@@ -1,0 +1,55 @@
+## Effort Estimation Data in Software Engineering
+
+
+It is worth highlighting the case of software effort estimation datasets with their peculiarities. First, most effort estimation datasets used in the literature are scattered through research papers with the exception of a few kept in the PROMISE repository. Mair et al [-@MairSJ05] also have analysed available datasets in the field of cost estimation identifying 65 different datasets in 50 papers. 
+
+Second, their size is very small with the exception of ISBSG repository discussed previously which a small sample is available through PROMISE and the China dataset with 499 instances. 
+
+Third, some can be quite old in a context and time that is not applicable to current development environments. The authors noted that the oldest datasets (COCOMO, Desharnais, Kemerer and Albrecht and Gaffney) tend to be the most studied ones and a subset of the most relevant ones. Also, from the artificial intelligence or data mining point of view  effort estimation has been mainly tackled with different types of regression techniques and more recently with techniques which are also typically considered under the umbrella of data mining techniques. However, as the number of examples per dataset is increasing, other machine learning techniques are also being studied (e.g.: Dejaeger et al [-@Dejaeger_TSE12_EffEst] report on a comparison of several machine learning techniques to effort estimation with only 5 out the 9 used datasets publicly available). From the data mining point of view, the small number of instances hinders the application of machine learning techniques. 
+
+
+However, software effort and cost estimation still remain one of the main challenges in software engineering and have attracted a great deal of interest by many researchers [-@Jorgensen07]. For example, there are continuous analyses of whether software development follows economies or diseconomies of scale (see [@Dolado01_CostEst,@Banker1994,@Kitchenham2002]).
+
+
+Next Table \@ref(tab:effEstimation) (following Mair et al [-@MairSJ05] ) shows the most open cost/effort datasets available in the literature with their main reference.
+
+Table: (\#tab:effEstimation) Effort Estimation Dataset from articles
+
+| Reference                         | Instances     | Attributes  |
+| ----------------------------------| ------------: |------------:|
+|Abran and Robillard [-@Abran_TSE96_FP] 		| 21 | 31|
+|Albrecht-Gaffney [-@AlbrechtG83] 			    | 24 | 7 |
+|Bailey and Basili [-@Bailey81]  			| 18 | 9 |
+|Belady and Lehman [-@Belady79]  			| 33 |   |
+|Boehm (aka COCOMO Dataset) [-@Boehm81] 		| 63 |  43 |
+|Desharnais [-@Desharnais88] 			| 61 |  10 |
+|Dolado [-@Dolado97] 				| 24 | 7 |
+|Hastings and Sajeev [-@Hastings01]  		|  8 | 14 |
+|Heiat and Heiat [@Heiat97] 			| 35 | 4  |
+|Jeffery and Stathis [-@Jeffery_ESE96]		| 17 | 7 |
+|Jorgensen [-@Jorgensen04]			| 47 | 4 |
+|Jorgensen et al. [-@Jorgensen2003] 		| 20 | 4 |
+|Kemerer [-@Kemerer87] 				| 15 | 5 |
+|Kitchenham (Mermaid 2) [-@Kitchenham2002]		| 30 | 5 |
+|Kitchenham et al. (CSC) [-@Kitchenham02_CSC]	| 145 | 9  |
+|Kitchenham and Taylor (ICL) [-@Kitchenham85]	| 10 | 6 |
+|Kitchenham and Taylor (BT System X) [-@Kitchenham85]		| 10 | 3 |
+|Kitchenham and Taylor (BT Software Houses) [-@Kitchenham85]	| 12 | 6 |
+|Keung et al. (China dataset) [-@Keung11][^1] | 499 | 18 |
+|Li et al.(USP05) [-@LiRAR07][^2] | 202 | 16 |
+|Mišić and Tevsić [-@Misic19981]		| 6  | 16 |
+|Maxwell (Dev Effort) [-@Maxwell02]			| 63  |	32 |
+|Maxwell (Maintenance Eff) [-@Maxwell02]		| 67  | 28 |
+|Miyazaki et al. [-@Miyazaki94] 			| 47 | 9 |
+|Moser et al. [-@Moser1999]				| 37 | 4 |
+|Shepperd and Cartwright [@Shepperd_TSE01] 	| 39 | 3 |
+|Shepperd and Schofield (Telecom 1) [-@Shepperd97_Analogy]  | 18 | 5 |
+|Schofield (real-time 1) [-@Schofield98PhD,@Shepperd97_Analogy] | 21 | 4 |
+|Schofield (Mermaid) [-@Schofield98PhD] 		| 30 | 18 |
+|Schofield (Finnish) [-@Schofield98PhD] 		| 39 | 30 |
+|Schofield (Hughes) [-@Schofield98PhD] 		| 33 | 14|
+|Woodfield et al. [-@Woodfield81] | 63 | 8 |
+
+
+[^1]: Donated through PROMISE.
+[^2]: Only a subset of the data in the paper, the complete dataset is donated through PROMISE

@@ -8,6 +8,7 @@ rmd_files: [
 
   "100_intro.Rmd",
   "110_dataSources.Rmd",
+  "120_dataEffortEstimation.Rmd",
 
   "200_exploratoryDataAnalysis.Rmd",
   "220_classicalHypothesisTesting.Rmd",

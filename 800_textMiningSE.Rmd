@@ -294,7 +294,8 @@ As data frame:
 
 ```{r results='hide'}
 #dtmdf <- as.data.frame(dtm.90)
-dtmdf <- as.data.frame(inspect(dtm_sprs))
+inspect(dtm_sprs)
+dtmdf <- as.data.frame(as.matrix(dtm_sprs))
 # rownames(dtm)<- 1:nrow(dtm)
 
 class <- d$revBug

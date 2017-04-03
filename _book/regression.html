@@ -15,7 +15,7 @@
   
   
   <meta property="og:description" content="DASE Data Analysis in Software Engineering" />
-  <meta name="github-repo" content="danrodgar/dasedown" />
+  <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
@@ -26,7 +26,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-02-27">
+<meta name="date" content="2017-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -136,6 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#types-of-information-stored-in-the-repositories"><i class="fa fa-check"></i><b>3.1</b> Types of information stored in the repositories</a></li>
 <li class="chapter" data-level="3.2" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#repositories"><i class="fa fa-check"></i><b>3.2</b> Repositories</a></li>
 <li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-toolsdashboards-to-extract-data"><i class="fa fa-check"></i><b>3.3</b> Some Tools/Dashboards to extract data</a></li>
+<li class="chapter" data-level="3.4" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#effort-estimation-data-in-software-engineering"><i class="fa fa-check"></i><b>3.4</b> Effort Estimation Data in Software Engineering</a></li>
 </ul></li>
 <li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
 <li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
@@ -277,7 +278,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="21" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>21</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="22" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>22</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="22.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>22.1</b> Terminology</a></li>
-<li class="chapter" data-level="22.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>22.2</b> Basic <code>tm</code> commands</a></li>
+<li class="chapter" data-level="22.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>22.2</b> Basic <strong>tm</strong> commands</a></li>
 <li class="chapter" data-level="22.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>22.3</b> Example of classifying bugs from Bugzilla</a></li>
 <li class="chapter" data-level="22.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>22.4</b> Extracting data from Twitter</a></li>
 </ul></li>
@@ -311,7 +312,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">11.1</span> Linear Regression modeling</h2>
 <ul>
 <li><p><em>Linear Regression</em> is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. The idea is that the independent variable <span class="math inline">\(x\)</span> is something the experimenter controls and the dependent variable <span class="math inline">\(y\)</span> is something that the experimenter measures. The line is used to predict the value of <span class="math inline">\(y\)</span> for a known value of <span class="math inline">\(x\)</span>. The variable <span class="math inline">\(x\)</span> is the predictor variable and <span class="math inline">\(y\)</span> the response variable.</p></li>
-<li><p><em>Multiple linear regression</em> uses 2 or more independent variables for building a model <a href="https://www.wikipedia.org/wiki/Linear_regression" class="uri">https://www.wikipedia.org/wiki/Linear_regression</a>.</p></li>
+<li><p><em>Multiple linear regression</em> uses 2 or more independent variables for building a model. See <a href="https://www.wikipedia.org/wiki/Linear_regression" class="uri">https://www.wikipedia.org/wiki/Linear_regression</a>.</p></li>
 <li><p>First proposed many years ago but still very useful…</p></li>
 </ul>
 <div class="figure">
@@ -380,7 +381,7 @@ lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(galton$child ~<span
 <ul>
 <li>The basic function is <code>lm()</code>, that returns an object with the model.</li>
 <li>Other commands: <code>summary</code> prints out information about the regression, <code>coef</code> gives the coefficients for the linear model, <code>fitted</code> gives the predictd value of <span class="math inline">\(y\)</span> for each value of <span class="math inline">\(x\)</span>, <code>residuals</code> contains the differences between observed and fitted values.</li>
-<li><code>predict</code> will generate predicted values of the response for the values of the explanatory variable.</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.lm.html"><code>predict</code></a> will generate predicted values of the response for the values of the explanatory variable.</li>
 </ul>
 </div>
 </div>
@@ -391,7 +392,7 @@ lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(galton$child ~<span
 <ul>
 <li><em>Residuals vs fitted</em>: The residuals should be randomly distributed around the horizontal line representing a residual error of zero; that is, there should not be a distinct trend in the distribution of points.</li>
 <li><em>Standard Q-Q plot</em>: residual errors are normally distributed</li>
-<li><em>Square root of the standardized residuals vs the fitted value</em>s: there should be no obvious trend.</li>
+<li><em>Square root of the standardized residuals vs the fitted values</em>: there should be no obvious trend. This plot is similar to the residuals versus fitted values plot, but it uses the square root of the standardized residuals.</li>
 <li><em>Leverage</em>: measures the importance of each point in determining the regression result. Smaller values means that removing the observation has little effect on the regression result.</li>
 </ul></li>
 </ul>
@@ -563,9 +564,15 @@ ypredicted &lt;-<span class="st"> </span><span class="kw">predict</span>(newlm3,
 <h3><span class="header-section-number">11.2.2</span> Diagnostics fro assessing the regression line</h3>
 <div id="residual-standard-error" class="section level4">
 <h4><span class="header-section-number">11.2.2.1</span> Residual Standard Error</h4>
+<ul>
+<li>It gives us an idea of the typical or average error of the model. It is the estimated standard deviation of the residuals.</li>
+</ul>
 </div>
 <div id="r2-statistic" class="section level4">
 <h4><span class="header-section-number">11.2.2.2</span> <span class="math inline">\(R^2\)</span> statistic</h4>
+<ul>
+<li>This is the proportion of variability in the data that is explained by the model. Best values are those close to 1.</li>
+</ul>
 </div>
 </div>
 </div>
