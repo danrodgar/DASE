@@ -26,7 +26,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-04-03">
+<meta name="date" content="2017-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -314,7 +314,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>Irrelevant and redundant attributes can generate less accurate and more complex models. Furthermore, data mining algorithms can be executed faster.</p></li>
 <li><p>It avoids the collection of data for those irrelevant and redundant attributes in the future.</p></li>
 </ul>
-<p>The problem of feature selection received a thorough treatment in pattern recognition and machine learning. Most of the feature selection algorithms tackle the task as a search problem, where each state in the search specifies a distinct subset of the possible attributes~. The search procedure is combined with a criterion to evaluate the merit of each candidate subset of attributes. There are a multiple possible combinations between each procedure search and each attribute measure~.</p>
+<p>The problem of feature selection received a thorough treatment in pattern recognition and machine learning. Most of the feature selection algorithms tackle the task as a search problem, where each state in the search specifies a distinct subset of the possible attributes~[<span class="citation">Blum and Langley (<a href="#ref-BL97">1997</a>)</span>}. The search procedure is combined with a criterion to evaluate the merit of each candidate subset of attributes. There are a multiple possible combinations between each procedure search and each attribute measure~[<span class="citation">Liu and Yu (<a href="#ref-LY05">2005</a>)</span>}.</p>
 <p>There are two major approaches in FS from the method’s output point of view:</p>
 <ul>
 <li><p>Feature subset selection (FSS)</p></li>
@@ -323,17 +323,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>FFS algorithms designed with different evaluation criteria broadly fall into two categories:</p>
 <ul>
 <li><p>The <em>filter</em> model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.</p></li>
-<li><p>The <em>wrapper</em> model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model~.</p></li>
+<li><p>The <em>wrapper</em> model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model <span class="citation">(Kohavi and John <a href="#ref-KJ97">1997</a>,<span class="citation">Langley (<a href="#ref-Lan94">1994</a>)</span>)</span>.</p></li>
 </ul>
-<p>Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure~ which captures the goodness of each subset. An optimal (or near optimal) subset is selected when the search stops.</p>
-<p>Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure , the correlation measure  and the estimated accuracy of a learning algorithm .</p>
+<p>Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure <span class="citation">(Liu and Motoda <a href="#ref-LM98">1998</a>)</span> which captures the goodness of each subset. An optimal (or near optimal) subset is selected when the search stops.</p>
+<p>Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure <span class="citation">(Dash, Liu, and Motoda <a href="#ref-DLM00">2000</a>)</span>, the correlation measure <span class="citation">(Hall <a href="#ref-Hal99">1999</a>)</span> and the estimated accuracy of a learning algorithm <span class="citation">(Kohavi and John <a href="#ref-KJ97">1997</a>)</span>.</p>
 <ul>
 <li><p><em>Consistency</em> measure attempts to find a minimum number of features that separate classes as consistently as the full set of features can. An inconsistency is defined as to instances having the same feature values but different class labels.</p></li>
 <li><p><em>Correlation</em> measure evaluates the goodness of feature subsets based on the hypothesis that good feature subsets contain features highly correlated to the class, yet uncorrelated to each other.</p></li>
 <li><p><em>Wrapper-based</em> attribute selection uses the target learning algorithm to estimate the worth of attribute subsets. The feature subset selection algorithm conducts a search for a good subset using the induction algorithm itself as part of the evaluation function.</p></li>
 </ul>
-<p>Langley~ notes that feature selection algorithms that search through the space of feature subsets must address four main issues: the starting point of the search, the organization of the search, the evaluation of features subsets and the criterion used to terminate the search. Different algorithms address theses issues differently.</p>
-<p>It is impractical to look at all possible feature subsets, even if the size is small. Feature selection algorithms usually proceed greedily. They can be classified into those that add features to an initially empty set () and those that remove features from an initially complete set (). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide range of search strategies can be used: best-first, branch-and-bound, simulated annealing, genetic algorithms (see Kohavi and John~ for a review).</p>
+<p>Langley~<span class="citation">(Langley <a href="#ref-Lan94">1994</a>)</span> notes that feature selection algorithms that search through the space of feature subsets must address four main issues: the starting point of the search, the organization of the search, the evaluation of features subsets and the criterion used to terminate the search. Different algorithms address theses issues differently.</p>
+<p>It is impractical to look at all possible feature subsets, even if the size is small. Feature selection algorithms usually proceed greedily. They can be classified into those that add features to an initially empty set (<em>forward selection</em>) and those that remove features from an initially complete set (<em>backwards elimination</em>). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide range of search strategies can be used: best-first, branch-and-bound, simulated annealing, genetic algorithms (see Kohavi and John~<span class="citation">(<a href="#ref-KJ97">1997</a>)</span> for a review).</p>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-BL97">
+<p>Blum, A.L., and P. Langley. 1997. “Selection of Relevant Features and Examples in Machine Learning.” Edited by R. Greiner and D. Subramanian. <em>Artificial Intelligence</em> 97 (1-2): 245–71.</p>
+</div>
+<div id="ref-LY05">
+<p>Liu, H., and L. Yu. 2005. “Toward Integrating Feature Selection Algorithms for Classification and Clustering.” <em>IEEE Trans. on Knowledge and Data Eng.</em> 17 (3): 1–12.</p>
+</div>
+<div id="ref-KJ97">
+<p>Kohavi, R., and G.H. John. 1997. “Wrappers for Feature Subset Selection.” <em>Artificial Intelligence</em> 1-2: 273–324.</p>
+</div>
+<div id="ref-Lan94">
+<p>Langley, P. 1994. “Selection of Relevant Features in Machine Learning.” In <em>Procs. of the Aaai Fall Symposium on Relevance</em>, 140–44.</p>
+</div>
+<div id="ref-LM98">
+<p>Liu, H., and H. Motoda. 1998. <em>Feature Selection for Knowlegde Discovery and Data Mining</em>. London, UK: Kluwer Academic Publishers.</p>
+</div>
+<div id="ref-DLM00">
+<p>Dash, M., H. Liu, and H. Motoda. 2000. “Consistency Based Feature Selection.” In <em>Pacific-Asia Conf. on Knowledge Discovery and Data Mining</em>, 98–109.</p>
+</div>
+<div id="ref-Hal99">
+<p>Hall, M.A. 1999. “Correlation-Based Feature Selection for Machine Learning.” PhD thesis, Hamilton, New Zealand: University of Waikato, Department of Computer Science.</p>
+</div>
 </div>
             </section>
 

@@ -5,16 +5,15 @@
 The goal of the first part of this book is to get you up to speed with the basics of __R__ as quickly as possible. 
 
 ## Installation 
-  - Follow the procedures according to your operating system.
-  - Linux: You need to have blas and gfortran installed on your Linux, for installing the 'coin' package.
-  - Rgraphviz requires installation from          source("http://bioconductor.org/biocLite.R")
-    biocLite("Rgraphviz")
+  * Follow the procedures according to your operating system.
+  * Linux: You need to have blas and gfortran installed on your Linux, for installing the 'coin' package.
+  * _Rgraphviz_ requires installation from  `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
 
 ## R and RStudio
-  - R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
-  - R has multiple online resources and books.
-  - [R coding style](https://google.github.io/styleguide/Rguide.xml)
-  - Getting help in R
+  * R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
+  * R has multiple online resources and books.
+  * [R coding style](https://google.github.io/styleguide/Rguide.xml)
+  * Getting help in R
     + [RStudio cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf) 
     + [Base R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
     + [Advanced R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
@@ -39,32 +38,31 @@ summary(lm_1)         # Compute and print statistics for the fit
 par(mfrow=c(2, 2))    # Request 2x2 plot layout
 plot(lm_1)            # Diagnostic plot of regression model
 ```  
-  - R script. # A file with R commands
-    # comments
-    source("filewithcommands.R")
-    sink("recordmycommands.lis")
-    savehistory()
-  - From command line:
+  * R script. # A file with R commands
+    `# comments`
+    `source("filewithcommands.R")`
+    `sink("recordmycommands.lis")`
+    `savehistory()`
+  * From command line:
     + Rscript  
-      Rscript file | -e (e.g. Rscript -e 2+2)  
-      quit()
+    + Rscript file with `-e` (e.g. `Rscript -e 2+2`)  
+    + To exit R: `quit()`
  
-  - Variables
-  - Operators
-    + assign operator <-   
-    + sequence operator : Example:    mynums <- 0:20 
+  * Variables
+  * Operators
+    + assign operator `<-`   
+    + sequence operator : Example: `mynums <- 0:20`
     + arithmetic operators: + - = / ^   %/% (integer division) %% (modulus operator)
-  - The workspace. Objects.
-    + ls() objects()  ls.str() lists and describes   
-    + rm(x) delete a variable
-    + s.str()
-    + objects()
-    + rm(totalCost)
-    + str(   ) #(Structure) provides information about the variable
-  -RStudio, RCommander and RKWard are the best known IDEs for R. 
+  * The workspace. Objects.
+    + `ls()` `objects()`  `ls.str()` lists and describes the objects   
+    + `rm(x)` delete a variable. E.g., `rm(totalCost)`
+    + `s.str()`
+    + `objects()`
+    + `str()`  The structure function provides information about the variable
+  * RStudio, RCommander and RKWard are the well-known IDEs for R (more later). 
 
 ***
-  - Four # ('####') create an environment in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names. 
+  * Four # ('####') create an _environment_ in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names. 
     + [Environment basics](http://adv-r.had.co.nz/Environments.html#env-basics)
 
 
