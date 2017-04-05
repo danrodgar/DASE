@@ -17,38 +17,32 @@ Typically, preprocessing consist of the following tasks (subprocesses):
 
 ## Data
 
-*Consistent* data are semantically correct based on real-world knowledge of the problem, i.e., no constrains are violated and data that can be used for inducing models and analysis. For example, the LoC or effort is constrained to non-negative values. We can also consider that to multiple attributes are consistent among them, and even datasets (e.g., same metrics but collected by different tools)
+_Consistent_ data are semantically correct based on real-world knowledge of the problem, i.e., no constrains are violated and data that can be used for inducing models and analysis. For example, the LoC or effort is constrained to non-negative values. We can also consider that to multiple attributes are consistent among them, and even datasets (e.g., same metrics but collected by different tools)
 
 
 
 ## Missing values
 
-Three types of problems are usually associated with MVs in DM [5]:
+_Missing values_ will have a negative effect when analysing the data or learning models. The results can be biased when compared with the models induced from the complete data, the results can be harder to analyse, it may be needed to discard records with missing values depending on the algorithm and this can be an important problems with small datasets such as the effort estimation ones.
 
-  1. loss of efficiency
-  2. complications in handling and analyzing the data
-  3. bias resulting from differences between missing and complete data.
+Missing data is typically classified into:
+  * MCAR (Missing Completely at Random) or MAR (Missing At Random) where there is no reason for those missing values and we can assume that the distribution could follow the attribute's distribution.
+  * MNAR (Missing Not At Random)  where there is a pattern for those missing values and it may may be advisable to check the data gathering process to try to understand why such information is missing. 
 
-Imputation consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and imputation methods are needed. 
-
-In R, a missing value is represented with `NA` and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the `na.rm` option.
-
-
-
-## Imputation methods
-
-We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute.
-
-More elaborated approaches include:
+_Imputation_ consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and therefore, imputation methods are needed. We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute. More elaborated approaches include:
 
   * EM (Expectation-Maximisation)
   * Distance-based
       + kNN (k Nearest Neighbours)
       + Clustering
 
+In R, a missing value is represented with `NA` and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the `na.rm` option.
+
+The `mice` R package. MICE (Multivariate Imputation via Chained Equations) assumes that data are missing at random.  Other packages include `Amelia`, `missForest`, `Hmisc` and `mi`.
+
 ## Noise
 
-Imperfections of the real-world data that influences negatively in the induced machine learning models. Approaches to deal with noisy data:
+Imperfections of the real-world data that influences negatively in the induced machine learning models. Approaches to deal with noisy data include:
  * Robust learners capable of handling noisy data (e.g., C4.5 through pruning strategies)
  * Data polishing methods which aim to correct noisy instances prior training
  * Noise filters which are used to identify and eliminate noisy instances from the training data.
