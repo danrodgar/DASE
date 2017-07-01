@@ -6,16 +6,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Data Analysis in Software Engineering using R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="DASE Data Analysis in Software Engineering" />
-  <meta name="github-repo" content="danrodgar/dasedown" />
+  <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-02-27">
+<meta name="date" content="2017-07-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="social-network-analysis-in-se.html">
 <link rel="next" href="time-series.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -95,6 +93,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 
 
+
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
     <div class="book-summary">
@@ -132,157 +131,156 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-r"><i class="fa fa-check"></i><b>2.3</b> Data Mining with R</a></li>
 <li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.4</b> Data Mining with Weka</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a><ul>
-<li class="chapter" data-level="3.1" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#types-of-information-stored-in-the-repositories"><i class="fa fa-check"></i><b>3.1</b> Types of information stored in the repositories</a></li>
-<li class="chapter" data-level="3.2" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#repositories"><i class="fa fa-check"></i><b>3.2</b> Repositories</a></li>
-<li class="chapter" data-level="3.3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html#some-toolsdashboards-to-extract-data"><i class="fa fa-check"></i><b>3.3</b> Some Tools/Dashboards to extract data</a></li>
+<li class="part"><span><b>III Data Sources and Metrics and Standards in Software Engineering Defect Prediction</b></span></li>
+<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a></li>
+<li class="chapter" data-level="4" data-path="repositories.html"><a href="repositories.html"><i class="fa fa-check"></i><b>4</b> Repositories</a></li>
+<li class="chapter" data-level="5" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html"><i class="fa fa-check"></i><b>5</b> Open Tools/Dashboards to extract data</a><ul>
+<li class="chapter" data-level="5.1" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#issues"><i class="fa fa-check"></i><b>5.1</b> Issues</a></li>
+<li class="chapter" data-level="5.2" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#effort-estimation-data-in-software-engineering"><i class="fa fa-check"></i><b>5.2</b> Effort Estimation Data in Software Engineering</a></li>
 </ul></li>
-<li class="part"><span><b>III Exploratory and Descriptive Data analysis</b></span></li>
-<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>4.1</b> Descriptive statistics</a></li>
-<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>4.2</b> Basic Plots</a></li>
-<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#normality"><i class="fa fa-check"></i><b>4.3</b> Normality</a></li>
-<li class="chapter" data-level="4.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#running-example"><i class="fa fa-check"></i><b>4.4</b> Running Example</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#example-with-the-china-dataset-promise-repository"><i class="fa fa-check"></i><b>4.4.1</b> Example with the China dataset (Promise Repository)</a></li>
+<li class="part"><span><b>IV Exploratory and Descriptive Data analysis</b></span></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>6.2</b> Basic Plots</a></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#normality"><i class="fa fa-check"></i><b>6.3</b> Normality</a></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#using-a-running-example-to-visualise-the-different-plots"><i class="fa fa-check"></i><b>6.4</b> Using a running Example to visualise the different plots</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#example-with-the-china-dataset-from-the-tera-promise-repository"><i class="fa fa-check"></i><b>6.4.1</b> Example with the China dataset (from the tera-Promise Repository)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation"><i class="fa fa-check"></i><b>4.5</b> Correlation</a></li>
-<li class="chapter" data-level="4.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>4.6</b> Confidence Intervals. Bootstrap</a></li>
-<li class="chapter" data-level="4.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>4.7</b> Nonparametric Bootstrap</a></li>
+<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation"><i class="fa fa-check"></i><b>6.5</b> Correlation</a></li>
+<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>6.6</b> Confidence Intervals. Bootstrap</a></li>
+<li class="chapter" data-level="6.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>6.7</b> Nonparametric Bootstrap</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Classical Hypothesis Testing</a><ul>
-<li class="chapter" data-level="5.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>5.1</b> p-values</a></li>
+<li class="chapter" data-level="7" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Classical Hypothesis Testing</a><ul>
+<li class="chapter" data-level="7.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>7.1</b> p-values</a></li>
 </ul></li>
-<li class="part"><span><b>IV Preprocessing</b></span></li>
-<li class="chapter" data-level="6" data-path="preprocessing.html"><a href="preprocessing.html"><i class="fa fa-check"></i><b>6</b> Preprocessing</a><ul>
-<li class="chapter" data-level="6.1" data-path="preprocessing.html"><a href="preprocessing.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
-<li class="chapter" data-level="6.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>6.2</b> Missing values</a></li>
-<li class="chapter" data-level="6.3" data-path="preprocessing.html"><a href="preprocessing.html#imputation-methods"><i class="fa fa-check"></i><b>6.3</b> Imputation methods</a></li>
-<li class="chapter" data-level="6.4" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>6.4</b> Noise</a></li>
-<li class="chapter" data-level="6.5" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>6.5</b> Outliers</a></li>
+<li class="part"><span><b>V Preprocessing</b></span></li>
+<li class="chapter" data-level="8" data-path="preprocessing.html"><a href="preprocessing.html"><i class="fa fa-check"></i><b>8</b> Preprocessing</a><ul>
+<li class="chapter" data-level="8.1" data-path="preprocessing.html"><a href="preprocessing.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
+<li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
+<li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
+<li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
+<li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
+<li class="chapter" data-level="8.9" data-path="preprocessing.html"><a href="preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>8.9</b> Normalization</a><ul>
+<li class="chapter" data-level="8.9.1" data-path="preprocessing.html"><a href="preprocessing.html#min-max-normalization"><i class="fa fa-check"></i><b>8.9.1</b> Min-Max Normalization</a></li>
+<li class="chapter" data-level="8.9.2" data-path="preprocessing.html"><a href="preprocessing.html#z-score-normalization"><i class="fa fa-check"></i><b>8.9.2</b> Z-score normalization</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="feature-selection-fs.html"><a href="feature-selection-fs.html"><i class="fa fa-check"></i><b>7</b> Feature selection (FS)</a></li>
-<li class="chapter" data-level="8" data-path="instance-selection.html"><a href="instance-selection.html"><i class="fa fa-check"></i><b>8</b> Instance selection</a><ul>
-<li class="chapter" data-level="8.1" data-path="instance-selection.html"><a href="instance-selection.html#discretization"><i class="fa fa-check"></i><b>8.1</b> Discretization</a></li>
-<li class="chapter" data-level="8.2" data-path="instance-selection.html"><a href="instance-selection.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.2</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
-<li class="chapter" data-level="8.3" data-path="instance-selection.html"><a href="instance-selection.html#normalization-1"><i class="fa fa-check"></i><b>8.3</b> Normalization</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="instance-selection.html"><a href="instance-selection.html#min-max-normalization"><i class="fa fa-check"></i><b>8.3.1</b> Min-Max Normalization</a></li>
-<li class="chapter" data-level="8.3.2" data-path="instance-selection.html"><a href="instance-selection.html#z-score-normalization"><i class="fa fa-check"></i><b>8.3.2</b> Z-score normalization</a></li>
+<li class="chapter" data-level="8.10" data-path="preprocessing.html"><a href="preprocessing.html#transformations"><i class="fa fa-check"></i><b>8.10</b> Transformations</a><ul>
+<li class="chapter" data-level="8.10.1" data-path="preprocessing.html"><a href="preprocessing.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>8.10.1</b> Linear Transformations and Quadratic Trans formations</a></li>
+<li class="chapter" data-level="8.10.2" data-path="preprocessing.html"><a href="preprocessing.html#box-cox-transformation"><i class="fa fa-check"></i><b>8.10.2</b> Box-cox transformation</a></li>
+<li class="chapter" data-level="8.10.3" data-path="preprocessing.html"><a href="preprocessing.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>8.10.3</b> Nominal to Binary tranformations</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="instance-selection.html"><a href="instance-selection.html#transformations"><i class="fa fa-check"></i><b>8.4</b> Transformations</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="instance-selection.html"><a href="instance-selection.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>8.4.1</b> Linear Transformations and Quadratic Trans formations</a></li>
-<li class="chapter" data-level="8.4.2" data-path="instance-selection.html"><a href="instance-selection.html#box-cox-transformation"><i class="fa fa-check"></i><b>8.4.2</b> Box-cox transformation</a></li>
-<li class="chapter" data-level="8.4.3" data-path="instance-selection.html"><a href="instance-selection.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>8.4.3</b> Nominal to Binary tranformations</a></li>
+<li class="chapter" data-level="8.11" data-path="preprocessing.html"><a href="preprocessing.html#preprocessing-in-r"><i class="fa fa-check"></i><b>8.11</b> Preprocessing in R</a><ul>
+<li class="chapter" data-level="8.11.1" data-path="preprocessing.html"><a href="preprocessing.html#the-dplyr-package"><i class="fa fa-check"></i><b>8.11.1</b> The <code>dplyr</code> package</a></li>
 </ul></li>
+<li class="chapter" data-level="8.12" data-path="preprocessing.html"><a href="preprocessing.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>8.12</b> Other libraries and tricks</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html"><i class="fa fa-check"></i><b>9</b> Preprocessing in R</a><ul>
-<li class="chapter" data-level="9.1" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html#the-dplyr-package"><i class="fa fa-check"></i><b>9.1</b> The dplyr package</a></li>
-<li class="chapter" data-level="9.2" data-path="preprocessing-in-r.html"><a href="preprocessing-in-r.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>9.2</b> Other libraries and tricks</a></li>
+<li class="part"><span><b>VI Supervised Models</b></span></li>
+<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a><ul>
+<li class="chapter" data-level="9.1" data-path="supervised-classification.html"><a href="supervised-classification.html#classification-trees"><i class="fa fa-check"></i><b>9.1</b> Classification Trees</a></li>
+<li class="chapter" data-level="9.2" data-path="supervised-classification.html"><a href="supervised-classification.html#rules"><i class="fa fa-check"></i><b>9.2</b> Rules</a></li>
+<li class="chapter" data-level="9.3" data-path="supervised-classification.html"><a href="supervised-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>9.3</b> Distanced-based Methods</a></li>
+<li class="chapter" data-level="9.4" data-path="supervised-classification.html"><a href="supervised-classification.html#neural-networks"><i class="fa fa-check"></i><b>9.4</b> Neural Networks</a></li>
+<li class="chapter" data-level="9.5" data-path="supervised-classification.html"><a href="supervised-classification.html#support-vector-machine"><i class="fa fa-check"></i><b>9.5</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.6</b> Probabilistic Methods</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="supervised-classification.html"><a href="supervised-classification.html#naive-bayes"><i class="fa fa-check"></i><b>9.6.1</b> Naive Bayes</a></li>
 </ul></li>
-<li class="part"><span><b>V Supervised Models</b></span></li>
-<li class="chapter" data-level="10" data-path="supervised-models.html"><a href="supervised-models.html"><i class="fa fa-check"></i><b>10</b> Supervised Models</a></li>
-<li class="chapter" data-level="11" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>11</b> Regression</a><ul>
-<li class="chapter" data-level="11.1" data-path="regression.html"><a href="regression.html#linear-regression-modeling"><i class="fa fa-check"></i><b>11.1</b> Linear Regression modeling</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="regression.html"><a href="regression.html#regression-galton-data"><i class="fa fa-check"></i><b>11.1.1</b> Regression: Galton Data</a></li>
-<li class="chapter" data-level="11.1.2" data-path="regression.html"><a href="regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>11.1.2</b> Simple Linear Regression</a></li>
-<li class="chapter" data-level="11.1.3" data-path="regression.html"><a href="regression.html#least-squares"><i class="fa fa-check"></i><b>11.1.3</b> Least Squares</a></li>
-<li class="chapter" data-level="11.1.4" data-path="regression.html"><a href="regression.html#linear-regression-in-r"><i class="fa fa-check"></i><b>11.1.4</b> Linear regression in R</a></li>
+<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.7</b> Linear Discriminant Analysis (LDA)</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="supervised-classification.html"><a href="supervised-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>9.7.1</b> Predicting the number of defects (numerical class)</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="regression.html"><a href="regression.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>11.2</b> Linear Regression Diagnostics</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="regression.html"><a href="regression.html#simulation-example"><i class="fa fa-check"></i><b>11.2.1</b> Simulation example</a></li>
-<li class="chapter" data-level="11.2.2" data-path="regression.html"><a href="regression.html#diagnostics-fro-assessing-the-regression-line"><i class="fa fa-check"></i><b>11.2.2</b> Diagnostics fro assessing the regression line</a></li>
+<li class="chapter" data-level="9.8" data-path="supervised-classification.html"><a href="supervised-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>9.8</b> Binary Logistic Regression (BLR)</a></li>
+<li class="chapter" data-level="9.9" data-path="supervised-classification.html"><a href="supervised-classification.html#the-caret-package"><i class="fa fa-check"></i><b>9.9</b> The caret package</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="regression.html"><a href="regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>11.3</b> Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="regression.html"><a href="regression.html#partial-least-squares"><i class="fa fa-check"></i><b>11.3.1</b> Partial Least Squares</a></li>
+<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#linear-regression-modeling"><i class="fa fa-check"></i><b>10.1</b> Linear Regression modeling</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="regression.html"><a href="regression.html#regression-galton-data"><i class="fa fa-check"></i><b>10.1.1</b> Regression: Galton Data</a></li>
+<li class="chapter" data-level="10.1.2" data-path="regression.html"><a href="regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1.2</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="10.1.3" data-path="regression.html"><a href="regression.html#least-squares"><i class="fa fa-check"></i><b>10.1.3</b> Least Squares</a></li>
+<li class="chapter" data-level="10.1.4" data-path="regression.html"><a href="regression.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.4</b> Linear regression in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="regression.html"><a href="regression.html#linear-regression-in-software-effort-estimation"><i class="fa fa-check"></i><b>11.4</b> Linear regression in Software Effort estimation</a></li>
-<li class="chapter" data-level="11.5" data-path="regression.html"><a href="regression.html#references"><i class="fa fa-check"></i><b>11.5</b> References</a></li>
+<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>10.2</b> Linear Regression Diagnostics</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="regression.html"><a href="regression.html#simulation-example"><i class="fa fa-check"></i><b>10.2.1</b> Simulation example</a></li>
+<li class="chapter" data-level="10.2.2" data-path="regression.html"><a href="regression.html#diagnostics-fro-assessing-the-regression-line"><i class="fa fa-check"></i><b>10.2.2</b> Diagnostics fro assessing the regression line</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="discrete-classification.html"><a href="discrete-classification.html"><i class="fa fa-check"></i><b>12</b> Discrete Classification</a><ul>
-<li class="chapter" data-level="12.1" data-path="discrete-classification.html"><a href="discrete-classification.html#the-caret-package"><i class="fa fa-check"></i><b>12.1</b> The caret package</a></li>
-<li class="chapter" data-level="12.2" data-path="discrete-classification.html"><a href="discrete-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>12.2</b> Linear Discriminant Analysis (LDA)</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="discrete-classification.html"><a href="discrete-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>12.2.1</b> Predicting the number of defects (numerical class)</a></li>
+<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="regression.html"><a href="regression.html#partial-least-squares"><i class="fa fa-check"></i><b>10.3.1</b> Partial Least Squares</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="discrete-classification.html"><a href="discrete-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>12.3</b> Binary Logistic Regression (BLR)</a></li>
-<li class="chapter" data-level="12.4" data-path="discrete-classification.html"><a href="discrete-classification.html#classification-trees"><i class="fa fa-check"></i><b>12.4</b> Classification Trees</a></li>
-<li class="chapter" data-level="12.5" data-path="discrete-classification.html"><a href="discrete-classification.html#rules"><i class="fa fa-check"></i><b>12.5</b> Rules</a></li>
-<li class="chapter" data-level="12.6" data-path="discrete-classification.html"><a href="discrete-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>12.6</b> Distanced-based Methods</a></li>
-<li class="chapter" data-level="12.7" data-path="discrete-classification.html"><a href="discrete-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>12.7</b> Probabilistic Methods</a><ul>
-<li class="chapter" data-level="12.7.1" data-path="discrete-classification.html"><a href="discrete-classification.html#naive-bayes"><i class="fa fa-check"></i><b>12.7.1</b> Naive Bayes</a></li>
-<li class="chapter" data-level="12.7.2" data-path="discrete-classification.html"><a href="discrete-classification.html#bayesian-networks"><i class="fa fa-check"></i><b>12.7.2</b> Bayesian Networks</a></li>
+<li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#linear-regression-in-software-effort-estimation"><i class="fa fa-check"></i><b>10.4</b> Linear regression in Software Effort estimation</a></li>
+<li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#references"><i class="fa fa-check"></i><b>10.5</b> References</a></li>
 </ul></li>
+<li class="part"><span><b>VII Unsupervised Models</b></span></li>
+<li class="chapter" data-level="11" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html"><i class="fa fa-check"></i><b>11</b> Unsupervised or Descriptive modeling</a><ul>
+<li class="chapter" data-level="11.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#clustering"><i class="fa fa-check"></i><b>11.1</b> Clustering</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#k-means"><i class="fa fa-check"></i><b>11.1.1</b> k-Means</a></li>
 </ul></li>
-<li class="part"><span><b>VI Unsupervised Models</b></span></li>
-<li class="chapter" data-level="13" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html"><i class="fa fa-check"></i><b>13</b> Unsupervised or Descriptive modeling</a><ul>
-<li class="chapter" data-level="13.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#clustering"><i class="fa fa-check"></i><b>13.1</b> Clustering</a><ul>
-<li class="chapter" data-level="13.1.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#k-means"><i class="fa fa-check"></i><b>13.1.1</b> k-Means</a></li>
+<li class="chapter" data-level="11.2" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#association-rules"><i class="fa fa-check"></i><b>11.2</b> Association rules</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#association-rules"><i class="fa fa-check"></i><b>13.2</b> Association rules</a></li>
+<li class="part"><span><b>VIII Evaluation</b></span></li>
+<li class="chapter" data-level="12" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>12</b> Evaluation of Models</a><ul>
+<li class="chapter" data-level="12.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>12.1</b> Building and Validating a Model</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>12.1.1</b> Holdout approach</a></li>
+<li class="chapter" data-level="12.1.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>12.1.2</b> Cross Validation (CV)</a></li>
 </ul></li>
-<li class="part"><span><b>VII Evaluation</b></span></li>
-<li class="chapter" data-level="14" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>14</b> Evaluation of Models</a><ul>
-<li class="chapter" data-level="14.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#underfitting-vs.overfitting"><i class="fa fa-check"></i><b>14.1</b> Underfitting vs. Overfitting</a></li>
-<li class="chapter" data-level="14.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>14.2</b> Building and Validating a Model</a><ul>
-<li class="chapter" data-level="14.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>14.2.1</b> Holdout approach</a></li>
+<li class="chapter" data-level="12.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classification-models"><i class="fa fa-check"></i><b>12.2</b> Evaluation of Classification Models</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>12.2.1</b> Prediction in probabilistic classifiers</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>14.3</b> Cross Validation (CV)</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#china-dataset.-split-data-into-training-and-testing"><i class="fa fa-check"></i><b>14.3.1</b> China dataset. Split data into Training and Testing</a></li>
+<li class="chapter" data-level="12.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#other-metrics-used-in-software-engineering-with-classification"><i class="fa fa-check"></i><b>12.3</b> Other Metrics used in Software Engineering with Classification</a></li>
+<li class="chapter" data-level="12.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>12.4</b> Graphical Evaluation</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#receiver-operating-characteristic-roc"><i class="fa fa-check"></i><b>12.4.1</b> Receiver Operating Characteristic (ROC)</a></li>
+<li class="chapter" data-level="12.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#precision-recall-curve-prc"><i class="fa fa-check"></i><b>12.4.2</b> Precision-Recall Curve (PRC)</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classifiers"><i class="fa fa-check"></i><b>14.4</b> Evaluation of Classifiers</a><ul>
-<li class="chapter" data-level="14.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#discrete-evaluation"><i class="fa fa-check"></i><b>14.4.1</b> Discrete Evaluation</a></li>
-<li class="chapter" data-level="14.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>14.4.2</b> Prediction in probabilistic classifiers</a></li>
-<li class="chapter" data-level="14.4.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>14.4.3</b> Graphical Evaluation</a></li>
-<li class="chapter" data-level="14.4.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#metrics-used-in-software-engineering-and-defect-classification"><i class="fa fa-check"></i><b>14.4.4</b> Metrics used in Software Engineering and Defect Classification</a></li>
-<li class="chapter" data-level="14.4.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>14.4.5</b> Numeric Prediction Evaluation</a></li>
+<li class="chapter" data-level="12.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>12.5</b> Numeric Prediction Evaluation</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>13</b> Measures of Evaluation in Software Engineering</a><ul>
+<li class="chapter" data-level="13.1" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>13.1</b> Evaluation of the model in the Testing data</a></li>
+<li class="chapter" data-level="13.2" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>13.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
+<li class="chapter" data-level="13.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>13.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
+<li class="chapter" data-level="13.4" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>13.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
+<li class="chapter" data-level="13.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>13.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>13.5.1</b> MARP0 in the Atkinson dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>15</b> Measures of Evaluation in Software Engineering</a><ul>
-<li class="chapter" data-level="15.1" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>15.1</b> Evaluation of the model in the Testing data</a></li>
-<li class="chapter" data-level="15.2" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>15.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
-<li class="chapter" data-level="15.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>15.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
-<li class="chapter" data-level="15.4" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>15.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
-<li class="chapter" data-level="15.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>15.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
-<li class="chapter" data-level="15.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>15.5.1</b> MARP0 in the Atkinson dataset</a></li>
+<li class="chapter" data-level="13.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>13.6</b> Exact MARP0</a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>15.6</b> Exact MARP0</a></li>
+<li class="chapter" data-level="14" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><i class="fa fa-check"></i><b>14</b> WBL simple R code to calculate Shepperd and MacDonell’s marp0 exactly</a><ul>
+<li class="chapter" data-level="14.1" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>14.1</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><i class="fa fa-check"></i><b>16</b> WBL simple R code to calculate Shepperd and MacDonell’s marp0 exactly</a><ul>
-<li class="chapter" data-level="16.1" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>16.1</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
+<li class="part"><span><b>IX Advanced Topics</b></span></li>
+<li class="chapter" data-level="15" data-path="feature-selection-1.html"><a href="feature-selection-1.html"><i class="fa fa-check"></i><b>15</b> Feature Selection</a><ul>
+<li class="chapter" data-level="15.1" data-path="feature-selection-1.html"><a href="feature-selection-1.html#instance-selection-1"><i class="fa fa-check"></i><b>15.1</b> Instance Selection</a></li>
+<li class="chapter" data-level="15.2" data-path="feature-selection-1.html"><a href="feature-selection-1.html#missing-data-imputation"><i class="fa fa-check"></i><b>15.2</b> Missing Data Imputation</a></li>
 </ul></li>
-<li class="part"><span><b>VIII Advanced Topics</b></span></li>
-<li class="chapter" data-level="17" data-path="feature-selection.html"><a href="feature-selection.html"><i class="fa fa-check"></i><b>17</b> Feature Selection</a><ul>
-<li class="chapter" data-level="17.1" data-path="feature-selection.html"><a href="feature-selection.html#instance-selection-1"><i class="fa fa-check"></i><b>17.1</b> Instance Selection</a></li>
-<li class="chapter" data-level="17.2" data-path="feature-selection.html"><a href="feature-selection.html#missing-data-imputation"><i class="fa fa-check"></i><b>17.2</b> Missing Data Imputation</a></li>
+<li class="chapter" data-level="16" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>16</b> Feature Selection Example</a></li>
+<li class="chapter" data-level="17" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>17</b> Advanced Models</a><ul>
+<li class="chapter" data-level="17.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>17.1</b> Genetic Programming for Symbolic Regression</a></li>
+<li class="chapter" data-level="17.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>17.2</b> Genetic Programming Example</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>17.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="17.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>17.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
+<li class="chapter" data-level="17.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>17.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>18</b> Feature Selection Example</a></li>
-<li class="chapter" data-level="19" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>19</b> Advanced Models</a><ul>
-<li class="chapter" data-level="19.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>19.1</b> Genetic Programming for Symbolic Regression</a></li>
-<li class="chapter" data-level="19.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>19.2</b> Genetic Programming Example</a><ul>
-<li class="chapter" data-level="19.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>19.2.1</b> Load Data</a></li>
-<li class="chapter" data-level="19.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>19.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
-<li class="chapter" data-level="19.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>19.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
-</ul></li>
-<li class="chapter" data-level="19.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks"><i class="fa fa-check"></i><b>19.3</b> Neural Networks</a></li>
-<li class="chapter" data-level="19.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>19.4</b> Support Vector Machines</a></li>
-<li class="chapter" data-level="19.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>19.5</b> Ensembles</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>19.5.1</b> Bagging</a></li>
-<li class="chapter" data-level="19.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>19.5.2</b> Boosting</a></li>
-<li class="chapter" data-level="19.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>19.5.3</b> Rotation Forests</a></li>
-<li class="chapter" data-level="19.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>19.5.4</b> Boosting in R</a></li>
+<li class="chapter" data-level="17.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks-1"><i class="fa fa-check"></i><b>17.3</b> Neural Networks</a></li>
+<li class="chapter" data-level="17.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>17.4</b> Support Vector Machines</a></li>
+<li class="chapter" data-level="17.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>17.5</b> Ensembles</a><ul>
+<li class="chapter" data-level="17.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>17.5.1</b> Bagging</a></li>
+<li class="chapter" data-level="17.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>17.5.2</b> Boosting</a></li>
+<li class="chapter" data-level="17.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>17.5.3</b> Rotation Forests</a></li>
+<li class="chapter" data-level="17.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>17.5.4</b> Boosting in R</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>20</b> Further Classification Models</a><ul>
-<li class="chapter" data-level="20.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>20.1</b> Multilabel classification</a></li>
-<li class="chapter" data-level="20.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>20.2</b> Semi-supervised Learning</a></li>
+<li class="chapter" data-level="18" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>18</b> Further Classification Models</a><ul>
+<li class="chapter" data-level="18.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>18.1</b> Multilabel classification</a></li>
+<li class="chapter" data-level="18.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>18.2</b> Semi-supervised Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>21</b> Social Network Analysis in SE</a></li>
-<li class="chapter" data-level="22" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>22</b> Text Mining Software Engineering Data</a><ul>
-<li class="chapter" data-level="22.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>22.1</b> Terminology</a></li>
-<li class="chapter" data-level="22.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>22.2</b> Basic <code>tm</code> commands</a></li>
-<li class="chapter" data-level="22.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>22.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="22.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>22.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
+<li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
+<li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>23</b> Time Series</a><ul>
-<li class="chapter" data-level="23.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>23.1</b> Web tutorials about Time Series:</a></li>
+<li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
+<li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -306,20 +304,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="text-mining-software-engineering-data" class="section level1">
-<h1><span class="header-section-number">Chapter 22</span> Text Mining Software Engineering Data</h1>
+<h1><span class="header-section-number">Chapter 20</span> Text Mining Software Engineering Data</h1>
 <p>In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons, etc. Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple’s AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.</p>
-<p>The main package for <em>text mining</em> is <code>tm</code> <span class="citation">(Feinerer and Hornik <a href="#ref-FeinererH15">2015</a>)</span><span class="citation">(Feinerer, Hornik, and Meyer <a href="#ref-FeinererHM08">2008</a>)</span>. Another popular package is <code>wordcloud</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># - Install packages</span>
-
-<span class="co"># pckgs_needed &lt;- c(&quot;tm&quot;, &quot;wordcloud&quot;)</span>
-<span class="co"># install.packages(pckgs_needed, dependencies = TRUE)</span></code></pre></div>
+<p>The main package for <em>text mining</em> is <code>tm</code> <span class="citation">(Feinerer and Hornik <a href="#ref-FeinererH15">2015</a>,<span class="citation">Feinerer, Hornik, and Meyer (<a href="#ref-FeinererHM08">2008</a>)</span>)</span>. Another popular package is <code>wordcloud</code>.</p>
 <div id="terminology" class="section level2">
-<h2><span class="header-section-number">22.1</span> Terminology</h2>
-<p>We need to consider: - Importing data. A <em>Corpus</em> is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The <code>tm</code> provides several corpus constructors: <code>DirSource</code>, <code>VectorSource</code>, or <code>DataframeSource</code> (<code>getSources()</code>). readerControl of the corpus constructor has to be a list with the named components reader and language - Preprocessing - Inspecting and exploring data: Individual documents can be accessed via [[ - Transformations: Transformations are done via the tm_map() function. tm_map(_____, stripWhitespace) tm_map(_____, content_transformer(tolower)) tm_map(_____, removeWords, stopwords(“english”)) tm_map(tm_map(reuters, stemDocument), stemDocument) - Creating <code>Term-Document</code> Matrices: TermDocumentMatrix and DocumentTermMatrix - Relationships between terms. findFreqTerms(_____, anumber) findAssocs(<em>dtm</em><strong><em>, “aterm”, anumbercorrelation) A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.<br />
-inspect(DocumentTermMatrix(<em>reuters</em></em></strong>______, list(dictionary = c(“term1”, “term2”, “term3”)))) - Clustering</p>
+<h2><span class="header-section-number">20.1</span> Terminology</h2>
+<p>We need to consider: * Importing data. A <em>Corpus</em> is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The <code>tm</code> provides several corpus constructors: <code>DirSource</code>, <code>VectorSource</code>, or <code>DataframeSource</code> (<code>getSources()</code>). readerControl of the corpus constructor has to be a list with the named components reader and language * Preprocessing * Inspecting and exploring data: Individual documents can be accessed via [[ * Transformations: Transformations are done via the tm_map() function. ++ tm_map(_____, stripWhitespace)<br />
+++ tm_map(_____, content_transformer(tolower))<br />
+++ tm_map(_____, removeWords, stopwords(“english”))<br />
+++ tm_map(reuters, stemDocument) * Creating <code>Term-Document</code> Matrices: TermDocumentMatrix and DocumentTermMatrix ++ * Relationships between terms. ++ findFreqTerms(_____, anumber) ++ findAssocs(Mydtm, “aterm”, anumbercorrelation) ++ A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.<br />
+++ inspect(DocumentTermMatrix( newsreuters, list(dictionary = c(“term1”, “term2”, “term3”)))). It displays detailed information on a corpus or a term-document matrix. * Clustering</p>
 </div>
 <div id="basic-tm-commands" class="section level2">
-<h2><span class="header-section-number">22.2</span> Basic <code>tm</code> commands</h2>
+<h2><span class="header-section-number">20.2</span> Basic <strong>tm</strong> commands</h2>
 <p>For example, load a tm dataset 20 news articles with additional meta information from the Reuters-21578 dataset</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&#39;tm&#39;</span>)</code></pre></div>
 <pre><code>## Loading required package: NLP</code></pre>
@@ -338,6 +335,8 @@ crude</code></pre></div>
 <pre><code>## &lt;&lt;VCorpus&gt;&gt;
 ## Metadata:  corpus specific: 0, document level (indexed): 0
 ## Content:  documents: 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crude[[<span class="dv">2</span>]]$content  <span class="co"># returns the text content of the second news article</span></code></pre></div>
+<pre><code>## [1] &quot;OPEC may be forced to meet before a\nscheduled June session to readdress its production cutting\nagreement if the organization wants to halt the current slide\nin oil prices, oil industry analysts said.\n    \&quot;The movement to higher oil prices was never to be as easy\nas OPEC thought. They may need an emergency meeting to sort out\nthe problems,\&quot; said Daniel Yergin, director of Cambridge Energy\nResearch Associates, CERA.\n    Analysts and oil industry sources said the problem OPEC\nfaces is excess oil supply in world oil markets.\n    \&quot;OPEC&#39;s problem is not a price problem but a production\nissue and must be addressed in that way,\&quot; said Paul Mlotok, oil\nanalyst with Salomon Brothers Inc.\n    He said the market&#39;s earlier optimism about OPEC and its\nability to keep production under control have given way to a\npessimistic outlook that the organization must address soon if\nit wishes to regain the initiative in oil prices.\n    But some other analysts were uncertain that even an\nemergency meeting would address the problem of OPEC production\nabove the 15.8 mln bpd quota set last December.\n    \&quot;OPEC has to learn that in a buyers market you cannot have\ndeemed quotas, fixed prices and set differentials,\&quot; said the\nregional manager for one of the major oil companies who spoke\non condition that he not be named. \&quot;The market is now trying to\nteach them that lesson again,\&quot; he added.\n    David T. Mizrahi, editor of Mideast reports, expects OPEC\nto meet before June, although not immediately. However, he is\nnot optimistic that OPEC can address its principal problems.\n    \&quot;They will not meet now as they try to take advantage of the\nwinter demand to sell their oil, but in late March and April\nwhen demand slackens,\&quot; Mizrahi said.\n    But Mizrahi said that OPEC is unlikely to do anything more\nthan reiterate its agreement to keep output at 15.8 mln bpd.\&quot;\n    Analysts said that the next two months will be critical for\nOPEC&#39;s ability to hold together prices and output.\n    \&quot;OPEC must hold to its pact for the next six to eight weeks\nsince buyers will come back into the market then,\&quot; said Dillard\nSpriggs of Petroleum Analysis Ltd in New York.\n    But Bijan Moussavar-Rahmani of Harvard University&#39;s Energy\nand Environment Policy Center said that the demand for OPEC oil\nhas been rising through the first quarter and this may have\nprompted excesses in its production.\n    \&quot;Demand for their (OPEC) oil is clearly above 15.8 mln bpd\nand is probably closer to 17 mln bpd or higher now so what we\nare seeing characterized as cheating is OPEC meeting this\ndemand through current production,\&quot; he told Reuters in a\ntelephone interview.\n Reuter&quot;</code></pre>
 <p>Create a data frame source:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a vector source.</span>
 docs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;This is a text.&quot;</span>, <span class="st">&quot;This another one.&quot;</span>)
@@ -421,11 +420,13 @@ docs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span clas
 ## &lt;&lt;PlainTextDocument&gt;&gt;
 ## Metadata:  7
 ## Content:  chars: 17</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># accessind documents, terms</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># accessing documents, terms</span>
 <span class="co"># For Docs and Terms, a character vector with document IDs and terms, respectively.</span>
 <span class="co"># For nDocs and nTerms, an integer with the number of document IDs and terms, respectively.</span>
 
-tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)[<span class="dv">1</span>:<span class="dv">10</span>,<span class="dv">1</span>:<span class="dv">20</span>]
+tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)[<span class="dv">1</span>:<span class="dv">10</span>,<span class="dv">1</span>:<span class="dv">20</span>] <span class="co"># 10 terms, 20 documents</span>
+tdm1 &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)
+
 <span class="kw">Docs</span>(tdm)</code></pre></div>
 <pre><code>##  [1] &quot;127&quot; &quot;144&quot; &quot;191&quot; &quot;194&quot; &quot;211&quot; &quot;236&quot; &quot;237&quot; &quot;242&quot; &quot;246&quot; &quot;248&quot; &quot;273&quot;
 ## [12] &quot;349&quot; &quot;352&quot; &quot;353&quot; &quot;368&quot; &quot;489&quot; &quot;502&quot; &quot;543&quot; &quot;704&quot; &quot;708&quot;</code></pre>
@@ -463,7 +464,7 @@ tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(cru
 ## Sparsity           : 96%
 ## Maximal term length: 7
 ## Weighting          : term frequency (tf)
-## 
+## Sample             :
 ##          Docs
 ## Terms     127 144 191 194 211 236 237 242 246 248
 ##   ...       0   0   0   0   0   0   0   0   0   1
@@ -479,31 +480,31 @@ tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(cru
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># TermDocumentMatrix  Constructs or coerces to a term-document matrix or a document-term matrix.</span>
 
 <span class="kw">data</span>(<span class="st">&quot;crude&quot;</span>)
-tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
+tdmRmPct &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
                                                 <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
 dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">weighting =</span> function(x) <span class="kw">weightTfIdf</span>(x, <span class="dt">normalize =</span>
 <span class="ot">FALSE</span>),
 <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
-<span class="kw">inspect</span>(tdm[<span class="dv">202</span>:<span class="dv">205</span>, <span class="dv">1</span>:<span class="dv">5</span>])</code></pre></div>
+<span class="kw">inspect</span>(tdmRmPct[<span class="dv">202</span>:<span class="dv">205</span>, <span class="dv">1</span>:<span class="dv">5</span>])</code></pre></div>
 <pre><code>## &lt;&lt;TermDocumentMatrix (terms: 4, documents: 5)&gt;&gt;
 ## Non-/sparse entries: 6/14
 ## Sparsity           : 70%
 ## Maximal term length: 9
 ## Weighting          : term frequency (tf)
-## 
+## Sample             :
 ##            Docs
 ## Terms       127 144 191 194 211
 ##   companies   1   1   0   0   0
 ##   company     1   0   0   1   0
 ##   companys    0   0   1   0   0
 ##   compared    0   0   0   0   1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(tdm[<span class="kw">c</span>(<span class="st">&quot;price&quot;</span>, <span class="st">&quot;texas&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;127&quot;</span>, <span class="st">&quot;144&quot;</span>, <span class="st">&quot;191&quot;</span>, <span class="st">&quot;194&quot;</span>)])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(tdmRmPct[<span class="kw">c</span>(<span class="st">&quot;price&quot;</span>, <span class="st">&quot;texas&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;127&quot;</span>, <span class="st">&quot;144&quot;</span>, <span class="st">&quot;191&quot;</span>, <span class="st">&quot;194&quot;</span>)])</code></pre></div>
 <pre><code>## &lt;&lt;TermDocumentMatrix (terms: 2, documents: 4)&gt;&gt;
 ## Non-/sparse entries: 6/2
 ## Sparsity           : 25%
 ## Maximal term length: 5
 ## Weighting          : term frequency (tf)
-## 
+## Sample             :
 ##        Docs
 ## Terms   127 144 191 194
 ##   price   2   1   2   2
@@ -514,7 +515,7 @@ dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(cru
 ## Sparsity           : 100%
 ## Maximal term length: 9
 ## Weighting          : term frequency - inverse document frequency (tf-idf)
-## 
+## Sample             :
 ##      Terms
 ## Docs  council counter countries country
 ##   127       0       0         0       0
@@ -522,13 +523,27 @@ dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(cru
 ##   191       0       0         0       0
 ##   194       0       0         0       0
 ##   211       0       0         0       0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#10 terms </span>
+tdmRmPct10 &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
+                                                <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))[<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>]
+<span class="kw">Docs</span>(tdmRmPct10)</code></pre></div>
+<pre><code>##  [1] &quot;127&quot; &quot;144&quot; &quot;191&quot; &quot;194&quot; &quot;211&quot; &quot;236&quot; &quot;237&quot; &quot;242&quot; &quot;246&quot; &quot;248&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nDocs</span>(tdmRmPct10)</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nTerms</span>(tdmRmPct10)</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdmRmPct10)</code></pre></div>
+<pre><code>##  [1] &quot;100000&quot;   &quot;108&quot;      &quot;111&quot;      &quot;115&quot;      &quot;12217&quot;    &quot;1232&quot;    
+##  [7] &quot;1381&quot;     &quot;13member&quot; &quot;13nation&quot; &quot;150&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize correlations between terms of a term-document matrix. Visualization requires that package Rgraphviz is available</span>
+
+<span class="co"># here we remove punctuation, numbers, stopwords</span>
 tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude,
-<span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
-<span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>,
-<span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
-<span class="kw">plot</span>(tdm, <span class="dt">corThreshold =</span> <span class="fl">0.2</span>, <span class="dt">weighting =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+                          <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
+                                         <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>,
+                                         <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
+<span class="kw">plot</span>(tdm, <span class="dt">corThreshold =</span> <span class="fl">0.6</span>, <span class="dt">weighting =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find associations in a document-term or term-document matrix.</span>
 tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)
 <span class="kw">findAssocs</span>(tdm, <span class="kw">c</span>(<span class="st">&quot;oil&quot;</span>, <span class="st">&quot;opec&quot;</span>, <span class="st">&quot;xyz&quot;</span>), <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.75</span>, <span class="fl">0.1</span>))</code></pre></div>
@@ -549,116 +564,24 @@ tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(cru
 ## $xyz
 ## numeric(0)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find frequent terms in a document-term or term-document matrix</span>
-<span class="kw">findFreqTerms</span>(tdm, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
-<pre><code>##   [1] &quot;...&quot;             &quot;1.2&quot;             &quot;13-nation&quot;      
-##   [4] &quot;15-18&quot;           &quot;1985.&quot;           &quot;1985/86&quot;        
-##   [7] &quot;1986,&quot;           &quot;1986/87&quot;         &quot;1987&quot;           
-##  [10] &quot;1987/88&quot;         &quot;20s,&quot;            &quot;285,000&quot;        
-##  [13] &quot;500&quot;             &quot;7.25&quot;            &quot;750&quot;            
-##  [16] &quot;948,000&quot;         &quot;added.&quot;          &quot;address&quot;        
-##  [19] &quot;adhering&quot;        &quot;against&quot;         &quot;agreed&quot;         
-##  [22] &quot;al-khalifa&quot;      &quot;all&quot;             &quot;along&quot;          
-##  [25] &quot;al-qabas&quot;        &quot;al-sabah&quot;        &quot;announced&quot;      
-##  [28] &quot;any&quot;             &quot;apparently&quot;      &quot;appeared&quot;       
-##  [31] &quot;appears&quot;         &quot;approved&quot;        &quot;arabian&quot;        
-##  [34] &quot;arabia&#39;s&quot;        &quot;architect&quot;       &quot;areas&quot;          
-##  [37] &quot;around&quot;          &quot;aspen&quot;           &quot;average&quot;        
-##  [40] &quot;back&quot;            &quot;bank&quot;            &quot;bankers&quot;        
-##  [43] &quot;barrels,&quot;        &quot;based&quot;           &quot;bbl.&quot;           
-##  [46] &quot;benchmark&quot;       &quot;benefits&quot;        &quot;boost&quot;          
-##  [49] &quot;both&quot;            &quot;(bpd)&quot;           &quot;bpd.&quot;           
-##  [52] &quot;called&quot;          &quot;canada&quot;          &quot;canadian&quot;       
-##  [55] &quot;cash&quot;            &quot;change&quot;          &quot;changed&quot;        
-##  [58] &quot;changes&quot;         &quot;circumstance.\&quot;&quot; &quot;clearly&quot;        
-##  [61] &quot;closed&quot;          &quot;coast&quot;           &quot;come&quot;           
-##  [64] &quot;commitment&quot;      &quot;commodity&quot;       &quot;companies&quot;      
-##  [67] &quot;compared&quot;        &quot;consumption.&quot;    &quot;countries&quot;      
-##  [70] &quot;country&quot;         &quot;country&#39;s&quot;       &quot;crossroads&quot;     
-##  [73] &quot;crucial&quot;         &quot;cubic&quot;           &quot;current&quot;        
-##  [76] &quot;day&quot;             &quot;deal&quot;            &quot;december.&quot;      
-##  [79] &quot;december&#39;s&quot;      &quot;decline&quot;         &quot;decrease&quot;       
-##  [82] &quot;deficit&quot;         &quot;denied&quot;          &quot;deposits&quot;       
-##  [85] &quot;deputy&quot;          &quot;diamond&quot;         &quot;did&quot;            
-##  [88] &quot;difficulties&quot;    &quot;discounted&quot;      &quot;dlr&quot;            
-##  [91] &quot;dlrs.&quot;           &quot;dollars&quot;         &quot;domestic&quot;       
-##  [94] &quot;down&quot;            &quot;due&quot;             &quot;each&quot;           
-##  [97] &quot;early&quot;           &quot;ecuador,&quot;        &quot;efp&quot;            
-## [100] &quot;embargo&quot;         &quot;embassy&quot;         &quot;emirates&quot;       
-## [103] &quot;emirates,&quot;       &quot;entering&quot;        &quot;estimate&quot;       
-## [106] &quot;estimates&quot;       &quot;even&quot;            &quot;export&quot;         
-## [109] &quot;falling&quot;         &quot;feb&quot;             &quot;february&quot;       
-## [112] &quot;first&quot;           &quot;fiscal&quot;          &quot;fiscales&quot;       
-## [115] &quot;fixed&quot;           &quot;forced&quot;          &quot;foreign&quot;        
-## [118] &quot;four&quot;            &quot;fully&quot;           &quot;future&quot;         
-## [121] &quot;general&quot;         &quot;given&quot;           &quot;grade,&quot;         
-## [124] &quot;grades&quot;          &quot;group,&quot;          &quot;guard&quot;          
-## [127] &quot;halt&quot;            &quot;high&quot;            &quot;hisham&quot;         
-## [130] &quot;hit&quot;             &quot;hope&quot;            &quot;however,&quot;       
-## [133] &quot;humanistic&quot;      &quot;impact&quot;          &quot;import&quot;         
-## [136] &quot;imports&quot;         &quot;imports.&quot;        &quot;inc.&quot;           
-## [139] &quot;increased&quot;       &quot;increasing&quot;      &quot;indonesia,&quot;     
-## [142] &quot;indonesia\&quot;s&quot;    &quot;industry.&quot;       &quot;instead&quot;        
-## [145] &quot;institute&quot;       &quot;intermediate&quot;    &quot;into&quot;           
-## [148] &quot;\&quot;is&quot;            &quot;january,&quot;        &quot;keep&quot;           
-## [151] &quot;kingdom&#39;s&quot;       &quot;kuwait&#39;s&quot;        &quot;late&quot;           
-## [154] &quot;levels&quot;          &quot;light&quot;           &quot;limit&quot;          
-## [157] &quot;line&quot;            &quot;local&quot;           &quot;lost&quot;           
-## [160] &quot;louisiana&quot;       &quot;low&quot;             &quot;lower&quot;          
-## [163] &quot;lowered&quot;         &quot;lowest&quot;          &quot;made&quot;           
-## [166] &quot;main&quot;            &quot;major&quot;           &quot;march&quot;          
-## [169] &quot;market.&quot;         &quot;markets.&quot;        &quot;mckiernan&quot;      
-## [172] &quot;measures&quot;        &quot;meeting.\&quot;&quot;      &quot;mid&quot;            
-## [175] &quot;minister,&quot;       &quot;ministers&quot;       &quot;mitigate&quot;       
-## [178] &quot;mizrahi&quot;         &quot;mln,&quot;            &quot;month,&quot;         
-## [181] &quot;months&quot;          &quot;moves&quot;           &quot;much&quot;           
-## [184] &quot;named&quot;           &quot;nearing&quot;         &quot;net&quot;            
-## [187] &quot;neutral&quot;         &quot;next&quot;            &quot;\&quot;none&quot;         
-## [190] &quot;nuclear&quot;         &quot;officials&quot;       &quot;oil,&quot;           
-## [193] &quot;oil.&quot;            &quot;one,&quot;            &quot;\&quot;opec&quot;         
-## [196] &quot;(opec)&quot;          &quot;opec&#39;s&quot;          &quot;opec\&quot;s&quot;        
-## [199] &quot;organisation.&quot;   &quot;organization&quot;    &quot;other&quot;          
-## [202] &quot;our&quot;             &quot;out&quot;             &quot;overseas&quot;       
-## [205] &quot;pact&quot;            &quot;pay&quot;             &quot;pct.&quot;           
-## [208] &quot;petroliferos&quot;    &quot;planned&quot;         &quot;plant&quot;          
-## [211] &quot;port&quot;            &quot;position&quot;        &quot;positive&quot;       
-## [214] &quot;postings&quot;        &quot;predicted&quot;       &quot;president&quot;      
-## [217] &quot;press&quot;           &quot;pressure&quot;        &quot;pricing&quot;        
-## [220] &quot;private&quot;         &quot;probably&quot;        &quot;producer&quot;       
-## [223] &quot;projected&quot;       &quot;pronounced&quot;      &quot;public&quot;         
-## [226] &quot;published&quot;       &quot;put&quot;             &quot;quota.&quot;         
-## [229] &quot;quotes&quot;          &quot;raise&quot;           &quot;rate&quot;           
-## [232] &quot;real&quot;            &quot;reduction&quot;       &quot;referring&quot;      
-## [235] &quot;refinery&quot;        &quot;reiterated&quot;      &quot;remain&quot;         
-## [238] &quot;remarks&quot;         &quot;return&quot;          &quot;revenue&quot;        
-## [241] &quot;revenues&quot;        &quot;review&quot;          &quot;rise&quot;           
-## [244] &quot;rise.&quot;           &quot;risks&quot;           &quot;riyal&quot;          
-## [247] &quot;riyals&quot;          &quot;riyals.&quot;         &quot;rule&quot;           
-## [250] &quot;said,&quot;           &quot;said:&quot;           &quot;say&quot;            
-## [253] &quot;saying&quot;          &quot;says.&quot;           &quot;sector&quot;         
-## [256] &quot;self-imposed&quot;    &quot;selling&quot;         &quot;several&quot;        
-## [259] &quot;sharp&quot;           &quot;ship&quot;            &quot;shortfall&quot;      
-## [262] &quot;should&quot;          &quot;six&quot;             &quot;slightly&quot;       
-## [265] &quot;smaller&quot;         &quot;spa&quot;             &quot;spokeswoman.&quot;   
-## [268] &quot;spot&quot;            &quot;state&quot;           &quot;steady&quot;         
-## [271] &quot;stick&quot;           &quot;strongly&quot;        &quot;studies,&quot;       
-## [274] &quot;support&quot;         &quot;sweet&quot;           &quot;take&quot;           
-## [277] &quot;taken&quot;           &quot;techniques.&quot;     &quot;texaco&quot;         
-## [280] &quot;\&quot;the&quot;           &quot;them&quot;            &quot;then&quot;           
-## [283] &quot;those&quot;           &quot;three&quot;           &quot;throughput&quot;     
-## [286] &quot;today,&quot;          &quot;today.&quot;          &quot;trading&quot;        
-## [289] &quot;transaction&quot;     &quot;trust&quot;           &quot;trying&quot;         
-## [292] &quot;two&quot;             &quot;uncertainty&quot;     &quot;union&quot;          
-## [295] &quot;until&quot;           &quot;value&quot;           &quot;wam&quot;            
-## [298] &quot;wanted&quot;          &quot;\&quot;we&quot;            &quot;weakness&quot;       
-## [301] &quot;weeks&quot;           &quot;what&quot;            &quot;while&quot;          
-## [304] &quot;who&quot;             &quot;winter&quot;          &quot;yacimientos&quot;    
-## [307] &quot;yanbu&quot;           &quot;years&quot;           &quot;year&#39;s&quot;         
-## [310] &quot;yesterday&quot;       &quot;yesterday.&quot;      &quot;york&quot;           
-## [313] &quot;zone&quot;</code></pre>
+<span class="kw">findFreqTerms</span>(tdm, <span class="dv">6</span>, <span class="dv">8</span>)</code></pre></div>
+<pre><code>##  [1] &quot;15.8&quot;          &quot;above&quot;         &quot;accord&quot;        &quot;after&quot;        
+##  [5] &quot;ali&quot;           &quot;analysts&quot;      &quot;barrel.&quot;       &quot;barrels&quot;      
+##  [9] &quot;been&quot;          &quot;before&quot;        &quot;below&quot;         &quot;billion&quot;      
+## [13] &quot;budget&quot;        &quot;demand&quot;        &quot;economic&quot;      &quot;emergency&quot;    
+## [17] &quot;energy&quot;        &quot;exchange&quot;      &quot;futures&quot;       &quot;group&quot;        
+## [21] &quot;gulf&quot;          &quot;help&quot;          &quot;hold&quot;          &quot;industry&quot;     
+## [25] &quot;international&quot; &quot;january&quot;       &quot;meeting&quot;       &quot;minister&quot;     
+## [29] &quot;month&quot;         &quot;nazer&quot;         &quot;nymex&quot;         &quot;output&quot;       
+## [33] &quot;over&quot;          &quot;posted&quot;        &quot;present&quot;       &quot;prices,&quot;      
+## [37] &quot;prices.&quot;       &quot;recent&quot;        &quot;report&quot;        &quot;sell&quot;         
+## [41] &quot;such&quot;          &quot;than&quot;          &quot;their&quot;         &quot;there&quot;        
+## [45] &quot;this&quot;          &quot;traders&quot;       &quot;when&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># termFreq   Generate a term frequency vector from a text document</span>
 <span class="kw">data</span>(<span class="st">&quot;crude&quot;</span>)
-<span class="kw">termFreq</span>(crude[[<span class="dv">14</span>]])</code></pre></div>
-<pre><code>## txt
+tmfq1 &lt;-<span class="st"> </span><span class="kw">termFreq</span>(crude[[<span class="dv">14</span>]])
+tmfq1</code></pre></div>
+<pre><code>## 
 ##     13-nation       948,000         above         after           ali 
 ##             1             1             1             1             1 
 ##    al-khalifa      al-qabas      al-sabah          also      analysts 
@@ -685,29 +608,20 @@ tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(cru
 ##             1             3             4             1             1 
 ##           was      weakness          week          were         world 
 ##             3             1             1             1             1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tmfq1)</code></pre></div>
+<pre><code>##  &#39;term_frequency&#39; int [1:65(1d)] 1 1 1 1 1 1 1 1 1 1 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 1
+##   ..$ : chr [1:65] &quot;13-nation&quot; &quot;948,000&quot; &quot;above&quot; &quot;after&quot; ...</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">strsplit_space_tokenizer &lt;-<span class="st"> </span>function(x) <span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(x), <span class="st">&quot;[[:space:]]+&quot;</span>))
 ctrl &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">tokenize =</span> strsplit_space_tokenizer, <span class="dt">removePunctuation =</span> <span class="kw">list</span>(<span class="dt">preserve_intra_word_dashes =</span> <span class="ot">TRUE</span>),
              <span class="dt">stopwords =</span> <span class="kw">c</span>(<span class="st">&quot;reuter&quot;</span>, <span class="st">&quot;that&quot;</span>),
              <span class="dt">stemming =</span> <span class="ot">TRUE</span>,
              <span class="dt">wordLengths =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="ot">Inf</span>))
-<span class="kw">termFreq</span>(crude[[<span class="dv">14</span>]], <span class="dt">control =</span> ctrl)</code></pre></div>
-<pre><code>## txt
-##  13-nation     948000       abov      after al-khalifa    al-qaba 
-##          1          1          1          1          1          1 
-##   al-sabah       also    analyst     barrel      crude      daili 
-##          1          1          1          1          2          2 
-##       deni      emerg      estim       fell     intern  interview 
-##          1          1          1          1          1          1 
-##     kuwait       last      limit      local       meet     member 
-##          2          1          1          1          2          1 
-##    million     minist    newspap       none       opec       over 
-##          1          1          1          1          4          1 
-##       plan      price       pump       quot      quota     recent 
-##          1          2          2          1          1          1 
-##       said self-impos    sharpli     sheikh       such      there 
-##          1          1          1          1          1          1 
-##     trader       weak       week       were      world 
-##          1          1          1          1          1</code></pre>
+tmfq2 &lt;-<span class="st"> </span><span class="kw">termFreq</span>(crude[[<span class="dv">14</span>]], <span class="dt">control =</span> ctrl)
+<span class="kw">str</span>(tmfq2)</code></pre></div>
+<pre><code>##  &#39;term_frequency&#39; int [1:47(1d)] 1 1 1 1 1 1 1 1 1 1 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 1
+##   ..$ : chr [1:47] &quot;13-nation&quot; &quot;948000&quot; &quot;abov&quot; &quot;after&quot; ...</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#weights</span>
 <span class="co"># weightBin(m) Weight Binary Binary weight a term-document matrix.</span>
 <span class="co"># WeightFunction Construct a weighting function for term-document matrices.</span>
@@ -728,41 +642,70 @@ weightCutBin &lt;-<span class="st"> </span><span class="kw">WeightFunction</span
 <span class="co"># weightTfIdf Weight by Term Frequency - Inverse Document Frequency</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Transformations</span>
 <span class="co"># Remove Numbers from a Text Document</span>
-crude[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 527</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">removeNumbers</span>(crude[[<span class="dv">1</span>]])</code></pre></div>
+crude[[<span class="dv">1</span>]]$content</code></pre></div>
+<pre><code>## [1] &quot;Diamond Shamrock Corp said that\neffective today it had cut its contract prices for crude oil by\n1.50 dlrs a barrel.\n    The reduction brings its posted price for West Texas\nIntermediate to 16.00 dlrs a barrel, the copany said.\n    \&quot;The price reduction today was made in the light of falling\noil product prices and a weak crude oil market,\&quot; a company\nspokeswoman said.\n    Diamond is the latest in a line of U.S. oil companies that\nhave cut its contract, or posted, prices over the last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crude1 &lt;-<span class="st"> </span><span class="kw">removeNumbers</span>(crude[[<span class="dv">1</span>]])
+crude1</code></pre></div>
 <pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
 ## Metadata:  15
 ## Content:  chars: 520</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove Punctuation Marks from a Text Document</span>
-crude[[<span class="dv">14</span>]]</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 591</code></pre>
+crude[[<span class="dv">14</span>]]$content</code></pre></div>
+<pre><code>## [1] &quot;Kuwait&#39;s oil minister said in a newspaper\ninterview that there were no plans for an emergency OPEC\nmeeting after the recent weakness in world oil prices.\n    Sheikh Ali al-Khalifa al-Sabah was quoted by the local\ndaily al-Qabas as saying that \&quot;none of the OPEC members has\nasked for such a meeting.\&quot;\n    He also denied that Kuwait was pumping above its OPEC quota\nof 948,000 barrels of crude daily (bpd).\n    Crude oil prices fell sharply last week as international\noil traders and analysts estimated the 13-nation OPEC was\npumping up to one million bpd over its self-imposed limits.\n Reuter&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cruderem &lt;-<span class="st"> </span><span class="kw">removePunctuation</span>(crude[[<span class="dv">14</span>]])
-<span class="kw">removePunctuation</span>(crude[[<span class="dv">14</span>]], <span class="dt">preserve_intra_word_dashes =</span> <span class="ot">TRUE</span>)</code></pre></div>
+cruderem</code></pre></div>
 <pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
 ## Metadata:  15
-## Content:  chars: 581</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove sparse terms from a document-term or term-document matrix.</span>
+## Content:  chars: 576</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cruderem1 &lt;-<span class="st"> </span><span class="kw">removePunctuation</span>(crude[[<span class="dv">14</span>]], <span class="dt">preserve_intra_word_dashes =</span> <span class="ot">TRUE</span>)
+cruderem1$content</code></pre></div>
+<pre><code>## [1] &quot;Kuwaits oil minister said in a newspaper\ninterview that there were no plans for an emergency OPEC\nmeeting after the recent weakness in world oil prices\n    Sheikh Ali al-Khalifa al-Sabah was quoted by the local\ndaily al-Qabas as saying that none of the OPEC members has\nasked for such a meeting\n    He also denied that Kuwait was pumping above its OPEC quota\nof 948000 barrels of crude daily bpd\n    Crude oil prices fell sharply last week as international\noil traders and analysts estimated the 13-nation OPEC was\npumping up to one million bpd over its self-imposed limits\n Reuter&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove sparse terms from a document-term or term-document matrix. sparse: A numeric for the maximal allowed sparsity in the range from bigger zero to smaller one</span>
+
 tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)
-<span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.2</span>)</code></pre></div>
+tdm_lssparse &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.2</span>) 
+tdm_lssparse</code></pre></div>
 <pre><code>## &lt;&lt;TermDocumentMatrix (terms: 5, documents: 20)&gt;&gt;
 ## Non-/sparse entries: 94/6
 ## Sparsity           : 6%
 ## Maximal term length: 6
 ## Weighting          : term frequency (tf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tdm_lssparse2 &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.7</span>) <span class="co">#allow more terms</span>
+tdm_lssparse2</code></pre></div>
+<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 39, documents: 20)&gt;&gt;
+## Non-/sparse entries: 413/367
+## Sparsity           : 47%
+## Maximal term length: 9
+## Weighting          : term frequency (tf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm_lssparse2)</code></pre></div>
+<pre><code>##  [1] &quot;about&quot;     &quot;also&quot;      &quot;and&quot;       &quot;are&quot;       &quot;barrels&quot;  
+##  [6] &quot;but&quot;       &quot;crude&quot;     &quot;dlrs&quot;      &quot;for&quot;       &quot;from&quot;     
+## [11] &quot;has&quot;       &quot;its&quot;       &quot;last&quot;      &quot;market&quot;    &quot;mln&quot;      
+## [16] &quot;new&quot;       &quot;not&quot;       &quot;oil&quot;       &quot;one&quot;       &quot;opec&quot;     
+## [21] &quot;pct&quot;       &quot;petroleum&quot; &quot;price&quot;     &quot;prices&quot;    &quot;prices,&quot;  
+## [26] &quot;prices.&quot;   &quot;reuter&quot;    &quot;said&quot;      &quot;said.&quot;     &quot;that&quot;     
+## [31] &quot;the&quot;       &quot;there&quot;     &quot;they&quot;      &quot;was&quot;       &quot;were&quot;     
+## [36] &quot;will&quot;      &quot;with&quot;      &quot;world&quot;     &quot;would&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm_lssparse)</code></pre></div>
+<pre><code>## [1] &quot;and&quot;    &quot;oil&quot;    &quot;reuter&quot; &quot;said&quot;   &quot;the&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tdm_lssparse3 &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.05</span>) <span class="co"># remove almost all sparsity and empty terms</span>
+tdm_lssparse3</code></pre></div>
+<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 2, documents: 20)&gt;&gt;
+## Non-/sparse entries: 40/0
+## Sparsity           : 0%
+## Maximal term length: 6
+## Weighting          : term frequency (tf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm_lssparse3)</code></pre></div>
+<pre><code>## [1] &quot;oil&quot;    &quot;reuter&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove words from a text document.</span>
 
-crude[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 527</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cruderemword &lt;-<span class="st"> </span><span class="kw">removeWords</span>(crude[[<span class="dv">1</span>]], <span class="kw">stopwords</span>(<span class="st">&quot;english&quot;</span>))
-
-<span class="co"># Stem words in a text document using Porter’s stemming algorithm.</span>
+crude[[<span class="dv">1</span>]]$content</code></pre></div>
+<pre><code>## [1] &quot;Diamond Shamrock Corp said that\neffective today it had cut its contract prices for crude oil by\n1.50 dlrs a barrel.\n    The reduction brings its posted price for West Texas\nIntermediate to 16.00 dlrs a barrel, the copany said.\n    \&quot;The price reduction today was made in the light of falling\noil product prices and a weak crude oil market,\&quot; a company\nspokeswoman said.\n    Diamond is the latest in a line of U.S. oil companies that\nhave cut its contract, or posted, prices over the last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># remove common words in English</span>
+cruderemword &lt;-<span class="st"> </span><span class="kw">removeWords</span>(crude[[<span class="dv">1</span>]], <span class="kw">stopwords</span>(<span class="st">&quot;english&quot;</span>))
+cruderemword$content</code></pre></div>
+<pre><code>## [1] &quot;Diamond Shamrock Corp said \neffective today   cut  contract prices  crude oil \n1.50 dlrs  barrel.\n    The reduction brings  posted price  West Texas\nIntermediate  16.00 dlrs  barrel,  copany said.\n    \&quot;The price reduction today  made   light  falling\noil product prices   weak crude oil market,\&quot;  company\nspokeswoman said.\n    Diamond   latest   line  U.S. oil companies \n cut  contract,  posted, prices   last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Stem words in a text document using Porter’s stemming algorithm.</span>
 
 crude[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
@@ -1000,21 +943,17 @@ crude[[<span class="dv">1</span>]]</code></pre></div>
 ## [226] &quot;würden&quot;    &quot;zu&quot;        &quot;zum&quot;       &quot;zur&quot;       &quot;zwar&quot;     
 ## [231] &quot;zwischen&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Strip Whitespace from a Text Document</span>
-crude[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 527</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stripWhitespace</span>(crude[[<span class="dv">1</span>]])</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 514</code></pre>
+crude[[<span class="dv">1</span>]]$content</code></pre></div>
+<pre><code>## [1] &quot;Diamond Shamrock Corp said that\neffective today it had cut its contract prices for crude oil by\n1.50 dlrs a barrel.\n    The reduction brings its posted price for West Texas\nIntermediate to 16.00 dlrs a barrel, the copany said.\n    \&quot;The price reduction today was made in the light of falling\noil product prices and a weak crude oil market,\&quot; a company\nspokeswoman said.\n    Diamond is the latest in a line of U.S. oil companies that\nhave cut its contract, or posted, prices over the last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stripWhitespace</span>(crude[[<span class="dv">1</span>]]$content)</code></pre></div>
+<pre><code>## [1] &quot;Diamond Shamrock Corp said that effective today it had cut its contract prices for crude oil by 1.50 dlrs a barrel. The reduction brings its posted price for West Texas Intermediate to 16.00 dlrs a barrel, the copany said. \&quot;The price reduction today was made in the light of falling oil product prices and a weak crude oil market,\&quot; a company spokeswoman said. Diamond is the latest in a line of U.S. oil companies that have cut its contract, or posted, prices over the last two days citing weak oil markets. Reuter&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getTransformations  Predefined transformations (mappings) which can be used with tm_map</span>
 ## Document access triggers the stemming function
 ## (i.e., all other documents are not stemmed yet)
 <span class="kw">tm_map</span>(crude, stemDocument, <span class="dt">lazy =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
 ## Metadata:  15
-## Content:  chars: 500</code></pre>
+## Content:  chars: 484</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Use wrapper to apply character processing function
 <span class="kw">tm_map</span>(crude, <span class="kw">content_transformer</span>(tolower))</code></pre></div>
 <pre><code>## &lt;&lt;VCorpus&gt;&gt;
@@ -1130,7 +1069,7 @@ headings &lt;-<span class="st"> </span>function(x)
 ## Content:  chars: 45</code></pre>
 </div>
 <div id="example-of-classifying-bugs-from-bugzilla" class="section level2">
-<h2><span class="header-section-number">22.3</span> Example of classifying bugs from Bugzilla</h2>
+<h2><span class="header-section-number">20.3</span> Example of classifying bugs from Bugzilla</h2>
 <p>Bugzilla is Issue Tracking System that allow us to maintain and track the evolution of a project. The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
 <span class="co"># path_name &lt;- file.path(&quot;C:&quot;, &quot;datasets&quot;, &quot;textMining&quot;)</span>
@@ -1138,24 +1077,32 @@ headings &lt;-<span class="st"> </span>function(x)
 <span class="co"># dir(path_name)</span>
 
 <span class="co">#d &lt;- read.arff(&quot;./datasets/textMining/compendium.arff&quot;)</span>
-d &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/textMining/reviewsBugs.arff&quot;</span>)
-<span class="kw">head</span>(d,<span class="dv">3</span>)</code></pre></div>
+<span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+d &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/textMining/reviewsBugs.arff&quot;</span> )
+<span class="kw">str</span>(d)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    789 obs. of  2 variables:
+##  $ revContent: chr  &quot;Can&#39;t see traffic colors now With latest updates I can&#39;t see the traffic green/red/yellow - I have to pull over&quot;| __truncated__ &quot;Google Map I like it so far, it has not steered me wrong.&quot; &quot;Could be 100X better Google should start listening to customers then they&#39;d actually build a proper product.&quot; &quot;I like that! Easily more helpful than the map app that comes with your phone.&quot; ...
+##  $ revBug    : Factor w/ 2 levels &quot;N&quot;,&quot;Y&quot;: 2 1 1 1 1 1 2 1 2 1 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(d,<span class="dv">2</span>)</code></pre></div>
 <pre><code>##                                                                                                                                                                                                                                   revContent
 ## 1 Can&#39;t see traffic colors now With latest updates I can&#39;t see the traffic green/red/yellow - I have to pull over and zoom in the map so that one road fills the entire screen. Traffic checks are (were) the only reason I use google maps!
 ## 2                                                                                                                                                                                  Google Map I like it so far, it has not steered me wrong.
-## 3                                                                                                                               Could be 100X better Google should start listening to customers then they&#39;d actually build a proper product.
 ##   revBug
 ## 1      Y
-## 2      N
-## 3      N</code></pre>
+## 2      N</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fifth entry</span>
+d$revContent[<span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] &quot;Just deleted No I don&#39;t want to sign in or sign up for anything stop asking&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d$revBug[<span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] N
+## Levels: N Y</code></pre>
 <p>Creating a Document-Term Matrix (DTM)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tm)
 
-dfcomp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">textCol =</span> d$revContent)  <span class="co"># , d$Category)</span>
+ds &lt;-<span class="st"> </span><span class="kw">DataframeSource</span>(<span class="kw">as.data.frame</span>(d$revContent))
+dsc &lt;-<span class="st"> </span><span class="kw">Corpus</span>(ds)
 
-ds &lt;-<span class="st"> </span><span class="kw">DataframeSource</span>(dfcomp)
-dsc &lt;-<span class="kw">Corpus</span>(ds)
-
+  
 <span class="co"># weighting=TfIdf weighting is Tf-Idf</span>
 <span class="co"># minWordLength=WL the minimum word length is WL</span>
 <span class="co"># minDocFreq=ND each word must appear at least in ND docs</span>
@@ -1167,7 +1114,7 @@ dsc &lt;-<span class="kw">Corpus</span>(ds)
 <span class="co"># removeNumbers=TRUE numbers are eliminated</span>
 
 
-dtm&lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(dsc, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">weighting =</span> weightTfIdf, <span class="dt">minDocFreq=</span><span class="dv">3</span>, <span class="dt">stopwords =</span> <span class="ot">TRUE</span>, <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>))
+dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(dsc, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">weighting =</span> weightTfIdf, <span class="dt">minDocFreq=</span><span class="dv">3</span>, <span class="dt">stopwords =</span> <span class="ot">TRUE</span>, <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>))
 
 <span class="co"># dim(dtm)</span>
 <span class="co"># inspect(dtm) #[1:10,1:10])</span>
@@ -1177,56 +1124,35 @@ dtm&lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(dsc,
 <span class="co"># note that the term-document matrix needs to be transformed (casted)</span>
 <span class="co"># to a matrix form in the following barplot command</span>
 
-dtm<span class="fl">.90</span>=<span class="kw">removeSparseTerms</span>(dtm,<span class="dt">sparse=</span><span class="fl">0.9</span>)
-
-<span class="kw">barplot</span>(<span class="kw">as.matrix</span>(dtm),<span class="dt">xlab=</span><span class="st">&quot;terms&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;number of occurrences&quot;</span>,<span class="dt">main=</span><span class="st">&quot;Most frequent terms (sparseness=0.9)&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+sparseparam &lt;-<span class="st"> </span><span class="fl">0.90</span>
+dtm_sprs &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(dtm,<span class="dt">sparse=</span>sparseparam)
+maintitle &lt;-<span class="kw">paste0</span>(<span class="st">&quot;Most frequent terms (sparseness=&quot;</span> ,sparseparam , <span class="st">&quot;  )&quot;</span>)
+<span class="kw">barplot</span>(<span class="kw">as.matrix</span>(dtm_sprs),<span class="dt">xlab=</span><span class="st">&quot;terms&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;number of occurrences&quot;</span>, <span class="dt">main=</span>maintitle)</code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <p>As data frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dtmdf &lt;- as.data.frame(dtm.90)</span>
-dtmdf &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">inspect</span>(dtm<span class="fl">.90</span>))
+<span class="co">#dtmdf &lt;- as.data.frame(inspect(dtm_sprs))</span>
+dtmdf &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">as.matrix</span>(dtm_sprs))
 <span class="co"># rownames(dtm)&lt;- 1:nrow(dtm)</span>
 
 class &lt;-<span class="st"> </span>d$revBug
-dtmdf &lt;-<span class="st"> </span><span class="kw">cbind</span>(dtmdf,class)</code></pre></div>
+dtmdf &lt;-<span class="st"> </span><span class="kw">cbind</span>(dtmdf,class)
+<span class="kw">head</span>(dtmdf, <span class="dv">3</span>)</code></pre></div>
 <p>Now, we can explore things such as “which words are associated with”feature“?”</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which words are associated with &quot;feature&quot;?</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which words are associated with &quot;bug&quot;?</span>
 <span class="kw">findAssocs</span>(dtm, <span class="st">&#39;bug&#39;</span>, .<span class="dv">3</span>)</code></pre></div>
 <pre><code>## $bug
 ##     it?    mini   major   users causing    ipad 
 ##    1.00    0.92    0.91    0.80    0.62    0.57</code></pre>
 <p>And find frequent terms.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">findFreqTerms</span>(dtm,<span class="dv">5</span>)</code></pre></div>
-<pre><code>##   [1] &quot;!!!&quot;         &quot;????&quot;        &quot;????????&quot;    &quot;+++&quot;         &quot;accurate&quot;   
-##   [6] &quot;addicted&quot;    &quot;addicting&quot;   &quot;addicting!&quot;  &quot;addicting.&quot;  &quot;addictive&quot;  
-##  [11] &quot;addictive.&quot;  &quot;always&quot;      &quot;amazing&quot;     &quot;app&quot;         &quot;app!&quot;       
-##  [16] &quot;app.&quot;        &quot;apple&quot;       &quot;around&quot;      &quot;awesome&quot;     &quot;awesome!&quot;   
-##  [21] &quot;awesomeness&quot; &quot;awsome&quot;      &quot;back&quot;        &quot;bad&quot;         &quot;best&quot;       
-##  [26] &quot;best!!!&quot;     &quot;better&quot;      &quot;bugs&quot;        &quot;build&quot;       &quot;can&quot;        
-##  [31] &quot;clan&quot;        &quot;clans&quot;       &quot;clash&quot;       &quot;coc&quot;         &quot;connect&quot;    
-##  [36] &quot;cool&quot;        &quot;crash&quot;       &quot;crashes&quot;     &quot;crashing&quot;    &quot;download&quot;   
-##  [41] &quot;easy&quot;        &quot;enjoy&quot;       &quot;epic&quot;        &quot;even&quot;        &quot;ever&quot;       
-##  [46] &quot;ever!&quot;       &quot;every&quot;       &quot;everything&quot;  &quot;excellent&quot;   &quot;far&quot;        
-##  [51] &quot;favorite&quot;    &quot;finally&quot;     &quot;first&quot;       &quot;fix&quot;         &quot;friends&quot;    
-##  [56] &quot;fun&quot;         &quot;fun!&quot;        &quot;fun.&quot;        &quot;game&quot;        &quot;game,&quot;      
-##  [61] &quot;game!&quot;       &quot;game!!&quot;      &quot;game!!!&quot;     &quot;game.&quot;       &quot;games&quot;      
-##  [66] &quot;gems&quot;        &quot;get&quot;         &quot;gets&quot;        &quot;getting&quot;     &quot;give&quot;       
-##  [71] &quot;good&quot;        &quot;good!&quot;       &quot;good.&quot;       &quot;google&quot;      &quot;got&quot;        
-##  [76] &quot;great&quot;       &quot;great!&quot;      &quot;greatest&quot;    &quot;help&quot;        &quot;helpful&quot;    
-##  [81] &quot;highly&quot;      &quot;hooked&quot;      &quot;hot&quot;         &quot;ios&quot;         &quot;iphone&quot;     
-##  [86] &quot;it!&quot;         &quot;it!!!&quot;       &quot;it.&quot;         &quot;join&quot;        &quot;just&quot;       
-##  [91] &quot;keep&quot;        &quot;keeps&quot;       &quot;like&quot;        &quot;load&quot;        &quot;loading&quot;    
-##  [96] &quot;loads&quot;       &quot;long&quot;        &quot;lot&quot;         &quot;lots&quot;        &quot;love&quot;       
-## [101] &quot;made&quot;        &quot;make&quot;        &quot;map&quot;         &quot;maps&quot;        &quot;money&quot;      
-## [106] &quot;much&quot;        &quot;must&quot;        &quot;need&quot;        &quot;never&quot;       &quot;new&quot;        
-## [111] &quot;nice&quot;        &quot;nice!&quot;       &quot;now&quot;         &quot;omg&quot;         &quot;one&quot;        
-## [116] &quot;open&quot;        &quot;people&quot;      &quot;perfect&quot;     &quot;play&quot;        &quot;play.&quot;      
-## [121] &quot;played&quot;      &quot;playing&quot;     &quot;please&quot;      &quot;pretty&quot;      &quot;really&quot;     
-## [126] &quot;recommend&quot;   &quot;review&quot;      &quot;said&quot;        &quot;screen&quot;      &quot;since&quot;      
-## [131] &quot;stars&quot;       &quot;start&quot;       &quot;still&quot;       &quot;stop&quot;        &quot;strategic&quot;  
-## [136] &quot;strategy&quot;    &quot;stuff&quot;       &quot;stupid&quot;      &quot;super&quot;       &quot;swag&quot;       
-## [141] &quot;thank&quot;       &quot;time&quot;        &quot;troops&quot;      &quot;update&quot;      &quot;upgrade&quot;    
-## [146] &quot;use&quot;         &quot;way&quot;         &quot;well&quot;        &quot;will&quot;        &quot;work&quot;       
-## [151] &quot;world&quot;       &quot;wow&quot;         &quot;yay&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">findFreqTerms</span>(dtm,<span class="dv">15</span>)</code></pre></div>
+<pre><code>##  [1] &quot;addicting&quot; &quot;addictive&quot; &quot;amazing&quot;   &quot;app&quot;       &quot;awesome&quot;  
+##  [6] &quot;best&quot;      &quot;clans&quot;     &quot;clash&quot;     &quot;cool&quot;      &quot;crashes&quot;  
+## [11] &quot;ever&quot;      &quot;fun&quot;       &quot;game&quot;      &quot;game!&quot;     &quot;game.&quot;    
+## [16] &quot;get&quot;       &quot;good&quot;      &quot;google&quot;    &quot;great&quot;     &quot;just&quot;     
+## [21] &quot;like&quot;      &quot;love&quot;      &quot;map&quot;       &quot;maps&quot;      &quot;much&quot;     
+## [26] &quot;nice&quot;      &quot;play&quot;      &quot;playing&quot;   &quot;really&quot;    &quot;review&quot;   
+## [31] &quot;time&quot;      &quot;update&quot;</code></pre>
 <p>Use any classifier now:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
 <span class="kw">library</span>(randomForest)</code></pre></div>
@@ -1290,13 +1216,13 @@ gbmFit1</code></pre></div>
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final values used for the model were n.trees = 100,
 ##  interaction.depth = 3, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">trellis.par.set</span>(<span class="kw">caretTheme</span>())
-<span class="kw">plot</span>(gbmFit1)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">trellis.par.set</span>(<span class="kw">caretTheme</span>())
-<span class="kw">plot</span>(gbmFit1, <span class="dt">metric =</span> <span class="st">&quot;Kappa&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-133-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">predict</span>(gbmFit1, testing, <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># trellis.par.set(caretTheme())</span>
+<span class="co"># plot(gbmFit1)</span>
+<span class="co"># </span>
+<span class="co"># trellis.par.set(caretTheme())</span>
+<span class="co"># plot(gbmFit1, metric = &quot;Kappa&quot;)</span>
+
+<span class="kw">head</span>(<span class="kw">predict</span>(gbmFit1, testing, <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>))</code></pre></div>
 <pre><code>##              N             Y
 ## 1 0.6863853810 0.31361461899
 ## 2 0.6863853810 0.31361461899
@@ -1304,7 +1230,8 @@ gbmFit1</code></pre></div>
 ## 4 0.7998691244 0.20013087557
 ## 5 0.2923762881 0.70762371195
 ## 6 0.9618734783 0.03812652166</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">confusionMatrix</span>(testing$class, <span class="kw">predict</span>(gbmFit1, testing))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conf_mat &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(testing$class, <span class="kw">predict</span>(gbmFit1, testing))
+conf_mat</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -1335,12 +1262,12 @@ gbmFit1</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(wordcloud)</code></pre></div>
 <pre><code>## Loading required package: RColorBrewer</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the frequency of words and sort in descending order.</span>
-wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span class="kw">as.matrix</span>(dtm<span class="fl">.90</span>)),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)
+wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span class="kw">as.matrix</span>(dtm_sprs)),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)
 <span class="kw">wordcloud</span>(<span class="dt">words=</span><span class="kw">names</span>(wordFreqs),<span class="dt">freq=</span>wordFreqs)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
 </div>
 <div id="extracting-data-from-twitter" class="section level2">
-<h2><span class="header-section-number">22.4</span> Extracting data from Twitter</h2>
+<h2><span class="header-section-number">20.4</span> Extracting data from Twitter</h2>
 <p>The hardest bit is to link with Twitter. Using the TwitteR package is explained following this <a href="./twitter.Rmd">example</a>.</p>
 
 </div>
@@ -1360,8 +1287,9 @@ wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span cla
         </div>
       </div>
 <a href="social-network-analysis-in-se.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="time-series.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="time-series.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -1404,7 +1332,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);
