@@ -1,0 +1,77 @@
+## Evaluation of Classification Models
+
+The confusion matrix (which can be extended to multiclass problems). The following table shows the possible outcomes for binary classification problems:
+
+
+|           |$Pred Pos$ | $Pred Neg$ |
+|-----------|-----------|------------|
+| $Act Pos$ |   $TP$    | $FN$       |
+| $Act Neg$ |   $FP$    | $TN$       |
+
+
+where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
+
+From the confusion matrix, we can calculate:
+
+   + *True positive rate*, or *recall * ($TP_r = recall = r = TP/TP+FN$) is the proportion of positive cases correctly classified as belonging to the positive class.
+   
+   + *False negative rate* ($FN_r=FN/TP+FN$) is the proportion of positive cases misclassified as belonging to the negative class.
+   
+   + *False positive rate* ($FP_r=FP/FP+TN$) is the proportion of negative cases misclassified as belonging to the positive class.
+   
+   + *True negative rate* ($TN_r=TN/FP+TN$) is the proportion of negative cases correctly classified as belonging to the negative class.
+
+
+There is a tradeoff between $FP_r$ and $FN_r$ as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive $accuracy$:
+
+$$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$$
+
+to measure performance of classifiers (or the complementary value, the _error rate_ which is defined as $1-accuracy$)
+
++ Precision, fraction of relevant instances among the retrieved instances, $$\frac{TP}{TP+FP}$$
+
++ Recall$ ($sensitivity$ probability of detection, $PD$) is the fraction of relevant instances that have been retrieved over total relevant instances, $\frac{TP}{TP+FN}$
+
++ _f-measure_ is the harmonic mean of precision and recall, 
+$2 \cdot \frac{precision \cdot recall}{precision + recall}$
+
++ G-mean: $\sqrt{PD \times Precision}$
+
++ G-mean2: $\sqrt{PD \times Specificity}$
+
++ J coefficient, $j-coeff = sensitivity + specificity - 1 = PD-PF$
+
+(Jiang, Cubic and Ma, 2008 ESE)
+
+
++ A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew's Correlation Coefficient ($MCC$)~\cite{Matthews1975Comparison}: 
+
+$$MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
+
+$MCC$ can also be calculated from the confusion matrix. Its range goes from -1 to +1; the closer to one the better as it indicates perfect prediction whereas a value of 0 means that classification is not better than random prediction and negative values mean that predictions are worst than random.
+
+
+
+
+### Prediction in probabilistic classifiers
+
+A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance $P(c|{x})$. Then, given a new instance, ${x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
+
+$\psi({x}) = argmax_c (P(c|{x}))$
+
+ 
+ 
+
+## Other Metrics used in Software Engineering with Classification
+
+
+In the domain of defect prediction and when two classes are considered, it is also customary to refer to the *probability of detection*, ($pd$) which corresponds to the True Positive rate ($TP_{rate}$ or \emph{Sensitivity}) as a measure of the goodness of the model, and *probability of false alarm* ($pf$) as performance measures~\cite{Menzies07}. 
+
+The objective is to find which techniques that maximise $pd$ and minimise $pf$. As stated by Menzies et al., the balance between these two measures depends on the project characteristics (e.g. real-time systems vs. information management systems) it is formulated as the Euclidean distance from the sweet spot $pf=0$ and $pd=1$ to a pair of $(pf,pd)$. 
+
+$$balance=1-\frac{\sqrt{(0-pf^2)+(1-pd^2)}}{\sqrt{2}}$$
+
+It is normalized by the maximum possible distance across the ROC square ($\sqrt{2}, 2$), subtracted this value from 1, and expressed it as a percentage.
+
+
+ 

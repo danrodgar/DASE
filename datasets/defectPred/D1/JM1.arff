@@ -21,7 +21,7 @@
 @attribute NUM_UNIQUE_OPERANDS numeric
 @attribute NUM_UNIQUE_OPERATORS numeric
 @attribute LOC_TOTAL numeric
-@attribute label {Y,N}
+@attribute Defective {Y,N}
 
 @data
 447,826,12,157,470,385,113,2824,210.28,384.45,31079782.27,26.95,8441,0,1726654.57,80843.08,3021,5420,609,155,3442,Y

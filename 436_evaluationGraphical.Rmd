@@ -1,0 +1,27 @@
+
+## Graphical Evaluation
+
+### Receiver Operating Characteristic (ROC)
+
+The *Receiver Operating Characteristic* ($ROC$)[@Fawcett2006] curve which provides a graphical visualisation of the results.
+
+
+![Receiver Operating Characteristic](figures/roc.png)
+
+
+The Area Under the ROC Curve (AUC) also provides a quality measure between positive and negative rates with a single value. 
+
+A simple way to approximate the AUC is with the following equation:
+$AUC=\frac{1+TP_{r}-FP_{r}}{2}$
+
+
+### Precision-Recall Curve (PRC)
+
+Similarly to ROC, another widely used evaluation technique is the Precision-Recall Curve (PRC), which depicts a trade off between precision and recall and can also be summarised into a single value as the Area Under the Precision-Recall Curve (AUPRC)~\cite{Davis2006}.
+
+%AUPCR is more accurate than the ROC for testing performances when dealing with imbalanced datasets as well as optimising ROC values does not necessarily optimises AUPR values, i.e., a good classifier in AUC space may not be so good in PRC space.
+%The weighted average uses weights proportional to class frequencies in the data.
+%The weighted average is computed by weighting the measure of class (TP rate, precision, recall ...) by the proportion of instances there are in that class. Computing the average can be sometimes be misleading. For instance, if class 1 has 100 instances and you achieve a recall of 30%, and class 2 has 1 instance and you achieve recall of 100% (you predicted the only instance correctly), then when taking the average (65%) you will inflate the recall score because of the one instance you predicted correctly. Taking the weighted average will give you 30.7%, which is much more realistic measure of the performance of the classifier.
+
+
+

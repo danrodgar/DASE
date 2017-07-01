@@ -14,11 +14,15 @@ rmd_files: [
   "220_classicalHypothesisTesting.Rmd",
 
   "300_basicPreprocessing.Rmd",
-  "410_basicModelBuildingSupervised.Rmd",
-  "412_regression.Rmd",
-  "415_basicModelBuildingSupervised.Rmd",
+
+  "400_basicModelBuildingSupervised.Rmd",
+  "417_regression.Rmd",
   "420_basicModelBuildingUnsupervised.Rmd",
+
   "430_evaluation.Rmd",
+  "435_evaluationClassifiers.Rmd",
+  "436_evaluationGraphical.Rmd",
+  "437_evaluationRegression.Rmd",
   "440_evaluationInSoftEng.Rmd",
 
   "500_advancedPreprocessingTechniques.Rmd",

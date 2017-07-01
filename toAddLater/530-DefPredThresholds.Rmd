@@ -1,8 +1,8 @@
 
-# Settings thresholds for Defect Prediction
+## Settings thresholds for Defect Prediction
 
 
-## Use of Mean and Standard Deviation 
+### Use of Mean and Standard Deviation 
 
 Some of the methods proposed in the literature suggest that the threshold for a given measure $X$ should be based on its distribution. 
 
@@ -18,11 +18,11 @@ The proposal of [19] takes $\mu - \sigma$ as the “low” threshold, $\mu + \si
   2. thresholds with generally-accepted meaning, $\mu - \sigma$ and $\mu + \sigma$.
 
 
-## Use of Weighted Benchmark Data
+### Use of Weighted Benchmark Data
 
 Alves et al. use data from multiple different software systems to derive thresholds that are expected to "(i) bring out the metric’s variability between systems and (ii) help focus on a reasonable percentage of the source code volume" [2].
 
 
-## Use of Quantiles
+### Use of Quantiles
 
 Quantiles can also be used to set thresholds

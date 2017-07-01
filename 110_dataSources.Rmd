@@ -1,3 +1,5 @@
+# (PART) Data Sources and Metrics and Standards in Software Engineering Defect Prediction {-}
+
 # Data Sources in Software Engineering
 
 We classify this trail in the following categories:
@@ -12,9 +14,14 @@ We classify this trail in the following categories:
 
 * _Meta-data about the projects_. As well as the low level information of the software processes, we can also find meta-data about the software projects which can be useful for research. This meta-data may include intended-audience, programming language, domain of application, license (in the case of open source), etc.
 
+
+![Metadata](figures/artifactsMeta.png)
+
 * _Usage data_. There are statistics about software downloads, logs from servers, software reviews, etc. 
 
-## Types of information stored in the repositories
+
+
+Types of information stored in the repositories:
 
   * Meta-information about the project itself and the
 people that participated.
@@ -46,18 +53,23 @@ and cost of the project.
     + Remote access such as APIs of Web services or REST
 
 
-## Repositories
+# Repositories
 
 There is a number of open research repositories in Software Engineering. Among them:
+
+  + PROMISE (PRedictOr Models In Software Engineering): 
+[http://openscience.us/repo/](http://openscience.us/repo/)
+
+![Promise Repository](figures/Promise.png)
+
+  + Finding Faults using Ensemble Learners (ELFF) [@Shippey2016Esem]
+  [http://www.elff.org.uk/](http://www.elff.org.uk/)
 
   + FLOSSMole [@HCC06] 
 [http://flossmole.org/](http://flossmole.org/)
 
   + FLOSSMetrics [@herraiz2009flossmetrics]: 
 [http://flossmetrics.org/](http://flossmetrics.org/)
-
-  + PROMISE (PRedictOr Models In Software Engineering) [8]: 
-[http://openscience.us/repo/](http://openscience.us/repo/)
 
   + Qualitas Corpus (QC) [@QualitasCorpus2010]: 
 [http://qualitascorpus.com/](http://qualitascorpus.com/)
@@ -81,7 +93,7 @@ There is a number of open research repositories in Software Engineering. Among t
 [https://www.openhub.net/](https://www.openhub.net/)
 
 
-Not openly available:
+Not openly available (and mainly for effort estimation):
 
   + The International Software Benchmarking Standards Group (ISBSG)
     [http://www.isbsg.org/](http://www.isbsg.org/)
@@ -102,13 +114,41 @@ Some papers and publications/theses that have been used in the literature:
     [http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/](http://www.st.cs.uni-saarland.de/softevo/bug-data/eclipse/)
 
 
-## Some Tools/Dashboards to extract data
+# Open Tools/Dashboards to extract data
 
-Within the open source community, two toolkits allow us to extract data that can be used to explore projects:
+Process to extract data:
+
+![Process](./figures/process.png)
+
+Within the open source community, several toolkits allow us to extract data that can be used to explore projects:
 
 Metrics Grimoire
 [http://metricsgrimoire.github.io/](http://metricsgrimoire.github.io/)
 
+
+![Grimoire](figures/Grimoire.png)
+
 SonarQube
 [http://www.sonarqube.org/](http://www.sonarqube.org/)
+
+
+![SonarQube](figures/sonarQube.png)
+
+
+CKJMS
+[http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/](http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/)
+
+Collects a large number of object-oriented metrics from code.
+
+## Issues
+
+There are problems such as different tools report different values for the same metric [@Lincke2008]
+
+It is well-know that the NASA datasets have some problems:
+
+ + [@Gray2011] The misuse of the NASA metrics data program data sets for automated software defect prediction
+
+ + [@Shepperd2013] Data Quality: Some Comments on the NASA Software Defect Datasets
+
+
 

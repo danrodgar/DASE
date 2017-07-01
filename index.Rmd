@@ -5,12 +5,13 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [./references/references.bib,
-    ./references/dataSources.bib,
+bibliography: [./references/dataSources.bib,
     ./references/RandStatistics.bib,
     ./references/referencesFS.bib,
     ./references/referencesIS.bib,
     ./references/RPackages.bib,
+    ./references/evaluation.bib,
+    ./references/machinelearning.bib,    
     ./references/effortEstimationreferences.bib]
 biblio-style: apalike
 link-citations: yes
