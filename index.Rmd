@@ -25,5 +25,13 @@ This __Data Analysis in Software Engineering (DASE)__ book/notes will try teach 
 
 It is a work in progress.
 
-This work is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/) United States License. 
+**Acknowledgments**
+
+Projects:
+
+* BadgePeople: TIN2016-76956-C3-3-R
+
+* Network SBSE ([SEBASENet](https://www.uco.es/investigacion/proyectos/SEBASENet/index.php?title=P%C3%A1gina_principal)): TIN2015-71841-REDT
+
+This work is licensed under the [Creative Commons Attribution-NonCommtercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/) United States License. 
 
