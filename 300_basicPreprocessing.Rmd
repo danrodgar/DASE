@@ -97,7 +97,7 @@ There are two major approaches in FS from the method's output point of view:
 
   * _Feature subset selection_ (FSS)
 
-  * _Feature ranking_ in which attributes are ranked as a list of features which are ordered according to evaluation measures (a subset of features is often selected from the top of a ranking list).
+  * _Feature ranking_ in which attributes are ranked as a list of features which are ordered according to evaluation measures (a subset of features is often selected from the top of the ranking list).
 
 
 FFS algorithms designed with different evaluation criteria broadly fall into two categories:
@@ -124,6 +124,49 @@ Langley [-@Lan94] notes that feature selection algorithms that search through th
 
 It is impractical to look at all possible feature subsets, even with a small number of attributes. Feature selection algorithms usually proceed greedily and are be classified into those that add features to an initially empty set (_forward selection_) and those that remove features from an initially complete set (_backwards elimination_). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide range of search strategies can be used: best-first, branch-and-bound, simulated annealing, genetic algorithms (see Kohavi and John [-@KJ97] for a review).
 
+
+### FSelector package in R
+
+The FSelector package in R implements many algorithms available in Weka
+
+
+```{r message=FALSE, warning=FALSE}
+library(FSelector)
+library(foreign)
+
+cm1 <- read.arff("./datasets/defectPred/D1/CM1.arff")
+
+cm1RFWeigths <- random.forest.importance(Defective ~ ., cm1)
+cutoff.biggest.diff(cm1RFWeigths)
+```
+
+Using the Information Gain meaure as ranking:
+```{r message=FALSE, warning=FALSE}
+cm1GRWeights <- gain.ratio(Defective ~ ., cm1)
+cm1GRWeights
+cutoff.biggest.diff(cm1GRWeights)
+
+# After assigning weights, we can select the statistaclly significant ones
+cm1X2Weights <- chi.squared(Defective ~ ., cm1)
+cutoff.biggest.diff(cm1X2Weights)
+```
+
+Using CFS attribute selection
+
+```{r message=FALSE, warning=FALSE}
+library(FSelector)
+library(foreign)
+
+cm1 <- read.arff("./datasets/defectPred/D1/CM1.arff")
+
+result <- cfs(Defective ~ ., cm1)
+f <- as.simple.formula(result, "Defective")
+f
+```
+
+Other packages for Feature selection in R include `FSelectorRccp` which re-implments the FSlector without WEKA dependencies.
+
+Another popular package is `Boruta`, which is based on selection based on Random Forest. 
 
 ## Instance selection
 
