@@ -5,7 +5,7 @@ In software engineering, there is a lot of information in plain text such as req
 
 The main package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another popular package is `wordcloud`. 
 
-```{r eval=FALSE, echo=FALSE, warning=FALSE}
+```{r setup, eval=FALSE, echo=FALSE, warning=FALSE}
 # - Install packages
 
 #pckgs_needed <- c("tm", "wordcloud")
@@ -33,197 +33,6 @@ We need to consider:
   * Clustering
     
 
-## Basic **tm** commands
-
-For example, load a tm dataset  20 news articles with additional meta information from the Reuters-21578 dataset
-
-```{r}
-library('tm')
-data("crude")
-crude
-crude[[2]]$content  # returns the text content of the second news article
-```
-
-
-Create a data frame source:
-
-```{r}
-# Create a vector source.
-docs <- c("This is a text.", "This another one.")
-(vs <- VectorSource(docs))
-inspect(VCorpus(vs))
-
-# create a data frame source
-docs <- data.frame(c("This is a text.", "This another one."))
-(ds <- DataframeSource(docs))
-inspect(VCorpus(ds))
-
-# accessing documents, terms
-# For Docs and Terms, a character vector with document IDs and terms, respectively.
-# For nDocs and nTerms, an integer with the number of document IDs and terms, respectively.
-
-tdm <- TermDocumentMatrix(crude)[1:10,1:20] # 10 terms, 20 documents
-tdm1 <- TermDocumentMatrix(crude)
-
-Docs(tdm)
-nDocs(tdm)
-nTerms(tdm)
-Terms(tdm)
-
-# Inspect, i.e., display detailed information on a corpus or a term-document matrix.
-inspect(crude[1:3])
-tdm <- TermDocumentMatrix(crude)[1:10, 1:10]
-inspect(tdm)
-
-
-# TermDocumentMatrix  Constructs or coerces to a term-document matrix or a document-term matrix.
-
-data("crude")
-tdmRmPct <- TermDocumentMatrix(crude, control = list(removePunctuation = TRUE,
-                                                stopwords = TRUE))
-dtm <- DocumentTermMatrix(crude, control = list(weighting = function(x) weightTfIdf(x, normalize =
-FALSE),
-stopwords = TRUE))
-inspect(tdmRmPct[202:205, 1:5])
-inspect(tdmRmPct[c("price", "texas"), c("127", "144", "191", "194")])
-inspect(dtm[1:5, 273:276])
-
-#10 terms 
-tdmRmPct10 <- TermDocumentMatrix(crude, control = list(removePunctuation = TRUE,
-                                                stopwords = TRUE))[1:10, 1:10]
-Docs(tdmRmPct10)
-nDocs(tdmRmPct10)
-nTerms(tdmRmPct10)
-Terms(tdmRmPct10)
-
-```
-
-
-
-
-```{r}
-
-
-
-# Visualize correlations between terms of a term-document matrix. Visualization requires that package Rgraphviz is available
-
-# here we remove punctuation, numbers, stopwords
-tdm <- TermDocumentMatrix(crude,
-                          control = list(removePunctuation = TRUE,
-                                         removeNumbers = TRUE,
-                                         stopwords = TRUE))
-plot(tdm, corThreshold = 0.6, weighting = TRUE)
-```
-
-
-
-
-
-```{r}
-# Find associations in a document-term or term-document matrix.
-tdm <- TermDocumentMatrix(crude)
-findAssocs(tdm, c("oil", "opec", "xyz"), c(0.7, 0.75, 0.1))
-
-# Find frequent terms in a document-term or term-document matrix
-findFreqTerms(tdm, 6, 8)
-
-# termFreq   Generate a term frequency vector from a text document
-data("crude")
-tmfq1 <- termFreq(crude[[14]])
-tmfq1
-str(tmfq1)
-strsplit_space_tokenizer <- function(x) unlist(strsplit(as.character(x), "[[:space:]]+"))
-ctrl <- list(tokenize = strsplit_space_tokenizer, removePunctuation = list(preserve_intra_word_dashes = TRUE),
-             stopwords = c("reuter", "that"),
-             stemming = TRUE,
-             wordLengths = c(4, Inf))
-tmfq2 <- termFreq(crude[[14]], control = ctrl)
-str(tmfq2)
-
-
-#weights
-# weightBin(m) Weight Binary Binary weight a term-document matrix.
-# WeightFunction Construct a weighting function for term-document matrices.
-weightCutBin <- WeightFunction(function(m, cutoff) m > cutoff,
-                               "binary with cutoff", "bincut")
-# weightSMART Weight a term-document matrix according to a combination of weights specified in SMART notation.
-TermDocumentMatrix(crude, 
-                   control = list(removePunctuation = TRUE,
-                                  stopwords = TRUE,
-                                  weighting = function(x) weightSMART(x, spec = "ntc")))
-
-# weightTf Weight by Term Frequency   weightTf(m)
-
-# weightTfIdf Weight by Term Frequency - Inverse Document Frequency
-
-```
-
-
-
-```{r}
-
-# Transformations
-# Remove Numbers from a Text Document
-crude[[1]]$content
-crude1 <- removeNumbers(crude[[1]])
-crude1
-# Remove Punctuation Marks from a Text Document
-crude[[14]]$content
-cruderem <- removePunctuation(crude[[14]])
-cruderem
-cruderem1 <- removePunctuation(crude[[14]], preserve_intra_word_dashes = TRUE)
-cruderem1$content
-
-# Remove sparse terms from a document-term or term-document matrix. sparse: A numeric for the maximal allowed sparsity in the range from bigger zero to smaller one
-
-tdm <- TermDocumentMatrix(crude)
-tdm_lssparse <- removeSparseTerms(tdm, 0.2) 
-tdm_lssparse
-tdm_lssparse2 <- removeSparseTerms(tdm, 0.7) #allow more terms
-tdm_lssparse2
-Terms(tdm_lssparse2)
-Terms(tdm_lssparse)
-tdm_lssparse3 <- removeSparseTerms(tdm, 0.05) # remove almost all sparsity and empty terms
-tdm_lssparse3
-Terms(tdm_lssparse3)
-
-# Remove words from a text document.
-
-crude[[1]]$content
-# remove common words in English
-cruderemword <- removeWords(crude[[1]], stopwords("english"))
-cruderemword$content
-
-# Stem words in a text document using Porter’s stemming algorithm.
-
-crude[[1]]
-crudestem <- stemDocument(crude[[1]])
-
-# Return various kinds of stopwords with support for different languages.
-stopwords("en")
-stopwords("SMART")
-stopwords("german")
-
-# Strip Whitespace from a Text Document
-crude[[1]]$content
-stripWhitespace(crude[[1]]$content)
-
-# getTransformations  Predefined transformations (mappings) which can be used with tm_map
-## Document access triggers the stemming function
-## (i.e., all other documents are not stemmed yet)
-tm_map(crude, stemDocument, lazy = TRUE)[[1]]
-
-## Use wrapper to apply character processing function
-tm_map(crude, content_transformer(tolower))
-
-## Generate a custom transformation function which takes the heading as new content
-headings <- function(x)
-PlainTextDocument(meta(x, "heading"), id = meta(x, "id"),
-                  language = meta(x, "language"))
-inspect(tm_map(crude, headings))
-
-
-```
 
 
 
@@ -234,7 +43,7 @@ Bugzilla is Issue Tracking System that allow us to maintain and track the evolut
 The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).
 
 
-```{r message=FALSE, warning=FALSE}
+```{r readFileCompendiumARFF, message=FALSE, warning=FALSE}
 library(foreign)
 # path_name <- file.path("C:", "datasets", "textMining")
 # path_name
@@ -248,17 +57,19 @@ head(d,2)
 # fifth entry
 d$revContent[5]
 d$revBug[5]
+
+
 ```
 
 Creating a Document-Term Matrix (DTM)
 
-```{r message=FALSE, warning=FALSE}
+```{r Create DTM, message=FALSE, warning=FALSE, include=FALSE}
 library(tm)
 
-ds <- DataframeSource(as.data.frame(d$revContent))
+ds <- DataframeSource(data.frame(doc_id=row.names(d),
+                                 text=d$revContent))
 dsc <- Corpus(ds)
 
-  
 # weighting=TfIdf weighting is Tf-Idf
 # minWordLength=WL the minimum word length is WL
 # minDocFreq=ND each word must appear at least in ND docs
