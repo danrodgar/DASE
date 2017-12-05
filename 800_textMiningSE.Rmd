@@ -5,7 +5,7 @@ In software engineering, there is a lot of information in plain text such as req
 
 The main package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another popular package is `wordcloud`. 
 
-```{r setup, eval=FALSE, echo=FALSE, warning=FALSE}
+```{r setup, message=FALSE, eval=FALSE, echo=FALSE, warning=FALSE}
 # - Install packages
 
 #pckgs_needed <- c("tm", "wordcloud")
@@ -15,21 +15,26 @@ The main package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another
 ## Terminology 
 
 We need to consider:
+
   * Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). readerControl of the corpus constructor has to be a list with the named components reader and language
+  
   * Preprocessing 
+  
   * Inspecting and exploring data: Individual documents can be accessed via [[
-  * Transformations: Transformations are done via the tm_map() function. 
-    ++ tm_map(_____, stripWhitespace)  
-    ++ tm_map(_____, content_transformer(tolower))  
-    ++ tm_map(_____, removeWords, stopwords("english"))  
-    ++ tm_map(reuters, stemDocument)
+  
+  * Transformations: Transformations are done via the `tm_map()` function. 
+    + `tm_map(_____, stripWhitespace)`  
+    + `tm_map(_____, content_transformer(tolower))`
+    + `tm_map(_____, removeWords, stopwords("english"))`
+    + `tm_map(reuters, stemDocument)`
   * Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
-    ++ 
+     
   * Relationships between terms.
-    ++ findFreqTerms(_____, anumber)
-    ++ findAssocs(Mydtm, "aterm", anumbercorrelation)
-    ++ A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
-    ++ inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3")))).   It displays detailed information on a corpus or a term-document matrix.
+    + `findFreqTerms(_____, anumber)`
+    + `findAssocs(Mydtm, "aterm", anumbercorrelation)`
+    + A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
+    + `inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3"))))`.   It displays detailed information on a corpus or a term-document matrix.
+
   * Clustering
     
 
@@ -39,7 +44,8 @@ We need to consider:
 ## Example of classifying bugs from Bugzilla 
 
 
-Bugzilla is Issue Tracking System that allow us to maintain and track the evolution of a project.
+Bugzilla is Issue Tracking System that allow us to follow the evolution of a project.
+
 The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).
 
 
@@ -49,7 +55,6 @@ library(foreign)
 # path_name
 # dir(path_name)
 
-#d <- read.arff("./datasets/textMining/compendium.arff")
 options(stringsAsFactors = FALSE)
 d <- read.arff("./datasets/textMining/reviewsBugs.arff" )
 str(d)
@@ -57,8 +62,6 @@ head(d,2)
 # fifth entry
 d$revContent[5]
 d$revBug[5]
-
-
 ```
 
 Creating a Document-Term Matrix (DTM)
@@ -80,7 +83,6 @@ dsc <- Corpus(ds)
 # stopwords=TRUE stopwords are eliminated
 # removeNumbers=TRUE numbers are eliminated
 
-
 dtm <- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
 
 # dim(dtm)
@@ -97,9 +99,10 @@ maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")
 barplot(as.matrix(dtm_sprs),xlab="terms",ylab="number of occurrences", main=maintitle)
 ```
 
+
 As data frame:
 
-```{r results='hide'}
+```{r message=FALSE,results='hide'}
 #dtmdf <- as.data.frame(dtm.90)
 #dtmdf <- as.data.frame(inspect(dtm_sprs))
 dtmdf <- as.data.frame(as.matrix(dtm_sprs))
@@ -111,6 +114,7 @@ head(dtmdf, 3)
 ```
 
 Now, we can explore things such as "which words are associated with "feature"?"
+
 ```{r}
 # which words are associated with "bug"?
 findAssocs(dtm, 'bug', .3)
@@ -118,13 +122,13 @@ findAssocs(dtm, 'bug', .3)
 
 And find frequent terms.
 
-```{r}
+```{r frequentTerms, message=FALSE}
 findFreqTerms(dtm,15)
 ```
 
 Use any classifier now:
 
-```{r}
+```{r tmCaret, message=FALSE}
 library(caret)
 library(randomForest)
 
@@ -163,10 +167,12 @@ conf_mat
 
 And finally, a word cloud as an example that appears everywhere these days.
 
-```{r}
+```{r WordCloud, message=FALSE}
 library(wordcloud)
+
 # calculate the frequency of words and sort in descending order.
 wordFreqs=sort(colSums(as.matrix(dtm_sprs)),decreasing=TRUE)
+
 wordcloud(words=names(wordFreqs),freq=wordFreqs)
 ```
 
