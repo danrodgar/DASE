@@ -20,7 +20,7 @@ Other reference for GP: Langdon WB, Poli R (2001) Foundations of Genetic Program
   ![](figures/gp2.png)
 
 
-  ![](figures/evoAlg.png)
+  ![Evolutionary Algorithms](figures/evoAlg.png)
 
 In R, we can use the "rgp" package
 
@@ -28,7 +28,7 @@ In R, we can use the "rgp" package
 
 ### Load Data
 
-```{r}
+```{r loadData, }
 library(foreign)
 
 #read data
@@ -48,12 +48,12 @@ actualEffort <- chinaTest$Effort
 
 ### Genetic Programming for Symbolic Regression: China dataset.
 
-```{r warning=FALSE}
+```{r geneticProgramingExample, message=FALSE, warning=FALSE}
 library("rgp")
 options(digits = 5)
-stepsGenerations <- 1000
-initialPopulation <- 500
-Steps <- c(1000)
+stepsGenerations <- 100
+initialPopulation <- 100
+Steps <- c(10)
 y <- china_train_effort   #
 x <- china_train_size  # 
 
@@ -144,7 +144,7 @@ There are several packages in R to work with NNs
 
 TO BE FIXED!!!: The following is an example with the neuralnet package (TO DO, denormalize!).  Neural nets need scaling of variables to work properly.
     
-```{r}
+```{r NeuralNetExample, message=FALSE, warning=FALSE}
 library(foreign)
 library(neuralnet)
 

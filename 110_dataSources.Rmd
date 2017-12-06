@@ -30,12 +30,11 @@ people that participated.
 
         * Mailing Lists (ML)
 
-        * Bugs Tracking Systems (BTS) or Project Tracker System (PTS)
+        * Bug Tracking Systems (BTS) or Project Tracker System (PTS)
 
         * Software Configuration Management Systems (SCM)
 
-    + Processed information. For example project management information about the effort estimation
-and cost of the project.
+    + Processed information. For example project management information about the effort estimation and cost of the project.
 
 * Whether the repository is public or not
 
