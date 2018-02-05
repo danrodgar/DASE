@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 
 # Text Mining Software Engineering Data 
 
@@ -164,6 +169,62 @@ conf_mat <- confusionMatrix(testing$class, predict(gbmFit1, testing))
 conf_mat
 ```
 
+We may compute manually all derived variables from the Confusion Matrix. See Section -- with the description of the Confusion Matrix
+
+```{r confmat, message=FALSE}
+# str(conf_mat)
+TruePositive <- conf_mat$table[1,1]
+TruePositive
+FalsePositive <- conf_mat$table[1,2]
+FalsePositive
+FalseNegative <- conf_mat$table[2,1]
+FalseNegative
+TrueNegative <- conf_mat$table[2,2]
+TrueNegative
+
+# Sum columns in the confusion matrix
+ConditionPositive <- TruePositive + FalseNegative
+ConditionNegative <- FalsePositive + TrueNegative
+TotalPopulation <- ConditionPositive + ConditionNegative
+TotalPopulation
+
+#Sum rows in the confusion matrix
+PredictedPositive <- TruePositive + FalsePositive
+PredictedNegative <- FalseNegative + TrueNegative
+# Total Predicted must be equal to the total population
+PredictedPositive+PredictedNegative
+
+SensitivityRecall_TPR <- TruePositive / ConditionPositive
+SensitivityRecall_TPR
+
+Specificity_TNR_SPC <- TrueNegative / ConditionNegative
+Specificity_TNR_SPC
+
+Precision_PPV <- TruePositive / PredictedPositive
+Precision_PPV 
+
+NegativePredictedValue_NPV <- TrueNegative / PredictedNegative
+NegativePredictedValue_NPV
+
+Prevalence <- ConditionPositive / TotalPopulation
+Prevalence
+
+Accuracy_ACC <- (TruePositive + TrueNegative) / TotalPopulation
+Accuracy_ACC
+
+FalseDiscoveryRate_FDR <- FalsePositive / PredictedPositive
+FalseDiscoveryRate_FDR
+
+FalseOmisionRate_FOR <- FalseNegative / PredictedNegative 
+FalseOmisionRate_FOR
+
+FallOut_FPR <- FalsePositive / ConditionNegative
+FallOut_FPR
+
+MissRate_FNR <- FalseNegative / ConditionPositive
+MissRate_FNR 
+
+```
 
 And finally, a word cloud as an example that appears everywhere these days.
 
