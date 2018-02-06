@@ -8,6 +8,19 @@ The goal of the first part of this book is to get you up to speed with the basic
   * Follow the procedures according to your operating system.
   * Linux: You need to have blas and gfortran installed on your Linux, for installing the 'coin' package.
   * _Rgraphviz_ requires installation from  `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
+  * Install missing packages:
+```{r}
+listofpackages <- c("ggplot2", "vioplot", "UsingR", "fpc", "reshape", "arules","arulesViz", "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast")
+newpackages <- listofpackages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(newpackages)>0) install.packages(newpackages)
+
+# install from archive
+if (!is.element("rgp", installed.packages()[,1]))
+{ install.packages("https://cran.r-project.org/src/contrib/Archive/rgp/rgp_0.4-1.tar.gz", 
+                                                    repos = NULL)
+}
+
+```
 
 ## R and RStudio
   * R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
