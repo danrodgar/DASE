@@ -20,6 +20,15 @@ if (!is.element("rgp", installed.packages()[,1]))
                                                     repos = NULL)
 }
 
+# in Linux you may need to run several commands and install additional libraries, e.g. 
+# sudo R CMD javareconf
+# sudo apt-get install build-essential
+# sudo apt-get install libxml2-dev
+# sudo apt-get install libpq
+# sudo apt-get install libpq-dev
+# sudo apt-get install -y libmariadb-client-lgpl-dev
+# sudo apt-get install texlive-xetex
+
 ```
 
 ## R and RStudio
