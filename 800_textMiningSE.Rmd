@@ -19,31 +19,35 @@ The main package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another
 
 ## Terminology 
 
-We need to consider:
+  The workflow that we follow for analyzing a set of text documents are: 
 
-  * Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). readerControl of the corpus constructor has to be a list with the named components reader and language
+  1. Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). 
   
-  * Preprocessing 
+  There are several parameters that control the creation of a _Corpus_.
+  ((The parameter readerControl of the corpus constructor has to be a list with the named components reader and language))  
+
+  2. Preprocessing: in this step we may remove common words, punctuation and we may perform other operations. We may do this operations after creating the DocumentTermMatrix.
   
-  * Inspecting and exploring data: Individual documents can be accessed via [[
-  
-  * Transformations: Transformations are done via the `tm_map()` function. 
+  3. Inspecting and exploring data: Individual documents can be accessed via [[
+
+  4. Transformations: Transformations are done via the `tm_map()` function. 
     + `tm_map(_____, stripWhitespace)`  
     + `tm_map(_____, content_transformer(tolower))`
     + `tm_map(_____, removeWords, stopwords("english"))`
-    + `tm_map(reuters, stemDocument)`
-  * Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
-     
-  * Relationships between terms.
-    + `findFreqTerms(_____, anumber)`
-    + `findAssocs(Mydtm, "aterm", anumbercorrelation)`
-    + A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.  
+    + `tm_map(_____, stemDocument)`
+  5. Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
+    + A document term matrix is a matrix with documents as the rows and terms as the columns. Each cell of the matrix contains the count of the frequency of words. We use DocumentTermMatrix()
+to create the matrix.
     + `inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3"))))`.   It displays detailed information on a corpus or a term-document matrix.
 
-  * Clustering
+  6. Relationships between terms.
+    + `findFreqTerms(_____, anumber)`
+    + `findAssocs(Mydtm, "aterm", anumbercorrelation)`
+    + A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining. 
+
+  7. Clustering and Classification
+  
     
-
-
 
 
 ## Example of classifying bugs from Bugzilla 
@@ -60,10 +64,12 @@ library(foreign)
 # path_name
 # dir(path_name)
 
+#Import data
 options(stringsAsFactors = FALSE)
 d <- read.arff("./datasets/textMining/reviewsBugs.arff" )
-str(d)
-head(d,2)
+str(d) #print out information about d
+
+head(d,2) # the first two rows of d. 
 # fifth entry
 d$revContent[5]
 d$revBug[5]
@@ -74,11 +80,15 @@ Creating a Document-Term Matrix (DTM)
 ```{r Create DTM, message=FALSE, warning=FALSE, include=FALSE}
 library(tm)
 
+# creation of a data frame
 ds <- DataframeSource(data.frame(doc_id=row.names(d),
                                  text=d$revContent))
-dsc <- Corpus(ds)
 
-# weighting=TfIdf weighting is Tf-Idf
+# Corpus is the command that creates the corpus
+dsc <- Corpus(ds)
+str(dsc)
+
+# weighting=TfIdf weighting is Tf*Idf. See documentation 'tm'.Term frequency*inverse term frequency
 # minWordLength=WL the minimum word length is WL
 # minDocFreq=ND each word must appear at least in ND docs
 
@@ -90,18 +100,26 @@ dsc <- Corpus(ds)
 
 dtm <- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
 
-# dim(dtm)
-# inspect(dtm) #[1:10,1:10])
+dim(dtm)
+inspect(dtm)# [1:5,1:10]) # view 5 first docs, 10 terms
 
 # dtm.70=removeSparseTerms(dtm,sparse=0.7)
 # dtm.70 # or dim(dtm.70)
 # note that the term-document matrix needs to be transformed (casted)
 # to a matrix form in the following barplot command
 
-sparseparam <- 0.90
+sparseparam <- 0.60 # will make the matrix 60% empty space, maximum. Change this, as you like it.
 dtm_sprs <- removeSparseTerms(dtm,sparse=sparseparam)
+inspect(dtm_sprs)
 maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")
 barplot(as.matrix(dtm_sprs),xlab="terms",ylab="number of occurrences", main=maintitle)
+
+# organize terms by their frequency 
+
+freq_dtm_sprs <- colSums(as.matrix(dtm_sprs))
+length(freq_dtm_sprs)
+sorted_freq_dtm_sprs <- sort(freq_dtm_sprs, decreasing = TRUE)
+sorted_freq_dtm_sprs
 ```
 
 
@@ -122,13 +140,13 @@ Now, we can explore things such as "which words are associated with "feature"?"
 
 ```{r}
 # which words are associated with "bug"?
-findAssocs(dtm, 'bug', .3)
+findAssocs(dtm, 'bug', .3) # minimum correlation of 0.3. Change accordingly. 
 ```
 
 And find frequent terms.
 
 ```{r frequentTerms, message=FALSE}
-findFreqTerms(dtm,15)
+findFreqTerms(dtm, 15) #terms that appear 15 or more times, in this case
 ```
 
 Use any classifier now:

@@ -12,7 +12,7 @@ The goal of the first part of this book is to get you up to speed with the basic
 ```{r}
 listofpackages <- c("ggplot2", "vioplot", "UsingR", "fpc", "reshape", "arules","arulesViz", "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast")
 newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
-if(length(newpackages)>0) install.packages(newpackages)
+if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
 
 # install from archive
 if (!is.element("rgp", installed.packages()[,1]))
