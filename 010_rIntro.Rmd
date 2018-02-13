@@ -8,19 +8,20 @@ The goal of the first part of this book is to get you up to speed with the basic
   * Follow the procedures according to your operating system.
   * Linux: You need to have blas and gfortran installed on your Linux, for installing the 'coin' package.
   * _Rgraphviz_ requires installation from  `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
-  * Install missing packages:
+  * Uncomment the following lines for installing all missing packages (this will take some time):
 ```{r}
-listofpackages <- c("ggplot2", "vioplot", "UsingR", "fpc", "reshape", "arules","arulesViz", "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast")
-newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
-if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
+# listofpackages <- c("bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape", "arules","arulesViz", "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast")
+# newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
+# if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
+# 
+# # install from archive
+# if (!is.element("rgp", installed.packages()[,1]))
+# { install.packages("https://cran.r-project.org/src/contrib/Archive/rgp/rgp_0.4-1.tar.gz", 
+#                                                     repos = NULL)
+# }
+## end of installing packages
 
-# install from archive
-if (!is.element("rgp", installed.packages()[,1]))
-{ install.packages("https://cran.r-project.org/src/contrib/Archive/rgp/rgp_0.4-1.tar.gz", 
-                                                    repos = NULL)
-}
-
-# in Linux you may need to run several commands and install additional libraries, e.g. 
+# in Linux you may need to run several commands (in the terminal) and install additional libraries, e.g. 
 # sudo R CMD javareconf
 # sudo apt-get install build-essential
 # sudo apt-get install libxml2-dev
