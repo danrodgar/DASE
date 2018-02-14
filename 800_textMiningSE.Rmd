@@ -108,7 +108,7 @@ inspect(dtm)# [1:5,1:10]) # view 5 first docs, 10 terms
 # note that the term-document matrix needs to be transformed (casted)
 # to a matrix form in the following barplot command
 
-sparseparam <- 0.60 # will make the matrix 60% empty space, maximum. Change this, as you like it.
+sparseparam <- 0.90 # will make the matrix 90% empty space, maximum. Change this, as you like it.
 dtm_sprs <- removeSparseTerms(dtm,sparse=sparseparam)
 inspect(dtm_sprs)
 maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")

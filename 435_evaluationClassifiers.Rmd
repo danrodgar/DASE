@@ -5,8 +5,8 @@ The confusion matrix (which can be extended to multiclass problems) is a table t
 
 |           |$Act Pos$ | $Act Neg$ |
 |-----------|-----------|------------|
-| $Pred Pos$ |   $TP$    | $FN$       |
-| $Pred Neg$ |   $FP$    | $TN$       |
+| $Pred Pos$ |   $TP$    | $FP$       |
+| $Pred Neg$ |   $FN$    | $TN$       |
 
 
 where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
