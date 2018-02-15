@@ -101,39 +101,12 @@ str(dsc)
 dtm <- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
 
 dim(dtm)
-inspect(dtm)# [1:5,1:10]) # view 5 first docs, 10 terms
+inspect(dtm [1:5,1:10]) # view 5 first docs, 10 terms
 
 # dtm.70=removeSparseTerms(dtm,sparse=0.7)
 # dtm.70 # or dim(dtm.70)
 # note that the term-document matrix needs to be transformed (casted)
 # to a matrix form in the following barplot command
-
-sparseparam <- 0.90 # will make the matrix 90% empty space, maximum. Change this, as you like it.
-dtm_sprs <- removeSparseTerms(dtm,sparse=sparseparam)
-inspect(dtm_sprs)
-maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")
-barplot(as.matrix(dtm_sprs),xlab="terms",ylab="number of occurrences", main=maintitle)
-
-# organize terms by their frequency 
-
-freq_dtm_sprs <- colSums(as.matrix(dtm_sprs))
-length(freq_dtm_sprs)
-sorted_freq_dtm_sprs <- sort(freq_dtm_sprs, decreasing = TRUE)
-sorted_freq_dtm_sprs
-```
-
-
-As data frame:
-
-```{r message=FALSE,results='hide'}
-#dtmdf <- as.data.frame(dtm.90)
-#dtmdf <- as.data.frame(inspect(dtm_sprs))
-dtmdf <- as.data.frame(as.matrix(dtm_sprs))
-# rownames(dtm)<- 1:nrow(dtm)
-
-class <- d$revBug
-dtmdf <- cbind(dtmdf,class)
-head(dtmdf, 3)
 ```
 
 Now, we can explore things such as "which words are associated with "feature"?"
@@ -149,11 +122,51 @@ And find frequent terms.
 findFreqTerms(dtm, 15) #terms that appear 15 or more times, in this case
 ```
 
+
+
+
+Remove some terms 
+```{r }
+sparseparam <- 0.90 # will make the matrix 90% empty space, maximum. Change this, as you like.
+dtm_sprs <- removeSparseTerms(dtm,sparse=sparseparam)
+inspect(dtm_sprs)
+maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")
+barplot(as.matrix(dtm_sprs),xlab="terms",ylab="number of occurrences", main=maintitle)
+
+# organize terms by their frequency 
+
+freq_dtm_sprs <- colSums(as.matrix(dtm_sprs))
+length(freq_dtm_sprs)
+sorted_freq_dtm_sprs <- sort(freq_dtm_sprs, decreasing = TRUE)
+sorted_freq_dtm_sprs
+```
+
+Create a data frame that will be the input to the classifier.
+Last column will be the label. 
+
+As data frame:
+
+```{r message=FALSE,results='hide'}
+#dtmdf <- as.data.frame(dtm.90)
+#dtmdf <- as.data.frame(inspect(dtm_sprs))
+dtmdf <- as.data.frame(as.matrix(dtm_sprs))
+# rownames(dtm)<- 1:nrow(dtm)
+
+class <- d$revBug
+dtmdf <- cbind(dtmdf,class)
+head(dtmdf, 3)
+```
+
 Use any classifier now:
+  - split the dataframe into training and testing
+  - Build the classification model using the training subset
+  - apply the model to the testing subset and obtain the Confusion Matrix
+  - Analise the results
 
 ```{r tmCaret, message=FALSE}
 library(caret)
 library(randomForest)
+
 
 inTraining <- createDataPartition(dtmdf$class, p = .75, list = FALSE)
 training <- dtmdf[ inTraining,]
