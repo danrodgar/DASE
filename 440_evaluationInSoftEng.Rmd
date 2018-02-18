@@ -81,9 +81,16 @@ par(mfrow=c(1,1))
 # transformation of variables to log-log
 xtrain <- log(telecom1_train$size)
 ytrain <- log(telecom1_train$effort)
+
 lmtelecom1 <- lm( ytrain ~ xtrain)
 plot(xtrain, ytrain)
+
+
+
 abline(lmtelecom1, lwd=2, col="blue")
+
+
+
 b0_tel1 <- lmtelecom1$coefficients[1]
 b1_tel1 <- lmtelecom1$coefficients[2]
 # calculate residuals and predicted values
@@ -91,7 +98,7 @@ res <- signif(residuals(lmtelecom1), 5)
 
 xtest <- telecom1_test$size
 ytest <- telecom1_test$effort
-pre_tel1 <- exp(b0+b1*log(xtest))
+pre_tel1 <- exp(b0_tel1+b1_tel1*log(xtest))
 # plot distances between points and the regression line
 plot(xtest, ytest)
 curve(exp(b0_tel1+b1_tel1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)

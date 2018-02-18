@@ -36,6 +36,7 @@ The goal of the first part of this book is to get you up to speed with the basic
   * R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
   * R has multiple online resources and books.
   * [R coding style](https://google.github.io/styleguide/Rguide.xml)
+  * [R-Bloggers](https://www.r-bloggers.com/)
   * Getting help in R
     + [RStudio cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf) 
     + [Base R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
