@@ -29,8 +29,8 @@ It is a work in progress.
 
 Projects:
 * QARE: TIN2016-76956-C3
-* BadgePeople: TIN2016-76956-C3-3-R
-* TESTEAMOS: TIN2016-76956-C3-1-R
+    + BadgePeople: TIN2016-76956-C3-3-R
+    + TESTEAMOS: TIN2016-76956-C3-1-R
 
 * Network SBSE ([SEBASENet](https://www.uco.es/investigacion/proyectos/SEBASENet/index.php?title=P%C3%A1gina_principal)): TIN2015-71841-REDT
 
