@@ -39,48 +39,39 @@ kc1.kmeans <- kmeans(kc1.train, 2)
 
 ```{r warning=FALSE, message=FALSE}
 library(reshape, quietly=TRUE)
-kc1.kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
+library(graphics)
+kc1kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 10)
+#plot(kc1kmeans, col = kc1kmeans$cluster)
+#points(kc1kmeans$centers, col = 1:5, pch = 8)
 ```
 
-
 ## Association rules
-
 ```{r warning=FALSE, message=FALSE}
 library(arules)
 
-x <- as.numeric(kc1$LOC_TOTAL)
-str(x)
-summary(x)
-
-hist(x, breaks=30, main="LoC Total")
-
- xDisc <- discretize(x, categories=5)
+# x <- as.numeric(kc1$LOC_TOTAL)
+# str(x)
+# summary(x)
+# hist(x, breaks=30, main="LoC Total")
+# xDisc <- discretize(x, categories=5)
 # table(xDisc)
 
- for(i in 1:21) kc1[,i] <- discretize(kc1[,i],  "frequency", categories=5)
-
-str(kc1)
-rules <- apriori(kc1, parameter = list(support=0.60, confidence=0.800, minlen=3))
-
-rules
+for(i in 1:21) kc1[,i] <- discretize(kc1[,i],  method = "interval", breaks = 5)
 
 rules <- apriori(kc1,
-   parameter = list(minlen=3, supp=0.6, conf=0.8),
-   appearance = list(rhs=c("Defective=Y", "Defective=N"),
+   parameter = list(minlen=3, supp=0.05, conf=0.35),
+   appearance = list(rhs=c("Defective=Y"),
    default="lhs"),
    control = list(verbose=F))
- 
- #rules <- apriori(kc1,
+
+#rules <- apriori(kc1,
  #   parameter = list(minlen=2, supp=0.05, conf=0.3),
  #   appearance = list(rhs=c("Defective=Y", "Defective=N"),
  #   default="lhs"))
   
- inspect(rules)
+inspect(rules)
  
- rules
- 
- library(arulesViz)
- plot(rules)
- 
+library(arulesViz)
+plot(rules)
 ```
 
