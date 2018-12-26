@@ -5,10 +5,13 @@
 The goal of the first part of this book is to get you up to speed with the basics of __R__ as quickly as possible. 
 
 ## Installation 
-  * Follow the procedures according to your operating system.
-  * Linux: You need to have blas and gfortran installed on your Linux, for installing the 'coin' package.
+  
+Follow the procedures according to your operating system.
+
+  * Linux: You need to have `blas` and `gfortran` installed on your Linux, for installing the `coin` package.
   * _Rgraphviz_ requires installation from  `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
   * Uncomment the following lines for installing all missing packages (this will take some time):
+
 ```{r}
 # listofpackages <- c("bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape", "arules","arulesViz", "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast")
 # newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
@@ -42,9 +45,9 @@ The goal of the first part of this book is to get you up to speed with the basic
     + [Base R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
     + [Advanced R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
     + [Data Visualization cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf)
-    + [R Markdown cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+    + [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
     + [R Markdown Basics] (http://rmarkdown.rstudio.com/authoring_basics.html)
-    + help("    ") command 
+    + `help("    ")` command 
   - R as a calculator. Console: It uses the command-line interface. 
 
 Examples:
@@ -62,11 +65,13 @@ summary(lm_1)         # Compute and print statistics for the fit
 par(mfrow=c(2, 2))    # Request 2x2 plot layout
 plot(lm_1)            # Diagnostic plot of regression model
 ```  
+
   * R script. # A file with R commands
     `# comments`
     `source("filewithcommands.R")`
     `sink("recordmycommands.lis")`
     `savehistory()`
+
   * From command line:
     + Rscript  
     + Rscript file with `-e` (e.g. `Rscript -e 2+2`)  
@@ -75,7 +80,7 @@ plot(lm_1)            # Diagnostic plot of regression model
   * Variables
   * Operators
     + assign operator `<-`   
-    + sequence operator : Example: `mynums <- 0:20`
+    + sequence operator, for example: `mynums <- 0:20`
     + arithmetic operators: + - = / ^   %/% (integer division) %% (modulus operator)
   * The workspace. Objects.
     + `ls()` `objects()`  `ls.str()` lists and describes the objects   
@@ -107,12 +112,12 @@ getwd()
 ***
     
 ## Basic Data Types
-  - class(   )
-  - logical: TRUE  FALSE
+  - `class( )`
+  - logical: `TRUE`,  `FALSE`
   - numeric, integer:  
-      * is.numeric(  )
-      * is.integer(  )  
-  - character
+      * `is.numeric(  )`
+      * `is.integer(  )`  
+  - `character`
 
 
 Examples:
@@ -139,9 +144,9 @@ is.integer(2L)
 ```
 
   - data type coercion:  
-      * as.numeric(  )
-      * as.character(  )   
-      * as.integer(  )
+      * `as.numeric(  )`
+      * `as.character(  )`   
+      * `as.integer(  )`
 
 Examples:
 ```{r}
@@ -162,8 +167,8 @@ char2int  <- as.integer("55.3")
 
 ### Mising values
 
-  - NA Not Available, which is not a number as well. It applies to missing values. 
-  - NaN means 'Not a Number'
+  - `NA` stands for Not Available, which is not a number as well. It applies to missing values. 
+  - `NaN` means 'Not a Number'
 
 Examples:
 ```{r}
@@ -669,7 +674,7 @@ head(kc1, 1)
 
 ## Rattle
 
-There is graphical interface, Rattle, that allow us to perform some data mining tasks [@Williams11].  
+There is graphical interface, Rattle, that allow us to perform some data mining tasks with R [@Williams11].  
 
 
 ![Rattle: GUI for Data mining with R](./figures/rattle.png)

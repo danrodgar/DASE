@@ -10,7 +10,7 @@ The non-trivial process of identifying valid, novel, potentially useful, and ult
 
 ![KDD Process](figures/Fayyad96kdd-process.png)
 
-The Cross Industry Process for Data Mining (CRISP-DM, 1996) also provides a common and well-developed framework for delivering data mining projects identifying six steps:
+The Cross Industry Process for Data Mining (CRISP-DM) also provides a common and well-developed framework for delivering data mining projects identifying six steps [@shearer00crisp]:
 
 
   1. Problem Understanding
@@ -19,6 +19,9 @@ The Cross Industry Process for Data Mining (CRISP-DM, 1996) also provides a comm
   4. Modeling
   5. Evaluation
   6. Deployment
+
+![CRISP-DM (Wikipedia)](figures/CRISP-DM_Process_Diagram.png)
+
 
 ## The Aim of Data Analysis and Statistical Learning
   - The aim of any data analysis is to  **understand the data** 

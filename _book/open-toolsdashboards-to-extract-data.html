@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Analysis in Software Engineering using R</title>
+  <title>Chapter 5 Open Tools/Dashboards to extract data | Data Analysis in Software Engineering using R</title>
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 5 Open Tools/Dashboards to extract data | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 5 Open Tools/Dashboards to extract data | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2018-12-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="exploratory-data-analysis.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -159,7 +186,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+</ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
@@ -275,9 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
@@ -311,25 +339,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p class="caption">Process</p>
 </div>
 <p>Within the open source community, several toolkits allow us to extract data that can be used to explore projects:</p>
-<p>Metrics Grimoire <a href="http://metricsgrimoire.github.io/" class="uri">http://metricsgrimoire.github.io/</a></p>
+<p>Metrics Grimoire
+<a href="http://metricsgrimoire.github.io/">http://metricsgrimoire.github.io/</a></p>
 <div class="figure">
 <img src="figures/Grimoire.png" alt="Grimoire" />
 <p class="caption">Grimoire</p>
 </div>
-<p>SonarQube <a href="http://www.sonarqube.org/" class="uri">http://www.sonarqube.org/</a></p>
+<p>SonarQube
+<a href="http://www.sonarqube.org/">http://www.sonarqube.org/</a></p>
 <div class="figure">
 <img src="figures/sonarQube.png" alt="SonarQube" />
 <p class="caption">SonarQube</p>
 </div>
-<p>CKJMS <a href="http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/" class="uri">http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/</a></p>
+<p>CKJM (OO Metrics tool)
+<a href="http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/">http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/</a></p>
 <p>Collects a large number of object-oriented metrics from code.</p>
 <div id="issues" class="section level2">
 <h2><span class="header-section-number">5.1</span> Issues</h2>
-<p>There are problems such as different tools report different values for the same metric <span class="citation">(<span class="citeproc-not-found" data-reference-id="Lincke2008"><strong>???</strong></span>)</span></p>
+<p>There are problems such as different tools report different values for the same metric <span class="citation">(Lincke, Lundberg, and Löwe <a href="#ref-Lincke2008">2008</a>)</span></p>
 <p>It is well-know that the NASA datasets have some problems:</p>
 <ul>
-<li><p><span class="citation">(<span class="citeproc-not-found" data-reference-id="Gray2011"><strong>???</strong></span>)</span> The misuse of the NASA metrics data program data sets for automated software defect prediction</p></li>
-<li><p><span class="citation">(<span class="citeproc-not-found" data-reference-id="Shepperd2013"><strong>???</strong></span>)</span> Data Quality: Some Comments on the NASA Software Defect Datasets</p></li>
+<li><p><span class="citation">(Gray et al. <a href="#ref-Gray2011">2011</a>)</span> The misuse of the NASA metrics data program data sets for automated software defect prediction</p></li>
+<li><p><span class="citation">(Shepperd et al. <a href="#ref-Shepperd2013">2013</a>)</span> Data Quality: Some Comments on the NASA Software Defect Datasets</p></li>
 </ul>
 
 </div>
@@ -338,14 +369,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>It is worth highlighting the case of software effort estimation datasets with their peculiarities. First, most effort estimation datasets used in the literature are scattered through research papers with the exception of a few kept in the PROMISE repository. Mair et al <span class="citation">(<a href="#ref-MairSJ05">2005</a>)</span> also have analysed available datasets in the field of cost estimation identifying 65 different datasets in 50 papers.</p>
 <p>Second, their size is very small with the exception of ISBSG repository discussed previously which a small sample is available through PROMISE and the China dataset with 499 instances.</p>
 <p>Third, some can be quite old in a context and time that is not applicable to current development environments. The authors noted that the oldest datasets (COCOMO, Desharnais, Kemerer and Albrecht and Gaffney) tend to be the most studied ones and a subset of the most relevant ones. Also, from the artificial intelligence or data mining point of view effort estimation has been mainly tackled with different types of regression techniques and more recently with techniques which are also typically considered under the umbrella of data mining techniques. However, as the number of examples per dataset is increasing, other machine learning techniques are also being studied (e.g.: Dejaeger et al <span class="citation">(<a href="#ref-Dejaeger_TSE12_EffEst">2012</a>)</span> report on a comparison of several machine learning techniques to effort estimation with only 5 out the 9 used datasets publicly available). From the data mining point of view, the small number of instances hinders the application of machine learning techniques.</p>
-<p>However, software effort and cost estimation still remain one of the main challenges in software engineering and have attracted a great deal of interest by many researchers <span class="citation">(<a href="#ref-Jorgensen07">2007</a>)</span>. For example, there are continuous analyses of whether software development follows economies or diseconomies of scale (see <span class="citation">(J.J Dolado <a href="#ref-Dolado01_CostEst">2001</a>,<span class="citation">Banker, Chang, and Kemerer (<a href="#ref-Banker1994">1994</a>)</span>,<span class="citation">B. A. Kitchenham (<a href="#ref-Kitchenham2002">2002</a>)</span>)</span>).</p>
+<p>However, software effort and cost estimation still remain one of the main challenges in software engineering and have attracted a great deal of interest by many researchers <span class="citation">(<a href="#ref-Jorgensen07">2007</a>)</span>. For example, there are continuous analyses of whether software development follows economies or diseconomies of scale (see <span class="citation">(Dolado <a href="#ref-Dolado01_CostEst">2001</a>,<span class="citation">@Banker1994</span>,<span class="citation">@Kitchenham2002</span>)</span>).</p>
 <p>Next Table <a href="open-toolsdashboards-to-extract-data.html#tab:effEstimation">5.1</a> (following Mair et al <span class="citation">(<a href="#ref-MairSJ05">2005</a>)</span> ) shows the most open cost/effort datasets available in the literature with their main reference.</p>
-<table style="width:88%;">
+<table>
 <caption><span id="tab:effEstimation">Table 5.1: </span> Effort Estimation Dataset from articles</caption>
 <colgroup>
-<col width="48%" />
-<col width="19%" />
-<col width="19%" />
+<col width="56%" />
+<col width="21%" />
+<col width="21%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -396,7 +427,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="right">14</td>
 </tr>
 <tr class="odd">
-<td>Heiat and Heiat <span class="citation">(A. Heiat and Heiat <a href="#ref-Heiat97">1997</a>)</span></td>
+<td>Heiat and Heiat <span class="citation">(Heiat and Heiat <a href="#ref-Heiat97">1997</a>)</span></td>
 <td align="right">35</td>
 <td align="right">4</td>
 </tr>
@@ -446,12 +477,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="right">6</td>
 </tr>
 <tr class="odd">
-<td>Keung et al. (China dataset) <span class="citation">(n.d.)</span><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></td>
+<td>Keung et al. (China dataset) <span class="citation">(<a href="#ref-Keung11">n.d.</a>)</span><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></td>
 <td align="right">499</td>
 <td align="right">18</td>
 </tr>
 <tr class="even">
-<td>Li et al.(USP05) <span class="citation">(<a href="#ref-LiRAR07">2007</a>)</span><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></td>
+<td>Li et al.(USP05) <span class="citation">(<a href="#ref-LiRAR07">2007</a>)</span><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></td>
 <td align="right">202</td>
 <td align="right">16</td>
 </tr>
@@ -491,7 +522,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="right">5</td>
 </tr>
 <tr class="even">
-<td>Schofield (real-time 1) <span class="citation">(<a href="#ref-Schofield98PhD">1998</a>,<span class="citation">Shepperd and Schofield (<a href="#ref-Shepperd97_Analogy">1997</a>)</span>)</span></td>
+<td>Schofield (real-time 1) <span class="citation">(<a href="#ref-Schofield98PhD">1998</a>,<span class="citation">@Shepperd97_Analogy</span>)</span></td>
 <td align="right">21</td>
 <td align="right">4</td>
 </tr>
@@ -525,32 +556,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-Lincke2008">
+<p>Lincke, Rüdiger, Jonas Lundberg, and Welf Löwe. 2008. “Comparing Software Metrics Tools.” In <em>Proceedings of the 2008 International Symposium on Software Testing and Analysis (Issta’08)</em>, 131–42. ISSTA’08. New York, NY, USA: ACM. <a href="https://doi.org/10.1145/1390630.1390648">https://doi.org/10.1145/1390630.1390648</a>.</p>
+</div>
+<div id="ref-Gray2011">
+<p>Gray, D., D. Bowes, N. Davey, Y. Sun, and B. Christianson. 2011. “The Misuse of the Nasa Metrics Data Program Data Sets for Automated Software Defect Prediction.” In <em>15th Annual Conference on Evaluation Assessment in Software Engineering (Ease 2011)</em>, 96–103. <a href="https://doi.org/10.1049/ic.2011.0012">https://doi.org/10.1049/ic.2011.0012</a>.</p>
+</div>
+<div id="ref-Shepperd2013">
+<p>Shepperd, M., Qinbao Song, Zhongbin Sun, and C. Mair. 2013. “Data Quality: Some Comments on the Nasa Software Defect Datasets.” <em>IEEE Transactions on Software Engineering</em> 39 (9): 1208–15. <a href="https://doi.org/10.1109/TSE.2013.11">https://doi.org/10.1109/TSE.2013.11</a>.</p>
+</div>
 <div id="ref-MairSJ05">
-<p>Mair, Carolyn, Martin Shepperd, and Magne Jørgensen. 2005. “An Analysis of Data Sets Used to Train and Validate Cost Prediction Systems.” <em>SIGSOFT Software Engineering Notes</em> 30 (4). New York, NY, USA: ACM: 1–6. doi:<a href="https://doi.org/10.1145/1082983.1083166">10.1145/1082983.1083166</a>.</p>
+<p>Mair, Carolyn, Martin Shepperd, and Magne Jørgensen. 2005. “An Analysis of Data Sets Used to Train and Validate Cost Prediction Systems.” <em>SIGSOFT Software Engineering Notes</em> 30 (4). New York, NY, USA: ACM: 1–6. <a href="https://doi.org/10.1145/1082983.1083166">https://doi.org/10.1145/1082983.1083166</a>.</p>
 </div>
 <div id="ref-Dejaeger_TSE12_EffEst">
-<p>Dejaeger, K., W. Verbeke, D. Martens, and B. Baesens. 2012. “Data Mining Techniques for Software Effort Estimation: A Comparative Study.” <em>Software Engineering, IEEE Transactions on</em> 38 (2): 375–97. doi:<a href="https://doi.org/10.1109/TSE.2011.55">10.1109/TSE.2011.55</a>.</p>
+<p>Dejaeger, K., W. Verbeke, D. Martens, and B. Baesens. 2012. “Data Mining Techniques for Software Effort Estimation: A Comparative Study.” <em>Software Engineering, IEEE Transactions on</em> 38 (2): 375–97. <a href="https://doi.org/10.1109/TSE.2011.55">https://doi.org/10.1109/TSE.2011.55</a>.</p>
 </div>
 <div id="ref-Jorgensen07">
-<p>Jørgensen, M., and M. Shepperd. 2007. “A Systematic Review of Software Development Cost Estimation Studies.” <em>IEEE Transactions on Software Engineering</em> 33 (1): 33–53. doi:<a href="https://doi.org/10.1109/TSE.2007.256943">10.1109/TSE.2007.256943</a>.</p>
+<p>Jørgensen, M., and M. Shepperd. 2007. “A Systematic Review of Software Development Cost Estimation Studies.” <em>IEEE Transactions on Software Engineering</em> 33 (1): 33–53. <a href="https://doi.org/10.1109/TSE.2007.256943">https://doi.org/10.1109/TSE.2007.256943</a>.</p>
 </div>
 <div id="ref-Dolado01_CostEst">
-<p>Dolado, J.J. 2001. “On the Problem of the Software Cost Function.” <em>Information and Software Technology</em> 43 (1): 61–72. doi:<a href="https://doi.org/10.1016/S0950-5849(00)00137-3">10.1016/S0950-5849(00)00137-3</a>.</p>
-</div>
-<div id="ref-Banker1994">
-<p>Banker, Rajiv D, Hsihui Chang, and Chris F Kemerer. 1994. “Evidence on Economies of Scale in Software Development.” <em>Information and Software Technology</em> 36 (5): 275–82. doi:<a href="https://doi.org/10.1016/0950-5849(94)90083-3">10.1016/0950-5849(94)90083-3</a>.</p>
-</div>
-<div id="ref-Kitchenham2002">
-<p>Kitchenham, Barbara A. 2002. “The Question of Scale Economies in Software — Why Cannot Researchers Agree?” <em>Information and Software Technology</em> 44 (1): 13–24. doi:<a href="https://doi.org/10.1016/S0950-5849(01)00204-X">10.1016/S0950-5849(01)00204-X</a>.</p>
+<p>Dolado, J.J. 2001. “On the Problem of the Software Cost Function.” <em>Information and Software Technology</em> 43 (1): 61–72. <a href="https://doi.org/10.1016/S0950-5849(00)00137-3">https://doi.org/10.1016/S0950-5849(00)00137-3</a>.</p>
 </div>
 <div id="ref-Abran_TSE96_FP">
-<p>Abran, A., and P.N. Robillard. 1996. “Function Points Analysis: An Empirical Study of Its Measurement Processes.” <em>Software Engineering, IEEE Transactions on</em> 22 (12): 895–910. doi:<a href="https://doi.org/10.1109/32.553638">10.1109/32.553638</a>.</p>
+<p>Abran, A., and P.N. Robillard. 1996. “Function Points Analysis: An Empirical Study of Its Measurement Processes.” <em>Software Engineering, IEEE Transactions on</em> 22 (12): 895–910. <a href="https://doi.org/10.1109/32.553638">https://doi.org/10.1109/32.553638</a>.</p>
 </div>
 <div id="ref-AlbrechtG83">
-<p>Albrecht, A.J., and Jr. Gaffney J.E. 1983. “Software Function, Source Lines of Code, and Development Effort Prediction: A Software Science Validation.” <em>IEEE Transactions on Software Engineering</em> 9 (6): 639–48. doi:<a href="https://doi.org/10.1109/TSE.1983.235271">10.1109/TSE.1983.235271</a>.</p>
+<p>Albrecht, A.J., and Jr. Gaffney J.E. 1983. “Software Function, Source Lines of Code, and Development Effort Prediction: A Software Science Validation.” <em>IEEE Transactions on Software Engineering</em> 9 (6): 639–48. <a href="https://doi.org/10.1109/TSE.1983.235271">https://doi.org/10.1109/TSE.1983.235271</a>.</p>
 </div>
 <div id="ref-Bailey81">
-<p>Bailey, John W., and Victor R. Basili. 1981. “A Meta-Model for Software Development Resource Expenditures.” In <em>Proceedings of the 5th International Conference on Software Engineering (Icse’81)</em>, 107–16. ICSE’81. Piscataway, NJ, USA: IEEE Press. <a href="http://dl.acm.org/citation.cfm?id=800078.802522" class="uri">http://dl.acm.org/citation.cfm?id=800078.802522</a>.</p>
+<p>Bailey, John W., and Victor R. Basili. 1981. “A Meta-Model for Software Development Resource Expenditures.” In <em>Proceedings of the 5th International Conference on Software Engineering (Icse’81)</em>, 107–16. ICSE’81. Piscataway, NJ, USA: IEEE Press. <a href="http://dl.acm.org/citation.cfm?id=800078.802522">http://dl.acm.org/citation.cfm?id=800078.802522</a>.</p>
 </div>
 <div id="ref-Belady79">
 <p>Belady, L.A., and M.M. Lehman. 1979. “Research Directions in Software Technology.” In. Cambridge, MA: MIT Press.</p>
@@ -562,65 +596,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Desharnais, J.M. 1988. “Analyse Statistique de La Productivite Des Projects de Development En Informatique a Partir de La Technique Des Points de Fonction.” MSc Thesis, Univ. du Quebec a Montreal.</p>
 </div>
 <div id="ref-Dolado97">
-<p>Dolado, J.J. 1997. “A Study of the Relationships Among Albrecht and Mark Ii Function Points, Lines of Code 4GL and Effort.” <em>Journal of Systems and Software</em> 37 (2): 161–73. doi:<a href="https://doi.org/10.1016/S0164-1212(96)00111-2">10.1016/S0164-1212(96)00111-2</a>.</p>
+<p>Dolado, J.J. 1997. “A Study of the Relationships Among Albrecht and Mark Ii Function Points, Lines of Code 4GL and Effort.” <em>Journal of Systems and Software</em> 37 (2): 161–73. <a href="https://doi.org/10.1016/S0164-1212(96)00111-2">https://doi.org/10.1016/S0164-1212(96)00111-2</a>.</p>
 </div>
 <div id="ref-Hastings01">
-<p>Hastings, T.E., and A.S.M. Sajeev. 2001. “A Vector-Based Approach to Software Size Measurement and Effort Estimation.” <em>IEEE Transactions on Software Engineering</em> 27 (4): 337–50. doi:<a href="https://doi.org/10.1109/32.917523">10.1109/32.917523</a>.</p>
+<p>Hastings, T.E., and A.S.M. Sajeev. 2001. “A Vector-Based Approach to Software Size Measurement and Effort Estimation.” <em>IEEE Transactions on Software Engineering</em> 27 (4): 337–50. <a href="https://doi.org/10.1109/32.917523">https://doi.org/10.1109/32.917523</a>.</p>
 </div>
 <div id="ref-Heiat97">
-<p>Heiat, Abbas, and Nafisseh Heiat. 1997. “A Model for Estimating Efforts Required for Developing Small-Scale Business Applications.” <em>Journal of Systems and Software</em> 39 (1): 7–14. doi:<a href="https://doi.org/10.1016/S0164-1212(96)00159-8">10.1016/S0164-1212(96)00159-8</a>.</p>
+<p>Heiat, Abbas, and Nafisseh Heiat. 1997. “A Model for Estimating Efforts Required for Developing Small-Scale Business Applications.” <em>Journal of Systems and Software</em> 39 (1): 7–14. <a href="https://doi.org/10.1016/S0164-1212(96)00159-8">https://doi.org/10.1016/S0164-1212(96)00159-8</a>.</p>
 </div>
 <div id="ref-Jeffery_ESE96">
-<p>Jeffery, Ross, and John Stathis. 1996. “Function Point Sizing: Structure, Validity and Applicability.” <em>Empirical Software Engineering</em> 1 (1). Springer Netherlands: 11–30. <a href="http://dx.doi.org/10.1007/BF00125809" class="uri">http://dx.doi.org/10.1007/BF00125809</a>.</p>
+<p>Jeffery, Ross, and John Stathis. 1996. “Function Point Sizing: Structure, Validity and Applicability.” <em>Empirical Software Engineering</em> 1 (1). Springer Netherlands: 11–30. <a href="http://dx.doi.org/10.1007/BF00125809">http://dx.doi.org/10.1007/BF00125809</a>.</p>
 </div>
 <div id="ref-Jorgensen04">
-<p>Jorgensen, M. 2004. “Realism in Assessment of Effort Estimation Uncertainty: It Matters How You Ask.” <em>IEEE Transactions on Software Engineering</em> 30 (4): 209–17. doi:<a href="https://doi.org/10.1109/TSE.2004.1274041">10.1109/TSE.2004.1274041</a>.</p>
+<p>Jorgensen, M. 2004. “Realism in Assessment of Effort Estimation Uncertainty: It Matters How You Ask.” <em>IEEE Transactions on Software Engineering</em> 30 (4): 209–17. <a href="https://doi.org/10.1109/TSE.2004.1274041">https://doi.org/10.1109/TSE.2004.1274041</a>.</p>
 </div>
 <div id="ref-Jorgensen2003">
-<p>Jørgensen, Magne, Ulf Indahl, and Dag Sjøberg. 2003. “Software Effort Estimation by Analogy and ’Regression Toward Themean’.” <em>Journal of Systems and Software</em> 68 (3): 253–62. doi:<a href="https://doi.org/10.1016/S0164-1212(03)00066-9">10.1016/S0164-1212(03)00066-9</a>.</p>
+<p>Jørgensen, Magne, Ulf Indahl, and Dag Sjøberg. 2003. “Software Effort Estimation by Analogy and ’Regression Toward Themean’.” <em>Journal of Systems and Software</em> 68 (3): 253–62. <a href="https://doi.org/10.1016/S0164-1212(03)00066-9">https://doi.org/10.1016/S0164-1212(03)00066-9</a>.</p>
 </div>
 <div id="ref-Kemerer87">
-<p>Kemerer, Chris F. 1987. “An Empirical Validation of Software Cost Estimation Models.” <em>Communications of the ACM</em> 30 (5). New York, NY, USA: ACM: 416–29. doi:<a href="https://doi.org/10.1145/22899.22906">10.1145/22899.22906</a>.</p>
+<p>Kemerer, Chris F. 1987. “An Empirical Validation of Software Cost Estimation Models.” <em>Communications of the ACM</em> 30 (5). New York, NY, USA: ACM: 416–29. <a href="https://doi.org/10.1145/22899.22906">https://doi.org/10.1145/22899.22906</a>.</p>
+</div>
+<div id="ref-Kitchenham2002">
+<p>Kitchenham, Barbara A. 2002. “The Question of Scale Economies in Software — Why Cannot Researchers Agree?” <em>Information and Software Technology</em> 44 (1): 13–24. <a href="https://doi.org/10.1016/S0950-5849(01)00204-X">https://doi.org/10.1016/S0950-5849(01)00204-X</a>.</p>
 </div>
 <div id="ref-Kitchenham02_CSC">
-<p>Kitchenham, Barbara, Shari Lawrence Pfleeger, Beth McColl, and Suzanne Eagan. 2002. “An Empirical Study of Maintenance and Development Estimation Accuracy.” <em>Journal of Systems and Software</em> 64 (1): 57–77. doi:<a href="https://doi.org/10.1016/S0164-1212(02)00021-3">10.1016/S0164-1212(02)00021-3</a>.</p>
+<p>Kitchenham, Barbara, Shari Lawrence Pfleeger, Beth McColl, and Suzanne Eagan. 2002. “An Empirical Study of Maintenance and Development Estimation Accuracy.” <em>Journal of Systems and Software</em> 64 (1): 57–77. <a href="https://doi.org/10.1016/S0164-1212(02)00021-3">https://doi.org/10.1016/S0164-1212(02)00021-3</a>.</p>
 </div>
 <div id="ref-Kitchenham85">
-<p>Kitchenham, Barbara A., and N.R. Taylor. 1985. “Software Project Development Cost Estimation.” <em>Journal of Systems and Software</em> 5 (4): 267–78. doi:<a href="https://doi.org/10.1016/0164-1212(85)90026-3">10.1016/0164-1212(85)90026-3</a>.</p>
+<p>Kitchenham, Barbara A., and N.R. Taylor. 1985. “Software Project Development Cost Estimation.” <em>Journal of Systems and Software</em> 5 (4): 267–78. <a href="https://doi.org/10.1016/0164-1212(85)90026-3">https://doi.org/10.1016/0164-1212(85)90026-3</a>.</p>
+</div>
+<div id="ref-Keung11">
+<p>Keung, Jacky W., Ekrem Kocaguneli, and Tim Menzies. n.d. “Where Is the Best Effort Estimator?” <a href="http://www.csee.wvu.edu/~timm/tmp/icse-v2.pdf">http://www.csee.wvu.edu/~timm/tmp/icse-v2.pdf</a>.</p>
 </div>
 <div id="ref-LiRAR07">
-<p>Li, Jingzhou, Guenther Ruhe, Ahmed Al-Emran, and Michael M. Richter. 2007. “A Flexible Method for Software Effort Estimation by Analogy.” <em>Empirical Software Engineering</em> 12 (1): 65–106. doi:<a href="https://doi.org/10.1007/s10664-006-7552-4">10.1007/s10664-006-7552-4</a>.</p>
+<p>Li, Jingzhou, Guenther Ruhe, Ahmed Al-Emran, and Michael M. Richter. 2007. “A Flexible Method for Software Effort Estimation by Analogy.” <em>Empirical Software Engineering</em> 12 (1): 65–106. <a href="https://doi.org/10.1007/s10664-006-7552-4">https://doi.org/10.1007/s10664-006-7552-4</a>.</p>
 </div>
 <div id="ref-Misic19981">
-<p>Mišić, Vojislav B, and Dejan N Tevsić. 1998. “Estimation of Effort and Complexity: An Object-Oriented Case Study.” <em>Journal of Systems and Software</em> 41 (2): 133–43. doi:<a href="https://doi.org/10.1016/S0164-1212(97)10014-0">10.1016/S0164-1212(97)10014-0</a>.</p>
+<p>Mišić, Vojislav B, and Dejan N Tevsić. 1998. “Estimation of Effort and Complexity: An Object-Oriented Case Study.” <em>Journal of Systems and Software</em> 41 (2): 133–43. <a href="https://doi.org/10.1016/S0164-1212(97)10014-0">https://doi.org/10.1016/S0164-1212(97)10014-0</a>.</p>
 </div>
 <div id="ref-Maxwell02">
 <p>Maxwell, Katrina. 2002. <em>Applied Statistics for Software Managers</em>. Prentice Hall.</p>
 </div>
 <div id="ref-Miyazaki94">
-<p>Miyazaki, Y., M. Terakado, K. Ozaki, and H. Nozaki. 1994. “Robust Regression for Developing Software Estimation Models.” <em>Journal of Systems and Software</em> 27 (1): 3–16. doi:<a href="https://doi.org/10.1016/0164-1212(94)90110-4">10.1016/0164-1212(94)90110-4</a>.</p>
+<p>Miyazaki, Y., M. Terakado, K. Ozaki, and H. Nozaki. 1994. “Robust Regression for Developing Software Estimation Models.” <em>Journal of Systems and Software</em> 27 (1): 3–16. <a href="https://doi.org/10.1016/0164-1212(94)90110-4">https://doi.org/10.1016/0164-1212(94)90110-4</a>.</p>
 </div>
 <div id="ref-Moser1999">
-<p>Moser, Simon, Brian Henderson-Sellers, and Vojislav B Mišić. 1999. “Cost Estimation Based on Business Models.” <em>Journal of Systems and Software</em> 49 (1): 33–42. doi:<a href="https://doi.org/10.1016/S0164-1212(99)00064-3">10.1016/S0164-1212(99)00064-3</a>.</p>
+<p>Moser, Simon, Brian Henderson-Sellers, and Vojislav B Mišić. 1999. “Cost Estimation Based on Business Models.” <em>Journal of Systems and Software</em> 49 (1): 33–42. <a href="https://doi.org/10.1016/S0164-1212(99)00064-3">https://doi.org/10.1016/S0164-1212(99)00064-3</a>.</p>
 </div>
 <div id="ref-Shepperd_TSE01">
-<p>Shepperd, M., and M. Cartwright. 2001. “Predicting with Sparse Data.” <em>Software Engineering, IEEE Transactions on</em> 27 (11): 987–98. doi:<a href="https://doi.org/10.1109/32.965339">10.1109/32.965339</a>.</p>
+<p>Shepperd, M., and M. Cartwright. 2001. “Predicting with Sparse Data.” <em>Software Engineering, IEEE Transactions on</em> 27 (11): 987–98. <a href="https://doi.org/10.1109/32.965339">https://doi.org/10.1109/32.965339</a>.</p>
 </div>
 <div id="ref-Shepperd97_Analogy">
-<p>Shepperd, M., and C. Schofield. 1997. “Estimating Software Project Effort Using Analogies.” <em>Software Engineering, IEEE Transactions on</em> 23 (11): 736–43. doi:<a href="https://doi.org/10.1109/32.637387">10.1109/32.637387</a>.</p>
+<p>Shepperd, M., and C. Schofield. 1997. “Estimating Software Project Effort Using Analogies.” <em>Software Engineering, IEEE Transactions on</em> 23 (11): 736–43. <a href="https://doi.org/10.1109/32.637387">https://doi.org/10.1109/32.637387</a>.</p>
 </div>
 <div id="ref-Schofield98PhD">
 <p>Schofield, C. 1998. “An Empirical Investigation into Software Effort Estimation by Analogy.” PhD thesis, Bournemouth University.</p>
 </div>
 <div id="ref-Woodfield81">
-<p>Woodfield, S.N., V.Y. Shen, and H.E. Dunsmore. 1981. “A Study of Several Metrics for Programming Effort.” <em>Journal of Systems and Software</em> 2 (2): 97–103. doi:<a href="https://doi.org/10.1016/0164-1212(81)90029-7">10.1016/0164-1212(81)90029-7</a>.</p>
+<p>Woodfield, S.N., V.Y. Shen, and H.E. Dunsmore. 1981. “A Study of Several Metrics for Programming Effort.” <em>Journal of Systems and Software</em> 2 (2): 97–103. <a href="https://doi.org/10.1016/0164-1212(81)90029-7">https://doi.org/10.1016/0164-1212(81)90029-7</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>Donated through PROMISE.<a href="open-toolsdashboards-to-extract-data.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>Only a subset of the data in the paper, the complete dataset is donated through PROMISE<a href="open-toolsdashboards-to-extract-data.html#fnref2">↩</a></p></li>
+<li id="fn1"><p>Donated through PROMISE.<a href="open-toolsdashboards-to-extract-data.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Only a subset of the data in the paper, the complete dataset is donated through PROMISE<a href="open-toolsdashboards-to-extract-data.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -640,17 +680,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -660,6 +701,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/danrodgar/dasedown/edit/master/110_dataSources.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["DASE.pdf", "DASE.epub"],
 "toc": {
@@ -674,9 +719,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

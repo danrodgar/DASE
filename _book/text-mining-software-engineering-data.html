@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Analysis in Software Engineering using R</title>
+  <title>Chapter 20 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R</title>
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 20 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 20 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2018-12-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="time-series.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -159,7 +186,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+</ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
@@ -275,9 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
@@ -306,888 +334,166 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="text-mining-software-engineering-data" class="section level1">
 <h1><span class="header-section-number">Chapter 20</span> Text Mining Software Engineering Data</h1>
 <p>In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons, etc. Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple’s AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.</p>
-<p>The main package for <em>text mining</em> is <code>tm</code> <span class="citation">(Feinerer and Hornik <a href="#ref-FeinererH15">2015</a>,<span class="citation">Feinerer, Hornik, and Meyer (<a href="#ref-FeinererHM08">2008</a>)</span>)</span>. Another popular package is <code>wordcloud</code>.</p>
+<p>The main package for <em>text mining</em> is <code>tm</code> <span class="citation">(Feinerer and Hornik <a href="#ref-FeinererH15">2015</a>,<span class="citation">@FeinererHM08</span>)</span>. Another popular package is <code>wordcloud</code>.</p>
 <div id="terminology" class="section level2">
 <h2><span class="header-section-number">20.1</span> Terminology</h2>
-<p>We need to consider: * Importing data. A <em>Corpus</em> is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The <code>tm</code> provides several corpus constructors: <code>DirSource</code>, <code>VectorSource</code>, or <code>DataframeSource</code> (<code>getSources()</code>). readerControl of the corpus constructor has to be a list with the named components reader and language * Preprocessing * Inspecting and exploring data: Individual documents can be accessed via [[ * Transformations: Transformations are done via the tm_map() function. ++ tm_map(_____, stripWhitespace)<br />
-++ tm_map(_____, content_transformer(tolower))<br />
-++ tm_map(_____, removeWords, stopwords(“english”))<br />
-++ tm_map(reuters, stemDocument) * Creating <code>Term-Document</code> Matrices: TermDocumentMatrix and DocumentTermMatrix ++ * Relationships between terms. ++ findFreqTerms(_____, anumber) ++ findAssocs(Mydtm, “aterm”, anumbercorrelation) ++ A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.<br />
-++ inspect(DocumentTermMatrix( newsreuters, list(dictionary = c(“term1”, “term2”, “term3”)))). It displays detailed information on a corpus or a term-document matrix. * Clustering</p>
-</div>
-<div id="basic-tm-commands" class="section level2">
-<h2><span class="header-section-number">20.2</span> Basic <strong>tm</strong> commands</h2>
-<p>For example, load a tm dataset 20 news articles with additional meta information from the Reuters-21578 dataset</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&#39;tm&#39;</span>)</code></pre></div>
-<pre><code>## Loading required package: NLP</code></pre>
-<pre><code>## 
-## Attaching package: &#39;NLP&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     annotate</code></pre>
-<pre><code>## 
-## Attaching package: &#39;tm&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:arules&#39;:
-## 
-##     inspect</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;crude&quot;</span>)
-crude</code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crude[[<span class="dv">2</span>]]$content  <span class="co"># returns the text content of the second news article</span></code></pre></div>
-<pre><code>## [1] &quot;OPEC may be forced to meet before a\nscheduled June session to readdress its production cutting\nagreement if the organization wants to halt the current slide\nin oil prices, oil industry analysts said.\n    \&quot;The movement to higher oil prices was never to be as easy\nas OPEC thought. They may need an emergency meeting to sort out\nthe problems,\&quot; said Daniel Yergin, director of Cambridge Energy\nResearch Associates, CERA.\n    Analysts and oil industry sources said the problem OPEC\nfaces is excess oil supply in world oil markets.\n    \&quot;OPEC&#39;s problem is not a price problem but a production\nissue and must be addressed in that way,\&quot; said Paul Mlotok, oil\nanalyst with Salomon Brothers Inc.\n    He said the market&#39;s earlier optimism about OPEC and its\nability to keep production under control have given way to a\npessimistic outlook that the organization must address soon if\nit wishes to regain the initiative in oil prices.\n    But some other analysts were uncertain that even an\nemergency meeting would address the problem of OPEC production\nabove the 15.8 mln bpd quota set last December.\n    \&quot;OPEC has to learn that in a buyers market you cannot have\ndeemed quotas, fixed prices and set differentials,\&quot; said the\nregional manager for one of the major oil companies who spoke\non condition that he not be named. \&quot;The market is now trying to\nteach them that lesson again,\&quot; he added.\n    David T. Mizrahi, editor of Mideast reports, expects OPEC\nto meet before June, although not immediately. However, he is\nnot optimistic that OPEC can address its principal problems.\n    \&quot;They will not meet now as they try to take advantage of the\nwinter demand to sell their oil, but in late March and April\nwhen demand slackens,\&quot; Mizrahi said.\n    But Mizrahi said that OPEC is unlikely to do anything more\nthan reiterate its agreement to keep output at 15.8 mln bpd.\&quot;\n    Analysts said that the next two months will be critical for\nOPEC&#39;s ability to hold together prices and output.\n    \&quot;OPEC must hold to its pact for the next six to eight weeks\nsince buyers will come back into the market then,\&quot; said Dillard\nSpriggs of Petroleum Analysis Ltd in New York.\n    But Bijan Moussavar-Rahmani of Harvard University&#39;s Energy\nand Environment Policy Center said that the demand for OPEC oil\nhas been rising through the first quarter and this may have\nprompted excesses in its production.\n    \&quot;Demand for their (OPEC) oil is clearly above 15.8 mln bpd\nand is probably closer to 17 mln bpd or higher now so what we\nare seeing characterized as cheating is OPEC meeting this\ndemand through current production,\&quot; he told Reuters in a\ntelephone interview.\n Reuter&quot;</code></pre>
-<p>Create a data frame source:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a vector source.</span>
-docs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;This is a text.&quot;</span>, <span class="st">&quot;This another one.&quot;</span>)
-(vs &lt;-<span class="st"> </span><span class="kw">VectorSource</span>(docs))</code></pre></div>
-<pre><code>## $encoding
-## [1] &quot;&quot;
-## 
-## $length
-## [1] 2
-## 
-## $position
-## [1] 0
-## 
-## $reader
-## function (elem, language, id) 
-## {
-##     if (!is.null(elem$uri)) 
-##         id &lt;- basename(elem$uri)
-##     PlainTextDocument(elem$content, id = id, language = language)
-## }
-## &lt;environment: namespace:tm&gt;
-## 
-## $content
-## [1] &quot;This is a text.&quot;   &quot;This another one.&quot;
-## 
-## attr(,&quot;class&quot;)
-## [1] &quot;VectorSource&quot; &quot;SimpleSource&quot; &quot;Source&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(<span class="kw">VCorpus</span>(vs))</code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 2
-## 
-## [[1]]
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 15
-## 
-## [[2]]
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 17</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a data frame source</span>
-docs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">c</span>(<span class="st">&quot;This is a text.&quot;</span>, <span class="st">&quot;This another one.&quot;</span>))
-(ds &lt;-<span class="st"> </span><span class="kw">DataframeSource</span>(docs))</code></pre></div>
-<pre><code>## $encoding
-## [1] &quot;&quot;
-## 
-## $length
-## [1] 2
-## 
-## $position
-## [1] 0
-## 
-## $reader
-## function (elem, language, id) 
-## {
-##     if (!is.null(elem$uri)) 
-##         id &lt;- basename(elem$uri)
-##     PlainTextDocument(elem$content, id = id, language = language)
-## }
-## &lt;environment: namespace:tm&gt;
-## 
-## $content
-##   c..This.is.a.text.....This.another.one...
-## 1                           This is a text.
-## 2                         This another one.
-## 
-## attr(,&quot;class&quot;)
-## [1] &quot;DataframeSource&quot; &quot;SimpleSource&quot;    &quot;Source&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(<span class="kw">VCorpus</span>(ds))</code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 2
-## 
-## [[1]]
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 15
-## 
-## [[2]]
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 17</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># accessing documents, terms</span>
-<span class="co"># For Docs and Terms, a character vector with document IDs and terms, respectively.</span>
-<span class="co"># For nDocs and nTerms, an integer with the number of document IDs and terms, respectively.</span>
-
-tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)[<span class="dv">1</span>:<span class="dv">10</span>,<span class="dv">1</span>:<span class="dv">20</span>] <span class="co"># 10 terms, 20 documents</span>
-tdm1 &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)
-
-<span class="kw">Docs</span>(tdm)</code></pre></div>
-<pre><code>##  [1] &quot;127&quot; &quot;144&quot; &quot;191&quot; &quot;194&quot; &quot;211&quot; &quot;236&quot; &quot;237&quot; &quot;242&quot; &quot;246&quot; &quot;248&quot; &quot;273&quot;
-## [12] &quot;349&quot; &quot;352&quot; &quot;353&quot; &quot;368&quot; &quot;489&quot; &quot;502&quot; &quot;543&quot; &quot;704&quot; &quot;708&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nDocs</span>(tdm)</code></pre></div>
-<pre><code>## [1] 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nTerms</span>(tdm)</code></pre></div>
-<pre><code>## [1] 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm)</code></pre></div>
-<pre><code>##  [1] &quot;...&quot;     &quot;100,000&quot; &quot;10.8&quot;    &quot;1.1&quot;     &quot;1.11&quot;    &quot;1.15&quot;    &quot;1.2&quot;    
-##  [8] &quot;12.&quot;     &quot;12.217&quot;  &quot;12.32&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Inspect, i.e., display detailed information on a corpus or a term-document matrix.</span>
-<span class="kw">inspect</span>(crude[<span class="dv">1</span>:<span class="dv">3</span>])</code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 3
-## 
-## $`reut-00001.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 527
-## 
-## $`reut-00002.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 2634
-## 
-## $`reut-00004.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 330</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)[<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>]
-<span class="kw">inspect</span>(tdm)</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 10, documents: 10)&gt;&gt;
-## Non-/sparse entries: 4/96
-## Sparsity           : 96%
-## Maximal term length: 7
-## Weighting          : term frequency (tf)
-## Sample             :
-##          Docs
-## Terms     127 144 191 194 211 236 237 242 246 248
-##   ...       0   0   0   0   0   0   0   0   0   1
-##   100,000   0   0   0   0   0   0   0   0   0   0
-##   10.8      0   0   0   0   0   0   0   0   0   0
-##   1.1       0   0   0   0   0   0   0   0   0   0
-##   1.11      0   0   0   0   0   0   0   0   0   0
-##   1.15      0   0   0   0   0   0   0   0   0   0
-##   1.2       0   0   0   0   0   1   0   0   0   0
-##   12.       0   0   0   1   0   0   0   0   0   0
-##   12.217    0   0   0   0   0   0   0   0   1   0
-##   12.32     0   0   0   0   0   0   0   0   0   0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># TermDocumentMatrix  Constructs or coerces to a term-document matrix or a document-term matrix.</span>
-
-<span class="kw">data</span>(<span class="st">&quot;crude&quot;</span>)
-tdmRmPct &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
-                                                <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
-dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">weighting =</span> function(x) <span class="kw">weightTfIdf</span>(x, <span class="dt">normalize =</span>
-<span class="ot">FALSE</span>),
-<span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
-<span class="kw">inspect</span>(tdmRmPct[<span class="dv">202</span>:<span class="dv">205</span>, <span class="dv">1</span>:<span class="dv">5</span>])</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 4, documents: 5)&gt;&gt;
-## Non-/sparse entries: 6/14
-## Sparsity           : 70%
-## Maximal term length: 9
-## Weighting          : term frequency (tf)
-## Sample             :
-##            Docs
-## Terms       127 144 191 194 211
-##   companies   1   1   0   0   0
-##   company     1   0   0   1   0
-##   companys    0   0   1   0   0
-##   compared    0   0   0   0   1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(tdmRmPct[<span class="kw">c</span>(<span class="st">&quot;price&quot;</span>, <span class="st">&quot;texas&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;127&quot;</span>, <span class="st">&quot;144&quot;</span>, <span class="st">&quot;191&quot;</span>, <span class="st">&quot;194&quot;</span>)])</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 2, documents: 4)&gt;&gt;
-## Non-/sparse entries: 6/2
-## Sparsity           : 25%
-## Maximal term length: 5
-## Weighting          : term frequency (tf)
-## Sample             :
-##        Docs
-## Terms   127 144 191 194
-##   price   2   1   2   2
-##   texas   1   0   0   2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inspect</span>(dtm[<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">273</span>:<span class="dv">276</span>])</code></pre></div>
-<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 5, terms: 4)&gt;&gt;
-## Non-/sparse entries: 0/20
-## Sparsity           : 100%
-## Maximal term length: 9
-## Weighting          : term frequency - inverse document frequency (tf-idf)
-## Sample             :
-##      Terms
-## Docs  council counter countries country
-##   127       0       0         0       0
-##   144       0       0         0       0
-##   191       0       0         0       0
-##   194       0       0         0       0
-##   211       0       0         0       0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#10 terms </span>
-tdmRmPct10 &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
-                                                <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))[<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">1</span>:<span class="dv">10</span>]
-<span class="kw">Docs</span>(tdmRmPct10)</code></pre></div>
-<pre><code>##  [1] &quot;127&quot; &quot;144&quot; &quot;191&quot; &quot;194&quot; &quot;211&quot; &quot;236&quot; &quot;237&quot; &quot;242&quot; &quot;246&quot; &quot;248&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nDocs</span>(tdmRmPct10)</code></pre></div>
-<pre><code>## [1] 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nTerms</span>(tdmRmPct10)</code></pre></div>
-<pre><code>## [1] 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdmRmPct10)</code></pre></div>
-<pre><code>##  [1] &quot;100000&quot;   &quot;108&quot;      &quot;111&quot;      &quot;115&quot;      &quot;12217&quot;    &quot;1232&quot;    
-##  [7] &quot;1381&quot;     &quot;13member&quot; &quot;13nation&quot; &quot;150&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize correlations between terms of a term-document matrix. Visualization requires that package Rgraphviz is available</span>
-
-<span class="co"># here we remove punctuation, numbers, stopwords</span>
-tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude,
-                          <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
-                                         <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>,
-                                         <span class="dt">stopwords =</span> <span class="ot">TRUE</span>))
-<span class="kw">plot</span>(tdm, <span class="dt">corThreshold =</span> <span class="fl">0.6</span>, <span class="dt">weighting =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find associations in a document-term or term-document matrix.</span>
-tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)
-<span class="kw">findAssocs</span>(tdm, <span class="kw">c</span>(<span class="st">&quot;oil&quot;</span>, <span class="st">&quot;opec&quot;</span>, <span class="st">&quot;xyz&quot;</span>), <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.75</span>, <span class="fl">0.1</span>))</code></pre></div>
-<pre><code>## $oil
-##      15.8   clearly      late    trying       who    winter  analysts 
-##      0.87      0.80      0.80      0.80      0.80      0.80      0.79 
-##      said   meeting     above emergency    market     fixed      that 
-##      0.78      0.77      0.76      0.75      0.75      0.73      0.73 
-##    prices agreement    buyers 
-##      0.72      0.71      0.70 
-## 
-## $opec
-##   meeting emergency      15.8  analysts    buyers     above      said 
-##      0.88      0.87      0.85      0.85      0.83      0.82      0.82 
-##   ability      they   prices. agreement 
-##      0.80      0.80      0.79      0.76 
-## 
-## $xyz
-## numeric(0)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find frequent terms in a document-term or term-document matrix</span>
-<span class="kw">findFreqTerms</span>(tdm, <span class="dv">6</span>, <span class="dv">8</span>)</code></pre></div>
-<pre><code>##  [1] &quot;15.8&quot;          &quot;above&quot;         &quot;accord&quot;        &quot;after&quot;        
-##  [5] &quot;ali&quot;           &quot;analysts&quot;      &quot;barrel.&quot;       &quot;barrels&quot;      
-##  [9] &quot;been&quot;          &quot;before&quot;        &quot;below&quot;         &quot;billion&quot;      
-## [13] &quot;budget&quot;        &quot;demand&quot;        &quot;economic&quot;      &quot;emergency&quot;    
-## [17] &quot;energy&quot;        &quot;exchange&quot;      &quot;futures&quot;       &quot;group&quot;        
-## [21] &quot;gulf&quot;          &quot;help&quot;          &quot;hold&quot;          &quot;industry&quot;     
-## [25] &quot;international&quot; &quot;january&quot;       &quot;meeting&quot;       &quot;minister&quot;     
-## [29] &quot;month&quot;         &quot;nazer&quot;         &quot;nymex&quot;         &quot;output&quot;       
-## [33] &quot;over&quot;          &quot;posted&quot;        &quot;present&quot;       &quot;prices,&quot;      
-## [37] &quot;prices.&quot;       &quot;recent&quot;        &quot;report&quot;        &quot;sell&quot;         
-## [41] &quot;such&quot;          &quot;than&quot;          &quot;their&quot;         &quot;there&quot;        
-## [45] &quot;this&quot;          &quot;traders&quot;       &quot;when&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># termFreq   Generate a term frequency vector from a text document</span>
-<span class="kw">data</span>(<span class="st">&quot;crude&quot;</span>)
-tmfq1 &lt;-<span class="st"> </span><span class="kw">termFreq</span>(crude[[<span class="dv">14</span>]])
-tmfq1</code></pre></div>
-<pre><code>## 
-##     13-nation       948,000         above         after           ali 
-##             1             1             1             1             1 
-##    al-khalifa      al-qabas      al-sabah          also      analysts 
-##             1             1             1             1             1 
-##           and         asked       barrels           bpd        (bpd). 
-##             1             1             1             1             1 
-##         crude         daily        denied     emergency     estimated 
-##             2             2             1             1             1 
-##          fell           for           has international     interview 
-##             1             2             1             1             1 
-##           its        kuwait      kuwait&#39;s          last       limits. 
-##             2             1             1             1             1 
-##         local       meeting     meeting.&quot;       members       million 
-##             1             1             1             1             1 
-##      minister     newspaper         &quot;none           oil           one 
-##             1             1             1             4             1 
-##          opec          over         plans        prices       prices. 
-##             4             1             1             1             1 
-##       pumping         quota        quoted        recent        reuter 
-##             2             1             1             1             1 
-##          said        saying  self-imposed       sharply        sheikh 
-##             1             1             1             1             1 
-##          such          that           the         there       traders 
-##             1             3             4             1             1 
-##           was      weakness          week          were         world 
-##             3             1             1             1             1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tmfq1)</code></pre></div>
-<pre><code>##  &#39;term_frequency&#39; int [1:65(1d)] 1 1 1 1 1 1 1 1 1 1 ...
-##  - attr(*, &quot;dimnames&quot;)=List of 1
-##   ..$ : chr [1:65] &quot;13-nation&quot; &quot;948,000&quot; &quot;above&quot; &quot;after&quot; ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">strsplit_space_tokenizer &lt;-<span class="st"> </span>function(x) <span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(x), <span class="st">&quot;[[:space:]]+&quot;</span>))
-ctrl &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">tokenize =</span> strsplit_space_tokenizer, <span class="dt">removePunctuation =</span> <span class="kw">list</span>(<span class="dt">preserve_intra_word_dashes =</span> <span class="ot">TRUE</span>),
-             <span class="dt">stopwords =</span> <span class="kw">c</span>(<span class="st">&quot;reuter&quot;</span>, <span class="st">&quot;that&quot;</span>),
-             <span class="dt">stemming =</span> <span class="ot">TRUE</span>,
-             <span class="dt">wordLengths =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="ot">Inf</span>))
-tmfq2 &lt;-<span class="st"> </span><span class="kw">termFreq</span>(crude[[<span class="dv">14</span>]], <span class="dt">control =</span> ctrl)
-<span class="kw">str</span>(tmfq2)</code></pre></div>
-<pre><code>##  &#39;term_frequency&#39; int [1:47(1d)] 1 1 1 1 1 1 1 1 1 1 ...
-##  - attr(*, &quot;dimnames&quot;)=List of 1
-##   ..$ : chr [1:47] &quot;13-nation&quot; &quot;948000&quot; &quot;abov&quot; &quot;after&quot; ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#weights</span>
-<span class="co"># weightBin(m) Weight Binary Binary weight a term-document matrix.</span>
-<span class="co"># WeightFunction Construct a weighting function for term-document matrices.</span>
-weightCutBin &lt;-<span class="st"> </span><span class="kw">WeightFunction</span>(function(m, cutoff) m &gt;<span class="st"> </span>cutoff,
-                               <span class="st">&quot;binary with cutoff&quot;</span>, <span class="st">&quot;bincut&quot;</span>)
-<span class="co"># weightSMART Weight a term-document matrix according to a combination of weights specified in SMART notation.</span>
-<span class="kw">TermDocumentMatrix</span>(crude, 
-                   <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>,
-                                  <span class="dt">stopwords =</span> <span class="ot">TRUE</span>,
-                                  <span class="dt">weighting =</span> function(x) <span class="kw">weightSMART</span>(x, <span class="dt">spec =</span> <span class="st">&quot;ntc&quot;</span>)))</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 1000, documents: 20)&gt;&gt;
-## Non-/sparse entries: 1678/18322
-## Sparsity           : 92%
-## Maximal term length: 16
-## Weighting          : SMART ntc (SMART)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># weightTf Weight by Term Frequency   weightTf(m)</span>
-
-<span class="co"># weightTfIdf Weight by Term Frequency - Inverse Document Frequency</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Transformations</span>
-<span class="co"># Remove Numbers from a Text Document</span>
-crude[[<span class="dv">1</span>]]$content</code></pre></div>
-<pre><code>## [1] &quot;Diamond Shamrock Corp said that\neffective today it had cut its contract prices for crude oil by\n1.50 dlrs a barrel.\n    The reduction brings its posted price for West Texas\nIntermediate to 16.00 dlrs a barrel, the copany said.\n    \&quot;The price reduction today was made in the light of falling\noil product prices and a weak crude oil market,\&quot; a company\nspokeswoman said.\n    Diamond is the latest in a line of U.S. oil companies that\nhave cut its contract, or posted, prices over the last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crude1 &lt;-<span class="st"> </span><span class="kw">removeNumbers</span>(crude[[<span class="dv">1</span>]])
-crude1</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 520</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove Punctuation Marks from a Text Document</span>
-crude[[<span class="dv">14</span>]]$content</code></pre></div>
-<pre><code>## [1] &quot;Kuwait&#39;s oil minister said in a newspaper\ninterview that there were no plans for an emergency OPEC\nmeeting after the recent weakness in world oil prices.\n    Sheikh Ali al-Khalifa al-Sabah was quoted by the local\ndaily al-Qabas as saying that \&quot;none of the OPEC members has\nasked for such a meeting.\&quot;\n    He also denied that Kuwait was pumping above its OPEC quota\nof 948,000 barrels of crude daily (bpd).\n    Crude oil prices fell sharply last week as international\noil traders and analysts estimated the 13-nation OPEC was\npumping up to one million bpd over its self-imposed limits.\n Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cruderem &lt;-<span class="st"> </span><span class="kw">removePunctuation</span>(crude[[<span class="dv">14</span>]])
-cruderem</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 576</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cruderem1 &lt;-<span class="st"> </span><span class="kw">removePunctuation</span>(crude[[<span class="dv">14</span>]], <span class="dt">preserve_intra_word_dashes =</span> <span class="ot">TRUE</span>)
-cruderem1$content</code></pre></div>
-<pre><code>## [1] &quot;Kuwaits oil minister said in a newspaper\ninterview that there were no plans for an emergency OPEC\nmeeting after the recent weakness in world oil prices\n    Sheikh Ali al-Khalifa al-Sabah was quoted by the local\ndaily al-Qabas as saying that none of the OPEC members has\nasked for such a meeting\n    He also denied that Kuwait was pumping above its OPEC quota\nof 948000 barrels of crude daily bpd\n    Crude oil prices fell sharply last week as international\noil traders and analysts estimated the 13-nation OPEC was\npumping up to one million bpd over its self-imposed limits\n Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove sparse terms from a document-term or term-document matrix. sparse: A numeric for the maximal allowed sparsity in the range from bigger zero to smaller one</span>
-
-tdm &lt;-<span class="st"> </span><span class="kw">TermDocumentMatrix</span>(crude)
-tdm_lssparse &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.2</span>) 
-tdm_lssparse</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 5, documents: 20)&gt;&gt;
-## Non-/sparse entries: 94/6
-## Sparsity           : 6%
-## Maximal term length: 6
-## Weighting          : term frequency (tf)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tdm_lssparse2 &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.7</span>) <span class="co">#allow more terms</span>
-tdm_lssparse2</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 39, documents: 20)&gt;&gt;
-## Non-/sparse entries: 413/367
-## Sparsity           : 47%
-## Maximal term length: 9
-## Weighting          : term frequency (tf)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm_lssparse2)</code></pre></div>
-<pre><code>##  [1] &quot;about&quot;     &quot;also&quot;      &quot;and&quot;       &quot;are&quot;       &quot;barrels&quot;  
-##  [6] &quot;but&quot;       &quot;crude&quot;     &quot;dlrs&quot;      &quot;for&quot;       &quot;from&quot;     
-## [11] &quot;has&quot;       &quot;its&quot;       &quot;last&quot;      &quot;market&quot;    &quot;mln&quot;      
-## [16] &quot;new&quot;       &quot;not&quot;       &quot;oil&quot;       &quot;one&quot;       &quot;opec&quot;     
-## [21] &quot;pct&quot;       &quot;petroleum&quot; &quot;price&quot;     &quot;prices&quot;    &quot;prices,&quot;  
-## [26] &quot;prices.&quot;   &quot;reuter&quot;    &quot;said&quot;      &quot;said.&quot;     &quot;that&quot;     
-## [31] &quot;the&quot;       &quot;there&quot;     &quot;they&quot;      &quot;was&quot;       &quot;were&quot;     
-## [36] &quot;will&quot;      &quot;with&quot;      &quot;world&quot;     &quot;would&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm_lssparse)</code></pre></div>
-<pre><code>## [1] &quot;and&quot;    &quot;oil&quot;    &quot;reuter&quot; &quot;said&quot;   &quot;the&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tdm_lssparse3 &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(tdm, <span class="fl">0.05</span>) <span class="co"># remove almost all sparsity and empty terms</span>
-tdm_lssparse3</code></pre></div>
-<pre><code>## &lt;&lt;TermDocumentMatrix (terms: 2, documents: 20)&gt;&gt;
-## Non-/sparse entries: 40/0
-## Sparsity           : 0%
-## Maximal term length: 6
-## Weighting          : term frequency (tf)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Terms</span>(tdm_lssparse3)</code></pre></div>
-<pre><code>## [1] &quot;oil&quot;    &quot;reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remove words from a text document.</span>
-
-crude[[<span class="dv">1</span>]]$content</code></pre></div>
-<pre><code>## [1] &quot;Diamond Shamrock Corp said that\neffective today it had cut its contract prices for crude oil by\n1.50 dlrs a barrel.\n    The reduction brings its posted price for West Texas\nIntermediate to 16.00 dlrs a barrel, the copany said.\n    \&quot;The price reduction today was made in the light of falling\noil product prices and a weak crude oil market,\&quot; a company\nspokeswoman said.\n    Diamond is the latest in a line of U.S. oil companies that\nhave cut its contract, or posted, prices over the last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># remove common words in English</span>
-cruderemword &lt;-<span class="st"> </span><span class="kw">removeWords</span>(crude[[<span class="dv">1</span>]], <span class="kw">stopwords</span>(<span class="st">&quot;english&quot;</span>))
-cruderemword$content</code></pre></div>
-<pre><code>## [1] &quot;Diamond Shamrock Corp said \neffective today   cut  contract prices  crude oil \n1.50 dlrs  barrel.\n    The reduction brings  posted price  West Texas\nIntermediate  16.00 dlrs  barrel,  copany said.\n    \&quot;The price reduction today  made   light  falling\noil product prices   weak crude oil market,\&quot;  company\nspokeswoman said.\n    Diamond   latest   line  U.S. oil companies \n cut  contract,  posted, prices   last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Stem words in a text document using Porter’s stemming algorithm.</span>
-
-crude[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 527</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crudestem &lt;-<span class="st"> </span><span class="kw">stemDocument</span>(crude[[<span class="dv">1</span>]])
-
-<span class="co"># Return various kinds of stopwords with support for different languages.</span>
-<span class="kw">stopwords</span>(<span class="st">&quot;en&quot;</span>)</code></pre></div>
-<pre><code>##   [1] &quot;i&quot;          &quot;me&quot;         &quot;my&quot;         &quot;myself&quot;     &quot;we&quot;        
-##   [6] &quot;our&quot;        &quot;ours&quot;       &quot;ourselves&quot;  &quot;you&quot;        &quot;your&quot;      
-##  [11] &quot;yours&quot;      &quot;yourself&quot;   &quot;yourselves&quot; &quot;he&quot;         &quot;him&quot;       
-##  [16] &quot;his&quot;        &quot;himself&quot;    &quot;she&quot;        &quot;her&quot;        &quot;hers&quot;      
-##  [21] &quot;herself&quot;    &quot;it&quot;         &quot;its&quot;        &quot;itself&quot;     &quot;they&quot;      
-##  [26] &quot;them&quot;       &quot;their&quot;      &quot;theirs&quot;     &quot;themselves&quot; &quot;what&quot;      
-##  [31] &quot;which&quot;      &quot;who&quot;        &quot;whom&quot;       &quot;this&quot;       &quot;that&quot;      
-##  [36] &quot;these&quot;      &quot;those&quot;      &quot;am&quot;         &quot;is&quot;         &quot;are&quot;       
-##  [41] &quot;was&quot;        &quot;were&quot;       &quot;be&quot;         &quot;been&quot;       &quot;being&quot;     
-##  [46] &quot;have&quot;       &quot;has&quot;        &quot;had&quot;        &quot;having&quot;     &quot;do&quot;        
-##  [51] &quot;does&quot;       &quot;did&quot;        &quot;doing&quot;      &quot;would&quot;      &quot;should&quot;    
-##  [56] &quot;could&quot;      &quot;ought&quot;      &quot;i&#39;m&quot;        &quot;you&#39;re&quot;     &quot;he&#39;s&quot;      
-##  [61] &quot;she&#39;s&quot;      &quot;it&#39;s&quot;       &quot;we&#39;re&quot;      &quot;they&#39;re&quot;    &quot;i&#39;ve&quot;      
-##  [66] &quot;you&#39;ve&quot;     &quot;we&#39;ve&quot;      &quot;they&#39;ve&quot;    &quot;i&#39;d&quot;        &quot;you&#39;d&quot;     
-##  [71] &quot;he&#39;d&quot;       &quot;she&#39;d&quot;      &quot;we&#39;d&quot;       &quot;they&#39;d&quot;     &quot;i&#39;ll&quot;      
-##  [76] &quot;you&#39;ll&quot;     &quot;he&#39;ll&quot;      &quot;she&#39;ll&quot;     &quot;we&#39;ll&quot;      &quot;they&#39;ll&quot;   
-##  [81] &quot;isn&#39;t&quot;      &quot;aren&#39;t&quot;     &quot;wasn&#39;t&quot;     &quot;weren&#39;t&quot;    &quot;hasn&#39;t&quot;    
-##  [86] &quot;haven&#39;t&quot;    &quot;hadn&#39;t&quot;     &quot;doesn&#39;t&quot;    &quot;don&#39;t&quot;      &quot;didn&#39;t&quot;    
-##  [91] &quot;won&#39;t&quot;      &quot;wouldn&#39;t&quot;   &quot;shan&#39;t&quot;     &quot;shouldn&#39;t&quot;  &quot;can&#39;t&quot;     
-##  [96] &quot;cannot&quot;     &quot;couldn&#39;t&quot;   &quot;mustn&#39;t&quot;    &quot;let&#39;s&quot;      &quot;that&#39;s&quot;    
-## [101] &quot;who&#39;s&quot;      &quot;what&#39;s&quot;     &quot;here&#39;s&quot;     &quot;there&#39;s&quot;    &quot;when&#39;s&quot;    
-## [106] &quot;where&#39;s&quot;    &quot;why&#39;s&quot;      &quot;how&#39;s&quot;      &quot;a&quot;          &quot;an&quot;        
-## [111] &quot;the&quot;        &quot;and&quot;        &quot;but&quot;        &quot;if&quot;         &quot;or&quot;        
-## [116] &quot;because&quot;    &quot;as&quot;         &quot;until&quot;      &quot;while&quot;      &quot;of&quot;        
-## [121] &quot;at&quot;         &quot;by&quot;         &quot;for&quot;        &quot;with&quot;       &quot;about&quot;     
-## [126] &quot;against&quot;    &quot;between&quot;    &quot;into&quot;       &quot;through&quot;    &quot;during&quot;    
-## [131] &quot;before&quot;     &quot;after&quot;      &quot;above&quot;      &quot;below&quot;      &quot;to&quot;        
-## [136] &quot;from&quot;       &quot;up&quot;         &quot;down&quot;       &quot;in&quot;         &quot;out&quot;       
-## [141] &quot;on&quot;         &quot;off&quot;        &quot;over&quot;       &quot;under&quot;      &quot;again&quot;     
-## [146] &quot;further&quot;    &quot;then&quot;       &quot;once&quot;       &quot;here&quot;       &quot;there&quot;     
-## [151] &quot;when&quot;       &quot;where&quot;      &quot;why&quot;        &quot;how&quot;        &quot;all&quot;       
-## [156] &quot;any&quot;        &quot;both&quot;       &quot;each&quot;       &quot;few&quot;        &quot;more&quot;      
-## [161] &quot;most&quot;       &quot;other&quot;      &quot;some&quot;       &quot;such&quot;       &quot;no&quot;        
-## [166] &quot;nor&quot;        &quot;not&quot;        &quot;only&quot;       &quot;own&quot;        &quot;same&quot;      
-## [171] &quot;so&quot;         &quot;than&quot;       &quot;too&quot;        &quot;very&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopwords</span>(<span class="st">&quot;SMART&quot;</span>)</code></pre></div>
-<pre><code>##   [1] &quot;a&quot;             &quot;a&#39;s&quot;           &quot;able&quot;          &quot;about&quot;        
-##   [5] &quot;above&quot;         &quot;according&quot;     &quot;accordingly&quot;   &quot;across&quot;       
-##   [9] &quot;actually&quot;      &quot;after&quot;         &quot;afterwards&quot;    &quot;again&quot;        
-##  [13] &quot;against&quot;       &quot;ain&#39;t&quot;         &quot;all&quot;           &quot;allow&quot;        
-##  [17] &quot;allows&quot;        &quot;almost&quot;        &quot;alone&quot;         &quot;along&quot;        
-##  [21] &quot;already&quot;       &quot;also&quot;          &quot;although&quot;      &quot;always&quot;       
-##  [25] &quot;am&quot;            &quot;among&quot;         &quot;amongst&quot;       &quot;an&quot;           
-##  [29] &quot;and&quot;           &quot;another&quot;       &quot;any&quot;           &quot;anybody&quot;      
-##  [33] &quot;anyhow&quot;        &quot;anyone&quot;        &quot;anything&quot;      &quot;anyway&quot;       
-##  [37] &quot;anyways&quot;       &quot;anywhere&quot;      &quot;apart&quot;         &quot;appear&quot;       
-##  [41] &quot;appreciate&quot;    &quot;appropriate&quot;   &quot;are&quot;           &quot;aren&#39;t&quot;       
-##  [45] &quot;around&quot;        &quot;as&quot;            &quot;aside&quot;         &quot;ask&quot;          
-##  [49] &quot;asking&quot;        &quot;associated&quot;    &quot;at&quot;            &quot;available&quot;    
-##  [53] &quot;away&quot;          &quot;awfully&quot;       &quot;b&quot;             &quot;be&quot;           
-##  [57] &quot;became&quot;        &quot;because&quot;       &quot;become&quot;        &quot;becomes&quot;      
-##  [61] &quot;becoming&quot;      &quot;been&quot;          &quot;before&quot;        &quot;beforehand&quot;   
-##  [65] &quot;behind&quot;        &quot;being&quot;         &quot;believe&quot;       &quot;below&quot;        
-##  [69] &quot;beside&quot;        &quot;besides&quot;       &quot;best&quot;          &quot;better&quot;       
-##  [73] &quot;between&quot;       &quot;beyond&quot;        &quot;both&quot;          &quot;brief&quot;        
-##  [77] &quot;but&quot;           &quot;by&quot;            &quot;c&quot;             &quot;c&#39;mon&quot;        
-##  [81] &quot;c&#39;s&quot;           &quot;came&quot;          &quot;can&quot;           &quot;can&#39;t&quot;        
-##  [85] &quot;cannot&quot;        &quot;cant&quot;          &quot;cause&quot;         &quot;causes&quot;       
-##  [89] &quot;certain&quot;       &quot;certainly&quot;     &quot;changes&quot;       &quot;clearly&quot;      
-##  [93] &quot;co&quot;            &quot;com&quot;           &quot;come&quot;          &quot;comes&quot;        
-##  [97] &quot;concerning&quot;    &quot;consequently&quot;  &quot;consider&quot;      &quot;considering&quot;  
-## [101] &quot;contain&quot;       &quot;containing&quot;    &quot;contains&quot;      &quot;corresponding&quot;
-## [105] &quot;could&quot;         &quot;couldn&#39;t&quot;      &quot;course&quot;        &quot;currently&quot;    
-## [109] &quot;d&quot;             &quot;definitely&quot;    &quot;described&quot;     &quot;despite&quot;      
-## [113] &quot;did&quot;           &quot;didn&#39;t&quot;        &quot;different&quot;     &quot;do&quot;           
-## [117] &quot;does&quot;          &quot;doesn&#39;t&quot;       &quot;doing&quot;         &quot;don&#39;t&quot;        
-## [121] &quot;done&quot;          &quot;down&quot;          &quot;downwards&quot;     &quot;during&quot;       
-## [125] &quot;e&quot;             &quot;each&quot;          &quot;edu&quot;           &quot;eg&quot;           
-## [129] &quot;eight&quot;         &quot;either&quot;        &quot;else&quot;          &quot;elsewhere&quot;    
-## [133] &quot;enough&quot;        &quot;entirely&quot;      &quot;especially&quot;    &quot;et&quot;           
-## [137] &quot;etc&quot;           &quot;even&quot;          &quot;ever&quot;          &quot;every&quot;        
-## [141] &quot;everybody&quot;     &quot;everyone&quot;      &quot;everything&quot;    &quot;everywhere&quot;   
-## [145] &quot;ex&quot;            &quot;exactly&quot;       &quot;example&quot;       &quot;except&quot;       
-## [149] &quot;f&quot;             &quot;far&quot;           &quot;few&quot;           &quot;fifth&quot;        
-## [153] &quot;first&quot;         &quot;five&quot;          &quot;followed&quot;      &quot;following&quot;    
-## [157] &quot;follows&quot;       &quot;for&quot;           &quot;former&quot;        &quot;formerly&quot;     
-## [161] &quot;forth&quot;         &quot;four&quot;          &quot;from&quot;          &quot;further&quot;      
-## [165] &quot;furthermore&quot;   &quot;g&quot;             &quot;get&quot;           &quot;gets&quot;         
-## [169] &quot;getting&quot;       &quot;given&quot;         &quot;gives&quot;         &quot;go&quot;           
-## [173] &quot;goes&quot;          &quot;going&quot;         &quot;gone&quot;          &quot;got&quot;          
-## [177] &quot;gotten&quot;        &quot;greetings&quot;     &quot;h&quot;             &quot;had&quot;          
-## [181] &quot;hadn&#39;t&quot;        &quot;happens&quot;       &quot;hardly&quot;        &quot;has&quot;          
-## [185] &quot;hasn&#39;t&quot;        &quot;have&quot;          &quot;haven&#39;t&quot;       &quot;having&quot;       
-## [189] &quot;he&quot;            &quot;he&#39;s&quot;          &quot;hello&quot;         &quot;help&quot;         
-## [193] &quot;hence&quot;         &quot;her&quot;           &quot;here&quot;          &quot;here&#39;s&quot;       
-## [197] &quot;hereafter&quot;     &quot;hereby&quot;        &quot;herein&quot;        &quot;hereupon&quot;     
-## [201] &quot;hers&quot;          &quot;herself&quot;       &quot;hi&quot;            &quot;him&quot;          
-## [205] &quot;himself&quot;       &quot;his&quot;           &quot;hither&quot;        &quot;hopefully&quot;    
-## [209] &quot;how&quot;           &quot;howbeit&quot;       &quot;however&quot;       &quot;i&quot;            
-## [213] &quot;i&#39;d&quot;           &quot;i&#39;ll&quot;          &quot;i&#39;m&quot;           &quot;i&#39;ve&quot;         
-## [217] &quot;ie&quot;            &quot;if&quot;            &quot;ignored&quot;       &quot;immediate&quot;    
-## [221] &quot;in&quot;            &quot;inasmuch&quot;      &quot;inc&quot;           &quot;indeed&quot;       
-## [225] &quot;indicate&quot;      &quot;indicated&quot;     &quot;indicates&quot;     &quot;inner&quot;        
-## [229] &quot;insofar&quot;       &quot;instead&quot;       &quot;into&quot;          &quot;inward&quot;       
-## [233] &quot;is&quot;            &quot;isn&#39;t&quot;         &quot;it&quot;            &quot;it&#39;d&quot;         
-## [237] &quot;it&#39;ll&quot;         &quot;it&#39;s&quot;          &quot;its&quot;           &quot;itself&quot;       
-## [241] &quot;j&quot;             &quot;just&quot;          &quot;k&quot;             &quot;keep&quot;         
-## [245] &quot;keeps&quot;         &quot;kept&quot;          &quot;know&quot;          &quot;knows&quot;        
-## [249] &quot;known&quot;         &quot;l&quot;             &quot;last&quot;          &quot;lately&quot;       
-## [253] &quot;later&quot;         &quot;latter&quot;        &quot;latterly&quot;      &quot;least&quot;        
-## [257] &quot;less&quot;          &quot;lest&quot;          &quot;let&quot;           &quot;let&#39;s&quot;        
-## [261] &quot;like&quot;          &quot;liked&quot;         &quot;likely&quot;        &quot;little&quot;       
-## [265] &quot;look&quot;          &quot;looking&quot;       &quot;looks&quot;         &quot;ltd&quot;          
-## [269] &quot;m&quot;             &quot;mainly&quot;        &quot;many&quot;          &quot;may&quot;          
-## [273] &quot;maybe&quot;         &quot;me&quot;            &quot;mean&quot;          &quot;meanwhile&quot;    
-## [277] &quot;merely&quot;        &quot;might&quot;         &quot;more&quot;          &quot;moreover&quot;     
-## [281] &quot;most&quot;          &quot;mostly&quot;        &quot;much&quot;          &quot;must&quot;         
-## [285] &quot;my&quot;            &quot;myself&quot;        &quot;n&quot;             &quot;name&quot;         
-## [289] &quot;namely&quot;        &quot;nd&quot;            &quot;near&quot;          &quot;nearly&quot;       
-## [293] &quot;necessary&quot;     &quot;need&quot;          &quot;needs&quot;         &quot;neither&quot;      
-## [297] &quot;never&quot;         &quot;nevertheless&quot;  &quot;new&quot;           &quot;next&quot;         
-## [301] &quot;nine&quot;          &quot;no&quot;            &quot;nobody&quot;        &quot;non&quot;          
-## [305] &quot;none&quot;          &quot;noone&quot;         &quot;nor&quot;           &quot;normally&quot;     
-## [309] &quot;not&quot;           &quot;nothing&quot;       &quot;novel&quot;         &quot;now&quot;          
-## [313] &quot;nowhere&quot;       &quot;o&quot;             &quot;obviously&quot;     &quot;of&quot;           
-## [317] &quot;off&quot;           &quot;often&quot;         &quot;oh&quot;            &quot;ok&quot;           
-## [321] &quot;okay&quot;          &quot;old&quot;           &quot;on&quot;            &quot;once&quot;         
-## [325] &quot;one&quot;           &quot;ones&quot;          &quot;only&quot;          &quot;onto&quot;         
-## [329] &quot;or&quot;            &quot;other&quot;         &quot;others&quot;        &quot;otherwise&quot;    
-## [333] &quot;ought&quot;         &quot;our&quot;           &quot;ours&quot;          &quot;ourselves&quot;    
-## [337] &quot;out&quot;           &quot;outside&quot;       &quot;over&quot;          &quot;overall&quot;      
-## [341] &quot;own&quot;           &quot;p&quot;             &quot;particular&quot;    &quot;particularly&quot; 
-## [345] &quot;per&quot;           &quot;perhaps&quot;       &quot;placed&quot;        &quot;please&quot;       
-## [349] &quot;plus&quot;          &quot;possible&quot;      &quot;presumably&quot;    &quot;probably&quot;     
-## [353] &quot;provides&quot;      &quot;q&quot;             &quot;que&quot;           &quot;quite&quot;        
-## [357] &quot;qv&quot;            &quot;r&quot;             &quot;rather&quot;        &quot;rd&quot;           
-## [361] &quot;re&quot;            &quot;really&quot;        &quot;reasonably&quot;    &quot;regarding&quot;    
-## [365] &quot;regardless&quot;    &quot;regards&quot;       &quot;relatively&quot;    &quot;respectively&quot; 
-## [369] &quot;right&quot;         &quot;s&quot;             &quot;said&quot;          &quot;same&quot;         
-## [373] &quot;saw&quot;           &quot;say&quot;           &quot;saying&quot;        &quot;says&quot;         
-## [377] &quot;second&quot;        &quot;secondly&quot;      &quot;see&quot;           &quot;seeing&quot;       
-## [381] &quot;seem&quot;          &quot;seemed&quot;        &quot;seeming&quot;       &quot;seems&quot;        
-## [385] &quot;seen&quot;          &quot;self&quot;          &quot;selves&quot;        &quot;sensible&quot;     
-## [389] &quot;sent&quot;          &quot;serious&quot;       &quot;seriously&quot;     &quot;seven&quot;        
-## [393] &quot;several&quot;       &quot;shall&quot;         &quot;she&quot;           &quot;should&quot;       
-## [397] &quot;shouldn&#39;t&quot;     &quot;since&quot;         &quot;six&quot;           &quot;so&quot;           
-## [401] &quot;some&quot;          &quot;somebody&quot;      &quot;somehow&quot;       &quot;someone&quot;      
-## [405] &quot;something&quot;     &quot;sometime&quot;      &quot;sometimes&quot;     &quot;somewhat&quot;     
-## [409] &quot;somewhere&quot;     &quot;soon&quot;          &quot;sorry&quot;         &quot;specified&quot;    
-## [413] &quot;specify&quot;       &quot;specifying&quot;    &quot;still&quot;         &quot;sub&quot;          
-## [417] &quot;such&quot;          &quot;sup&quot;           &quot;sure&quot;          &quot;t&quot;            
-## [421] &quot;t&#39;s&quot;           &quot;take&quot;          &quot;taken&quot;         &quot;tell&quot;         
-## [425] &quot;tends&quot;         &quot;th&quot;            &quot;than&quot;          &quot;thank&quot;        
-## [429] &quot;thanks&quot;        &quot;thanx&quot;         &quot;that&quot;          &quot;that&#39;s&quot;       
-## [433] &quot;thats&quot;         &quot;the&quot;           &quot;their&quot;         &quot;theirs&quot;       
-## [437] &quot;them&quot;          &quot;themselves&quot;    &quot;then&quot;          &quot;thence&quot;       
-## [441] &quot;there&quot;         &quot;there&#39;s&quot;       &quot;thereafter&quot;    &quot;thereby&quot;      
-## [445] &quot;therefore&quot;     &quot;therein&quot;       &quot;theres&quot;        &quot;thereupon&quot;    
-## [449] &quot;these&quot;         &quot;they&quot;          &quot;they&#39;d&quot;        &quot;they&#39;ll&quot;      
-## [453] &quot;they&#39;re&quot;       &quot;they&#39;ve&quot;       &quot;think&quot;         &quot;third&quot;        
-## [457] &quot;this&quot;          &quot;thorough&quot;      &quot;thoroughly&quot;    &quot;those&quot;        
-## [461] &quot;though&quot;        &quot;three&quot;         &quot;through&quot;       &quot;throughout&quot;   
-## [465] &quot;thru&quot;          &quot;thus&quot;          &quot;to&quot;            &quot;together&quot;     
-## [469] &quot;too&quot;           &quot;took&quot;          &quot;toward&quot;        &quot;towards&quot;      
-## [473] &quot;tried&quot;         &quot;tries&quot;         &quot;truly&quot;         &quot;try&quot;          
-## [477] &quot;trying&quot;        &quot;twice&quot;         &quot;two&quot;           &quot;u&quot;            
-## [481] &quot;un&quot;            &quot;under&quot;         &quot;unfortunately&quot; &quot;unless&quot;       
-## [485] &quot;unlikely&quot;      &quot;until&quot;         &quot;unto&quot;          &quot;up&quot;           
-## [489] &quot;upon&quot;          &quot;us&quot;            &quot;use&quot;           &quot;used&quot;         
-## [493] &quot;useful&quot;        &quot;uses&quot;          &quot;using&quot;         &quot;usually&quot;      
-## [497] &quot;uucp&quot;          &quot;v&quot;             &quot;value&quot;         &quot;various&quot;      
-## [501] &quot;very&quot;          &quot;via&quot;           &quot;viz&quot;           &quot;vs&quot;           
-## [505] &quot;w&quot;             &quot;want&quot;          &quot;wants&quot;         &quot;was&quot;          
-## [509] &quot;wasn&#39;t&quot;        &quot;way&quot;           &quot;we&quot;            &quot;we&#39;d&quot;         
-## [513] &quot;we&#39;ll&quot;         &quot;we&#39;re&quot;         &quot;we&#39;ve&quot;         &quot;welcome&quot;      
-## [517] &quot;well&quot;          &quot;went&quot;          &quot;were&quot;          &quot;weren&#39;t&quot;      
-## [521] &quot;what&quot;          &quot;what&#39;s&quot;        &quot;whatever&quot;      &quot;when&quot;         
-## [525] &quot;whence&quot;        &quot;whenever&quot;      &quot;where&quot;         &quot;where&#39;s&quot;      
-## [529] &quot;whereafter&quot;    &quot;whereas&quot;       &quot;whereby&quot;       &quot;wherein&quot;      
-## [533] &quot;whereupon&quot;     &quot;wherever&quot;      &quot;whether&quot;       &quot;which&quot;        
-## [537] &quot;while&quot;         &quot;whither&quot;       &quot;who&quot;           &quot;who&#39;s&quot;        
-## [541] &quot;whoever&quot;       &quot;whole&quot;         &quot;whom&quot;          &quot;whose&quot;        
-## [545] &quot;why&quot;           &quot;will&quot;          &quot;willing&quot;       &quot;wish&quot;         
-## [549] &quot;with&quot;          &quot;within&quot;        &quot;without&quot;       &quot;won&#39;t&quot;        
-## [553] &quot;wonder&quot;        &quot;would&quot;         &quot;would&quot;         &quot;wouldn&#39;t&quot;     
-## [557] &quot;x&quot;             &quot;y&quot;             &quot;yes&quot;           &quot;yet&quot;          
-## [561] &quot;you&quot;           &quot;you&#39;d&quot;         &quot;you&#39;ll&quot;        &quot;you&#39;re&quot;       
-## [565] &quot;you&#39;ve&quot;        &quot;your&quot;          &quot;yours&quot;         &quot;yourself&quot;     
-## [569] &quot;yourselves&quot;    &quot;z&quot;             &quot;zero&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopwords</span>(<span class="st">&quot;german&quot;</span>)</code></pre></div>
-<pre><code>##   [1] &quot;aber&quot;      &quot;alle&quot;      &quot;allem&quot;     &quot;allen&quot;     &quot;aller&quot;    
-##   [6] &quot;alles&quot;     &quot;als&quot;       &quot;also&quot;      &quot;am&quot;        &quot;an&quot;       
-##  [11] &quot;ander&quot;     &quot;andere&quot;    &quot;anderem&quot;   &quot;anderen&quot;   &quot;anderer&quot;  
-##  [16] &quot;anderes&quot;   &quot;anderm&quot;    &quot;andern&quot;    &quot;anderr&quot;    &quot;anders&quot;   
-##  [21] &quot;auch&quot;      &quot;auf&quot;       &quot;aus&quot;       &quot;bei&quot;       &quot;bin&quot;      
-##  [26] &quot;bis&quot;       &quot;bist&quot;      &quot;da&quot;        &quot;damit&quot;     &quot;dann&quot;     
-##  [31] &quot;der&quot;       &quot;den&quot;       &quot;des&quot;       &quot;dem&quot;       &quot;die&quot;      
-##  [36] &quot;das&quot;       &quot;daß&quot;       &quot;derselbe&quot;  &quot;derselben&quot; &quot;denselben&quot;
-##  [41] &quot;desselben&quot; &quot;demselben&quot; &quot;dieselbe&quot;  &quot;dieselben&quot; &quot;dasselbe&quot; 
-##  [46] &quot;dazu&quot;      &quot;dein&quot;      &quot;deine&quot;     &quot;deinem&quot;    &quot;deinen&quot;   
-##  [51] &quot;deiner&quot;    &quot;deines&quot;    &quot;denn&quot;      &quot;derer&quot;     &quot;dessen&quot;   
-##  [56] &quot;dich&quot;      &quot;dir&quot;       &quot;du&quot;        &quot;dies&quot;      &quot;diese&quot;    
-##  [61] &quot;diesem&quot;    &quot;diesen&quot;    &quot;dieser&quot;    &quot;dieses&quot;    &quot;doch&quot;     
-##  [66] &quot;dort&quot;      &quot;durch&quot;     &quot;ein&quot;       &quot;eine&quot;      &quot;einem&quot;    
-##  [71] &quot;einen&quot;     &quot;einer&quot;     &quot;eines&quot;     &quot;einig&quot;     &quot;einige&quot;   
-##  [76] &quot;einigem&quot;   &quot;einigen&quot;   &quot;einiger&quot;   &quot;einiges&quot;   &quot;einmal&quot;   
-##  [81] &quot;er&quot;        &quot;ihn&quot;       &quot;ihm&quot;       &quot;es&quot;        &quot;etwas&quot;    
-##  [86] &quot;euer&quot;      &quot;eure&quot;      &quot;eurem&quot;     &quot;euren&quot;     &quot;eurer&quot;    
-##  [91] &quot;eures&quot;     &quot;für&quot;       &quot;gegen&quot;     &quot;gewesen&quot;   &quot;hab&quot;      
-##  [96] &quot;habe&quot;      &quot;haben&quot;     &quot;hat&quot;       &quot;hatte&quot;     &quot;hatten&quot;   
-## [101] &quot;hier&quot;      &quot;hin&quot;       &quot;hinter&quot;    &quot;ich&quot;       &quot;mich&quot;     
-## [106] &quot;mir&quot;       &quot;ihr&quot;       &quot;ihre&quot;      &quot;ihrem&quot;     &quot;ihren&quot;    
-## [111] &quot;ihrer&quot;     &quot;ihres&quot;     &quot;euch&quot;      &quot;im&quot;        &quot;in&quot;       
-## [116] &quot;indem&quot;     &quot;ins&quot;       &quot;ist&quot;       &quot;jede&quot;      &quot;jedem&quot;    
-## [121] &quot;jeden&quot;     &quot;jeder&quot;     &quot;jedes&quot;     &quot;jene&quot;      &quot;jenem&quot;    
-## [126] &quot;jenen&quot;     &quot;jener&quot;     &quot;jenes&quot;     &quot;jetzt&quot;     &quot;kann&quot;     
-## [131] &quot;kein&quot;      &quot;keine&quot;     &quot;keinem&quot;    &quot;keinen&quot;    &quot;keiner&quot;   
-## [136] &quot;keines&quot;    &quot;können&quot;    &quot;könnte&quot;    &quot;machen&quot;    &quot;man&quot;      
-## [141] &quot;manche&quot;    &quot;manchem&quot;   &quot;manchen&quot;   &quot;mancher&quot;   &quot;manches&quot;  
-## [146] &quot;mein&quot;      &quot;meine&quot;     &quot;meinem&quot;    &quot;meinen&quot;    &quot;meiner&quot;   
-## [151] &quot;meines&quot;    &quot;mit&quot;       &quot;muss&quot;      &quot;musste&quot;    &quot;nach&quot;     
-## [156] &quot;nicht&quot;     &quot;nichts&quot;    &quot;noch&quot;      &quot;nun&quot;       &quot;nur&quot;      
-## [161] &quot;ob&quot;        &quot;oder&quot;      &quot;ohne&quot;      &quot;sehr&quot;      &quot;sein&quot;     
-## [166] &quot;seine&quot;     &quot;seinem&quot;    &quot;seinen&quot;    &quot;seiner&quot;    &quot;seines&quot;   
-## [171] &quot;selbst&quot;    &quot;sich&quot;      &quot;sie&quot;       &quot;ihnen&quot;     &quot;sind&quot;     
-## [176] &quot;so&quot;        &quot;solche&quot;    &quot;solchem&quot;   &quot;solchen&quot;   &quot;solcher&quot;  
-## [181] &quot;solches&quot;   &quot;soll&quot;      &quot;sollte&quot;    &quot;sondern&quot;   &quot;sonst&quot;    
-## [186] &quot;über&quot;      &quot;um&quot;        &quot;und&quot;       &quot;uns&quot;       &quot;unse&quot;     
-## [191] &quot;unsem&quot;     &quot;unsen&quot;     &quot;unser&quot;     &quot;unses&quot;     &quot;unter&quot;    
-## [196] &quot;viel&quot;      &quot;vom&quot;       &quot;von&quot;       &quot;vor&quot;       &quot;während&quot;  
-## [201] &quot;war&quot;       &quot;waren&quot;     &quot;warst&quot;     &quot;was&quot;       &quot;weg&quot;      
-## [206] &quot;weil&quot;      &quot;weiter&quot;    &quot;welche&quot;    &quot;welchem&quot;   &quot;welchen&quot;  
-## [211] &quot;welcher&quot;   &quot;welches&quot;   &quot;wenn&quot;      &quot;werde&quot;     &quot;werden&quot;   
-## [216] &quot;wie&quot;       &quot;wieder&quot;    &quot;will&quot;      &quot;wir&quot;       &quot;wird&quot;     
-## [221] &quot;wirst&quot;     &quot;wo&quot;        &quot;wollen&quot;    &quot;wollte&quot;    &quot;würde&quot;    
-## [226] &quot;würden&quot;    &quot;zu&quot;        &quot;zum&quot;       &quot;zur&quot;       &quot;zwar&quot;     
-## [231] &quot;zwischen&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Strip Whitespace from a Text Document</span>
-crude[[<span class="dv">1</span>]]$content</code></pre></div>
-<pre><code>## [1] &quot;Diamond Shamrock Corp said that\neffective today it had cut its contract prices for crude oil by\n1.50 dlrs a barrel.\n    The reduction brings its posted price for West Texas\nIntermediate to 16.00 dlrs a barrel, the copany said.\n    \&quot;The price reduction today was made in the light of falling\noil product prices and a weak crude oil market,\&quot; a company\nspokeswoman said.\n    Diamond is the latest in a line of U.S. oil companies that\nhave cut its contract, or posted, prices over the last two days\nciting weak oil markets.\n Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stripWhitespace</span>(crude[[<span class="dv">1</span>]]$content)</code></pre></div>
-<pre><code>## [1] &quot;Diamond Shamrock Corp said that effective today it had cut its contract prices for crude oil by 1.50 dlrs a barrel. The reduction brings its posted price for West Texas Intermediate to 16.00 dlrs a barrel, the copany said. \&quot;The price reduction today was made in the light of falling oil product prices and a weak crude oil market,\&quot; a company spokeswoman said. Diamond is the latest in a line of U.S. oil companies that have cut its contract, or posted, prices over the last two days citing weak oil markets. Reuter&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># getTransformations  Predefined transformations (mappings) which can be used with tm_map</span>
-## Document access triggers the stemming function
-## (i.e., all other documents are not stemmed yet)
-<span class="kw">tm_map</span>(crude, stemDocument, <span class="dt">lazy =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]]</code></pre></div>
-<pre><code>## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  15
-## Content:  chars: 484</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Use wrapper to apply character processing function
-<span class="kw">tm_map</span>(crude, <span class="kw">content_transformer</span>(tolower))</code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Generate a custom transformation function which takes the heading as new content
-headings &lt;-<span class="st"> </span>function(x)
-<span class="kw">PlainTextDocument</span>(<span class="kw">meta</span>(x, <span class="st">&quot;heading&quot;</span>), <span class="dt">id =</span> <span class="kw">meta</span>(x, <span class="st">&quot;id&quot;</span>),
-                  <span class="dt">language =</span> <span class="kw">meta</span>(x, <span class="st">&quot;language&quot;</span>))
-<span class="kw">inspect</span>(<span class="kw">tm_map</span>(crude, headings))</code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 20
-## 
-## $`reut-00001.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 40
-## 
-## $`reut-00002.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 47
-## 
-## $`reut-00004.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 41
-## 
-## $`reut-00005.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 41
-## 
-## $`reut-00006.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 41
-## 
-## $`reut-00007.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 45
-## 
-## $`reut-00008.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 49
-## 
-## $`reut-00009.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 37
-## 
-## $`reut-00010.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 39
-## 
-## $`reut-00011.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 47
-## 
-## $`reut-00012.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 46
-## 
-## $`reut-00013.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 49
-## 
-## $`reut-00014.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 49
-## 
-## $`reut-00015.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 48
-## 
-## $`reut-00016.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 40
-## 
-## $`reut-00018.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 45
-## 
-## $`reut-00019.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 45
-## 
-## $`reut-00021.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 46
-## 
-## $`reut-00022.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 44
-## 
-## $`reut-00023.xml`
-## &lt;&lt;PlainTextDocument&gt;&gt;
-## Metadata:  7
-## Content:  chars: 45</code></pre>
+<p>The workflow that we follow for analyzing a set of text documents are:</p>
+<ol style="list-style-type: decimal">
+<li>Importing data. A <em>Corpus</em> is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The <code>tm</code> provides several corpus constructors: <code>DirSource</code>, <code>VectorSource</code>, or <code>DataframeSource</code> (<code>getSources()</code>).</li>
+</ol>
+<p>There are several parameters that control the creation of a <em>Corpus</em>.
+((The parameter readerControl of the corpus constructor has to be a list with the named components reader and language))</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Preprocessing: in this step we may remove common words, punctuation and we may perform other operations. We may do this operations after creating the DocumentTermMatrix.</p></li>
+<li><p>Inspecting and exploring data: Individual documents can be accessed via [[</p></li>
+<li>Transformations: Transformations are done via the <code>tm_map()</code> function.
++ <code>tm_map(_____, stripWhitespace)</code><br />
++ <code>tm_map(_____, content_transformer(tolower))</code>
++ <code>tm_map(_____, removeWords, stopwords(&quot;english&quot;))</code>
++ <code>tm_map(_____, stemDocument)</code></li>
+<li><p>Creating <code>Term-Document</code> Matrices: TermDocumentMatrix and DocumentTermMatrix
++ A document term matrix is a matrix with documents as the rows and terms as the columns. Each cell of the matrix contains the count of the frequency of words. We use DocumentTermMatrix()
+to create the matrix.
++ <code>inspect(DocumentTermMatrix( newsreuters, list(dictionary = c(&quot;term1&quot;, &quot;term2&quot;, &quot;term3&quot;))))</code>. It displays detailed information on a corpus or a term-document matrix.</p></li>
+<li><p>Relationships between terms.
++ <code>findFreqTerms(_____, anumber)</code>
++ <code>findAssocs(Mydtm, &quot;aterm&quot;, anumbercorrelation)</code>
++ A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.</p></li>
+<li><p>Clustering and Classification</p></li>
+</ol>
 </div>
 <div id="example-of-classifying-bugs-from-bugzilla" class="section level2">
-<h2><span class="header-section-number">20.3</span> Example of classifying bugs from Bugzilla</h2>
-<p>Bugzilla is Issue Tracking System that allow us to maintain and track the evolution of a project. The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<h2><span class="header-section-number">20.2</span> Example of classifying bugs from Bugzilla</h2>
+<p>Bugzilla is Issue Tracking System that allow us to follow the evolution of a project.</p>
+<p>The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
 <span class="co"># path_name &lt;- file.path(&quot;C:&quot;, &quot;datasets&quot;, &quot;textMining&quot;)</span>
 <span class="co"># path_name</span>
 <span class="co"># dir(path_name)</span>
 
-<span class="co">#d &lt;- read.arff(&quot;./datasets/textMining/compendium.arff&quot;)</span>
+<span class="co">#Import data</span>
 <span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
 d &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/textMining/reviewsBugs.arff&quot;</span> )
-<span class="kw">str</span>(d)</code></pre></div>
+<span class="kw">str</span>(d) <span class="co">#print out information about d</span></code></pre>
 <pre><code>## &#39;data.frame&#39;:    789 obs. of  2 variables:
 ##  $ revContent: chr  &quot;Can&#39;t see traffic colors now With latest updates I can&#39;t see the traffic green/red/yellow - I have to pull over&quot;| __truncated__ &quot;Google Map I like it so far, it has not steered me wrong.&quot; &quot;Could be 100X better Google should start listening to customers then they&#39;d actually build a proper product.&quot; &quot;I like that! Easily more helpful than the map app that comes with your phone.&quot; ...
 ##  $ revBug    : Factor w/ 2 levels &quot;N&quot;,&quot;Y&quot;: 2 1 1 1 1 1 2 1 2 1 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(d,<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(d,<span class="dv">2</span>) <span class="co"># the first two rows of d. </span></code></pre>
 <pre><code>##                                                                                                                                                                                                                                   revContent
 ## 1 Can&#39;t see traffic colors now With latest updates I can&#39;t see the traffic green/red/yellow - I have to pull over and zoom in the map so that one road fills the entire screen. Traffic checks are (were) the only reason I use google maps!
 ## 2                                                                                                                                                                                  Google Map I like it so far, it has not steered me wrong.
 ##   revBug
 ## 1      Y
 ## 2      N</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fifth entry</span>
-d$revContent[<span class="dv">5</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fifth entry</span>
+d<span class="op">$</span>revContent[<span class="dv">5</span>]</code></pre>
 <pre><code>## [1] &quot;Just deleted No I don&#39;t want to sign in or sign up for anything stop asking&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d$revBug[<span class="dv">5</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">d<span class="op">$</span>revBug[<span class="dv">5</span>]</code></pre>
 <pre><code>## [1] N
 ## Levels: N Y</code></pre>
 <p>Creating a Document-Term Matrix (DTM)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tm)
-
-ds &lt;-<span class="st"> </span><span class="kw">DataframeSource</span>(<span class="kw">as.data.frame</span>(d$revContent))
-dsc &lt;-<span class="st"> </span><span class="kw">Corpus</span>(ds)
-
-  
-<span class="co"># weighting=TfIdf weighting is Tf-Idf</span>
-<span class="co"># minWordLength=WL the minimum word length is WL</span>
-<span class="co"># minDocFreq=ND each word must appear at least in ND docs</span>
-
-<span class="co"># Other options of DTM</span>
-<span class="co"># These are not really needed, if preprocessing has been carried out:</span>
-<span class="co"># stemming=TRUE stemming is applied</span>
-<span class="co"># stopwords=TRUE stopwords are eliminated</span>
-<span class="co"># removeNumbers=TRUE numbers are eliminated</span>
-
-
-dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(dsc, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">weighting =</span> weightTfIdf, <span class="dt">minDocFreq=</span><span class="dv">3</span>, <span class="dt">stopwords =</span> <span class="ot">TRUE</span>, <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>))
-
-<span class="co"># dim(dtm)</span>
-<span class="co"># inspect(dtm) #[1:10,1:10])</span>
-
-<span class="co"># dtm.70=removeSparseTerms(dtm,sparse=0.7)</span>
-<span class="co"># dtm.70 # or dim(dtm.70)</span>
-<span class="co"># note that the term-document matrix needs to be transformed (casted)</span>
-<span class="co"># to a matrix form in the following barplot command</span>
-
-sparseparam &lt;-<span class="st"> </span><span class="fl">0.90</span>
-dtm_sprs &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(dtm,<span class="dt">sparse=</span>sparseparam)
-maintitle &lt;-<span class="kw">paste0</span>(<span class="st">&quot;Most frequent terms (sparseness=&quot;</span> ,sparseparam , <span class="st">&quot;  )&quot;</span>)
-<span class="kw">barplot</span>(<span class="kw">as.matrix</span>(dtm_sprs),<span class="dt">xlab=</span><span class="st">&quot;terms&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;number of occurrences&quot;</span>, <span class="dt">main=</span>maintitle)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
-<p>As data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dtmdf &lt;- as.data.frame(dtm.90)</span>
-<span class="co">#dtmdf &lt;- as.data.frame(inspect(dtm_sprs))</span>
-dtmdf &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">as.matrix</span>(dtm_sprs))
-<span class="co"># rownames(dtm)&lt;- 1:nrow(dtm)</span>
-
-class &lt;-<span class="st"> </span>d$revBug
-dtmdf &lt;-<span class="st"> </span><span class="kw">cbind</span>(dtmdf,class)
-<span class="kw">head</span>(dtmdf, <span class="dv">3</span>)</code></pre></div>
 <p>Now, we can explore things such as “which words are associated with”feature“?”</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which words are associated with &quot;bug&quot;?</span>
-<span class="kw">findAssocs</span>(dtm, <span class="st">&#39;bug&#39;</span>, .<span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which words are associated with &quot;bug&quot;?</span>
+<span class="kw">findAssocs</span>(dtm, <span class="st">&#39;bug&#39;</span>, <span class="fl">.3</span>) <span class="co"># minimum correlation of 0.3. Change accordingly. </span></code></pre>
 <pre><code>## $bug
 ##     it?    mini   major   users causing    ipad 
 ##    1.00    0.92    0.91    0.80    0.62    0.57</code></pre>
 <p>And find frequent terms.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">findFreqTerms</span>(dtm,<span class="dv">15</span>)</code></pre></div>
-<pre><code>##  [1] &quot;addicting&quot; &quot;addictive&quot; &quot;amazing&quot;   &quot;app&quot;       &quot;awesome&quot;  
-##  [6] &quot;best&quot;      &quot;clans&quot;     &quot;clash&quot;     &quot;cool&quot;      &quot;crashes&quot;  
-## [11] &quot;ever&quot;      &quot;fun&quot;       &quot;game&quot;      &quot;game!&quot;     &quot;game.&quot;    
-## [16] &quot;get&quot;       &quot;good&quot;      &quot;google&quot;    &quot;great&quot;     &quot;just&quot;     
-## [21] &quot;like&quot;      &quot;love&quot;      &quot;map&quot;       &quot;maps&quot;      &quot;much&quot;     
-## [26] &quot;nice&quot;      &quot;play&quot;      &quot;playing&quot;   &quot;really&quot;    &quot;review&quot;   
-## [31] &quot;time&quot;      &quot;update&quot;</code></pre>
-<p>Use any classifier now:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
-<span class="kw">library</span>(randomForest)</code></pre></div>
-<pre><code>## randomForest 4.6-12</code></pre>
-<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
-<pre><code>## 
-## Attaching package: &#39;randomForest&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:Hmisc&#39;:
-## 
-##     combine</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     combine</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     margin</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inTraining &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(dtmdf$class, <span class="dt">p =</span> .<span class="dv">75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
-training &lt;-<span class="st"> </span>dtmdf[ inTraining,]
-testing  &lt;-<span class="st"> </span>dtmdf[-inTraining,]
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">findFreqTerms</span>(dtm, <span class="dv">15</span>) <span class="co">#terms that appear 15 or more times, in this case</span></code></pre>
+<pre><code>##  [1] &quot;google&quot;    &quot;map&quot;       &quot;like&quot;      &quot;app&quot;       &quot;just&quot;     
+##  [6] &quot;good&quot;      &quot;crashes&quot;   &quot;maps&quot;      &quot;time&quot;      &quot;get&quot;      
+## [11] &quot;much&quot;      &quot;really&quot;    &quot;update&quot;    &quot;great&quot;     &quot;nice&quot;     
+## [16] &quot;best&quot;      &quot;ever&quot;      &quot;fun&quot;       &quot;review&quot;    &quot;love&quot;     
+## [21] &quot;awesome&quot;   &quot;cool&quot;      &quot;amazing&quot;   &quot;game&quot;      &quot;clans&quot;    
+## [26] &quot;clash&quot;     &quot;game.&quot;     &quot;game!&quot;     &quot;addicting&quot; &quot;play&quot;     
+## [31] &quot;playing&quot;   &quot;addictive&quot;</code></pre>
+<p>Remove some terms</p>
+<pre class="sourceCode r"><code class="sourceCode r">sparseparam &lt;-<span class="st"> </span><span class="fl">0.90</span> <span class="co"># will make the matrix 90% empty space, maximum. Change this, as you like.</span>
+dtm_sprs &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(dtm,<span class="dt">sparse=</span>sparseparam)
+<span class="kw">inspect</span>(dtm_sprs)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 789, terms: 9)&gt;&gt;
+## Non-/sparse entries: 1233/5868
+## Sparsity           : 83%
+## Maximal term length: 7
+## Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
+## Sample             :
+##      Terms
+## Docs  app     awesome best       clash fun game        good great
+##   159   0 0.000000000    0 1.598808368   0    0 0.000000000     0
+##   163   0 3.116086850    0 0.000000000   0    0 0.000000000     0
+##   178   0 3.116086850    0 0.000000000   0    0 0.000000000     0
+##   400   0 0.000000000    0 0.000000000   0    0 3.100319534     0
+##   421   0 0.000000000    0 0.000000000   0    0 3.100319534     0
+##   472   0 0.000000000    0 0.000000000   0    0 3.100319534     0
+##   50    0 0.000000000    0 0.000000000   0    0 3.100319534     0
+##   525   0 1.558043425    0 0.000000000   0    0 0.000000000     0
+##   527   0 0.000000000    0 0.000000000   0    0 3.100319534     0
+##   532   0 0.000000000    0 1.598808368   0    0 0.000000000     0
+##      Terms
+## Docs         love
+##   159 1.461720886
+##   163 0.000000000
+##   178 0.000000000
+##   400 0.000000000
+##   421 0.000000000
+##   472 0.000000000
+##   50  0.000000000
+##   525 1.461720886
+##   527 0.000000000
+##   532 1.461720886</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">maintitle &lt;-<span class="kw">paste0</span>(<span class="st">&quot;Most frequent terms (sparseness=&quot;</span> ,sparseparam , <span class="st">&quot;  )&quot;</span>)
+<span class="kw">barplot</span>(<span class="kw">as.matrix</span>(dtm_sprs),<span class="dt">xlab=</span><span class="st">&quot;terms&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;number of occurrences&quot;</span>, <span class="dt">main=</span>maintitle)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># organize terms by their frequency </span>
 
-fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(## 5-fold CV
+freq_dtm_sprs &lt;-<span class="st"> </span><span class="kw">colSums</span>(<span class="kw">as.matrix</span>(dtm_sprs))
+<span class="kw">length</span>(freq_dtm_sprs)</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">sorted_freq_dtm_sprs &lt;-<span class="st"> </span><span class="kw">sort</span>(freq_dtm_sprs, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+sorted_freq_dtm_sprs</code></pre>
+<pre><code>##        good       great        game     awesome         fun        best 
+## 77.76636458 68.77637155 68.66996351 64.60649534 55.84940440 54.07372345 
+##        love       clash         app 
+## 45.36493131 42.48777519 31.29319954</code></pre>
+<p>Create a data frame that will be the input to the classifier.
+Last column will be the label.</p>
+<p>As data frame:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dtmdf &lt;- as.data.frame(dtm.90)</span>
+<span class="co">#dtmdf &lt;- as.data.frame(inspect(dtm_sprs))</span>
+dtmdf &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">as.matrix</span>(dtm_sprs))
+<span class="co"># rownames(dtm)&lt;- 1:nrow(dtm)</span>
+
+class &lt;-<span class="st"> </span>d<span class="op">$</span>revBug
+dtmdf &lt;-<span class="st"> </span><span class="kw">cbind</span>(dtmdf,class)
+<span class="kw">head</span>(dtmdf, <span class="dv">3</span>)</code></pre>
+<p>Use any classifier now:
+- split the dataframe into training and testing
+- Build the classification model using the training subset
+- apply the model to the testing subset and obtain the Confusion Matrix
+- Analise the results</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
+<span class="kw">library</span>(randomForest)
+
+
+inTraining &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(dtmdf<span class="op">$</span>class, <span class="dt">p =</span> <span class="fl">.75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
+training &lt;-<span class="st"> </span>dtmdf[ inTraining,]
+testing  &lt;-<span class="st"> </span>dtmdf[<span class="op">-</span>inTraining,]
+
+fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="co">## 5-fold CV</span>
                            <span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,
                            <span class="dt">number =</span> <span class="dv">5</span>,
-                           ## repeated ten times
+                           <span class="co">## repeated ten times</span>
                            <span class="dt">repeats =</span> <span class="dv">5</span>)
 
 
-gbmFit1 &lt;-<span class="st"> </span><span class="kw">train</span>(class ~<span class="st"> </span>., <span class="dt">data =</span> training,
+gbmFit1 &lt;-<span class="st"> </span><span class="kw">train</span>(class <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> training,
                  <span class="dt">method =</span> <span class="st">&quot;gbm&quot;</span>,
                  <span class="dt">trControl =</span> fitControl,
-                 ## This last option is actually one
-                 ## for gbm() that passes through
+                 <span class="co">## This last option is actually one</span>
+                 <span class="co">## for gbm() that passes through</span>
                  <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 
-gbmFit1</code></pre></div>
+gbmFit1</code></pre>
 <pre><code>## Stochastic Gradient Boosting 
 ## 
 ## 593 samples
@@ -1199,75 +505,132 @@ gbmFit1</code></pre></div>
 ## Summary of sample sizes: 475, 474, 475, 474, 474, 474, ... 
 ## Resampling results across tuning parameters:
 ## 
-##   interaction.depth  n.trees  Accuracy      Kappa       
-##   1                   50      0.7976356644  0.0000000000
-##   1                  100      0.8050648056  0.1293221041
-##   1                  150      0.8091041162  0.2359115315
-##   2                   50      0.8074262926  0.1834100051
-##   2                  100      0.8111522575  0.2719506824
-##   2                  150      0.8077738214  0.2686077808
-##   3                   50      0.8111408631  0.2579999810
-##   3                  100      0.8128215354  0.2884184521
-##   3                  150      0.8111294687  0.2884071859
+##   interaction.depth  n.trees  Accuracy      Kappa         
+##   1                   50      0.7983107819  0.005187831537
+##   1                  100      0.8030309073  0.100972529170
+##   1                  150      0.8185586099  0.251719781992
+##   2                   50      0.8161942743  0.214069621088
+##   2                  100      0.8162028201  0.281341413948
+##   2                  150      0.8114798462  0.280302861433
+##   3                   50      0.8168636946  0.274826252003
+##   3                  100      0.8114883920  0.279902522189
+##   3                  150      0.8087850734  0.282684783972
 ## 
 ## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
 ## 
 ## Tuning parameter &#39;n.minobsinnode&#39; was held constant at a value of 10
-## Accuracy was used to select the optimal model using  the largest value.
-## The final values used for the model were n.trees = 100,
-##  interaction.depth = 3, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># trellis.par.set(caretTheme())</span>
+## Accuracy was used to select the optimal model using the largest value.
+## The final values used for the model were n.trees = 150,
+##  interaction.depth = 1, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># trellis.par.set(caretTheme())</span>
 <span class="co"># plot(gbmFit1)</span>
 <span class="co"># </span>
 <span class="co"># trellis.par.set(caretTheme())</span>
 <span class="co"># plot(gbmFit1, metric = &quot;Kappa&quot;)</span>
 
-<span class="kw">head</span>(<span class="kw">predict</span>(gbmFit1, testing, <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>))</code></pre></div>
+<span class="kw">head</span>(<span class="kw">predict</span>(gbmFit1, testing, <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>))</code></pre>
 <pre><code>##              N             Y
-## 1 0.6863853810 0.31361461899
-## 2 0.6863853810 0.31361461899
-## 3 0.9219789185 0.07802108147
-## 4 0.7998691244 0.20013087557
-## 5 0.2923762881 0.70762371195
-## 6 0.9618734783 0.03812652166</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conf_mat &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(testing$class, <span class="kw">predict</span>(gbmFit1, testing))
-conf_mat</code></pre></div>
+## 1 0.6128782934 0.38712170665
+## 2 0.5754602498 0.42453975017
+## 3 0.6422679898 0.35773201018
+## 4 0.6866949197 0.31330508027
+## 5 0.9802477705 0.01975222952
+## 6 0.9307476992 0.06925230082</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">conf_mat &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(testing<span class="op">$</span>class, <span class="kw">predict</span>(gbmFit1, testing))
+conf_mat</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction   N   Y
-##          N 150   7
-##          Y  26  13
+##          N 152   5
+##          Y  35   4
 ##                                                 
-##                Accuracy : 0.8316327             
-##                  95% CI : (0.7717559, 0.8811794)
-##     No Information Rate : 0.8979592             
-##     P-Value [Acc &gt; NIR] : 0.998482894           
+##                Accuracy : 0.7959184             
+##                  95% CI : (0.7326392, 0.8500172)
+##     No Information Rate : 0.9540816             
+##     P-Value [Acc &gt; NIR] : 1                     
 ##                                                 
-##                   Kappa : 0.3534586             
-##  Mcnemar&#39;s Test P-Value : 0.001727951           
+##                   Kappa : 0.0994716             
+##  Mcnemar&#39;s Test P-Value : 0.000004533294        
 ##                                                 
-##             Sensitivity : 0.8522727             
-##             Specificity : 0.6500000             
-##          Pos Pred Value : 0.9554140             
-##          Neg Pred Value : 0.3333333             
-##              Prevalence : 0.8979592             
-##          Detection Rate : 0.7653061             
+##             Sensitivity : 0.8128342             
+##             Specificity : 0.4444444             
+##          Pos Pred Value : 0.9681529             
+##          Neg Pred Value : 0.1025641             
+##              Prevalence : 0.9540816             
+##          Detection Rate : 0.7755102             
 ##    Detection Prevalence : 0.8010204             
-##       Balanced Accuracy : 0.7511364             
+##       Balanced Accuracy : 0.6286393             
 ##                                                 
 ##        &#39;Positive&#39; Class : N                     
 ## </code></pre>
+<p>We may compute manually all derived variables from the Confusion Matrix. See Section – with the description of the Confusion Matrix</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># str(conf_mat)</span>
+TruePositive &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">1</span>,<span class="dv">1</span>]
+TruePositive</code></pre>
+<pre><code>## [1] 152</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">FalsePositive &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">1</span>,<span class="dv">2</span>]
+FalsePositive</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">FalseNegative &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">2</span>,<span class="dv">1</span>]
+FalseNegative</code></pre>
+<pre><code>## [1] 35</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">TrueNegative &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">2</span>,<span class="dv">2</span>]
+TrueNegative</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sum columns in the confusion matrix</span>
+ConditionPositive &lt;-<span class="st"> </span>TruePositive <span class="op">+</span><span class="st"> </span>FalseNegative
+ConditionNegative &lt;-<span class="st"> </span>FalsePositive <span class="op">+</span><span class="st"> </span>TrueNegative
+TotalPopulation &lt;-<span class="st"> </span>ConditionPositive <span class="op">+</span><span class="st"> </span>ConditionNegative
+TotalPopulation</code></pre>
+<pre><code>## [1] 196</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Sum rows in the confusion matrix</span>
+PredictedPositive &lt;-<span class="st"> </span>TruePositive <span class="op">+</span><span class="st"> </span>FalsePositive
+PredictedNegative &lt;-<span class="st"> </span>FalseNegative <span class="op">+</span><span class="st"> </span>TrueNegative
+<span class="co"># Total Predicted must be equal to the total population</span>
+PredictedPositive<span class="op">+</span>PredictedNegative</code></pre>
+<pre><code>## [1] 196</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">SensitivityRecall_TPR &lt;-<span class="st"> </span>TruePositive <span class="op">/</span><span class="st"> </span>ConditionPositive
+SensitivityRecall_TPR</code></pre>
+<pre><code>## [1] 0.8128342246</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Specificity_TNR_SPC &lt;-<span class="st"> </span>TrueNegative <span class="op">/</span><span class="st"> </span>ConditionNegative
+Specificity_TNR_SPC</code></pre>
+<pre><code>## [1] 0.4444444444</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Precision_PPV &lt;-<span class="st"> </span>TruePositive <span class="op">/</span><span class="st"> </span>PredictedPositive
+Precision_PPV </code></pre>
+<pre><code>## [1] 0.9681528662</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">NegativePredictedValue_NPV &lt;-<span class="st"> </span>TrueNegative <span class="op">/</span><span class="st"> </span>PredictedNegative
+NegativePredictedValue_NPV</code></pre>
+<pre><code>## [1] 0.1025641026</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Prevalence &lt;-<span class="st"> </span>ConditionPositive <span class="op">/</span><span class="st"> </span>TotalPopulation
+Prevalence</code></pre>
+<pre><code>## [1] 0.9540816327</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Accuracy_ACC &lt;-<span class="st"> </span>(TruePositive <span class="op">+</span><span class="st"> </span>TrueNegative) <span class="op">/</span><span class="st"> </span>TotalPopulation
+Accuracy_ACC</code></pre>
+<pre><code>## [1] 0.7959183673</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">FalseDiscoveryRate_FDR &lt;-<span class="st"> </span>FalsePositive <span class="op">/</span><span class="st"> </span>PredictedPositive
+FalseDiscoveryRate_FDR</code></pre>
+<pre><code>## [1] 0.03184713376</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">FalseOmisionRate_FOR &lt;-<span class="st"> </span>FalseNegative <span class="op">/</span><span class="st"> </span>PredictedNegative 
+FalseOmisionRate_FOR</code></pre>
+<pre><code>## [1] 0.8974358974</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">FallOut_FPR &lt;-<span class="st"> </span>FalsePositive <span class="op">/</span><span class="st"> </span>ConditionNegative
+FallOut_FPR</code></pre>
+<pre><code>## [1] 0.5555555556</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">MissRate_FNR &lt;-<span class="st"> </span>FalseNegative <span class="op">/</span><span class="st"> </span>ConditionPositive
+MissRate_FNR </code></pre>
+<pre><code>## [1] 0.1871657754</code></pre>
 <p>And finally, a word cloud as an example that appears everywhere these days.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(wordcloud)</code></pre></div>
-<pre><code>## Loading required package: RColorBrewer</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the frequency of words and sort in descending order.</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(wordcloud)
+
+<span class="co"># calculate the frequency of words and sort in descending order.</span>
 wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span class="kw">as.matrix</span>(dtm_sprs)),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)
-<span class="kw">wordcloud</span>(<span class="dt">words=</span><span class="kw">names</span>(wordFreqs),<span class="dt">freq=</span>wordFreqs)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+
+<span class="kw">wordcloud</span>(<span class="dt">words=</span><span class="kw">names</span>(wordFreqs),<span class="dt">freq=</span>wordFreqs)</code></pre>
+<p><img src="DASE_files/figure-html/WordCloud-1.png" width="672" /></p>
 </div>
 <div id="extracting-data-from-twitter" class="section level2">
-<h2><span class="header-section-number">20.4</span> Extracting data from Twitter</h2>
+<h2><span class="header-section-number">20.3</span> Extracting data from Twitter</h2>
 <p>The hardest bit is to link with Twitter. Using the TwitteR package is explained following this <a href="./twitter.Rmd">example</a>.</p>
 
 </div>
@@ -1275,10 +638,7 @@ wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span cla
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-FeinererH15">
-<p>Feinerer, Ingo, and Kurt Hornik. 2015. <em>Tm: Text Mining Package</em>. <a href="http://CRAN.R-project.org/package=tm" class="uri">http://CRAN.R-project.org/package=tm</a>.</p>
-</div>
-<div id="ref-FeinererHM08">
-<p>Feinerer, Ingo, Kurt Hornik, and David Meyer. 2008. “Text Mining Infrastructure in R.” <em>Journal of Statistical Software</em> 25 (5): 1–54. <a href="http://www.jstatsoft.org/v25/i05/" class="uri">http://www.jstatsoft.org/v25/i05/</a>.</p>
+<p>Feinerer, Ingo, and Kurt Hornik. 2015. <em>Tm: Text Mining Package</em>. <a href="http://CRAN.R-project.org/package=tm">http://CRAN.R-project.org/package=tm</a>.</p>
 </div>
 </div>
             </section>
@@ -1298,17 +658,18 @@ wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span cla
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1318,6 +679,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/danrodgar/dasedown/edit/master/800_textMiningSE.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["DASE.pdf", "DASE.epub"],
 "toc": {
@@ -1332,9 +697,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
