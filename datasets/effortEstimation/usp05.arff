@@ -1,0 +1,313 @@
+@relation usp05
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a PROMISE Software Engineering Repository data set made publicly
+% available in order to encourage repeatable, verifiable, refutable, and/or
+% improvable predictive models of software engineering.
+%
+% If you publish material based on PROMISE data sets then, please
+% follow the acknowledgment guidelines posted on the PROMISE repository
+% web page http://promisedata.org/repository .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (c) 2007  Jingzhou Li 
+%    (jingli@ucalgary.ca)
+% This data set is distributed under the
+% Creative Commons Attribution-Share Alike 3.0 License
+% http://creativecommons.org/licenses/by-sa/3.0/
+%
+% You are free:
+%
+%    * to Share -- copy, distribute and transmit the work
+%    * to Remix -- to adapt the work
+%
+% Under the following conditions:
+%
+% Attribution. You must attribute the work in the manner specified by
+% the author or licensor (but not in any way that suggests that they endorse
+% you or your use of the work).
+%
+% Share Alike. If you alter, transform, or build upon this work, you
+% may distribute the resulting work only under the same, similar or a 
+% compatible license.
+%
+%    * For any reuse or distribution, you must make clear to others the 
+%      license terms of this work.
+%    * Any of the above conditions can be waived if you get permission from 
+%      the copyright holder.
+%    * Apart from the remix rights granted under this license, nothing in 
+%      this license impairs or restricts the author's moral rights.
+%
+
+
+% 
+% 1. Title: USP05: Software effort estimation at project, feature and requirement levels
+% 
+% 2. Source Information
+%    -- Donor: Jingzhou Li (jingli@ucalgary.ca), Guenther Ruhe (ruhe@ucalgary.ca)
+%              computer science department
+%              University of Calgary, Canada  
+%              (403) 210-5440
+%    -- Date: December 2005
+%  
+% 3. Past Usage:
+%     [1]. J.Z. Li, G. Ruhe, A. Al-Emran, M. M. Ritcher, A Flexible Method for Effort Estimation by Analogy, Empirical Software Engineering, Vol. 12, No. 1, 2007, pp 65-106. 
+%     [2]. J.Z. Li, G. Ruhe, "A Comparative Study of Attribute Weighting Heuristics for Effort Estimation by Analogy", Proceedings of the ACM-IEEE International Symposium on Empirical Software Engineering (ISESE'06), September 2006, Brazil.
+% 
+% 4. Relevant Information:
+%    -- This data set was splited into USP05-RQ nad USP05-FT for requirements and feature respectively. USP05-RQ and USP05-T were used for software effort estimation by analogy in the above two references.
+%    -- This data set was collected from university student projects
+%    -- The detailed description of the whole data set can be found in reference [1].
+% 
+% 5. Number of Instances: 203 (6 projects, 121 requirements, 76 features)
+% 
+% 6. Number of Attributes: 17 (including ID and Object Type, Effort is the actual effort)
+% 
+% 7. Attribute Information:
+%    1. ID: Three digit Object ID, 
+%    2. ObjType: Object type (PJ-project, FT-feature, RQ-requirement)
+%    3. Effort: Actual effort in hours expended on tasks related to implementing the object by all participating persons.
+%    4. Funct%: Percentage of Functionality of features or requirements ({1-Internal process, 2-Data entry/ Modification/ Deletion, 3-Output form(screen), 4-Data query from database/ file, 5-Printing, 6-Report, 7-Other})
+%    5. IntComplx: Complexity of Internal Calculation (1-VeryLow, 2-Low, 3-Medium, 4-High, 5-VeryHigh )
+%    6. DataFile: Number of Data Files/Database Tables Accessed (Positive integer)
+%    7. DataEn: Number of Data Entry Items (Positive integer)
+%    8. DataOut: Number of Data Output Items (Positive integer)
+%    9. UFP: Unadjusted Function Point Count (Positive integer)
+%    10. Lang: Language Used (C++, Java, VB, Java Script, VB Script,  SQL, Php, Perl, Asp, Html, XML, Others)
+%    11. Tools: Development Tools and Platforms (VJ++, VB, Delphi, VisualCafe, JUnit,   PowerBuilder, BorlandC++, Others)
+%    12. ToolExpr: Language and Tool Experience Level (Range of number of months of experience, e.g. [2, 5] for 2 to 5 months, as the minimum experience level is 2 and 5 the maximum in the team)
+%    13. AppExpr: Applications Experience Level (1-VeryLow, 2-Low, 3-Medium, 4-High, 5-VeryHigh)
+%    14. TeamSize: Team size for implementing the object (Range: [a, b], min-max number of persons, e.g. [2, 5])
+%    15. DBMS: Database Systems (Oracle, Access, SQLServer, MySQL, Others)
+%    16. Method: Methodology (OO, SA, SD, RAD, JAD, MVC, Others)
+%    17. AppType: ype of System/Application Architecture (B/S, C/S, BC/S, Centered, Other)
+% 
+% 
+% 8. Missing Attribute Values: 83
+% 
+% 9. Data
+
+@attribute ID numeric
+@attribute ObjType {FT,PJ,RQ}
+@attribute Effort numeric
+@attribute FunctPercent {'0.00,0.80,0.10,0.10,0.00,0.00,0.00','0.00,0.70,0.00,0.10,0.10,0.10,0.00','0.10,0.30,0.10,0.30,0.00,0.00,0.20','0.20,_0.16,_0.04,_0.54,_0.00,_0.03,_0.03','0.11,_0.34,_0.25,_0.15,_0.00,_0.02,_0.08','0.16,_0.39,_0.07,_0.28,_0.00,_0.06,_0.04','0.15,_0.30,_0.07,_0.38,_0.00,_0.06,_0.04','0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00','0.50,_0.29,_0.11,_0.10,_0.00,_0.00,_0.00','0.45,_0.29,_0.13,_0.12,_0.00,_0.00,_0.00','0.43,_0.31,_0.13,_0.12,_0.00,_0.00,_0.00','0.10,_0.32,_0.23,_0.21,_0.00,_0.00,_0.14','0.45,_0.29,_0.11,_0.15,_0.00,_0.00,_0.00','0.2,_0.0,_0.3,_0.4,_0.0,_0.0,_0.1','0.1,_0.8,_0.05,_0.05,_0.0,_0.0,_0.0','0.0,_0.4,_0.6,_0.0,_0.0,_0.0,_0.0','0.0,_0.0,_0.0,_0.0,_0.0,_0.0,_1.0','0.0,_0.3,_0.4,_0.2,_0.0,_0.1,_0.0','0.2,_0.2,_0.3,_0.3,_0.0,_0.0,_0.0','0.20,_0.10,_0.30,_0.30,_0.05,_0.05','0.20,_0.30,_0.20,_0.30','0.40,_0.20,_0.10,_0.30,_0,_,','0.10,_0.20,_0.00,_0.30,_0.00,_0.10,_0.30','0.10,_0.15,_0.15,_0.30,_0.10,_0.10,_0.10','0.20,_0.25,_0.20,_0.10,_0.10,_0.10,_0.00','0.10,_0.05,_0.25,_0.30,_0.10,_0.20,_0.00','0.15,_0.25,_0.05,_0.20,_0.15,_0.15,_0.05','0,_0,_1,_0,_0,_0,_0',1.0,'0.0,_0.0,_0.2,_0.2,_0.3,_0.1,_0.2','0.2,_0.2,_0.2,_0.1,_0.1,_0.1,_0.1','0.05,_0.1,_0.2,_0.05,_0.2,_0.2,_0.2','0.15,_0.15,_0.3,_0.1,_0.1,_0.2,_0.2','0,_.3,_.3,_.4,_0,_0,_0','0,_.4,_.3,_.3,_0,_0,_0','0,_.4,_.6,_0,_0,_0,_0','0.0,_0.5,_0.0,_0.5,_0.0,_0.0,_0.0',NULL,'0.2,_0.2,_0.3,_0.2,_0.0,_0.1,_0.0','0.15,_0.2,_0.1,_0.15,_0.2,_0.2','0.10,_0.25,_0.25,_0.25,_0.05,_0.10,_0.00','0.10,0.30,0.30,0.20,0.00,0.00,0.10','0.15,_0.05,_0.1,_0.35,_0.1,_0.2,_0.05','0.05,_0.3,_0.2,_0.2,_0.05,_0.15,_0.05','0.10,0.30,0.05,0.35,0.00,0.00,0.00','0.13,_0.42,_0.10,_0.15,_0.00,_0.06,_0.04','0.10,_0.34,_0.26,_0.18,_0.00,_0.02,_0.05','0.21,_0.21,_0.10,_0.30,_0.00,_0.05,_0.02','0.35,_0.15,_0.18,_0.22,_0.02,_0.07,_0.01','0.36,_0.06,_0.26,_0.25,_0.04,_0.05,_0.02','0.43,_0.17,_0.26,_0.10,_0.00,_0.00,_0.04','0.21,_0.34,_0.06,_0.19,_0.03,_0.01,_0.07','0.31,_0.39,_0.10,_0.20,_0.00,_0.00,_0.00','0.32,_0.19,_0.14,_0.25,_0.05,_0.03,_0.02','0.36,_0.24,_0.35,_0.05,_0.00,_0.00,_0.00','0.37,_0.29,_0.23,_0.11,_0.00,_0.00,_0.00','0.10,_0.16,_0.52,_0.07,_0.00,_0.10,_0.04','0.05,_0.10,_0.42,_0.23,_0.00,_0.10,_0.10','0.4,_0.3,_0.25,_0.05,_0.0,_0.0,_0.0','0.25,_0.10,_0.25,_0.3,_0.0,_0.1,_0.0','0.25,_0.0,_0.25,_0.25,_0.0,_0.25,_0','0.3,_0.3,_0.1,_0.2,_0.0,_0.0,_0.1','0.20,_0.25,0.20,.15,_.12,_0,_.08','0.20,_0.25,_0.15,_0.30,_0,_0,_0.10','0.25,_0.20,_0.15,_0.40','0.15,_0.25,_0.15,_0.40,_0,0,0.05','0.30,_0.15,_0.15,_0.20,_0,_0.20','0.25,0.25,0.25,0.20,0,0,0.10','0.20,0.25,0.20,0.25,0,0,0.10','0.05,_0.35,_0.05,_0.20,_0.05,_0.25,_0.05','0.10,_0.10,_0.15,_0.20,_0.25,_0.15,_0.10','0.15,_0.30,_0.10,_0.20,_0.05,_0.15,_0.05','0.10,_0.30,_0.40,_0.05,_0.05,_0.05,_0.05','0.40,_0.05,_0.05,_0.05,_0.05,_0.35,_0.05','0.05,_0.15,_0.20,_0.20,_0.05,_0.05,_0.00','0.00,_0.00,_0.20,_0.00,_0.00,_0.30,_0.50','0,_0,_0.9,_0.1,_0,_0,_0','0.15,_0.1,_0.3,_0.45,_0,_0,_0','0,_0.2,_0.4,_0.4,_0,_0,_0','0.65,_0,_0,_0.05,_0,_0.3,_0,_0','0.15,_0.1,_0.3,_0.35,_0,_0,_0.1','0.2,_0.2,_0.3,_0.3,_0,_0,_0','0.1,_0.4,_0.4,_0.1,_0,_0,_0','0.15,_0.35,_0.35,_0.15,_0,_0,_0','0.2,_0.4,_0.3,_0.1,_0,_0,_0','0.15,_0.3,_0.4,_0.15,_0,_0,_0','0.1,_0.5,_0.1,_0.1,_0.0,_0.1,_0.1','0.2,_0.1,_0.05,_0.15,_0.2,_0.1,_0.2','0.15,_0.5,_0.05,_0.15,_0.2,_0.2,_0.2','0.1,_0.1,_0.4,_0.2,_0.05,_0.05,_0.1','0.25,_0.25,_0.05,_0.05,_0.1,_0.2,_0.1','0.15,_0.15,_0.3,_0.2,_0.1,_0.2,_0.1','0.05,_0.2,_0.1,_0.05,_0.1,_0.3,_0.2','0.2,_0.3,_0.1,_0.2,_0.05,_0.05,_0.1','0.3,_0.0,_0.2,_0.1,_0.0,_0.2,_0.2','0,_0,_0,_1,_0,_0,_0','.4,_.3,_.3,_0,_0,_0,_0','0,_0,_.6,_.4,_0,_0,_0','.2,_0,_.6,_.2,_0,_0,_0','0.10,_0.50,_0.10,_0.15,_0.05,_0.05,_0.05','0.1,_0.3,_0.05,_0.4,_0.05,_0.05,_0.05','0.1,_0.35,_0.1,_0.35,_0.05,_0.05,_0','0.1,_0.4,_0.4,_0.1,_0.0,_0.0,_0.0','0.4,_0.2,_0.1,_0.2,_0.1,_0.0','0.5,_0.1,_0.1,_0.2,_0.1,_0.0','0.2,_0.1,_0.4,_0.3,_0.0,_0.0,_0.0','0.40,_0.20,_0.10_0.10_0.05_0.10_0.05','0.10,_0.30,_0.10,_0.35,_0.05,_0.05,_0.05','0.10,_0.30,_0.10,_0.40,_0.5,_0.03,_0.02','0.1,_0.3,_0.4,_0.15,_0.05,_0.05,_0','0.4,_0.05,_0.05,_0.4,_0.05,_0.05,_0','0.05,_0.0,_0.3,_0.4,_0.1,_0.05,_0.1'}
+@attribute IntComplx {5.0,2.0,1.0,4.0,3.0,3.5,2.5,4.5,NULL}
+@attribute DataFile {18.0,9.0,7.0,12.0,2.0,5.0,4.0,3.0,1.0,11.0,0.0,75.0,13.0,6.0,8.0,NULL,32.0}
+@attribute DataEn {94.0,240.0,15.0,90.0,314.0,1.0,4.0,3.0,2.0,6.0,0.0,20.0,60.0,30.0,5.0,17.0,10.0,7.0,45.0,48.0,12.0,83.0,150.0,36.0,186.0,9.0,11.0,52.0,25.0,14.0,8.0,NULL,50.0,13.0}
+@attribute DataOut {NULL,0.0,1.0,2.0,4.0,20.0,5.0,50.0,12.0,76.0,6.0,69.0,200.0,34.0,108.0,9.0,3.0,8.0,7.0,10.0,18.0,16.0,17.0,13.0,14.0,11.0}
+@attribute UFP {NULL,0.0,2.0,3.0,4.0,50.0,46.0,66.0,48.0,36.0,44.0,14.0,8.0,10.0,20.0,25.0,35.0,1.0,6.0,49.0,19.0,64.0,55.0,30.0,180.0,190.0,250.0,1085.0,510.0,210.0,1714.0,11.0,5.0,7.0,17.0,27.0,34.0,154.0,18.0,321.0,90.0,75.0,60.0,40.0,95.0,29.0,23.0,15.0,32.0,31.0,26.0,37.0,12.0,16.0,224.0,22.0,235.0,59.0,147.0,153.0,166.0,137.0,33.0,56.0,57.0,76.0,104.0,105.0}
+@attribute Lang {sql,'html,_php,_sql,_proprietary','php,_sql','Html,_JavaScript','Php,_Html,_Sql,_JavaScript','C#,_ASP.Net_SQL','PHP,_SQL,_SH','PHP,_SQL',NULL,'HTML,_PHP,_SQL','PHP,_HTML','PHP,_MySql,_HTML',PHP,HTML,SQL,'PHP,_SQL,_HTML','HTML,_PHP,_Javascript,_SQL','Php,_Html,_JavaScript','PHP,_SQL,_JavaScript','PHP,SQL,JavaScript','PHP,_HTML,_CSS','PHP,_HTML,_JavaScript',MySQL,javascript,'PHP,_HTML,_SQL','HTML,_PHP,_Oracle','PHP,_HTML,SQL','HTML,_PHP'}
+@attribute Tools {mySQLweb,'notepad,_webforms',notepad,Vim,'Vim,_Emacs,_Microsoft_visual_studio','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','Pico,_MySQLDump','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin',NULL,'ConText,_Jedit','ConTEXT,_Jedit,_myAdmin',ConTEXT,'Microsoft_Visual,_Emacs,_VIM,_Notepad',Dreamweaver,Notepad,Emacs,SQL,'Vim,_Emacs,_IE,_Mozilla,_Paint,_Gimp,_Word,_Adobe','Eclipse,_MySQL,_PHPMyAdmin,_Dreamweaver,_Rapid_PHP,_Unix,_Visual_Studio_.NET','ConTEXT,_myAdmin,_DreamWeaver,_JEdit','Notepad,MS_Word','Dreamweaver,_Emacs,_PHPUnit,_Photoshop,_FrontPage,_Oracle','Vim,_Emacs,_Microsoft_visual_studio,_Adobe','Eclipse,_PHPMyAdmin','ConTEXT,_myAdmin','Jedit,_DreamWeaver',MySQL,PHPunit,'Emacs,_Frontpage,_PHPUnit','Dreamweaver,_PHPUnit,_Emacs','Dreamwaver,_Frontpage,_PHPUnit,_Emacs','Dreamweaver,_Frontpage,_PHPUnit,_Emacs','Dreamweaver,_Emacs,_PHPUnit','Dreamweaver,_Emacs,_PHPUnit,_FrontPage','Notepad,_Dreamweaver,_Emacs'}
+@attribute ToolExpr {'[2,60]','[2,_60]','[5,10]','[1,10]',[0],'[0,_48]','[5,_100]','[4,24]','[2,5]',NULL,'[2,12]','[0,12]','[40,60]','[0,_60]','[0,_12]','[0,24]','[0,60]','[0,2]','[2,_12]','[12,24]','[12,36]','[0,_4]','[3,5]','[0,_3]','[0,_0]','[5,_12]','[5,12]','[0,_5]','[0,5]','[3,_12]'}
+@attribute AppExpr numeric
+@attribute TeamSize {[1],'[1,2]','[2,3]','[3,5]','[2,_4]','[1,1]','[2,2]','[3,4]','[2,_3]','[1,_3]','[1,_2]','[4,6]','[0,10]','[10,10]','[9,9]','[6,12]','[10,_10]','[1,3]','[3,3]','[1,5]','[1,_1]','[2,_10]','[2,_7]','[0,_10]'}
+@attribute DBMS {mysql,NULL,Oracle,SQLServer,MySQL}
+@attribute Method {NULL,'SA,SD',None,SA,3_Tier_Architecture,OO,Imperative,oo,'OO,_Bottom-Up',JAD,'SA,_SD'}
+@attribute AppType {BC/S,B/S,NULL,C/S,C,S,B,'3-Tier,_B/S',BS,BC,B/C}
+
+@data
+
+101,FT,2.5,'0.00,0.80,0.10,0.10,0.00,0.00,0.00',5.0,18.0,94.0,NULL,NULL,sql,mySQLweb,'[2,60]',4,[1],mysql,NULL,BC/S
+102,FT,2.5,'0.00,0.70,0.00,0.10,0.10,0.10,0.00',5.0,9.0,240.0,NULL,NULL,sql,mySQLweb,'[2,60]',4,[1],mysql,NULL,BC/S
+114,FT,2,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',2.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',4,[1],mysql,'SA,SD',BC/S
+115,FT,2,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',2.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',4,[1],mysql,'SA,SD',BC/S
+116,FT,3.5,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',2.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+117,FT,2,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',1.0,7.0,90.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,60]',4,[1],mysql,'SA,SD',BC/S
+118,FT,2,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',2.0,9.0,90.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+119,FT,2,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',2.0,9.0,90.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+120,FT,16,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',5.0,12.0,314.0,0.0,0.0,'php,_sql',notepad,'[2,_60]',5,[1],mysql,None,BC/S
+202,FT,1,'0.20,_0.16,_0.04,_0.54,_0.00,_0.03,_0.03',2.0,2.0,1.0,1.0,2.0,'Html,_JavaScript',Vim,'[5,10]',2,'[1,2]',NULL,SA,B/S
+204,FT,2,'0.11,_0.34,_0.25,_0.15,_0.00,_0.02,_0.08',1.0,2.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+206,FT,1,'0.11,_0.34,_0.25,_0.15,_0.00,_0.02,_0.08',1.0,2.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+208,FT,5,'0.16,_0.39,_0.07,_0.28,_0.00,_0.06,_0.04',4.0,2.0,3.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+210,FT,2,'0.16,_0.39,_0.07,_0.28,_0.00,_0.06,_0.04',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+211,FT,2,'0.16,_0.39,_0.07,_0.28,_0.00,_0.06,_0.04',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+212,FT,3,'0.16,_0.39,_0.07,_0.28,_0.00,_0.06,_0.04',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+214,FT,7,'0.15,_0.30,_0.07,_0.38,_0.00,_0.06,_0.04',2.0,5.0,2.0,2.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+218,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+219,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+220,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,4.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+222,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+223,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+224,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+225,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,4.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+230,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+231,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+232,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+234,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+235,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+236,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+237,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+239,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+241,FT,1,'0.50,_0.29,_0.11,_0.10,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+242,FT,1,'0.45,_0.29,_0.13,_0.12,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+243,FT,1,'0.43,_0.31,_0.13,_0.12,_0.00,_0.00,_0.00',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+245,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+246,FT,1,'0.50,_0.29,_0.11,_0.10,_0.00,_0.00,_0.00',1.0,2.0,3.0,1.0,3.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+247,FT,1,'0.45,_0.29,_0.13,_0.12,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,3.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+248,FT,1,'0.10,_0.32,_0.23,_0.21,_0.00,_0.00,_0.14',5.0,3.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+250,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+251,FT,1,'0.50,_0.29,_0.11,_0.10,_0.00,_0.00,_0.00',1.0,2.0,3.0,1.0,3.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+252,FT,1,'0.45,_0.29,_0.13,_0.12,_0.00,_0.00,_0.00',1.0,2.0,2.0,1.0,3.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+253,FT,1,'0.10,_0.32,_0.23,_0.21,_0.00,_0.00,_0.14',5.0,4.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',5,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+254,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,2.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+255,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,4.0,1.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+256,FT,1,'0.45,_0.29,_0.11,_0.15,_0.00,_0.00,_0.00',4.0,4.0,6.0,1.0,4.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',4,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+257,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',1.0,4.0,4.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+258,FT,1,'0.25,_0.25,_0.25,_0.25,_0.00,_0.00,_0.00',2.0,4.0,2.0,1.0,0.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+306,FT,40,'0.2,_0.0,_0.3,_0.4,_0.0,_0.0,_0.1',3.0,3.0,2.0,1.0,50.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[3,5]',SQLServer,NULL,NULL
+307,FT,40,'0.1,_0.8,_0.05,_0.05,_0.0,_0.0,_0.0',2.0,3.0,1.0,1.0,46.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[3,5]',SQLServer,NULL,NULL
+308,FT,20,'0.0,_0.4,_0.6,_0.0,_0.0,_0.0,_0.0',3.0,1.0,2.0,4.0,66.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[0,_48]',2,[1],SQLServer,NULL,C/S
+309,FT,20,'0.0,_0.0,_0.0,_0.0,_0.0,_0.0,_1.0',3.0,2.0,1.0,2.0,48.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[0,_48]',2,[1],SQLServer,NULL,C/S
+310,FT,10,'0.0,_0.3,_0.4,_0.2,_0.0,_0.1,_0.0',2.0,2.0,1.0,1.0,36.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,[1],SQLServer,NULL,NULL
+312,FT,20,'0.2,_0.2,_0.3,_0.3,_0.0,_0.0,_0.0',4.0,2.0,3.0,1.0,44.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[2,_4]',SQLServer,NULL,C
+402,FT,8,'0.20,_0.10,_0.30,_0.30,_0.05,_0.05',2.0,7.0,3.0,2.0,14.0,'PHP,_SQL,_SH','Pico,_MySQLDump','[5,_100]',2,'[1,1]',MySQL,OO,B/S
+403,FT,3,'0.20,_0.30,_0.20,_0.30',3.0,2.0,2.0,1.0,8.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[4,24]',4,'[1,1]',MySQL,OO,B/S
+404,FT,3,'0.40,_0.20,_0.10,_0.30,_0,_,',2.0,2.0,3.0,1.0,10.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',1,'[1,1]',MySQL,OO,B/S
+509,FT,6,'0.10,_0.20,_0.00,_0.30,_0.00,_0.10,_0.30',2.0,12.0,0.0,0.0,10.0,NULL,NULL,NULL,1,'[2,2]',NULL,NULL,S
+510,FT,10,'0.10,_0.15,_0.15,_0.30,_0.10,_0.10,_0.10',4.0,1.0,20.0,20.0,20.0,NULL,NULL,NULL,1,'[2,2]',NULL,NULL,S
+511,FT,6,'0.20,_0.25,_0.20,_0.10,_0.10,_0.10,_0.00',3.0,5.0,20.0,5.0,25.0,'HTML,_PHP,_SQL','ConText,_Jedit','[2,12]',2,'[1,2]',NULL,NULL,C/S
+512,FT,12,'0.10,_0.05,_0.25,_0.30,_0.10,_0.20,_0.00',4.0,11.0,60.0,50.0,35.0,'HTML,_PHP,_SQL','ConTEXT,_Jedit,_myAdmin','[2,12]',1,'[3,4]',NULL,NULL,C/S
+513,FT,8,'0.15,_0.25,_0.05,_0.20,_0.15,_0.15,_0.05',1.0,4.0,30.0,12.0,20.0,'HTML,_PHP,_SQL',ConTEXT,'[0,12]',3,'[1,2]',NULL,NULL,C/S
+601,FT,0.5,'0,_0,_1,_0,_0,_0,_0',1.0,0.0,0.0,0.0,1.0,'PHP,_HTML','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,[1],NULL,Imperative,BC/S
+603,FT,1,'0,_0,_1,_0,_0,_0,_0',1.0,0.0,0.0,0.0,1.0,'PHP,_HTML',Dreamweaver,'[0,_60]',4,'[1,2]',NULL,Imperative,BC/S
+622,FT,24,1.0,2.0,3.0,2.0,1.0,6.0,'PHP,_MySql,_HTML',Dreamweaver,'[0,_60]',1,[1],MySQL,Imperative,BC/S
+715,FT,0.5,'0.0,_0.0,_0.2,_0.2,_0.3,_0.1,_0.2',1.0,2.0,2.0,0.0,4.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+716,FT,0.5,'0.2,_0.2,_0.2,_0.1,_0.1,_0.1,_0.1',1.0,2.0,2.0,0.0,4.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+717,FT,0.5,'0.05,_0.1,_0.2,_0.05,_0.2,_0.2,_0.2',1.0,2.0,1.0,0.0,4.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+718,FT,0.5,'0.15,_0.15,_0.3,_0.1,_0.1,_0.2,_0.2',1.0,2.0,0.0,2.0,6.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+801,FT,24,'0,_.3,_.3,_.4,_0,_0,_0',3.0,0.0,15.0,1.0,49.0,PHP,Emacs,'[0,_12]',4,'[2,_3]',MySQL,oo,BC/S
+802,FT,8,'0,_.3,_.3,_.4,_0,_0,_0',2.0,0.0,5.0,1.0,19.0,PHP,Emacs,'[0,_12]',4,'[1,_3]',MySQL,oo,BC/S
+803,FT,20,'0,_.3,_.3,_.4,_0,_0,_0',3.0,0.0,20.0,1.0,64.0,PHP,Emacs,'[0,_12]',4,'[2,_3]',MySQL,oo,BC/S
+804,FT,4,'0,_.4,_.3,_.3,_0,_0,_0',2.0,0.0,17.0,1.0,55.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+805,FT,30,'0,_.4,_.6,_0,_0,_0,_0',4.0,0.0,10.0,0.0,30.0,HTML,Emacs,'[0,_12]',4,'[2,_4]',NULL,oo,B
+810,FT,8,'0,_.3,_.3,_.4,_0,_0,_0',3.0,0.0,7.0,1.0,25.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+920,FT,5,'0.0,_0.5,_0.0,_0.5,_0.0,_0.0,_0.0',3.0,0.0,45.0,0.0,180.0,SQL,SQL,'[0,24]',5,'[1,2]',Oracle,NULL,NULL
+201,PJ,75,NULL,4.0,75.0,48.0,76.0,190.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_IE,_Mozilla,_Paint,_Gimp,_Word,_Adobe','[1,10]',4,'[4,6]',Oracle,3_Tier_Architecture,BC/S
+301,PJ,220,'0.2,_0.2,_0.3,_0.2,_0.0,_0.1,_0.0',3.0,13.0,12.0,6.0,250.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[0,_48]',2,'[0,10]',SQLServer,'OO,_Bottom-Up','3-Tier,_B/S'
+401,PJ,400,NULL,3.0,7.0,83.0,69.0,1085.0,'PHP,_SQL,_HTML','Eclipse,_MySQL,_PHPMyAdmin,_Dreamweaver,_Rapid_PHP,_Unix,_Visual_Studio_.NET','[0,60]',3,'[10,10]',MySQL,OO,B/S
+501,PJ,100,NULL,3.0,12.0,150.0,200.0,510.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin,_DreamWeaver,_JEdit','[0,24]',2,'[9,9]',MySQL,JAD,C/S
+723,PJ,70,'0.15,_0.2,_0.1,_0.15,_0.2,_0.2',2.0,5.0,36.0,34.0,210.0,PHP,'Notepad,MS_Word','[0,2]',4,'[6,12]',Oracle,OO,B/S
+901,PJ,69,'0.10,_0.25,_0.25,_0.25,_0.05,_0.10,_0.00',3.0,12.0,186.0,108.0,1714.0,'HTML,_PHP,_Javascript,_SQL','Dreamweaver,_Emacs,_PHPUnit,_Photoshop,_FrontPage,_Oracle','[2,_12]',3,'[10,_10]',Oracle,OO,C/S
+103,RQ,2.5,'0.10,0.30,0.30,0.20,0.00,0.00,0.10',3.0,5.0,4.0,2.0,10.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+104,RQ,2.5,'0.10,0.30,0.30,0.20,0.00,0.00,0.10',3.0,5.0,4.0,2.0,10.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+105,RQ,2,'0.15,_0.05,_0.1,_0.35,_0.1,_0.2,_0.05',3.0,4.0,0.0,9.0,10.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+106,RQ,1.5,'0.05,_0.3,_0.2,_0.2,_0.05,_0.15,_0.05',3.0,3.0,7.0,4.0,11.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+107,RQ,2,'0.10,0.30,0.05,0.35,0.00,0.00,0.00',2.0,3.0,3.0,2.0,4.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+108,RQ,2.5,'0.10,0.30,0.30,0.20,0.00,0.00,0.10',4.0,6.0,6.0,2.0,5.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+109,RQ,2.5,'0.05,_0.3,_0.2,_0.2,_0.05,_0.15,_0.05',3.0,4.0,4.0,4.0,2.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+110,RQ,2,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',1.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+111,RQ,1,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',1.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+112,RQ,1,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',1.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+113,RQ,0.5,'0.10,0.30,0.10,0.30,0.00,0.00,0.20',1.0,9.0,15.0,0.0,0.0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+203,RQ,7,'0.13,_0.42,_0.10,_0.15,_0.00,_0.06,_0.04',3.0,8.0,1.0,1.0,14.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+205,RQ,5,'0.16,_0.39,_0.07,_0.28,_0.00,_0.06,_0.04',3.0,8.0,4.0,1.0,14.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+207,RQ,15,'0.10,_0.34,_0.26,_0.18,_0.00,_0.02,_0.05',3.0,3.0,1.0,1.0,6.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+209,RQ,2,'0.10,_0.34,_0.26,_0.18,_0.00,_0.02,_0.05',3.0,2.0,3.0,1.0,4.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+213,RQ,8,'0.21,_0.21,_0.10,_0.30,_0.00,_0.05,_0.02',3.0,3.0,2.0,1.0,8.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+215,RQ,2,'0.35,_0.15,_0.18,_0.22,_0.02,_0.07,_0.01',1.0,2.0,1.0,1.0,7.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,C/S
+216,RQ,2,'0.36,_0.06,_0.26,_0.25,_0.04,_0.05,_0.02',1.0,2.0,1.0,1.0,7.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,C/S
+217,RQ,11,'0.43,_0.17,_0.26,_0.10,_0.00,_0.00,_0.04',4.0,5.0,9.0,1.0,8.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+221,RQ,11,'0.43,_0.17,_0.26,_0.10,_0.00,_0.00,_0.04',4.0,5.0,11.0,1.0,8.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+226,RQ,5,'0.21,_0.34,_0.06,_0.19,_0.03,_0.01,_0.07',2.0,3.0,2.0,6.0,7.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,C/S
+227,RQ,3,'0.21,_0.34,_0.06,_0.19,_0.03,_0.01,_0.07',2.0,3.0,2.0,6.0,8.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,C/S
+228,RQ,3,'0.21,_0.34,_0.06,_0.19,_0.03,_0.01,_0.07',3.0,4.0,1.0,4.0,7.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,C/S
+229,RQ,2,'0.31,_0.39,_0.10,_0.20,_0.00,_0.00,_0.00',3.0,3.0,9.0,1.0,8.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+233,RQ,2,'0.31,_0.39,_0.10,_0.20,_0.00,_0.00,_0.00',3.0,3.0,11.0,1.0,5.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+238,RQ,2,'0.32,_0.19,_0.14,_0.25,_0.05,_0.03,_0.02',2.0,2.0,4.0,1.0,5.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+240,RQ,2,'0.32,_0.19,_0.14,_0.25,_0.05,_0.03,_0.02',3.0,2.0,4.0,1.0,5.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+244,RQ,3,'0.36,_0.24,_0.35,_0.05,_0.00,_0.00,_0.00',2.0,3.0,1.0,5.0,17.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,C/S
+249,RQ,20,'0.37,_0.29,_0.23,_0.11,_0.00,_0.00,_0.00',5.0,4.0,10.0,3.0,27.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',5,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+259,RQ,5,'0.45,_0.29,_0.11,_0.15,_0.00,_0.00,_0.00',3.0,8.0,2.0,2.0,5.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[3,4]',Oracle,3_Tier_Architecture,C/S
+260,RQ,1,'0.10,_0.16,_0.52,_0.07,_0.00,_0.10,_0.04',1.0,1.0,1.0,1.0,0.0,'Php,_Html,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio,_Adobe','[1,10]',1,'[1,2]',Oracle,SA,C/S
+261,RQ,1,'0.05,_0.10,_0.42,_0.23,_0.00,_0.10,_0.10',1.0,2.0,1.0,5.0,2.0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,C/S
+262,RQ,1,'0.10,_0.16,_0.52,_0.07,_0.00,_0.10,_0.04',1.0,1.0,1.0,8.0,0.0,'Php,_Html,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,SA,C/S
+302,RQ,20,'0.4,_0.3,_0.25,_0.05,_0.0,_0.0,_0.0',5.0,1.0,3.0,1.0,34.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[1,3]',SQLServer,NULL,NULL
+303,RQ,10,'0.25,_0.10,_0.25,_0.3,_0.0,_0.1,_0.0',2.0,2.0,1.0,1.0,36.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[0,24]',2,'[1,3]',SQLServer,NULL,NULL
+304,RQ,30,'0.25,_0.0,_0.25,_0.25,_0.0,_0.25,_0',4.0,13.0,3.0,1.0,154.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[12,24]',2,'[1,_2]',SQLServer,NULL,NULL
+305,RQ,10,'0.3,_0.3,_0.1,_0.2,_0.0,_0.0,_0.1',2.0,1.0,2.0,0.0,18.0,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,[1],SQLServer,NULL,NULL
+406,RQ,20,'0.20,_0.25,0.20,.15,_.12,_0,_.08',3.5,6.0,52.0,7.0,321.0,'PHP,_SQL,_JavaScript','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[12,36]',3.5,'[1,1]',MySQL,OO,B/S
+407,RQ,15,'0.20,_0.25,_0.15,_0.30,_0,_0,_0.10',2.5,3.0,4.0,1.0,14.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',1,'[1,1]',MySQL,OO,B/S
+408,RQ,20,'0.25,_0.20,_0.15,_0.40',3.5,4.0,5.0,10.0,30.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',1,'[1,1]',MySQL,OO,B/S
+409,RQ,20,'0.15,_0.25,_0.15,_0.40,_0,0,0.05',3.5,2.0,3.0,1.0,14.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',1,'[1,2]',MySQL,OO,B/S
+410,RQ,15,'0.25,_0.20,_0.15,_0.40',3.5,2.0,30.0,18.0,90.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',2,'[1,1]',MySQL,OO,B
+411,RQ,15,'0.30,_0.15,_0.15,_0.20,_0,_0.20',4.0,2.0,25.0,16.0,75.0,'PHP,SQL,JavaScript','Eclipse,_PHPMyAdmin','[0,_4]',1,'[1,2]',MySQL,OO,BS
+412,RQ,40,'0.25,0.25,0.25,0.20,0,0,0.10',4.5,5.0,7.0,5.0,30.0,'PHP,SQL,JavaScript','Eclipse,_PHPMyAdmin','[3,5]',1,'[1,1]',MySQL,OO,B/S
+413,RQ,3,'0.20,0.25,0.20,0.25,0,0,0.10',2.0,2.0,3.0,2.0,10.0,'PHP,SQL,JavaScript','Eclipse,_PHPMyAdmin','[3,5]',1,'[1,2]',MySQL,OO,B/S
+414,RQ,15,'0.30,_0.15,_0.15,_0.20,_0,_0.20',4.0,2.0,25.0,16.0,75.0,'PHP,SQL,JavaScript','Eclipse,_PHPMyAdmin','[0,_4]',1,'[1,2]',MySQL,OO,BS
+415,RQ,20,'0.15,_0.25,_0.15,_0.40,_0,0,0.05',3.0,2.0,3.0,1.0,14.0,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',1,'[1,2]',MySQL,OO,B/S
+502,RQ,10,'0.05,_0.35,_0.05,_0.20,_0.05,_0.25,_0.05',4.0,4.0,25.0,12.0,50.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin','[2,12]',4,'[1,2]',NULL,NULL,C/S
+503,RQ,6,'0.10,_0.10,_0.15,_0.20,_0.25,_0.15,_0.10',2.0,2.0,20.0,10.0,60.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin','[2,12]',2,'[1,2]',NULL,NULL,C/S
+504,RQ,8,'0.15,_0.30,_0.10,_0.20,_0.05,_0.15,_0.05',3.0,1.0,14.0,8.0,40.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin','[2,12]',3,'[1,2]',NULL,NULL,C/S
+505,RQ,8,'0.10,_0.30,_0.40,_0.05,_0.05,_0.05,_0.05',3.0,1.0,8.0,10.0,35.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin','[2,12]',3,'[1,2]',NULL,NULL,C/S
+506,RQ,12,'0.40,_0.05,_0.05,_0.05,_0.05,_0.35,_0.05',4.0,12.0,2.0,20.0,95.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin','[2,12]',1,'[3,4]',NULL,NULL,C/S
+507,RQ,10,'0.05,_0.15,_0.20,_0.20,_0.05,_0.05,_0.00',2.0,2.0,4.0,10.0,30.0,'HTML,_PHP,_SQL','ConTEXT,_myAdmin','[2,12]',2,'[1,2]',NULL,NULL,C/S
+508,RQ,8,'0.00,_0.00,_0.20,_0.00,_0.00,_0.30,_0.50',2.0,3.0,1.0,1.0,5.0,HTML,'Jedit,_DreamWeaver','[0,24]',4,'[3,3]',NULL,NULL,BC
+602,RQ,2,'0,_0,_1,_0,_0,_0,_0',1.0,0.0,0.0,0.0,1.0,'PHP,_HTML',Dreamweaver,'[0,_60]',4,[1],NULL,Imperative,BC/S
+604,RQ,1,'0,_0,_0.9,_0.1,_0,_0,_0',1.0,1.0,0.0,0.0,2.0,'PHP,_HTML','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,2]',MySQL,Imperative,BC/S
+605,RQ,1.5,'0,_0,_1,_0,_0,_0,_0',1.0,0.0,0.0,0.0,1.0,'PHP,_HTML','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,[1],NULL,Imperative,BC/S
+606,RQ,25,'0.15,_0.1,_0.3,_0.45,_0,_0,_0',5.0,3.0,17.0,17.0,29.0,'PHP,_HTML,_CSS','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,5]',MySQL,Imperative,BC/S
+607,RQ,9,'0.15,_0.1,_0.3,_0.45,_0,_0,_0',5.0,3.0,17.0,17.0,29.0,'PHP,_HTML,_CSS','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,5]',MySQL,Imperative,BC/S
+608,RQ,15,'0,_0.2,_0.4,_0.4,_0,_0,_0',4.0,1.0,5.0,2.0,10.0,'PHP,_HTML,_CSS','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,5]',MySQL,Imperative,BC/S
+609,RQ,2,'0.15,_0.1,_0.3,_0.45,_0,_0,_0',3.0,3.0,17.0,17.0,23.0,'PHP,_HTML','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,5]',MySQL,Imperative,BC/S
+610,RQ,5,'0.65,_0,_0,_0.05,_0,_0.3,_0,_0',3.0,0.0,3.0,3.0,4.0,'PHP,_HTML,_JavaScript','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',2,'[1,1]',NULL,Imperative,B/C
+611,RQ,45,'0.15,_0.1,_0.3,_0.35,_0,_0,_0.1',5.0,2.0,2.0,1.0,4.0,'PHP,_HTML,_CSS','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,3]',MySQL,Imperative,BC/S
+612,RQ,35,'0.2,_0.2,_0.3,_0.3,_0,_0,_0',4.0,3.0,11.0,1.0,19.0,'PHP,_HTML,_CSS','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,3]',MySQL,Imperative,BC/S
+613,RQ,50,'0.1,_0.4,_0.4,_0.1,_0,_0,_0',5.0,3.0,4.0,4.0,14.0,'PHP,_HTML,_JavaScript','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,1]',MySQL,Imperative,BC/S
+614,RQ,25,'0.15,_0.35,_0.35,_0.15,_0,_0,_0',5.0,2.0,2.0,2.0,5.0,'PHP,_HTML,_JavaScript','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,1]',MySQL,Imperative,BC/S
+615,RQ,35,'0.2,_0.4,_0.3,_0.1,_0,_0,_0',5.0,1.0,3.0,3.0,10.0,'PHP,_HTML,_JavaScript','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,1]',MySQL,Imperative,BC/S
+616,RQ,20,'0.1,_0.4,_0.4,_0.1,_0,_0,_0',4.0,2.0,2.0,2.0,7.0,'PHP,_HTML,_JavaScript','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,1]',MySQL,Imperative,BC/S
+617,RQ,25,'0.15,_0.3,_0.4,_0.15,_0,_0,_0',3.0,3.0,9.0,4.0,20.0,'PHP,_HTML,_JavaScript','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,'[1,1]',MySQL,Imperative,BC/S
+618,RQ,10,1.0,3.0,3.0,1.0,1.0,6.0,'PHP,_MySql,_HTML',Dreamweaver,'[0,_60]',4,'[1,_2]',MySQL,Imperative,BC/S
+619,RQ,33,1.0,2.0,3.0,2.0,1.0,6.0,'PHP,_MySql,_HTML',Dreamweaver,'[0,_60]',4,[1],MySQL,Imperative,BC/S
+620,RQ,24,1.0,4.0,3.0,8.0,1.0,14.0,'PHP,_MySql,_HTML',Dreamweaver,'[0,_60]',4,[1],MySQL,Imperative,BC/S
+621,RQ,36,1.0,4.0,3.0,9.0,1.0,15.0,'PHP,_MySql,_HTML',Dreamweaver,'[0,_60]',4,'[2,_3]',MySQL,Imperative,BC/S
+701,RQ,1,'0.1,_0.5,_0.1,_0.1,_0.0,_0.1,_0.1',1.0,1.0,1.0,0.0,6.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+702,RQ,1,'0.2,_0.1,_0.05,_0.15,_0.2,_0.1,_0.2',1.0,1.0,2.0,0.0,4.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+703,RQ,1,'0.15,_0.5,_0.05,_0.15,_0.2,_0.2,_0.2',4.0,0.0,4.0,2.0,4.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,'SA,_SD',B/S
+704,RQ,2,'0.1,_0.1,_0.4,_0.2,_0.05,_0.05,_0.1',3.0,2.0,4.0,10.0,32.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+705,RQ,2,'0.2,_0.2,_0.2,_0.1,_0.1,_0.1,_0.1',3.0,3.0,12.0,4.0,31.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+706,RQ,2,'0.25,_0.25,_0.05,_0.05,_0.1,_0.2,_0.1',5.0,4.0,9.0,6.0,26.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+707,RQ,1,'0.1,_0.5,_0.1,_0.1,_0.0,_0.1,_0.1',2.0,1.0,9.0,9.0,23.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+708,RQ,1,'0.15,_0.5,_0.05,_0.15,_0.2,_0.2,_0.2',1.0,1.0,9.0,9.0,37.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+709,RQ,1,'0.2,_0.1,_0.05,_0.15,_0.2,_0.1,_0.2',1.0,1.0,12.0,0.0,18.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+710,RQ,1,'0.15,_0.15,_0.3,_0.2,_0.1,_0.2,_0.1',2.0,1.0,1.0,0.0,20.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+711,RQ,1,'0.05,_0.2,_0.1,_0.05,_0.1,_0.3,_0.2',2.0,1.0,12.0,0.0,36.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+712,RQ,1,'0.2,_0.3,_0.1,_0.2,_0.05,_0.05,_0.1',3.0,2.0,1.0,0.0,4.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+713,RQ,1,'0.1,_0.1,_0.4,_0.2,_0.05,_0.05,_0.1',3.0,2.0,1.0,0.0,4.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+714,RQ,1,'0.3,_0.0,_0.2,_0.1,_0.0,_0.2,_0.2',2.0,2.0,10.0,0.0,12.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+719,RQ,1,'0.15,_0.5,_0.05,_0.15,_0.2,_0.2,_0.2',2.0,2.0,10.0,10.0,10.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+720,RQ,1,'0.1,_0.1,_0.4,_0.2,_0.05,_0.05,_0.1',3.0,1.0,12.0,12.0,10.0,PHP,Notepad,'[0,12]',4,'[2,3]',Oracle,OO,B/S
+721,RQ,0.5,'0.1,_0.5,_0.1,_0.1,_0.0,_0.1,_0.1',1.0,0.0,0.0,0.0,6.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,'SA,_SD',B/S
+722,RQ,0.5,'0.2,_0.1,_0.05,_0.15,_0.2,_0.1,_0.2',1.0,0.0,0.0,12.0,8.0,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,'SA,_SD',B/S
+806,RQ,8,'0,_0,_0,_1,_0,_0,_0',NULL,NULL,NULL,NULL,NULL,MySQL,MySQL,'[0,_12]',4,'[2,_3]',MySQL,NULL,S
+807,RQ,6,'0,_.3,_.3,_.4,_0,_0,_0',2.0,0.0,4.0,1.0,16.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+808,RQ,6,'0,_.3,_.3,_.4,_0,_0,_0',2.0,0.0,5.0,1.0,19.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+809,RQ,4,'0,_.3,_.3,_.4,_0,_0,_0',4.0,0.0,5.0,1.0,19.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+811,RQ,1,'0,_.3,_.3,_.4,_0,_0,_0',2.0,0.0,1.0,1.0,7.0,PHP,Emacs,'[0,_12]',4,'[1,_1]',MySQL,oo,BC/S
+812,RQ,4,'.4,_.3,_.3,_0,_0,_0,_0',1.0,1.0,3.0,0.0,16.0,javascript,Emacs,'[0,_3]',1,'[1,_1]',NULL,oo,C
+813,RQ,6,'0,_0,_.6,_.4,_0,_0,_0',2.0,0.0,1.0,0.0,3.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+814,RQ,12,'.2,_0,_.6,_.2,_0,_0,_0',4.0,32.0,0.0,0.0,224.0,PHP,PHPunit,'[0,_0]',1,'[2,_3]',NULL,oo,C/S
+815,RQ,6,'.2,_0,_.6,_.2,_0,_0,_0',3.0,NULL,NULL,NULL,NULL,HTML,NULL,NULL,1,'[2,_3]',NULL,NULL,BC/S
+816,RQ,6,'0,_0,_1,_0,_0,_0,_0',1.0,1.0,10.0,0.0,7.0,HTML,Emacs,'[0,_12]',5,'[1,_2]',NULL,NULL,BC/S
+817,RQ,4,'0,_.3,_.3,_.4,_0,_0,_0',2.0,0.0,6.0,1.0,22.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+818,RQ,4,'0,_.3,_.3,_.4,_0,_0,_0',2.0,0.0,6.0,1.0,22.0,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+902,RQ,7,'0.10,_0.50,_0.10,_0.15,_0.05,_0.05,_0.05',2.0,3.0,50.0,1.0,235.0,'HTML,_PHP,_SQL','Emacs,_Frontpage,_PHPUnit','[5,_12]',3,'[2,_10]',Oracle,OO,C/S
+903,RQ,2,'0.1,_0.3,_0.05,_0.4,_0.05,_0.05,_0.05',2.0,1.0,3.0,1.0,27.0,'HTML,_PHP,_SQL','Dreamweaver,_PHPUnit,_Emacs','[5,12]',3,'[2,3]',Oracle,OO,C/S
+904,RQ,3,'0.1,_0.35,_0.1,_0.35,_0.05,_0.05,_0',3.0,3.0,6.0,1.0,59.0,'HTML,_PHP,_SQL','Dreamweaver,_PHPUnit,_Emacs','[5,12]',3,'[2,3]',Oracle,OO,C/S
+905,RQ,3,'0.1,_0.4,_0.4,_0.1,_0.0,_0.0,_0.0',2.0,1.0,2.0,1.0,23.0,'PHP,_HTML,_SQL','Dreamwaver,_Frontpage,_PHPUnit,_Emacs','[5,_12]',3,'[1,_2]',Oracle,OO,BC/S
+906,RQ,4,'0.4,_0.2,_0.1,_0.2,_0.1,_0.0',2.0,3.0,13.0,13.0,147.0,'PHP,_HTML,_SQL','Dreamwaver,_Frontpage,_PHPUnit,_Emacs','[5,_12]',3,'[1,_2]',Oracle,OO,BC/S
+907,RQ,5,'0.5,_0.1,_0.1,_0.2,_0.1,_0.0',3.0,4.0,12.0,13.0,153.0,'HTML,_PHP,_Oracle','Dreamweaver,_Frontpage,_PHPUnit,_Emacs','[5,_12]',3,'[2,_4]',Oracle,OO,C/S
+908,RQ,6,'0.4,_0.2,_0.1,_0.2,_0.1,_0.0',4.0,4.0,14.0,14.0,166.0,'HTML,_PHP,_Oracle','Dreamweaver,_Frontpage,_PHPUnit,_Emacs','[5,_12]',3,'[2,_7]',Oracle,OO,C/S
+909,RQ,2,'0.1,_0.4,_0.4,_0.1,_0.0,_0.0,_0.0',2.0,2.0,13.0,13.0,137.0,'HTML,_PHP,_SQL','Dreamweaver,_Emacs,_PHPUnit','[5,_12]',3,'[1,_2]',Oracle,OO,BC/S
+910,RQ,6,'0.2,_0.1,_0.4,_0.3,_0.0,_0.0,_0.0',3.0,2.0,2.0,1.0,33.0,'HTML,_PHP,_SQL','Dreamweaver,_Emacs,_PHPUnit','[5,_12]',3,'[1,_2]',Oracle,OO,BC/S
+911,RQ,2,'0.40,_0.20,_0.10_0.10_0.05_0.10_0.05',2.0,1.0,4.0,1.0,31.0,'HTML,_PHP,_Javascript,_SQL','Dreamweaver,_Emacs,_PHPUnit,_FrontPage','[2,_12]',3,'[2,_10]',Oracle,OO,C/S
+912,RQ,1,'0.2,_0.1,_0.4,_0.3,_0.0,_0.0,_0.0',1.0,1.0,4.0,4.0,46.0,'HTML,_PHP,_Javascript,_SQL','Dreamweaver,_Emacs,_PHPUnit,_FrontPage','[2,_12]',3,'[0,_10]',Oracle,OO,C/S
+913,RQ,4,'0.10,_0.30,_0.10,_0.35,_0.05,_0.05,_0.05',3.0,2.0,4.0,4.0,56.0,'PHP,_HTML,SQL','Dreamweaver,_Emacs,_PHPUnit,_FrontPage','[0,_5]',3,'[1,2]',Oracle,OO,BC/S
+914,RQ,4,'0.10,_0.30,_0.10,_0.40,_0.5,_0.03,_0.02',4.0,3.0,3.0,3.0,57.0,'PHP,_HTML,SQL','Dreamweaver,_Emacs,_PHPUnit,_FrontPage','[0,5]',3,'[1,3]',Oracle,OO,BC/S
+915,RQ,3,'0.1,_0.3,_0.4,_0.15,_0.05,_0.05,_0',3.0,2.0,4.0,8.0,76.0,'HTML,_PHP,_SQL','Dreamweaver,_PHPUnit,_Emacs','[5,12]',3,'[2,3]',Oracle,OO,C/S
+916,RQ,2,'0.4,_0.05,_0.05,_0.4,_0.05,_0.05,_0',1.0,2.0,1.0,1.0,29.0,'HTML,_PHP,_SQL','Dreamweaver,_PHPUnit,_Emacs','[5,12]',3,'[2,3]',Oracle,OO,C/S
+917,RQ,5,'0.5,_0.1,_0.1,_0.2,_0.1,_0.0',3.0,3.0,6.0,10.0,104.0,'HTML,_PHP,_SQL','Dreamweaver,_PHPUnit,_Emacs','[5,12]',3,'[2,3]',Oracle,OO,C/S
+918,RQ,3,'0.4,_0.2,_0.1,_0.2,_0.1,_0.0',2.0,1.0,0.0,8.0,50.0,'HTML,_PHP,_SQL','Dreamweaver,_PHPUnit,_Emacs','[5,12]',3,'[2,3]',Oracle,OO,C/S
+919,RQ,2,'0.05,_0.0,_0.3,_0.4,_0.1,_0.05,_0.1',1.0,5.0,0.0,11.0,105.0,'HTML,_PHP','Notepad,_Dreamweaver,_Emacs','[3,_12]',2,'[1,2]',Oracle,OO,B/S

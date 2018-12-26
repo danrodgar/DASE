@@ -1,0 +1,101 @@
+
+
+% 1. Title/Topic: MIYAZAKI94
+%
+%
+% 2. Sources:
+%		-- Creators: Miyazaki Y, Terakado M., Ozaki K., Nozaki H.
+%		-- Reference: Y. Miyazaki, M. Terakado, K. Ozaki, H. Nozaki 
+%				Robust Regression for Developing Software Estimation Models.
+%				Journal of Systems and Software, 1994, Vol.27(1), 3-16.
+%		-- Donor: Sousuke Amasaki (amasaki@cse.oka-pu.ac.jp)
+%		-- Date:  May 21, 2010
+
+
+%
+%
+% 4. Number of records: 48
+
+% 5. Number of attributes: 9
+%	    1 identifier
+%	    7 condition attributes
+%	    1 decision attribute
+
+% 6. Attribute Information:
+%	1. ID: Project ID
+%	2. KSLOC: the number of COBOL source lines in thousands excluding comment lines, and screen and form definition codes.
+%                          Lines of code copied by the COPY statement are also excluded, but lines registered as COPY phrases are included.
+%	3. SCRN: number of different input or output sceens
+%	4. FORM: number of different (report) forms
+%	5. FILE: number of different record formats
+%	6. ESCRN: total number of data elements in all the screens
+%	7. EFORM: total number of data elements in all the forms
+%	8. EFILE: total number of data elements in all the files
+%	9. MM: Man-Months form system design to systems test including indirect effort such as project management.
+%                    one MM is defined as 160 hours of working time.
+%
+%
+% 7. Missing attributes: none
+
+
+@relation miyazaki1
+
+@attribute ID {A1,A2,A3,B1,B2,B3,C1,C2,C3,D1,D2,D3,E1,E2,F1,G1,G2,G3,H1,H2,I1,I2,J1,J2,J3,K1,K2,K3,L1,L2,L3,M1,N1,N2,N3,N4,O1,O2,P1,P2,P3,P4,Q1,Q2,R1,R2,S1,T1}
+@attribute KLOC numeric
+@attribute SCRN numeric
+@attribute FORM numeric
+@attribute FILE numeric
+@attribute ESCRN numeric
+@attribute EFORM numeric
+@attribute EFILE numeric
+@attribute MM numeric
+
+@data
+A1,44.2,24,26,41,246,642,589,59.5
+A2,59,34,30,28,651,447,1143,85
+A3,36.9,9,36,29,193,694,995,31.5
+B1,39.3,27,10,52,389,105,2344,58.9
+B2,48.3,21,22,20,241,371,2052,58.9
+B3,43.1,7,56,32,113,906,1816,67.3
+C1,9.7,3,9,9,206,194,553,8.2
+C2,13.7,12,8,12,214,266,496,13.9
+C3,59.7,32,39,13,330,1189,477,36
+D1,84.4,61,38,24,898,675,1313,89.5
+D2,56.5,37,19,18,411,238,521,39.5
+D3,42.1,31,11,12,299,62,433,27.5
+E1,84.6,26,34,22,106,635,482,103.5
+E2,390,150,72,62,1531,861,1832,212
+F1,55.8,47,7,38,1577,339,941,48
+G1,59.8,57,36,31,1191,569,1041,18
+G2,68.9,49,29,35,1523,1148,1333,43.8
+G3,8.6,6,3,10,128,47,115,7.1
+H1,22.3,0,20,22,0,433,777,20.6
+H2,79.1,34,51,35,665,1211,1169,32.7
+I1,13.7,3,7,2,57,105,163,9
+I2,7.8,2,9,3,55,285,57,7.5
+J1,42.1,36,13,6,461,286,83,37.2
+J2,46.6,29,10,9,125,283,338,59.1
+J3,86.1,16,19,39,357,432,873,54
+K1,72.1,21,17,18,647,581,971,37.1
+K2,272.7,68,50,47,2113,1336,1744,157
+K3,130.6,38,44,10,1247,1566,498,39
+L1,192.2,132,18,100,1776,426,3800,170
+L2,31.5,14,3,16,395,135,717,37
+L3,226.1,26,76,70,360,1200,1832,340
+M1,417.6,281,91,370,3000,1100,45000,1586
+N1,20.2,9,4,7,258,73,167,29
+N2,19.1,0,16,10,0,346,354,36.9
+N3,31.2,31,2,13,394,45,388,37
+N4,23.7,11,9,6,553,309,265,23
+O1,43,23,12,41,397,426,1135,52
+O2,20.2,25,5,25,206,66,598,22
+P1,54.6,12,11,25,115,187,1070,42.3
+P2,37.5,14,14,23,315,185,609,34.3
+P3,64.1,10,10,59,186,167,1569,55.7
+P4,49.2,0,16,53,0,236,1488,39
+Q1,50.8,71,13,50,590,255,660,120
+Q2,17.1,5,16,37,62,403,872,6
+R1,6.9,0,0,28,0,0,1338,5.6
+R2,25.2,8,9,6,99,143,955,20.1
+S1,55,14,24,47,202,504,932,31.5
+T1,35.1,51,0,6,347,0,122,50.1

@@ -1,0 +1,181 @@
+@relation usp05-ft
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a PROMISE Software Engineering Repository data set made publicly
+% available in order to encourage repeatable, verifiable, refutable, and/or
+% improvable predictive models of software engineering.
+%
+% If you publish material based on PROMISE data sets then, please
+% follow the acknowledgment guidelines posted on the PROMISE repository
+% web page http://promisedata.org/repository .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (c) 2007  Jingzhou Li 
+%    (jingli@ucalgary.ca)
+% This data set is distributed under the
+% Creative Commons Attribution-Share Alike 3.0 License
+% http://creativecommons.org/licenses/by-sa/3.0/
+%
+% You are free:
+%
+%    * to Share -- copy, distribute and transmit the work
+%    * to Remix -- to adapt the work
+%
+% Under the following conditions:
+%
+% Attribution. You must attribute the work in the manner specified by
+% the author or licensor (but not in any way that suggests that they endorse
+% you or your use of the work).
+%
+% Share Alike. If you alter, transform, or build upon this work, you
+% may distribute the resulting work only under the same, similar or a 
+% compatible license.
+%
+%    * For any reuse or distribution, you must make clear to others the 
+%      license terms of this work.
+%    * Any of the above conditions can be waived if you get permission from 
+%      the copyright holder.
+%    * Apart from the remix rights granted under this license, nothing in 
+%      this license impairs or restricts the author's moral rights.
+%
+
+
+% 1. Title: USP05-FT: Software effort estimation at feature level
+% 
+% 2. Source Information
+%    -- Donor: Jingzhou Li (jingli@ucalgary.ca), Guenther Ruhe (ruhe@ucalgary.ca)
+%              computer science department
+%              University of Calgary, Canada  
+%              (403) 210-5440
+%    -- Date: December 2005
+%  
+% 3. Past Usage:
+%     [1]. J.Z. Li, G. Ruhe, A. Al-Emran, M. M. Ritcher, "A Flexible Method for Effort Estimation by Analogy", Empirical Software Engineering, Vol. 12, No. 1, 2007, pp 65-106. 
+%     [2]. J.Z. Li, G. Ruhe, "A Comparative Study of Attribute Weighting Heuristics for Effort Estimation by Analogy", Proceedings of the ACM-IEEE International Symposium on Empirical Software Engineering (ISESE'06), September 2006, Brazil.
+% 
+% 4. Relevant Information:
+%    -- This data set was part of USP05 that was collected from university student projects about Web and client/server applications
+%    -- The detailed description of the whole data set can be found in reference [1].
+% 
+% 5. Number of Instances: 76 (features)
+% 
+% 6. Number of Attributes: 15 (including ID, Effort is the actual effort)
+% 
+% 7. Attribute Information:
+%    1. ID: Three digit Object ID, 
+%    2. Effort: Actual effort in hours expended on tasks related to implementing the object by all participating persons.
+%    3. IntComplx: Complexity of Internal Calculation (1-VeryLow, 2-Low, 3-Medium, 4-High, 5-VeryHigh )
+%    4. DataFile: Number of Data Files/Database Tables Accessed (Positive integer)
+%    5. DataEn: Number of Data Entry Items (Positive integer)
+%    6. DataOut: Number of Data Output Items (Positive integer)
+%    7. UFP: Unadjusted Function Point Count (Positive integer)
+%    8. Lang: Language Used (C++, Java, VB, Java Script, VB Script,  SQL, Php, Perl, Asp, Html, XML, Others)
+%    9. Tools: Development Tools and Platforms (VJ++, VB, Delphi, VisualCafe, JUnit,   PowerBuilder, BorlandC++, Others)
+%    10. ToolExpr: Language and Tool Experience Level (Range of number of months of experience, e.g. [2, 5] for 2 to 5 months, as the minimum experience level is 2 and 5 the maximum in the team)
+%    11. AppExpr: Applications Experience Level (1-VeryLow, 2-Low, 3-Medium, 4-High, 5-VeryHigh)
+%    12. TeamSize: Team size for implementing the object (Range: [a, b], min-max number of persons, e.g. [2, 5])
+%    13. DBMS: Database Systems (Oracle, Access, SQLServer, MySQL, Others)
+%    14. Method: Methodology (OO, SA, SD, RAD, JAD, MVC, Others)
+%    15. AppType: Type of System/Application Architecture (B/S, C/S, BC/S, Centered, Other)
+% 
+% 
+% 8. Missing Attribute Values: 37
+% 
+% 9. Data
+
+
+@attribute ID numeric
+@attribute Effort numeric
+@attribute IntComplx numeric
+@attribute DataFile numeric
+@attribute DataEn numeric
+@attribute DataOut numeric
+@attribute UFP numeric
+@attribute Lang {sql,'html,_php,_sql,_proprietary','php,_sql','Html,_JavaScript','Php,_Html,_Sql,_JavaScript','C#,_ASP.Net_SQL','PHP,_SQL,_SH','PHP,_SQL','HTML,_PHP,_SQL','PHP,_HTML','PHP,_MySql,_HTML',PHP,HTML,SQL}
+@attribute Tools {mySQLweb,'notepad,_webforms',notepad,Vim,'Vim,_Emacs,_Microsoft_visual_studio','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','Pico,_MySQLDump','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','ConText,_Jedit','ConTEXT,_Jedit,_myAdmin',ConTEXT,'Microsoft_Visual,_Emacs,_VIM,_Notepad',Dreamweaver,Notepad,Emacs,SQL}
+@attribute ToolExpr {'[2,60]','[2,_60]','[5,10]','[1,10]',[0],'[0,_48]','[5,_100]','[4,24]','[2,5]','[2,12]','[0,12]','[40,60]','[0,_60]','[0,_12]','[0,24]'}
+@attribute AppExpr numeric
+@attribute TeamSize {[1],'[1,2]','[2,3]','[3,5]','[2,_4]','[1,1]','[2,2]','[3,4]','[2,_3]','[1,_3]','[1,_2]'}
+@attribute DBMS {mysql,Oracle,SQLServer,MySQL}
+@attribute Method {'SA,SD',None,SA,3_Tier_Architecture,OO,Imperative,oo}
+@attribute AppType {BC/S,B/S,C/S,C,S,B}
+
+@data
+
+101,2.5,5,18,94,?,?,sql,mySQLweb,'[2,60]',4,[1],mysql,?,BC/S
+102,2.5,5,9,240,?,?,sql,mySQLweb,'[2,60]',4,[1],mysql,?,BC/S
+114,2,2,9,15,0,0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',4,[1],mysql,'SA,SD',BC/S
+115,2,2,9,15,0,0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',4,[1],mysql,'SA,SD',BC/S
+116,3.5,2,9,15,0,0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+117,2,1,7,90,0,0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,60]',4,[1],mysql,'SA,SD',BC/S
+118,2,2,9,90,0,0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+119,2,2,9,90,0,0,'html,_php,_sql,_proprietary','notepad,_webforms','[2,_60]',5,[1],mysql,'SA,SD',BC/S
+120,16,5,12,314,0,0,'php,_sql',notepad,'[2,_60]',5,[1],mysql,None,BC/S
+202,1,2,2,1,1,2,'Html,_JavaScript',Vim,'[5,10]',2,'[1,2]',?,SA,B/S
+204,2,1,2,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+206,1,1,2,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+208,5,4,2,3,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+210,2,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+211,2,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+212,3,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+214,7,2,5,2,2,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+218,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+219,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+220,1,1,4,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+222,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+223,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+224,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+225,1,1,4,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+230,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+231,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+232,1,1,2,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+234,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+235,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+236,1,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+237,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+239,1,1,2,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+241,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+242,1,1,2,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+243,1,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+245,1,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+246,1,1,2,3,1,3,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+247,1,1,2,2,1,3,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+248,1,5,3,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+250,1,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+251,1,1,2,3,1,3,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+252,1,1,2,2,1,3,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',1,'[1,2]',Oracle,3_Tier_Architecture,BC/S
+253,1,5,4,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',5,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+254,1,1,2,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+255,1,1,4,1,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',2,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+256,1,4,4,6,1,4,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',4,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+257,1,1,4,4,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+258,1,2,4,2,1,0,'Php,_Html,_Sql,_JavaScript','Vim,_Emacs,_Microsoft_visual_studio','[1,10]',3,'[2,3]',Oracle,3_Tier_Architecture,BC/S
+306,40,3,3,2,1,50,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[3,5]',SQLServer,?,?
+307,40,2,3,1,1,46,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[3,5]',SQLServer,?,?
+308,20,3,1,2,4,66,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[0,_48]',2,[1],SQLServer,?,C/S
+309,20,3,2,1,2,48,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer','[0,_48]',2,[1],SQLServer,?,C/S
+310,10,2,2,1,1,36,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,[1],SQLServer,?,?
+312,20,4,2,3,1,44,'C#,_ASP.Net_SQL','Visual_Studio.Net_2003,_Microsoft_SQL_Server_Enterprise_Manager/Query_Analyzer',[0],2,'[2,_4]',SQLServer,?,C
+402,8,2,7,3,2,14,'PHP,_SQL,_SH','Pico,_MySQLDump','[5,_100]',2,'[1,1]',MySQL,OO,B/S
+403,3,3,2,2,1,8,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[4,24]',4,'[1,1]',MySQL,OO,B/S
+404,3,2,2,3,1,10,'PHP,_SQL','Dreamweaver,_Rapid_PHP,_Eclipse,_PHPMyAdmin','[2,5]',1,'[1,1]',MySQL,OO,B/S
+509,6,2,12,0,0,10,?,?,?,1,'[2,2]',?,?,S
+510,10,4,1,20,20,20,?,?,?,1,'[2,2]',?,?,S
+511,6,3,5,20,5,25,'HTML,_PHP,_SQL','ConText,_Jedit','[2,12]',2,'[1,2]',?,?,C/S
+512,12,4,11,60,50,35,'HTML,_PHP,_SQL','ConTEXT,_Jedit,_myAdmin','[2,12]',1,'[3,4]',?,?,C/S
+513,8,1,4,30,12,20,'HTML,_PHP,_SQL',ConTEXT,'[0,12]',3,'[1,2]',?,?,C/S
+601,0.5,1,0,0,0,1,'PHP,_HTML','Microsoft_Visual,_Emacs,_VIM,_Notepad','[40,60]',5,[1],?,Imperative,BC/S
+603,1,1,0,0,0,1,'PHP,_HTML',Dreamweaver,'[0,_60]',4,'[1,2]',?,Imperative,BC/S
+622,24,2,3,2,1,6,'PHP,_MySql,_HTML',Dreamweaver,'[0,_60]',1,[1],MySQL,Imperative,BC/S
+715,0.5,1,2,2,0,4,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+716,0.5,1,2,2,0,4,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+717,0.5,1,2,1,0,4,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+718,0.5,1,2,0,2,6,PHP,Notepad,'[0,12]',4,'[1,2]',Oracle,OO,B/S
+801,24,3,0,15,1,49,PHP,Emacs,'[0,_12]',4,'[2,_3]',MySQL,oo,BC/S
+802,8,2,0,5,1,19,PHP,Emacs,'[0,_12]',4,'[1,_3]',MySQL,oo,BC/S
+803,20,3,0,20,1,64,PHP,Emacs,'[0,_12]',4,'[2,_3]',MySQL,oo,BC/S
+804,4,2,0,17,1,55,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+805,30,4,0,10,0,30,HTML,Emacs,'[0,_12]',4,'[2,_4]',?,oo,B
+810,8,3,0,7,1,25,PHP,Emacs,'[0,_12]',4,'[1,_2]',MySQL,oo,BC/S
+920,5,3,0,45,0,180,SQL,SQL,'[0,24]',5,'[1,2]',Oracle,?,?

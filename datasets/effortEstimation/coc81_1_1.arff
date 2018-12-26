@@ -1,0 +1,412 @@
+%%-*- text -*-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a PROMISE Software Engineering Repository data set made publicly
+% available in order to encourage repeatable, verifiable, refutable, and/or
+% improvable predictive models of software engineering.
+%
+% If you publish material based on PROMISE data sets then, please
+% follow the acknowledgment guidelines posted on the PROMISE repository
+% web page http://promise.site.uottawa.ca/SERepository .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 1. Title/Topic: cocomo81/software cost estimation
+
+@relation  cocomo81
+ 
+% 2. Sources:
+%       -- Boehm's 1981 text,p.496-497 Table 29-1, transcribed by Srinivasan and Fisher
+%              @Book{boehm81,
+%                Author =	 "B. Boehm",
+%                Title =	 "Software Engineering Economics",
+%                Publisher =	 "Prentice Hall",
+%                Year =	 1981}
+%
+%           then converted by Tim Menzies from
+%           http://www.vuse.vanderbilt.edu/~dfisher/tech-reports/raw-TSE-95
+%           to arff fort.
+%
+%        -- Donor: Tim Menzies tim@barmag.net
+%
+%     -- Date: December 2 2004
+%        
+%        -- Februrary 12, 2008, corrections by Dan Port dport@hawaii.edu 
+%           fixed incorrect data, cplx on project 36, added Bohem book page reference, 
+%           added project_id and dev_mode, added best guess ordinal effort multipliers
+
+% 3. Past Usage
+%     1. K. Srinivasan and D. Fisher, Machine Learning Approaches 
+%        to Estimating Software Development Effort, IEEE Trans. Soft. Eng.,
+%        Feb 1995, pages 126--137
+
+%  4. Relevant Information
+%
+%    The COCOMO software cost model measures effort in calendar months
+%    of 152 hours (and includes development and management hours).
+%    COCOMO assumes that the effort grows more than linearly on
+%    software size; i.e. months=a* KSLOC^b*c. Here, "a" and "b" are
+%    domain-specific parameters; "KSLOC" is estimated directly or
+%    computed from a function point analysis; and "c" is the product
+%    of over a dozen "effort multipliers". I.e.
+%
+%    months=a*(KSLOC^b)*(EM1* EM2 * EM3 * ...)
+%
+%    The effort multipliers are as follows:
+%
+%     increase | acap | analysts capability
+%     these to | pcap | programmers capability
+%    decrease  | aexp | application experience
+%      effort  | modp | modern programing practices
+%              | tool | use of  software tools
+%              | vexp | virtual machine experience
+%              | lexp | language experience
+%    ----------+------+---------------------------
+%              | sced | schedule constraint
+%    ----------+------+---------------------------
+%     decrease | stor | main memory constraint
+%     these to | data | data base size
+%     decrease | time | time constraint for cpu
+%       effort | turn | turnaround time
+%              | virt | machine volatility
+%              | cplx | process complexity
+%              | rely | required software reliability
+%
+%    In COCOMO I, the exponent on KSLOC was a single value ranging from
+%    1.05 to 1.2.  In COCOMO II, the exponent "b" was divided into a
+%    constant, plus the sum of five "scale factors" which modeled
+%    issues such as ``have we built this kind of system before?''.  The
+%    COCOMO~II effort multipliers are similar but COCOMO~II dropped one
+%    of the effort multiplier parameters; renamed some others; and
+%    added a few more (for "required level of reuse", "multiple-site
+%    development", and "schedule pressure").
+%
+%    The effort multipliers fall into three groups: those that are
+%    positively correlated to more effort; those that are
+%    negatively correlated to more effort; and a third group
+%    containing just schedule information. In COCOMO~I, "sced" has a
+%    U-shaped correlation to effort; i.e. giving programmers either
+%    too much or too little time to develop a system can be
+%    detrimental.
+%
+%    The standard numeric values of the effort multipliers are:
+%
+%      	        very				very	extra	productivity
+%		low	low	nominal	high	high	high	range
+		(vl)	(l)	(n)	(h)	(vh)	(xh)
+%    ---------------------------------------------------------------------
+%    acap	1.46   	1.19   	1.00   	0.86   	0.71   		2.06
+%    pcap	1.42.  	1.17   	1.00   	0.86   	0.70 		1.67
+%    aexp   	1.29   	1.13   	1.00   	0.91   	0.82   		1.57
+%    modp   	1.24.  	1.10 	1.00 	0.91 	0.82 		1.34
+%    tool   	1.24 	1.10 	1.00 	0.91 	0.83 		1.49
+%    vexp   	1.21 	1.10 	1.00 	0.90 	  		1.34
+%    lexp   	1.14 	1.07 	1.00 	0.95 	  		1.20
+%    sced   	1.23 	1.08 	1.00 	1.04 	1.10 	  	
+%    stor   	       	       	1.00   	1.06   	1.21   	1.56	-1.21
+%    data   	    	0.94 	1.00 	1.08 	1.16		-1.23
+%    time   	  	    	1.00   	1.11   	1.30   	1.66	-1.30
+%    turn   	       	0.87   	1.00   	1.07   	1.15   		-1.32
+%    virt   	       	0.87   	1.00   	1.15   	1.30   		-1.49
+%    cplx   	0.70 	0.85 	1.00 	1.15 	1.30 	1.65	-1.86
+%    rely   	0.75	0.88	1.00 	1.15 	1.40		-1.87
+%   
+%    These were learnt by Barry Boehm after a regression analysis of the 
+%    [**note by dport** The above statement is not correct. The effort multiplier values
+%                       were determined through individual case by case analysis and 
+%                       surveys of experts. It is a,b parameters seen in section 4 above
+%			that were determined by regression analysis. See Ch. 24 of boehm81 referenced below. ]
+%
+%    [added by dport Februrary 12,2008]
+%    Projects in the COCOMO I data set are classified by development mode (see bohem81 Ch. 6).
+%    Different development modes yield significantly different cost estimates for projects of the same size.
+%    As such, the development mode affects the a,b parameters which are determined by regression analysis 
+%    and so differ between Basic COCOMO (no effort multipliers) and Intermediate COCOMO (with multipliers):
+%  
+%    BASIC COCOMO (no effort multipliers). See Table 6-1 p.75 of boehm81:
+%
+%    Mode            a   	 b
+%    -------------------------------
+%    Organic        2.4		1.05
+%    Semidetached   3.0		1.12
+%    Embedded	    3.6		1.20
+%
+%
+%    INTERMEDIATE COCOMO (uses effort multipliers). See Table 6-1 p.75 of boehm81:
+%
+%    Mode            a   	 b
+%    -------------------------------
+%    Organic        3.2		1.05
+%    Semidetached   3.0		1.12
+%    Embedded	    2.8		1.20
+%
+%
+%    projects in the COCOMO I data set.  
+%      @Book{boehm81,
+%        Author    =	 "B. Boehm",
+%        Title     =	 "Software Engineering Economics",
+%        Publisher =	 "Prentice Hall",
+%        Year      =	 1981}
+%
+%     The last column of the above table shows max(E)/min(EM) and shows
+%     the overall effect of a single effort multiplier. For example,
+%     increasing "acap" (analyst experience) from very low to very
+%     high will most decrease effort while increasing "rely"
+%     (required reliability) from very low to very high will most
+%     increase effort.
+%
+%     There is much more to COCOMO that the above description. The
+%     COCOMO~II text is over 500 pages long and offers
+%     all the details needed to implement data capture and analysis of
+%     COCOMO in an industrial context.
+%       @Book{boehm00b,
+%         Author = "Barry Boehm and Ellis Horowitz and Ray Madachy and
+%                   Donald Reifer and Bradford K. Clark and Bert Steece
+%                   and A. Winsor Brown and Sunita Chulani and Chris Abts",
+%          Title = "Software Cost Estimation with Cocomo II",
+%      Publisher = "Prentice Hall",
+%           Year = 2000,
+%           ibsn = "0130266922"}
+% 
+%     Included in that book is not just an effort model but other
+%     models for schedule, risk, use of COTS, etc.  However, most
+%     (?all) of the validation work on COCOMO has focused on the effort
+%     model.
+%       @article{chulani99,
+%         author =	 "S. Chulani and B. Boehm and B. Steece",
+%         title =	 "Bayesian Analysis of Empirical Software Engineering
+%                          Cost Models",
+%         journal =	 "IEEE Transaction on Software Engineering",
+%         volume =	 25,
+%         number =	 4,
+%         month =	 "July/August",
+%         year =	 "1999"}
+%
+%     The value of an effort predictor can be reported many ways
+%     including MMRE and PRED(N).MMRE and PRED are computed from the
+%     relative error, or RE, which is the relative size of the
+%     difference between the actual and estimated value:
+%    
+%     RE.i = (estimate.i - actual.i) / (actual.i)
+%
+%     Given a data set of size "D", a "Training" set of size
+%     "(X=|Train|) <= D", and a "test" set of size "T=D-|Train|", then
+%     the mean magnitude of the relative error, or MMRE, is the
+%     percentage of the absolute values of the relative errors,
+%     averaged over the "T" items in the "Test" set; i.e.
+%
+%     MRE.i  = abs(RE.i)
+%     MMRE.i = 100/T*( MRE.1 + MRE.2 + ... + MRE.T)
+%
+%     PRED(N) reports the average percentage of estimates that were
+%     within N% of the actual values:
+%
+%     count = 0
+%     for(i=1;i<=T;i++) do if MRE.i <= N/100 then count++ fi done
+%     PRED(N) = 100/T * count
+%
+%     For example, e.g. PRED(30)=50% means that half the estimates are
+%     within 30% of the actual.  Shepperd and Schofield comment that
+%     "MMRE is fairly conservative with a bias against overestimates
+%     while Pred(25) will identify those prediction systems that are
+%     generally accurate but occasionally wildly inaccurate".
+%       @article{shepperd97,
+%         author="M. Shepperd and C. Schofield",
+%         title="Estimating Software Project Effort Using Analogies",
+%         journal="IEEE Transactions on Software Engineering",
+%         volume=23,
+%         number=12,
+%         month="November",
+%         year=1997,
+%         note="Available from 
+%                \url{http://www.utdallas.edu/~rbanker/SE_XII.pdf}"}
+
+%  5. Number of instances: 63
+
+%  6. Number of attributes: 17 (all numeric: 15 for the effort multipliers,
+%       one for LOC and one for actual development effort.
+
+%  7. Attribute information:
+
+@attribute project_id numeric
+@attribute dev_mode text
+@attribute rely numeric
+@attribute data numeric
+@attribute cplx numeric
+@attribute time numeric
+@attribute stor numeric
+@attribute virt numeric
+@attribute turn numeric
+@attribute acap numeric
+@attribute aexp numeric
+@attribute pcap numeric
+@attribute vexp numeric
+@attribute lexp numeric
+@attribute modp numeric
+@attribute tool numeric
+@attribute sced numeric
+@attribute loc numeric
+@attribute actual numeric
+
+% 8. Missing attributes: none
+
+% 9: Class distribution: the class value (actual) is continuous.
+%    After sorting all the instances on actual, the following
+%    distribution was found:
+%    Instances     Range
+%    ---------  ----------------
+%      1 .. 10	  5.9 ..    15
+%     11 .. 20	  18  ..    47
+%     21 .. 30	  50  ..    87
+%     31 .. 40	  88  ..   218
+%     41 .. 50	 230  ..   539
+%     51 .. 60 	 605  ..  2455
+%     61 .. 63	6400  .. 11400
+
+% [note by dport: the original PROMISE repository data set had incorrect DATA and CPLX effort multiplier 
+% values for project 32 and did not include prjoject_id, dev_mode, and the first row of headers as it does now]
+%
+% The following data is transcribed from boehm81 p.496-497 Table 29-1
+%
+@data
+
+0,dev_mode,rely,data,cplx,time,stor,virt,turn,acap,aexp,pcap,vexp,lexp,modp,tool,sced,loc,actual
+1,embedded,0.88,1.16,0.7,1,1.06,1.15,1.07,1.19,1.13,1.17,1.1,1,1.24,1.1,1.04,113,2040
+2,embedded,0.88,1.16,0.85,1,1.06,1,1.07,1,0.91,1,0.9,0.95,1.1,1,1,293,1600
+3,semidetached,1,1.16,0.85,1,1,0.87,0.94,0.86,0.82,0.86,0.9,0.95,0.91,0.91,1,132,243
+4,organic,0.75,1.16,0.7,1,1,0.87,1,1.19,0.91,1.42,1,0.95,1.24,1,1.04,60,240
+5,organic,0.88,0.94,1,1,1,0.87,1,1,1,0.86,0.9,0.95,1.24,1,1,16,33
+6,organic,0.75,1,0.85,1,1.21,1,1,1.46,1,1.42,0.9,0.95,1.24,1.1,1,4,43
+7,organic,0.75,1,1,1,1,0.87,0.87,1,1,1,0.9,0.95,0.91,0.91,1,6.9,8
+8,embedded,1.15,0.94,1.3,1.66,1.56,1.3,1,0.71,0.91,1,1.21,1.14,1.1,1.1,1.08,22,1075
+9,embedded,1.15,0.94,1.3,1.3,1.21,1.15,1,0.86,1,0.86,1.1,1.07,0.91,1,1,30,423
+10,embedded,1.4,0.94,1.3,1.11,1.56,1,1.07,0.86,0.82,0.86,0.9,1,1,1,1,29,321
+11,embedded,1.4,0.94,1.3,1.11,1.56,1,1.07,0.86,0.82,0.86,0.9,1,1,1,1,32,218
+12,embedded,1.15,0.94,1.3,1.11,1.06,1,1,0.86,0.82,0.86,1,0.95,0.91,1,1.08,37,201
+13,embedded,1.15,0.94,1.3,1.11,1.06,1.15,1,0.71,1,0.7,1.1,1,0.82,1,1,25,79
+14,organic,1.15,0.94,1.65,1.3,1.56,1.15,1,0.86,1,0.7,1.1,1.07,1.1,1.24,1.23,3,73
+15,embedded,1.4,0.94,1.3,1.3,1.06,1.15,0.87,0.86,1.13,0.86,1.21,1.14,0.91,1,1.23,3.9,61
+16,embedded,1.4,1,1.3,1.3,1.56,1,0.87,0.86,1,0.86,1,1,1,1,1,6.1,40
+17,embedded,1.4,1,1.3,1.3,1.56,1,0.87,0.86,0.82,0.86,1,1,1,1,1,3.6,9
+18,embedded,1.15,1.16,1.15,1.3,1.21,1,1.07,0.86,1,1,1,1,1.24,1.1,1.08,320,11400
+19,embedded,1.15,1.08,1,1.11,1.21,0.87,0.94,0.71,0.91,1,1,1,0.91,0.91,1,1150,6600
+20,semidetached,1.4,1.08,1.3,1.11,1.21,1.15,1.07,0.71,0.82,1.08,1.1,1.07,1.24,1,1.08,299,6400
+21,embedded,1,1.16,1.15,1.06,1.14,0.87,0.87,0.86,1,1,1,1,0.91,0.91,1,252,2455
+22,embedded,1.15,1,1,1.27,1.06,1,1,0.86,0.82,0.86,0.9,1,0.91,1,1.23,118,724
+23,embedded,1.15,1,1,1.08,1.06,1,1,0.86,0.82,0.86,0.9,1,1,1,1.23,77,539
+24,semidetached,0.88,1,0.85,1.06,1.06,1,0.87,1,1.29,1,1.1,0.95,0.82,0.83,1,90,453
+25,embedded,1.15,1.16,1.3,1.15,1.06,1,0.87,0.86,1,0.86,1.1,1,0.82,0.91,1.08,38,523
+26,embedded,0.94,1,0.85,1.07,1.06,1.15,1.07,0.86,1,0.86,1.1,1,0.91,1.1,1.08,48,387
+27,embedded,1.15,0.94,1.15,1.35,1.21,1,0.87,1,1,1,1,1,0.82,1.1,1.08,9.4,88
+28,organic,1.15,1.08,1.3,1.11,1.21,1.15,1.07,0.86,1,0.86,1.1,1.07,1.1,1.1,1,13,98
+29,semidetached,0.88,1,1,1,1,1,1,1.1,1.29,0.86,1,1,0.91,0.91,1.23,2.14,7.3
+30,semidetached,0.88,1,1,1,1,1,1,1,1.29,0.86,1,1,0.91,0.91,1.23,1.98,5.9
+31,embedded,1.4,1.08,1,1.48,1.56,1.15,1.07,0.86,0.82,0.86,1.1,1.07,1,1,1,62,1063
+32,semidetached,0.88,1.08,0.85,1,1,1,1,0.71,0.82,1,1,1,1.1,1.1,1,390,702
+33,embedded,1.4,1.08,1.3,1.48,1.56,1.15,0.94,0.86,0.82,0.86,0.9,1,0.91,0.91,1,42,605
+34,embedded,1.15,1.08,1,1.06,1,1,0.87,1,1,1,1,1,0.91,1.1,1.23,23,230
+35,embedded,0.75,0.94,1.3,1.06,1.21,1.15,1,1,0.91,1,1.1,1,1.24,1.24,1,13,82
+36,semidetached,0.88,1.08,0.85,1,1,0.87,0.87,1.19,1,1.17,0.9,0.95,1,0.91,1.04,15,55
+37,organic,0.88,0.94,0.7,1,1.06,1,1,0.86,0.82,0.86,1,1,1,1,1,60,47
+38,organic,1,1,1.15,1,1,0.87,0.87,0.71,0.91,1,0.9,0.95,0.82,0.91,1,15,12
+39,organic,1,1,1.15,1,1,0.87,1,0.71,0.82,0.7,1,0.95,0.91,1.1,1,6.2,8
+40,organic,1,0.94,1.3,1,1,1,0.87,0.86,0.82,1.17,1,1,1.1,1,1,3,8
+41,organic,0.88,0.94,1,1,1,0.87,0.87,1,0.82,0.7,0.9,0.95,0.91,0.91,1,5.3,6
+42,organic,0.88,1.04,1.07,1,1.06,0.87,1.07,0.86,1,0.93,0.9,0.95,0.95,0.95,1.04,45.5,45
+43,organic,1,1.04,1.07,1,1.21,0.87,1.07,0.86,1,1,0.9,0.95,1,1,1.04,28.6,83
+44,organic,0.88,1.04,1.07,1.06,1.21,0.87,1.07,1,1,1,0.9,0.95,1.1,1,1.04,30.6,87
+45,organic,0.88,1.04,1.07,1,1.06,0.87,1.07,1,1,1,0.9,0.95,1,0.95,1.04,35,106
+46,organic,0.88,1.04,1.07,1,1.06,0.87,1.07,1,1,0.86,0.9,0.95,1,1,1.04,73,126
+47,organic,0.75,0.94,1.3,1,1,0.87,0.87,0.71,0.82,0.7,1.1,1.07,1.1,1,1.04,23,36
+48,semidetached,0.88,0.94,0.85,1,1,0.87,1,1.19,0.91,1.17,0.9,0.95,1.1,1,1.04,464,1272
+49,semidetached,1,1,0.85,1,1,1,0.87,0.71,1,0.7,1.1,1,0.82,0.91,1,91,156
+50,embedded,1.15,1,1,1.3,1.21,1,0.87,0.86,1,0.86,1.1,1,1,1,1,24,176
+51,organic,0.88,1,1,1,1,1,1.15,1.19,1,1.42,1,0.95,1.24,1.1,1.04,10,122
+52,organic,0.88,0.94,0.85,1,1.06,1.15,1,1,1,1,1.1,1.07,1.24,1.1,1,8.2,41
+53,semidetached,0.88,0.94,1.15,1.11,1.21,1.3,1,0.71,1,0.7,1.1,1.07,1,1.1,1.08,5.3,14
+54,organic,1,0.94,1,1,1.06,1.15,0.87,1,0.82,1,1,0.95,0.91,1.1,1,4.4,20
+55,organic,0.88,0.94,0.7,1,1,0.87,0.87,0.86,0.82,1.17,0.9,0.95,1.1,1,1,6.3,18
+56,embedded,1.15,0.94,1.3,1.3,1.21,1,1,0.86,0.91,1,1.1,1.07,1.1,1.1,1.08,27,958
+57,embedded,1,0.94,1.15,1.11,1.21,1.3,1,1,1,1,1.1,1.07,1.1,1.1,1.23,17,237
+58,embedded,1.4,0.94,1.3,1.66,1.21,1,1,0.71,0.82,0.7,0.9,0.95,0.91,1,1,25,130
+59,organic,1,0.94,1.15,1.06,1.06,1,0.87,1,1,1,1,1,0.91,1,1,23,70
+60,organic,1.15,0.94,1.3,1.11,1.06,1,1,0.86,1.13,0.86,1.1,1.07,1.1,1.1,1.08,6.7,57
+61,organic,1,0.94,1.15,1,1,0.87,0.87,0.86,1,0.86,0.9,1,0.82,1,1,28,50
+62,semidetached,0.88,0.94,1.3,1.11,1.21,1.15,1,0.78,0.82,0.7,1.21,1.14,0.91,1.24,1,9.1,38
+63,embedded,1,0.94,1.15,1,1,1,0.87,0.71,0.82,0.86,1,1,0.82,1,1,10,15
+
+
+% [note by dport: the data set below is the same as above except the effort multiplier values
+%                 have been translated into their ordinal equivalents as per the table in section 4.
+%		  It is provided to enable comparison across different COCOMO data sets that sometimes
+% 		  provide only ordinal effort multipliers. Note also that
+%                 there were some values that did not precisely correspond to a table value in which
+%                 case the nearest value from the table was used for the translation.]
+%
+% The following data is transcribed from boehm81 p.496-497 Table 29-1
+%
+@data
+
+0,dev_mode,rely,data,cplx,time,stor,virt,turn,acap,aexp,pcap,vexp,lexp,modp,tool,sced,loc,actual
+1,organic,l,vh,vl,n,h,h,h,l,l,l,l,n,vl,l,h,113.00,2040.00
+2,organic,l,vh,l,n,h,n,h,n,h,n,h,h,l,n,n,293.00,1600.00
+3,organic,n,vh,l,n,n,l,l,h,vh,h,h,h,h,h,n,132.00,243.00
+4,organic,vl,vh,vl,n,n,l,n,l,h,vl,n,h,vl,n,h,60.00,240.00
+5,organic,l,l,n,n,n,l,n,n,n,h,h,h,vl,n,n,16.00,33.00
+6,organic,vl,n,l,n,vh,n,n,vl,n,vl,h,h,vl,l,n,4.00,43.00
+7,organic,vl,n,n,n,n,l,l,n,n,n,h,h,h,h,n,6.90,8.00
+8,organic,h,l,vh,xh,xh,vh,n,vh,h,n,vl,vl,l,l,l,22.00,1075.00
+9,organic,h,l,vh,vh,vh,h,n,h,n,h,l,l,h,n,n,30.00,423.00
+10,organic,vh,l,vh,h,xh,n,h,h,vh,h,h,n,n,n,n,29.00,321.00
+11,organic,vh,l,vh,h,xh,n,h,h,vh,h,h,n,n,n,n,32.00,218.00
+12,organic,h,l,vh,h,h,n,n,h,vh,h,n,h,h,n,l,37.00,201.00
+13,organic,h,l,vh,h,h,h,n,vh,n,vh,l,n,vh,n,n,25.00,79.00
+14,organic,h,l,xh,vh,xh,h,n,h,n,vh,l,l,l,vl,vl,3.00,60.00
+15,organic,vh,l,vh,vh,h,h,l,h,l,h,vl,vl,h,n,vl,3.90,61.00
+16,organic,vh,n,vh,vh,xh,n,l,h,n,h,n,n,n,n,n,6.10,40.00
+17,organic,vh,n,vh,vh,xh,n,l,h,vh,h,n,n,n,n,n,3.60,9.00
+18,organic,h,vh,h,vh,vh,n,h,h,n,n,n,n,vl,l,l,320.00,11400.00
+19,organic,h,h,n,h,vh,l,l,vh,h,n,n,n,h,h,n,1150.00,6600.00
+20,organic,vh,h,vh,h,vh,h,h,vh,vh,l,l,l,vl,n,l,299.00,6400.00
+21,organic,n,vh,h,h,h,l,l,h,n,n,n,n,h,h,n,252.00,2455.00
+22,organic,h,n,n,vh,h,n,n,h,vh,h,h,n,h,n,vl,118.00,724.00
+23,organic,h,n,n,h,h,n,n,h,vh,h,h,n,n,n,vl,77.00,539.00
+24,organic,l,n,l,h,h,n,l,n,vl,n,l,h,vh,vh,n,90.00,453.00
+25,organic,h,vh,vh,h,h,n,l,h,n,h,l,n,vh,h,l,38.00,523.00
+26,organic,l,n,l,h,h,h,h,h,n,h,l,n,h,l,l,48.00,387.00
+27,organic,h,l,h,vh,vh,n,l,n,n,n,n,n,vh,l,l,9.40,88.00
+28,organic,h,h,vh,h,vh,h,h,h,n,h,l,l,l,l,n,13.00,98.00
+29,organic,l,n,n,n,n,n,n,n,vl,h,n,n,h,h,vl,2.14,7.30
+30,organic,l,n,n,n,n,n,n,n,vl,h,n,n,h,h,vl,1.98,5.90
+31,organic,vh,h,n,xh,xh,h,h,h,vh,h,l,l,n,n,n,62.00,1063.00
+32,organic,l,h,l,n,n,n,n,vh,vh,n,n,n,l,l,n,390.00,702.00
+33,organic,vh,h,vh,xh,xh,h,l,h,vh,h,h,n,h,h,n,42.00,605.00
+34,organic,h,h,n,h,n,n,l,n,n,n,n,n,h,l,vl,23.00,230.00
+35,organic,vl,l,vh,h,vh,h,n,n,h,n,l,n,vl,vl,n,13.00,82.00
+36,organic,l,h,l,n,n,l,l,l,n,l,h,h,n,h,h,15.00,55.00
+37,organic,l,l,vl,n,h,n,n,h,vh,h,n,n,n,n,n,60.00,47.00
+38,organic,n,n,h,n,n,l,l,vh,h,n,h,h,vh,h,n,15.00,12.00
+39,organic,n,n,h,n,n,l,n,vh,vh,vh,n,h,h,l,n,6.20,8.00
+40,organic,n,l,vh,n,n,n,l,h,vh,l,n,n,l,n,n,3.00,8.00
+41,organic,l,l,n,n,n,l,l,n,vh,vh,h,h,h,h,n,5.30,6.00
+42,organic,l,h,h,n,h,l,h,h,n,h,h,h,h,h,h,45.50,45.00
+43,organic,n,h,h,n,vh,l,h,h,n,n,h,h,n,n,h,28.60,83.00
+44,organic,l,h,h,h,vh,l,h,n,n,n,h,h,l,n,h,30.60,87.00
+45,organic,l,h,h,n,h,l,h,n,n,n,h,h,n,h,h,35.00,106.00
+46,organic,l,h,h,n,h,l,h,n,n,h,h,h,n,n,h,73.00,126.00
+47,organic,vl,l,vh,n,n,l,l,vh,vh,vh,l,l,l,n,h,23.00,36.00
+48,organic,l,l,l,n,n,l,n,l,h,l,h,h,l,n,h,464.00,1272.00
+49,organic,n,n,l,n,n,n,l,vh,n,vh,l,n,vh,h,n,91.00,156.00
+50,organic,h,n,n,vh,vh,n,l,h,n,h,l,n,n,n,n,24.00,176.00
+51,organic,l,n,n,n,n,n,vh,l,n,vl,n,h,vl,l,h,10.00,122.00
+52,organic,l,l,l,n,h,h,n,n,n,n,l,l,vl,l,n,8.20,41.00
+53,organic,l,l,h,h,vh,vh,n,vh,n,vh,l,l,n,l,l,5.30,14.00
+54,organic,n,l,n,n,h,h,l,n,vh,n,n,h,h,l,n,4.40,20.00
+55,organic,l,l,vl,n,n,l,l,h,vh,l,h,h,l,n,n,6.30,18.00
+56,organic,h,l,vh,vh,vh,n,n,h,h,n,l,l,l,l,l,27.00,958.00
+57,organic,n,l,h,h,vh,vh,n,n,n,n,l,l,l,l,vl,17.00,237.00
+58,organic,vh,l,vh,xh,vh,n,n,vh,vh,vh,h,h,h,n,n,25.00,130.00
+59,organic,n,l,h,h,h,n,l,n,n,n,n,n,h,n,n,23.00,70.00
+60,organic,h,l,vh,h,h,n,n,h,l,h,l,l,l,l,l,6.70,57.00
+61,organic,n,l,h,n,n,l,l,h,n,h,h,n,vh,n,n,28.00,50.00
+62,organic,l,l,vh,h,vh,h,n,vh,vh,vh,vl,vl,h,vl,n,9.10,38.00
+63,organic,n,l,h,n,n,n,l,vh,vh,h,n,n,vh,n,n,10.00,15.00
+

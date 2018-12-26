@@ -1,0 +1,217 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 1. Title: Assessing the Reliability of a Human Estimator
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a PROMISE Software Engineering Repository data set made publicly
+% available in order to encourage repeatable, verifiable, refutable, and/or
+% improvable predictive models of software engineering.
+%
+% If you publish material based on PROMISE data sets then, please
+% follow the acknowledgment guidelines posted on the PROMISE repository
+% web page http://promisedata.org/repository .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (c) 2007 : Gary Boetticher  : boetticher AT uhcl DOT edu Phone: +1 (281) 283 8305
+% This data set is distributed under the
+% Creative Commons Attribution-Share Alike 3.0 License
+% http://creativecommons.org/licenses/by-sa/3.0/
+%
+% You are free:
+%
+%    * to Share -- copy, distribute and transmit the work
+%    * to Remix -- to adapt the work
+%
+% Under the following conditions:
+%
+% Attribution. You must attribute the work in the manner specified by
+% the author or licensor (but not in any way that suggests that they endorse
+% you or your use of the work).
+%
+% Share Alike. If you alter, transform, or build upon this work, you
+% may distribute the resulting work only under the same, similar or a 
+% compatible license.
+%
+%    * For any reuse or distribution, you must make clear to others the 
+%      license terms of this work.
+%    * Any of the above conditions can be waived if you get permission from 
+%      the copyright holder.
+%    * Apart from the remix rights granted under this license, nothing in 
+%      this license impairs or restricts the author's moral rights.
+%
+
+%
+% 2. Sources
+%    (a) Creator: Gary D. Boetticher
+%    (b) Date: February 20, 2007
+%    (c) Contact: boetticher AT uhcl DOT edu Phone: +1 (281) 283 8305
+%   
+% 3. Donor: Gary D. Boetticher
+%   
+% 4. Past Usage: This data was used for:
+%
+%    Boetticher, G., Lokhandwala, N., James C. Helm, “Understanding the Human
+%    Estimator,” Second International Predictive Models in Software Engineering
+%    (PROMISE) Workshop co-located at the 22nd IEEE International Conference on
+%    Software Maintenance, Philadelphia, PA, September, 2006. More information is
+%    available at http://nas.cl.uh.edu/boetticher/research.html
+%
+% Since PROMISE 2006, the data set expanded by about 50 percent. The additional
+% tuples allowed us to divide the data into 3 major categories. Those who severely
+% underestimate (first 25 tuples). Those who accurately estimate (next 25 tuples).
+% And those who severely overestimate (last 25 tuples). The PROMISE 2007 experiments
+% compare the underestimators with the accurate estimators and the overestimators with
+% the accurate estimators.
+%
+% 5. Number of Instances: 75 
+%
+% 6. Number of Attributes: 14 independent variables and 1 dependent variable 
+%
+% 7. Attribute Information:
+%
+% Numeric Degree:  This attribute refers to the level of education of the participant.
+%                  2=High School, 3=Bachelors, 4=Masters,5=Ph.D.
+%
+% TechUGCourses: This refers to the number of technical undergraduate courses that
+%                the participant has taken.
+%
+% TechGCourses: This refers to the number of technical graduate courses that
+%               the participant has taken.
+%
+% MgmtUGCourses: This refers to the number of management undergraduate courses that
+%                the participant has taken.
+%
+% MgmtGCourses: This refers to the number of management graduate courses that
+%               the participant has taken.
+%
+% Total Workshops: This refers to the total number of workshops that
+%                  the participant has attended.
+%
+% Total Conferences: This refers to the total number of conferences that
+%                    the participant has attended.
+%
+% TotalLangExp: This refers to the total number of languages and experience in those
+%               languages that the participant has.
+%
+% Hardware Proj Mgmt Exp: This corresponds to the total amount of time that the 
+%                         respondant has been estimating hardware projects.
+%
+% Software Proj Mgmt Exp: This corresponds to the total amount of time that the 
+%                         respondant has been estimating software projects.
+%
+% No Of Hardware Proj Estimated: This refers to the total number of hardware projects
+%                                that the participant has estimated.
+%                               
+% No Of Software Proj Estimated: This refers to the total number of software projects
+%                                that the participant has estimated.
+%
+% Domain Exp: The domain experience refers to how much experience the participant has
+%             in the oil and gas industry.
+%
+% Procurement Industry Exp: The procurement industry experience refers to the amount
+%                           of time, in years, that the participant has regarding
+%                           procurement.
+%
+% ABS((TotalEstimates-TotalActual)/TotalActual): This is the class variable. It 
+%                           represents the overall relative error for the participant's
+%                           estimates.
+%
+
+@relation humans2
+
+@attribute 'Numeric Degree' numeric
+@attribute TechUGCourses numeric
+@attribute TechGCourses numeric
+@attribute MgmtUGCourses numeric
+@attribute MgmtGCourses numeric
+@attribute 'Total Workshops' numeric
+@attribute 'Total Conferences' numeric
+@attribute TotalLangExp numeric
+@attribute 'Hardware Proj Mgmt Exp' numeric
+@attribute 'Software Proj Mgmt Exp' numeric
+@attribute 'No Of Hardware Proj Estimated' numeric
+@attribute 'No Of Software Proj Estimated' numeric
+@attribute 'Domain Exp' numeric
+@attribute 'Procurement Industry Exp' numeric
+@attribute 'ABS((TotalEstimates-TotalActual)/TotalActual)' real
+
+@data
+% The first 25 instances are underestimators
+2,0,3,0,0,0,0,10.75,0,0,0,5,0,0,0.897020854
+3,5,6,0,2,0,0,1,0,0,0,0,0,1,0.895233366
+3,21,3,0,1,1,0,2,0,0,0,0,3,0,0.891261172
+3,0,3,0,0,0,0,0.5,0,0,0,0,0,0,0.88877855
+3,10,0,0,0,0,0,12,0,0,0,0,0,0,0.88877855
+4,4,1,0,1,2,4,1.5,3,1,3,0,0,0,0.885402185
+2,0,1,0,0,0,1,3.25,0,0,0,1,0,0,0.86693148
+3,9,2,1,1,1,6,-8,0,2,0,6,4,1.5,0.856007944
+1,1,0,0,0,0,0,0,0,0,0,0,0,0,0.85203575
+3,9,0,0,1,0,0,0,0,0,0,0,0,0,0.834160874
+3,26,0,1,0,11,0,18,7,4,2,4,0,0,0.828202582
+2,0,20,0,0,0,1,9.5,0,2,0,10,0,0,0.820258193
+3,72,12,3,0,0,0,0,2,0,0,0,0,0,0.815292949
+3,27,27,5,5,0,0,12.75,0,0,0,0,1,0,0.795431976
+3,0,4,0,0,0,0,7,0,5,0,2,0,0,0.779116187
+4,2,2,4,1,0,0,0,1.5,0,0,0,0,0,0.776564052
+4,6,8,6,3,6,11,11.5,2.25,2.25,4,5,2,2,0.765640516
+3,25,3,0,0,0,0,7,0,1,0,1,0,0,0.757696127
+3,2,0,2,0,3.5,0,1,5,0,0,0,5,0,0.752730884
+3,2,0,0,0,13,22,13,0,4,0,10,0,0,0.72591857
+4,3,14,0,0,0,0,8,0,0,0,0,0,2,0.724428997
+3,15,0,11,6,17,9,4.25,6.75,5.5,3,7,7,7,0.721946375
+3,27,3,0,0,2,2,2.75,0,0,0,0,0,0,0.709036743
+4,7,13,3,5,0,0,9,5,6,5,4,4,4,0.695134062
+3,20,8,0,3,7,10,1.5,0,0,0,0,0,0,0.692154916
+% The next 25 are the most accurate estimators
+3,17,2,5,0,0,0,31.75,0.25,0.25,1,1,0,0,0.15590864
+3,0,26,0,0,2,4,8.75,0,0,0,3,0,0,0.148957299
+3,7,0,3,0,5,5,16,0.5,4,2,10,1,0,0.145978153
+3,7,0,2,1,14,23,20,0,9,0,6,3,2,0.14101291
+5,1,0,0,0,1,0,27,5,5,5,10,1,0.5,0.139026812
+3,15,8,12,8,0,0,1,0,0,0,0,0,0,0.11817279
+3,10,0,0,0,7,0,7.25,0,1.75,0,2,0,0,0.117179742
+4,1,2,1,0,1,0,4,0,0.5,0,1,0,0,0.100297915
+4,0,2,0,2,2,23,13.5,2,6,5,20,2,2,0.090367428
+3,17,4,1,2,0,0,27.5,0,0,0,1,0,0,0.076464747
+3,0,5,0,3,0,1,1.25,0,0,0,0,0,0,0.070506455
+3,13,0,0,0,8,0,17,5,2,5,2,0,0,0.056603774
+3,19,5,0,0,0,0,0.25,0,0,0,0,0,0,0.046673287
+3,5,0,0,4,2,0,4.25,1,0,9,6,2,4,0.046673287
+3,49,0,1,0,1,1,1.25,0,0,0,0,0,0,0.007944389
+3,6,0,5,0,85,0,0,5,10,5,20,1,0,0.007944389
+3,0,9,0,3,0,0,10.5,0,0,0,0,0,0,0.016881827
+3,21,30,6,6,0,5,6,0,2,0,8,1,0,0.0367428
+4,0,1,0,0,1,1,10.5,0,3.25,0,5,0.5,0,0.040714995
+4,0,1,0,0,0,1,7,0,0,0,0,0,1,0.048659384
+3,0,0,1,1,2,3,3,0,0,0,2,0,0,0.049652433
+3,47,11,2,1,2,1,5.25,0,0,0,0,0,0,0.054617676
+3,13,0,0,0,0,0,0,0,0,0,0,0,0.5,0.088381331
+3,10,3,1,1,2,0,10,0,0,0,5,0,0,0.092353525
+4,0,1,2,3,1,0,11,0,4,0,3,1,0,0.112214499
+% The next 25 represent over-estimators
+2,0,0,6,0,12,5,0,25,0,12,0,2,0,2.048659384
+3,44,11,2,1,3,3,1.5,0,0,0,0,0,0,2.286991063
+3,16,0,4,0,7,0,0,15,15,25,25,0.75,12,2.298907646
+4,36,6,12,12,19,21,40,7,10,20,25,3,5,2.371400199
+3,25,9,0,1,0,0,10,0,3.5,0,6,0,0,2.610724926
+4,0,3,0,1,0,0,6.25,0,1.25,0,3,0,0,2.747765641
+3,2,2,0,1,0,0,7,0,2,0,9,0,0,2.793445879
+3,1,6,0,1,0,0,2.5,0,0,0,0,0,0,2.889771599
+3,12,2,0,0,0,0,3.5,0,0,0,0,0,0,2.932472691
+3,-2,0,0,0,2,0,4.5,0,0,0,3,0,0,2.947368421
+3,32,0,4,0,2,0,2.75,0,0,0,3,0,0.5,2.972194638
+4,17,4,0,0,0,4,4,0,0,0,12,0,0,3.17775571
+3,2,3,0,1,1,1,2,0,0,0,0,0,1,3.289970209
+3,11,4,0,2,3,0,17,0,0.25,0,2,0,0,3.791459782
+3,25,5,0,1,0,0,0,0,0,0,0,0,0,4.863952334
+3,41,14,1,2,4,0,12,0,1,0,1,0,0,5.266137041
+3,3,0,2,0,2,0,5,0,1,0,3,1,0,5.444885799
+4,0,20,0,3,0,10,19,1,0,4,1,0,0,5.623634558
+3,4,10,0,3,5,8,14.5,0,1.25,0,3,0.5,0,5.936444886
+4,0,0,0,1,0,3,5,0,5,0,10,2,0,6.273088381
+4,3,2,3,2,2,0,2,0,3,0,4,2,2,6.579940417
+3,17,6,0,2,1,0,11,0,0.25,0,0,0,0,6.69612711
+3,12,2,0,0,0,0,2,0,0,0,0,0,0,7.440913605
+3,0,1,0,1,0,2,0,1,1,1,6,6,7,9.084409136
+3,8,5,5,3,5,0,0,15,0,5,0,2,0,9.765640516

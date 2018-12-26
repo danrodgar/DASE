@@ -1,0 +1,185 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a PROMISE Software Engineering Repository data set made publicly
+% available in order to encourage repeatable, verifiable, refutable, and/or
+% improvable predictive models of software engineering.
+%
+% If you publish material based on PROMISE data sets then, please
+% follow the acknowledgment guidelines posted on the PROMISE repository
+% web page http://promise.site.uottawa.ca/SERepository .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@relation desharnais.csv
+
+% Domain: software cost estimation
+% Donor:  Martin Shepperd <Martin.Shepperd@brunel.ac.uk> 
+% Corrections by: Dan Port <dport@hawaii.edu> with information from Barbara Kitchenham <barbara@cs.keele.ac.uk> 
+%         
+% Notes:  4 incomplete projects (projects 38,44,66,75) so often people use the 77 complete cases.
+%         The original source is [1].
+%         Our paper [2] provides a basic overview of the data set.
+% References:
+%         [1] J. M. Desharnais, "Analyse statistique de la
+%         productivitie des projets informatique a partie de la
+%         technique des point des fonction," University of Montreal,
+%         Masters Thesis, 1989.
+%
+%         [2] M. J. Shepperd and C. Schofield, "Estimating software
+%         project effort using analogies," IEEE Transactions on
+%         Software Engineering, vol. 23, pp. 736-743, 1997.
+%			
+%	  [3] Dreger, J. Brian. "Function Point Analysis"
+%	  Englewood Cliffs, NJ: Prentice Hall, 1989. 
+%
+% Attributes:
+%
+@attribute Project numeric        % proj ID
+@attribute TeamExp numeric        % measured in years
+@attribute ManagerExp numeric     % measured in years
+@attribute YearEnd numeric        % Year project ended (catagorical)
+@attribute Length numeric	 % Actual project schedule in months (note this is dependent variable like ActualEffort)
+@attribute Effort numeric        % ActualEffort is measured in person-hours
+@attribute Transactions numeric  % Transactions is a count of basic logical transactions in the system (function points)
+@attribute Entities numeric      % Entities is the number of entities in the systems data model (function points)
+@attribute PointsNonAdjust numeric % This is Transactions + Entities (function points) Note: in the orginal data set this was mislabeled as PointsAjust 
+@attribute Adjustment numeric   % Function point complexity adjustment factor (Total Processing Complexity) 
+@attribute PointsAjust numeric   % This is the function points adjusted by the Adjustment factor =0.65 + (0.01 * PointsNonAdjust) Note: in the orginal data set this was mislabeled as PointsNonAjust
+@attribute Language {1,2,3}      % programming language (catagorical)
+%
+% Note: Many of the above attributes are numerically coded catagorical variables. Values of -1 indicate missing data,     
+%
+% Sample run (WEKA):
+%          === Run information ===
+%
+%          Scheme:       weka.classifiers.functions.LinearRegression -S 0 -R 1.0E-8
+%          Relation:     martin.csv
+%          Instances:    81
+%          Attributes:   12
+%                        Project
+%                        TeamExp
+%                        ManagerExp
+%                        YearEnd
+%                        Length
+%                        Effort
+%                        Transactions
+%                        Entities
+%                        PointsNonAdjust
+%                        Adjustment
+%                        PointsAjust
+%                        Langage
+%
+% Note from dport: the regression model below is problematic in that it treats catagorical variables as continuous values 
+%                  and it includes the dependent variable Length as an independent variable which is likely a mistake. 
+%
+%          Test mode:    10-fold cross-validation
+%
+%          === Classifier model (full training set) ===
+%
+%          Linear Regression Model
+%
+%          Effort =
+%             -433.25   * TeamExp +
+%              408.8057 * ManagerExp +
+%              201.2701 * Length +
+%                4.2361 * Transactions +
+%                7.9056 * Entities +
+%                4.4594 * PointsAdjust +
+%               92.1389 * Adjustment +
+%            -1777.4579 * Langage +
+%             -278.0786
+
+%
+%          Time taken to build model: 0.02 seconds
+%
+%          === Cross-validation ===
+%          === Summary ===
+%
+%          Correlation coefficient                  0.7303
+%          Mean absolute error                   2082.1182
+%          Root mean squared error               3007.0504
+%          Relative absolute error                 64.9965 %
+%          Root relative squared error             67.3788 %
+%          Total Number of Instances               81
+
+@data
+
+1,1,4,85,12,5152,253,52,305,34,302,1
+2,0,0,86,4,5635,197,124,321,33,315,1
+3,4,4,85,1,805,40,60,100,18,83,1
+4,0,0,86,5,3829,200,119,319,30,303,1
+5,0,0,86,4,2149,140,94,234,24,208,1
+6,0,0,86,4,2821,97,89,186,38,192,1
+7,2,1,85,9,2569,119,42,161,25,145,2
+8,1,2,83,13,3913,186,52,238,25,214,1
+9,3,1,85,12,7854,172,88,260,30,247,1
+10,3,4,83,4,2422,78,38,116,24,103,1
+11,4,1,84,21,4067,167,99,266,24,237,1
+12,2,1,84,17,9051,146,112,258,40,271,1
+13,1,1,84,3,2282,33,72,105,19,88,1
+14,3,4,85,8,4172,162,61,223,32,216,1
+15,4,4,85,9,4977,223,121,344,28,320,1
+16,3,2,85,8,1617,119,48,167,26,152,2
+17,4,3,85,8,3192,57,43,100,43,108,1
+18,4,4,86,14,3437,68,316,384,20,326,2
+19,3,4,87,14,4494,9,386,395,21,340,2
+20,4,2,86,5,840,58,34,92,29,86,1
+21,4,4,86,12,14973,318,269,587,34,581,2
+22,2,4,85,18,5180,88,170,258,34,255,1
+23,2,4,86,5,5775,306,132,438,37,447,1
+24,4,1,87,20,10577,304,78,382,39,397,1
+25,1,4,86,8,3983,89,200,289,33,283,1
+26,4,1,85,14,3164,86,230,316,33,310,1
+27,2,0,86,6,3542,71,235,306,37,312,1
+28,3,1,85,14,4277,148,324,472,39,491,1
+29,4,4,85,16,7252,116,170,286,27,263,1
+30,4,1,85,14,3948,175,277,452,37,461,1
+31,4,3,86,6,3927,79,128,207,27,190,1
+32,1,1,86,9,710,145,38,183,27,168,3
+33,4,4,87,9,2429,174,78,252,41,267,3
+34,1,1,85,5,6405,194,91,285,35,285,1
+35,2,2,88,3,651,126,49,175,38,180,3
+36,1,3,86,17,9135,317,119,436,34,432,2
+37,2,4,87,11,1435,289,88,377,28,351,3
+38,-1,-1,87,8,5922,260,144,404,24,360,1
+39,1,4,88,4,847,158,59,217,18,180,3
+40,3,3,88,16,8050,302,145,447,52,523,2
+41,1,1,87,9,4620,451,48,499,28,464,1
+42,2,4,87,34,2352,661,132,793,23,698,3
+43,1,1,88,10,2174,64,54,118,25,106,1
+44,-1,4,86,39,19894,284,230,514,50,591,1
+45,2,1,86,18,6699,182,126,308,35,308,1
+46,2,3,87,27,14987,173,332,505,19,424,1
+47,2,2,88,9,4004,252,7,259,28,241,1
+48,4,3,85,11,12824,131,180,311,51,361,1
+49,2,3,85,8,2331,106,39,145,6,103,1
+50,3,3,85,9,5817,96,108,204,29,192,1
+51,2,3,85,7,2989,116,72,188,18,156,1
+52,3,3,85,6,3136,86,49,135,32,131,1
+53,2,3,85,17,14434,221,121,342,35,342,1
+54,1,1,87,12,2583,61,96,157,18,130,1
+55,1,3,86,12,3647,132,89,221,5,155,2
+56,3,7,86,13,8232,45,387,432,16,350,2
+57,1,1,86,12,3276,55,112,167,12,129,2
+58,1,4,87,8,2723,124,52,176,14,139,2
+59,3,3,87,5,3472,120,126,246,15,197,2
+60,1,2,87,6,1575,47,32,79,14,62,2
+61,1,1,86,12,2926,126,107,233,23,205,2
+62,3,2,86,6,1876,101,45,146,15,117,2
+63,1,1,86,5,2520,78,99,177,14,140,1
+64,4,7,86,13,1603,69,74,143,14,113,1
+65,1,3,86,8,3626,194,97,291,35,291,2
+66,2,-1,87,10,6783,224,110,334,28,309,2
+67,2,4,87,15,11361,323,184,507,35,507,2
+68,1,3,86,6,1267,42,31,73,27,67,2
+69,1,2,87,5,2548,74,43,117,25,105,2
+70,3,4,87,10,1155,101,57,158,9,117,2
+71,0,4,86,6,546,97,42,139,6,99,3
+72,2,3,84,13,2275,134,77,211,13,165,2
+73,4,5,86,26,9100,482,227,709,26,645,2
+74,0,2,84,6,595,213,73,286,6,203,3
+75,0,-1,84,22,3941,139,143,282,22,245,2
+76,2,3,86,24,13860,473,182,655,40,688,2
+77,4,4,85,12,1400,229,169,398,39,414,3
+78,4,3,83,12,2800,227,73,300,34,297,1
+79,4,4,82,24,9520,395,193,588,40,617,1
+80,4,3,86,12,5880,469,176,645,43,697,3
+81,4,4,85,36,23940,886,241,1127,34,1116,1

@@ -1,0 +1,103 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+% This is a PROMISE Software Engineering Repository data set made publicly 
+% available in order to encourage repeatable, refutable, verifiable, and/or  
+% improvable predictive models of software engineering. 
+%
+% If you publish material based on PROMISE data sets then, please follow 
+% the acknowledgment guidelines posted on the PROMISE repository web page
+% http://promise.site.uottowa.ca/SERepository.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--Title: cocomo_sdr /Software Effort Prediction
+%--Date: May, 19th, 2009
+%--Data from a Turkish Software Industry
+%--Donated by: Software Research Laboratory (Softlab), 
+%              Bogazici University, Istanbul, Turkey
+%--Website: http://softlab.boun.edu.tr
+%--Contact address: ekrem.kocaguneli@boun.edu.tr, bener@boun.edu.tr
+%
+%--Description:
+% Software effort data collected in the form of COCOMO II
+% Consists of data from 12 projects and 5 different software companies in various domains
+% attribute information:
+% 		- Exponential Cost Drivers:
+%			PREC: Precedentedness 
+%			FLEX: Development Flexibility 
+%			RESL: Arch/Risk Resolution 
+%			TEAM: Team Cohesion 
+%			PMAT: Process Maturity 
+%
+%		- Product Factors
+%			RELY: Required Software Reliability
+%			DATA: Database Size 
+%			CPLX: Product Complexity 
+%			RUSE: Required Reusability 
+%			DOCU: Documentation match to life-cycle needs
+%
+%		- Platform Factors
+%			TIME: Execution Time Constraint 
+%			STOR: Main Storage Constraint 
+%			PVOL: Platform Volatility 
+%
+%		- Personnel Factors
+%			ACAP: Analyst Capability 
+%			PCAP: Programmer Capability 
+%			PCON: Personnel Continuity 
+%			AEXP: Applications Experience 
+%			PEXP: Platform Experience 
+%			LTEX: Language and Tool Experience
+%
+%		- Project Factors
+%			TOOL: Use of Soft. Tools
+%			SITE: Multisite Development 
+%			SCED: Development Schedule 
+%
+%		- Input:
+%			LOC:Lines of Code
+%
+%		- Output:
+%			ACTUAL EFFORT: Effort spent for project in terms of man month
+
+
+@relation cocomo_sdr
+
+@attribute ProjectID numeric
+@attribute PREC {'Very High','Extra High',Nominal,'Very Low',High,Low}
+@attribute FLEX {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute RESL {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute TEAM {High,'Very High','Extra High',Nominal,'Very Low',Low}
+@attribute PMAT {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute RELY {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute DATA {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute CPLX {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute RUSE {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute DOCU {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute TIME {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute STOR {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute PVOL {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute ACAP {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute PCAP {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute PCON {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute AEXP {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute PEXP {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute LTEX {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute TOOL {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute SITE {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute SCED {Low,'Very Low',High,'Extra High','Very High',Nominal}
+@attribute LOC numeric
+@attribute 'ACTUAL EFFORT' numeric
+
+@data
+1,'Very High',Nominal,Low,High,'Very Low',Nominal,Nominal,Low,Low,Low,'Very High',High,Nominal,High,'Very High','Very High','Very High',High,High,High,Low,Nominal,3000,1.2
+2,'Very High',Nominal,Low,'Very High','Very Low',High,Nominal,Low,Nominal,Low,'Very High',High,Nominal,High,High,'Very High','Very High','Very High','Very High',High,'Very Low',High,2000,2
+3,'Extra High',Nominal,Low,High,'Very Low',High,'Very High',Low,Nominal,Low,'Very High','Very High',Nominal,High,High,'Very High','Very High','Very High','Very High',High,'Very Low',High,4250,4.5
+4,'Extra High',High,High,High,Nominal,High,High,'Very High',Low,Nominal,Nominal,Nominal,High,High,High,'Very Low',High,'Very High',High,Nominal,High,High,10000,3
+5,Nominal,Nominal,Low,High,Nominal,Low,Nominal,'Very High',Nominal,High,High,Nominal,Nominal,High,High,High,Nominal,Nominal,Nominal,Nominal,High,Low,15000,4
+6,'Very High',Low,'Extra High','Extra High',High,Low,Low,Nominal,Low,'Very Low',Nominal,Nominal,Low,'Very High','Very High',High,Nominal,High,High,'Very Low','Extra High',Low,40530,22
+7,'Extra High','Very High','Extra High',Nominal,High,Low,Low,Low,Nominal,'Very Low',Nominal,Nominal,Low,'Very High','Very High','Very High',Nominal,'Very High','Very High','Very Low',High,Low,4050,2
+8,Nominal,'Very Low','Very High',Nominal,Low,Low,'Very High','Very Low',High,'Very High','Very High','Very High',Low,Low,High,'Very High',Nominal,Nominal,Nominal,Nominal,'Very High',Nominal,31845,5
+9,'Very Low','Very Low',Nominal,'Very Low',Low,'Very Low',Nominal,Low,'Very High',Low,Nominal,Nominal,Low,Low,High,'Very High',High,High,High,Nominal,High,Nominal,114280,18
+10,Nominal,'Very Low','Very High',Low,Low,'Very Low',High,Nominal,'Very High','Very Low','Very High','Very High',Low,Low,'Very High','Very High',High,'Very High',High,Nominal,Nominal,Low,23106,4
+11,High,Nominal,'Very High',High,Low,Low,Nominal,Nominal,Nominal,Low,Nominal,Nominal,Low,'Very High',High,'Very High',Nominal,Nominal,High,'Very High','Very High',High,1369,1
+12,Low,Nominal,Nominal,High,Nominal,Low,Low,High,High,Nominal,Nominal,Nominal,Low,Low,High,'Very High',High,Nominal,High,'Very High','Very High',High,1611,2.1

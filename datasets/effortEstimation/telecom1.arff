@@ -1,0 +1,26 @@
+@relation telecom1
+
+@attribute Project {Case_01,Case_02,Case_03,Case_04,Case_05,Case_06,Case_07,Case_08,Case_09,Case_10,Case_11,Case_12,Case_13,Case_14,Case_15,Case_16,Case_17,Case_18}
+@attribute CHANGES numeric
+@attribute FILES numeric
+@attribute ACT_EFF numeric
+
+@data
+Case_01,218,105,305.22
+Case_02,357,237,330.29
+Case_03,136,98,333.96
+Case_04,25,24,150.4
+Case_05,263,197,544.61
+Case_06,39,39,117.87
+Case_07,377,284,1115.54
+Case_08,48,37,158.56
+Case_09,118,53,573.71
+Case_10,178,116,276.95
+Case_11,59,38,97.45
+Case_12,200,180,374.34
+Case_13,53,43,168.12
+Case_14,143,84,358.37
+Case_15,257,257,123.1
+Case_16,6,6,23.54
+Case_17,5,5,34.25
+Case_18,3,3,31.8

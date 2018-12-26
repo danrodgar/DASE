@@ -1,0 +1,177 @@
+1. Title: Understanding the Human Estimator
+
+2. Source Information
+"   -- Creator: Gary D. Boetticher, Nazim Lokhandwala, James C. Helm"
+"          Department of Computer Science, University of Houston - Clear Lake; "
+"          Houston, Texas 77058"
+"   -- Donor: Gary D. Boetticher, Nazim Lokhandwala, James C. Helm, Department of Computer Science, University Of      "
+"          Houston - Clear Lake; Houston, Texas, 77058"
+"   -- Date: June, 2006"
+
+3. Past Usages:
+"     Used as part of a paper submission by Boetticher, Lokhandwala, Helm for PROMISE 2006"
+
+4. Relevant Information:
+     Data was collected from a Web-based survey available at: http://nas.cl.uh.edu/boetticher/EffortEstimationSurvey.html
+"     First portion of the survey collects user demographic information (education, work, domain experience)"
+     Second portion of the survey requests user to assess 28 software components. The results for all components
+     are compared with actual results. Data contains the Mean Relative Error of the estimate.
+    
+5. Number of Instances: 122
+
+"6. Number of Attributes: 22 (21 non-class, 1 class)"
+
+7. Attribute Information:
+     A) YrOfBirth is year of birth of the participant
+"     B) Gender (1 = Male, 0 = Female)"
+     C) Nationality is the country of origin for the participant
+"     D) NumericDegree refers to the highest education level attained. 1 = Below High School, 2 = High School, 3 = Bachelors, 4 = Masters, 5 = Ph.D."
+"     E) TechUGCourses is the number of technical undergraduate courses (CS, CIS, Soft. Engr) taken by the particpant"
+"     F) TechGCourses is the number of technical graduate courses (CS, CIS, Soft. Engr) taken by the particpant"
+     G) MgmtUGCourses is the number of management undergraduate courses taken by the participant
+     H) MgmtGCourses is the number of management graduate courses taken by the participant
+     I) TotalWorkshopsAttended refers to the total number of workshops attended
+     J) TotalConferencesAttended refers to the total number of conferences attended
+     K) TotalLanguages is the total number of years a person spent in developing code.
+"          For the data below, 19 metrics based on a specific programming language, are consolidated below."
+     L) HWExp is hardware experience
+     M) SWExp is software experience
+     N) ProjectManagementHWExp is project managent hardware experience
+     O) ProjectManagementSWExp is project managent software experience
+     P) HWProjEstExp refers to the number of hardware projects a participant has estimated
+     Q) SWProjEstExp refers to the number of software projects a particpant has estimated
+     R) DomainExp is how many years experience a person has in electronic commerce and procurement
+     S) ProcIndExp refers to how many years experience does a person have in the process industry (e.g. oil and gas)
+     T) TimeSpentOnSurveyInMinutes is the number of minutes a user spent on the survey
+     U) TotalClicks refers to the number of clicks the user used during the survey.
+"          Since each component has many help features, this attribute gives an idea of how much help a participant reviewed"
+     W) MRE_Estimates is the Magnitude of Relative Error. A negative value means the user underestimated.
+          A zero value means their total estimate matches the actual estimate.,,,,,,,,,,,,,,,,,,,,,
+          A positive value means the user over-estimated the project.,,,,,,,,,,,,,,,,,,,,,
+
+8. Please direct all correspondence to Gary D. Boetticher at boetticher@uhcl.edu,,,,,,,,,,,,,,,,,,,,,
+
+
+YrOfBirth,Gender,Nationality,NumericDegree,TechUGCourses,TechGCourses,MgmtUGCourses,MgmtGCourses,TotalWorkshopsAttended,TotalConferencesAttended,TotalLanguages,HWExp,SWExp,ProjectManagementHWExp,ProjectManagementSWExp,HWProjEstExp,SWProjEstExp,DomainExp,ProcIndExp,TimeSpentOnSurveyInMinutes,TotalClicks,MRE_Estimates
+1969,Male,Angola,3,0,2,0,0,0,0,2,3,3,1,3,0,2,1,0.5,11,0,-0.352532274
+1970,Male,China,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,4,-0.85203575
+1969,Male,Dominican Republic,3,26,0,2,0,11,0,18,13,7,7,4,2,4,0,0,13,37,-0.828202582
+1965,Male,Germany,4,7,7,2,2,2,2,25.5,0,13,0,6,0,10,0,0,29,53,-0.590863952
+1975,Male,Germany,3,11,0,8,0,0,0,0,0,4,0,2,0,0,1,3,7,8,-0.600794439
+1972,Male,Greece,3,3,3,2,2,2,2,0,0,3,0,3,0,5,0,0,15,0,-0.908639523
+1900,Male,India,4,0,3,0,3,2,0,14.5,6,6,5,5,1,1,1,0,12,0,-0.35551142
+1900,Male,India,3,1,1,0,0,0,0,5.5,4.25,4.5,2.25,2.25,1,10,3,3,17,0,-0.330685204
+1958,Male,India,4,7,13,4,5,0,0,9,9,6,5,6,5,4,4,4,14,22,-0.695134062
+1965,Male,India,3,7,0,1,1,14,23,20,0,14,0,9,0,6,3,2,47,0,-0.14101291
+1967,Male,India,4,5,4,1,3,14,10,16.25,3,10,1,6,1,9,1,0,100,21,-0.160873883
+1968,Male,India,4,0,0,0,1,0,3,5,0,5.75,0,5,0,10,2,0,6,3,6.273088381
+1969,Female,India,4,1,13,0,2,1,0,15,0,11.25,0,4,0,4,0,0,34,142,-0.68917577
+1969,Male,India,3,0,1,0,1,0,2,0,1,6,1,1,1,6,6,7,6,4,9.084409136
+1970,Male,India,3,7,0,4,0,5,5,16,1,12.5,0.5,4,2,10,1,0,38,12,-0.145978153
+1971,Male,India,4,7,7,2,3,8.75,0,6,0,9.5,0,4,0,8,0,0,100,15,-0.640516385
+1971,Male,India,4,0,1,0,2,1,0,11,0,7,0,4,0,3,1,0,19,0,0.112214499
+1972,Male,India,3,0,7,0,4,0,1,8,0,8,0,4,0,8,1,1,6,0,0.41509434
+1972,Male,India,4,3,2,0,0,0,0,12,0,8.5,0,3.5,0,10,1,1,13,7,-0.396226415
+1972,Male,India,4,0,1,0,0,0,1,7,0,0,0,0,0,0,0,1,35,23,0.048659384
+1973,Male,India,4,0,1,0,0,1,1,10.5,0,8.25,0,3.25,0,5,0.5,0,8,11,0.040714995
+1973,Male,India,3,0,4,0,0,0,0,7,1,8,0,5,0,2,0,0,100,48,-0.779116187
+1973,Male,India,3,2,0,0,0,13,22,13,0,7,0,4,0,10,0,0,10,3,-0.72591857
+1974,Male,India,3,1,1,1,5,3,0,6.5,0,7,0,3.25,0,4,0.25,0,8,9,-0.221449851
+1975,Male,India,3,12,0,2,0,3,1,17,1,6,1,5,0,1,1,1,100,4,-0.248262165
+1975,Male,India,3,0,1,0,0,0,0,18.25,1,6.5,0.5,3,1,4,1,6.25,11,11,39.03972195
+1975,Male,India,3,2,2,0,0,0,0,7,0,8.5,0,2,0,9,0,0,10,11,2.793445879
+1976,Male,India,3,10,0,0,0,7,0,7.25,0,6.25,0,1.75,0,2,0,0,100,34,-0.117179742
+1976,Male,India,3,1,6,1,6,0,0,2.5,0,2,0,0,0,0,0,0,,,2.889771599
+1977,Male,India,3,0,3,0,0,0,0,0.5,0,0,0,0,0,0,0,0,8,12,-0.88877855
+1977,Male,India,3,0,0,1,1,2,3,3,0,3,0,0,0,2,0,0,24,79,0.049652433
+1977,Male,India,4,1,2,0,1,1,0,4,0,4.25,0,0.5,0,1,0,0,26,88,-0.100297915
+1977,Male,India,3,4,10,1,5,5,8,14.5,0,6.5,0,1.25,0,3,0.5,0,9,3,5.936444886
+1978,Male,India,3,0,5,0,2,0,1,1.25,0,0.25,0,0,0,0,0,0,48,136,-0.070506455
+1979,Male,India,3,0,1,0,0,0,0,13,0,3,0,0,0,5,1,0,22,15,-0.248262165
+1979,Male,India,4,10,8,5,2,0,1,6.75,0,4,0,2,0,20,0,0,28,67,0.86693148
+1980,Male,India,4,22,3,2,0,3,0,1,0.5,0.5,0,0,0,0,0,0,45,84,-0.326713009
+1981,Female,India,3,25,5,3,5,0,0,0,0,0,0,0,0,0,0,0,45,139,4.863952334
+1981,Female,India,3,47,11,7,7,2,1,5.25,0,0,0,0,0,0,0,0,91,233,0.054617676
+1968,Female,India,4,27,8,1,8,0,0,0.5,-1,-1,0,0,0,0,0,0,,,0.668321748
+1974,Female,India,3,72,12,2,9,0,0,0,-1,-1,2,0,0,0,0,0,,,-0.815292949
+1974,Male,India,4,6,16,2,4,0,2,1.5,-1,-1,0,0,0,0,0,2.5,,,-0.624031778
+1974,Male,India,4,3,14,0,2,0,0,8,-1,-1,0,0,0,0,0,2,,,-0.724428997
+1975,Male,India,3,2,3,1,4,1,1,2,-1,-1,0,0,0,0,0,1,,,3.289970209
+1975,Female,India,4,13,15,1,5,0,0,1,-1,-1,0,0,0,0,0,0,,,-0.679245283
+1976,Male,India,4,28,10,1,10,1,3,3,-1,-1,1,2,0,0,0,0,,,-0.329692155
+1977,Male,India,3,21,30,6,27,0,5,6,-1,-1,0,2,0,8,1,0,,,0.0367428
+1977,Male,India,4,8,14,2,7,1,0,2,-1,-1,0,0,0,0,0,1,,,0.199602781
+1977,Male,India,3,5,6,1,2,0,0,1,-1,-1,0,0,0,0,0,1,,,-0.895233366
+1977,Male,India,3,8,9,2,10,2,1,0,0,0,0,0,0,0,0,0,,,-0.354518371
+1978,Male,India,3,44,11,0,2,3,3,1.5,-1,-1,0,0,0,0,0,0,,,2.286991063
+1978,Male,India,3,19,4,1,0,1,1,0,0,0,0,0,0,0,0,0,,,-0.66285998
+1978,Female,India,3,9,0,2,1,0,0,0,0,0,0,0,0,0,0,0,,,-0.834160874
+1978,Male,India,3,28,8,3,7,1,1,3.25,-1,-1,0,0,0,0,0,0,,,1.284011917
+1979,Male,India,3,23,10,2,9,3,1,4.5,-1,-1,0,0,0,1,0,0,,,-0.527308838
+1979,Male,India,3,41,14,2,10,4,0,12,-1,-1,0,1,0,1,0,0,,,5.266137041
+1979,Male,India,3,15,7,2,4,5,0,2.25,-1,-1,0,0.75,0,2,0,0.75,,,-0.689838133
+1979,Male,India,4,16,4,2,4,2,4,20,-1,-1,0,0,1,4,0,0,,,-0.687189672
+1979,Male,India,3,20,8,2,5,7,10,1.5,0.5,2,0,0,0,0,0,0,,,-0.692154916
+1980,Male,India,3,30,3,2,1,2,0,10.5,-1,-1,0,0,0,0,0,0,,,-0.910625621
+1980,Male,India,3,41,8,2,8,0,0,4.75,-1,-1,0,0,0,2,1,0,,,-0.217477656
+1976,Male,India,3,40,11,0,2,1,3,11,-1,-1,0,1,0,1,0,0,,,16.21052632
+1981,Male,Jamaica,3,22,3,1,3,0,0,4,-1,-1,0,0,0,0,0,0,,,-0.652432969
+1968,Female,Lebanon,3,27,1,1,1,2,0,6,-1,-1,0,0,0,0,0,0,,,1.413108242
+1964,Male,Mexico,4,17,4,2,4,0,4,4,-1,-1,0,0,0,12,0,0,,,3.17775571
+1962,Female,Mexico,3,20,10,1,11,0,1,24,-1,-1,0,0,0,3,0,0,,,0.223435948
+1966,Male,Mexico,3,6,5,0,6,0,0,3,-1,-1,0,0,0,0,0,0,,,-0.641906653
+1977,Male,Pakistan,3,28,0,2,0,2,0,0,0,0,0,0,0,0,0,0,,,0.737835154
+1979,Male,Pakistan,3,37,0,4,0,0,0,4.5,-1,-1,0,0,0,0,1,0,,,-0.67428004
+1979,Male,Pakistan,4,6,8,0,4,6,11,11.5,2.25,2.25,2.25,2.25,4,5,2,2,14,5,-0.765640516
+1962,Male,Romania,3,0,5,0,6,0,7,4,4,4,4,4,15,10,0.25,0,27,49,0.332671301
+1964,Male,Romania,3,2,0,1,0,8,3,12.75,7,12,2,2,0,6,10,0,44,109,-0.401191658
+1969,Male,Romania,3,0,6,0,2,7,3,5,10.5,10.5,5,5,5,3,1,5,9,10,0.176762661
+1973,Female,Romania,2,0,20,0,10,0,1,9.5,2,6,0,2,0,10,0,0,200,283,-0.820258193
+1976,Male,Romania,3,0,26,0,6,2,4,8.75,0,3.5,0,0,0,3,0,0,61,254,-0.148957299
+1977,Male,Romania,3,2,3,0,0,3,3,4.5,1,3.75,0,2.5,0,4,3,1,100,41,-0.932224429
+1980,Female,Romania,2,0,1,0,1,0,1,3.25,0,0.75,0,0,0,1,0,0,34,110,-0.86693148
+1980,Female,Romania,3,0,1,0,1,0,1,5,0,3.75,0,0,0,1,0.25,0.25,43,62,-0.68123138
+1983,Male,Romania,2,0,3,0,2,0,0,10.75,0,0.25,0,0,0,5,0,0,14,19,-0.897020854
+1980,Male,Romania,3,27,27,8,8,0,0,12.75,0.25,2,0,0,0,0,1,0,53,290,-0.795431976
+1972,Female,Russia,4,6,5,2,6,0,1,0,0,0,0,0,0,0,0,0,,,1.600794439
+1978,Male,Saudi Arabia,3,2,0,0,1,1,1,1,1,1,1,0,1,1,0.25,0.25,16,9,0.334657398
+1972,Male,Sri Lanka,3,10,0,1,0,0,0,12,-1,-1,0,0,0,0,0,0,,,-0.88877855
+1976,Male,Thailand,4,4,1,0,2,2,4,1.5,-1,-1,3,1,3,0,0,0,,,-0.885402185
+1974,Female,Tunisia,3,10,3,1,0,2,0,10,-1,-1,0,0,0,5,0,0,,,0.092353525
+1966,Male,UK,4,1,0,1,1,11,5,7,3,4,1,1,3,4,2,2,26,25,-0.942403178
+1974,Male,UK,3,13,0,2,0,3,2,7.5,0,2,0,1.5,0,1,0,0,66,119,-0.917576961
+1956,Male,USA,3,13,0,0,0,8,0,17,7,8,5,2,5,2,0,0,8,0,-0.056603774
+1966,Male,USA,3,6,0,2,0,85,0,0,10,10,5,10,5,20,1,0,8,29,0.007944389
+1967,Male,USA,4,0,20,0,6,0,10,19,8,2,1,0,4,1,0,0,100,0,5.623634558
+1975,Female,USA,3,32,0,2,0,2,0,2.75,0,2,0,0,0,3,0,0.5,17,55,2.972194638
+1976,Male,USA,3,8,6,1,5,5,10,35.5,7,7,7,7,20,5,5,7,14,14,0.330685204
+1976,Male,USA,3,28,0,0,0,1,0,10,0,1,0,1,3,5,1,0,14,16,-0.905660377
+1979,Male,USA,3,17,4,0,6,0,0,27.5,1,4,0,0,0,1,0,0,13,10,-0.076464747
+1952,Male,USA,3,21,3,1,4,1,0,2,-1,-1,0,0,0,0,3,0,,,-0.891261172
+1953,Male,USA,3,11,7,1,4,1,4,14,-1,-1,0.5,1,4,2,4,0,,,0.431976167
+1955,Male,USA,4,3,0,1,0,0,0,0,-1,-1,0,0,0,0,0,20,,,-0.433962264
+1959,Male,USA,3,8,5,5,3,5,0,0,-1,-1,15,0,5,0,2,0,,,9.765640516
+1962,Male,USA,3,7,2,2,2,10,22,66.5,-1,-1,0,0,0,5,0,0,,,0.698113208
+1963,Male,USA,3,6,4,0,0,1,0,24,-1,-1,0,5,0,2,0,0,,,-0.650446872
+1964,Female,USA,3,17,0,2,0,2,0,16,-1,-1,0,0,0,28,0,0,,,-0.404170804
+1966,Male,USA,3,5,0,0,3,2,0,4.25,-1,-1,1,0,9,6,2,4,,,-0.046673287
+1967,Male,USA,3,60,6,0,12,10,0,38,-1,-1,0,0,0,2,0,0,,,24.60013903
+1970,Female,USA,3,16,8,0,9,0,0,0,0,0,0,0,0,0,0,0,,,-0.90367428
+1971,Male,USA,3,6,7,1,6,0,0,2,-1,-1,0,0,0,0,0,0,,,-0.654419067
+1971,Male,USA,3,1,6,1,4,0,1,4.5,-1,-1,0,0,0,1,0,5,,,-0.350546177
+1972,Male,USA,3,9,3,0,0,0,0,7,-1,-1,0,0,0,2,1,0,,,0.360476663
+1972,Male,USA,3,16,2,2,0,0,0,9.5,-1,-1,0,0,0,0,0,0,,,-0.401191658
+1974,Male,USA,3,12,4,0,4,2,0,9,-1,-1,0,0,0,0,0,0,,,-0.387288977
+1975,Female,USA,3,23,1,1,2,0,2,3,-1,-1,0,0,0,0,3,3,,,-0.322740814
+1975,Male,USA,3,17,6,0,1,1,0,11,-1,-1,0,0.25,0,0,0,0,,,6.69612711
+1975,Male,USA,3,12,2,0,2,0,0,7,-1,-1,0,0,0,0,0,0,,,0.42999007
+1975,Male,USA,3,25,3,1,1,0,0,7,-1,-1,0,1,0,1,0,0,,,-0.757696127
+1978,Male,USA,3,74,5,3,2,0,0,0,-1,-1,0,0,0,0,0,0,,,0.41509434
+1978,Male,USA,3,14,0,1,1,2,4,7,-1,-1,0,0,0,1,0,0,,,-0.369414101
+1979,Female,USA,3,13,0,1,0,0,0,0,0,0,0,0,0,0,0,0.5,,,0.088381331
+1979,Male,USA,3,19,5,0,0,0,0,0.25,-1,-1,0,0,0,0,0,0,,,-0.046673287
+1981,Female,USA,3,23,3,1,4,0,0,9.5,-1,-1,0,0,0,0,0,0,,,-0.170804369
+1962,Female,USA,3,15,8,1,0,0,0,1,-1,-1,0,0,0,0,0,0,,,-0.11817279
+1962,Male,Vietnam,3,62,1,2,1,0,0,3,-1,-1,0,0,0,0,0,0,,,1.313803376
+1977,Male,Vietnam,3,11,10,1,1,4,2,14.5,0.25,10,0,2,0,2,0.5,0,100,199,-0.937934459
+1979,Female,Vietnam,3,30,4,0,0,0,0,11,0,0,0,0,0,0,0.25,0.25,10,0,-0.684210526

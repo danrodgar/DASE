@@ -1,0 +1,408 @@
+%%-*- text -*-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a PROMISE Software Engineering Repository data set made publicly
+% available in order to encourage repeatable, verifiable, refutable, and/or
+% improvable predictive models of software engineering.
+%
+% If you publish material based on PROMISE data sets then, please
+% follow the acknowledgment guidelines posted on the PROMISE repository
+% web page http://promise.site.uottawa.ca/SERepository .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 1. Title/Topic: COCOMO NASA 2 / Software cost estimation
+ 
+% 2. Sources:
+%    
+%     -- 93 NASA projects from different centers
+%        for projects from the following years:
+% 
+%    n year
+%  --- ----
+%    1 1971
+%    1 1974
+%    2 1975
+%    2 1976
+%   10 1977
+%    4 1978
+%   19 1979
+%   11 1980
+%   13 1982
+%    7 1983
+%    7 1984
+%    6 1985
+%    8 1986
+%    2 1987
+%
+%    Collected by
+%        Jairus Hihn, JPL, NASA, Manager SQIP Measurement & 
+%	 Benchmarking Element
+%        Phone (818) 354-1248 (Jairus.M.Hihn@jpl.nasa.gov)
+%
+%     -- Donor: Tim Menzies (tim@menzies.us)
+%
+%     -- Date: Feb 8 2006
+%
+% 3. Past Usage
+%     None with this specific data set. But for older work on similar data, see:
+%
+%     1. "Validation Methods for Calibrating Software Effort
+%         Models", T. Menzies and D. Port and Z. Chen and 
+%         J. Hihn and S. Stukes, Proceedings ICSE 2005,
+%         http://menzies.us/pdf/04coconut.pdf
+%         -- Results
+%             -- Given background knowledge on 60 prior projects,
+%                a new cost model can be tuned to local data using
+%                as little as 20 new projects.
+%             -- A very simple calibration method (COCONUT) can
+%                achieve PRED(30)=7% or PRED(20)=50% (after 20 projects).
+%                These are results seen in 30 repeats of an incremental
+%                cross-validation study.
+%             -- Two cost models are compared; one based on just
+%                lines of code and one using over a dozen "effort
+%                multipliers". Just using lines of code loses 10 to 20
+%                PRED(N) points.
+%
+%  3.1 Additional Usage:
+%    2. "Feature Subset Selection Can Improve Software Cost Estimation Accuracy"
+%         Zhihao Chen, Tim Menzies, Dan Port and Barry Boehm
+%         Proceedings PROMISE Workshop 2005,
+%         http://www.etechstyle.com/chen/papers/05fsscocomo.pdf
+%         P02, P03, P04 are used in this paper.
+%         -- Results
+%             -- To the best of our knowledge, this is the first report
+%                of applying feature subset selection (FSS)
+%                to software effort data.
+%
+%             -- FSS can dramatically improve cost estimation.
+%
+%             ---T-tests are applied to the results to demonstrate 
+%                that always in our data sets, removing
+%                attributes improves performance without increasing the
+%                variance in model behavior.
+%
+
+% 4. Relevant Information
+%
+%    The COCOMO software cost model measures effort in calendar months
+%    of 152 hours (and includes development and management hours).
+%    COCOMO assumes that the effort grows more than linearly on
+%    software size; i.e. months=a* KSLOC^b*c. Here, "a" and "b" are
+%    domain-specific parameters; "KSLOC" is estimated directly or
+%    computed from a function point analysis; and "c" is the product
+%    of over a dozen "effort multipliers". I.e.
+%
+%    months=a*(KSLOC^b)*(EM1* EM2 * EM3 * ...)
+%
+%    The effort multipliers are as follows:
+%
+%     increase | acap | analysts capability
+%     these to | pcap | programmers capability
+%    decrease  | aexp | application experience
+%      effort  | modp | modern programing practices
+%              | tool | use of  software tools
+%              | vexp | virtual machine experience
+%              | lexp | language experience
+%    ----------+------+---------------------------
+%              | sced | schedule constraint
+%    ----------+------+---------------------------
+%     decrease | stor | main memory constraint
+%     these to | data | data base size
+%     decrease | time | time constraint for cpu
+%       effort | turn | turnaround time
+%              | virt | machine volatility
+%              | cplx | process complexity
+%              | rely | required software reliability
+%
+%    In COCOMO I, the exponent on KSLOC was a single value ranging from
+%    1.05 to 1.2.  In COCOMO II, the exponent "b" was divided into a
+%    constant, plus the sum of five "scale factors" which modeled
+%    issues such as ``have we built this kind of system before?''.  The
+%    COCOMO~II effort multipliers are similar but COCOMO~II dropped one
+%    of the effort multiplier parameters; renamed some others; and
+%    added a few more (for "required level of reuse", "multiple-site
+%    development", and "schedule pressure").
+%
+%    The effort multipliers fall into three groups: those that are
+%    positively correlated to more effort; those that are
+%    negatively correlated to more effort; and a third group
+%    containing just schedule information. In COCOMO~I, "sced" has a
+%    U-shaped correlation to effort; i.e. giving programmers either
+%    too much or too little time to develop a system can be
+%    detrimental.
+%
+%    The numeric values of the effort multipliers are:
+%
+%      	        very				very	extra	productivity
+%       	        low	low	nominal	high	high	high	range
+%    ---------------------------------------------------------------------
+%    acap	1.46   	1.19   	1.00   	0.86   	0.71   		2.06
+%    pcap	1.42.  	1.17   	1.00   	0.86   	0.70 		1.67
+%    aexp   	1.29   	1.13   	1.00   	0.91   	0.82   		1.57
+%    modp   	1.24.  	1.10 	1.00 	0.91 	0.82 		1.34
+%    tool   	1.24 	1.10 	1.00 	0.91 	0.83 		1.49
+%    vexp   	1.21 	1.10 	1.00 	0.90 	  		1.34
+%    lexp   	1.14 	1.07 	1.00 	0.95 	  		1.20
+%    sced   	1.23 	1.08 	1.00 	1.04 	1.10 	  	e
+%    stor   	       	       	1.00   	1.06   	1.21   	1.56	-1.21
+%    data   	    	 0.94 	1.00 	1.08 	1.16		-1.23
+%    time   	  	    	1.00   	1.11   	1.30   	1.66	-1.30
+%    turn   	       	0.87   	1.00   	1.07   	1.15   		-1.32
+%    virt   	       	0.87   	1.00   	1.15   	1.30   		-1.49
+%    rely   	0.75	 0.88	 1.00 	 1.15 	 1.40		-1.87
+%    cplx   	0.70 	0.85 	1.00 	1.15 	1.30 	1.65	-2.36
+%   
+%    These were learnt by Barry Boehm after a regression analysis of the
+%    projects in the COCOMO I data set.  
+%      @Book{boehm81,
+%        Author    =	 "B. Boehm",
+%        Title     =	 "Software Engineering Economics",
+%        Publisher =	 "Prentice Hall",
+%        Year      =	 1981}
+%
+%     The last column of the above table shows max(E)/min(EM) and shows
+%     the overall effect of a single effort multiplier. For example,
+%     increasing "acap" (analyst experience) from very low to very
+%     high will most decrease effort while increasing "rely"
+%     (required reliability) from very low to very high will most
+%     increase effort.
+%
+%     There is much more to COCOMO that the above description. The
+%     COCOMO~II text is over 500 pages long and offers
+%     all the details needed to implement data capture and analysis of
+%     COCOMO in an industrial context.
+%       @Book{boehm00b,
+%         Author = "Barry Boehm and Ellis Horowitz and Ray Madachy and
+%                   Donald Reifer and Bradford K. Clark and Bert Steece
+%                   and A. Winsor Brown and Sunita Chulani and Chris Abts",
+%          Title = "Software Cost Estimation with Cocomo II",
+%      Publisher = "Prentice Hall",
+%           Year = 2000,
+%           ibsn = "0130266922"}
+% 
+%     Included in that book is not just an effort model but other
+%     models for schedule, risk, use of COTS, etc.  However, most
+%     (?all) of the validation work on COCOMO has focused on the effort
+%     model.
+%       @article{chulani99,
+%         author =	 "S. Chulani and B. Boehm and B. Steece",
+%         title =	 "Bayesian Analysis of Empirical Software Engineering
+%                          Cost Models",
+%         journal =	 "IEEE Transaction on Software Engineering",
+%         volume =	 25,
+%         number =	 4,
+%         month =	 "July/August",
+%         year =	 "1999"}
+%
+%     The value of an effort predictor can be reported many ways
+%     including MMRE and PRED(N).MMRE and PRED are computed from the
+%     relative error, or RE, which is the relative size of the
+%     difference between the actual and estimated value:
+%    
+%     RE.i = (estimate.i - actual.i) / (actual.i)
+%
+%     Given a data set of of size "D", a "Train"ing set of size
+%     "(X=|Train|) <= D", and a "test" set of size "T=D-|Train|", then
+%     the mean magnitude of the relative error, or MMRE, is the
+%     percentage of the absolute values of the relative errors,
+%     averaged over the "T" items in the "Test" set; i.e.
+%
+%     MRE.i  = abs(RE.i)
+%     MMRE.i = 100/T*( MRE.1 + MRE.2 + ... + MRE.T)
+%
+%     PRED(N) reports the average percentage of estimates that were
+%     within N% of the actual values:
+%     
+%     count=0
+%     for(i=1;i<=T;i++) do if (MRE.i <= N/100) then count++ fi done
+%     PRED(N) = 100/T * sum
+%
+%     For example, e.g. PRED(30)=50% means that half the estimates are
+%     within 30% of the actual.  Shepperd and Schofield comment that
+%     "MMRE is fairly conservative with a bias against overestimates
+%     while Pred(25) will identify those prediction systems that are
+%     generally accurate but occasionally wildly inaccurate".
+%       @article{shepperd97,
+%         author="M. Shepperd and C. Schofield",
+%         title="Estimating Software Project Effort Using Analogies",
+%         journal="IEEE Transactions on Software Engineering",
+%         volume=23,
+%         number=12,
+%         month="November",
+%         year=1997,
+%         note="Available from 
+%                \url{http://www.utdallas.edu/~rbanker/SE_XII.pdf}"}
+%
+
+% 5. Number of instances: 93
+
+% 6. Number of attributes: 24 
+%       - 15 standard COCOMO-I discrete  attributes in the range Very_Low to
+%         Extra_High
+%       - 7 others describing the project; 
+%       - one lines of code measure, 
+%       - one goal field being the actual effort in person months.
+
+% 7. Attribute information:
+
+@relation cocomonasa_2
+
+% Unique id
+@attribute recordnumber real % unique id. note that these numbers are
+			     % NOT continguous since the records shown
+			     % below are a subset of another NASA
+			     % database.
+
+%project name
+@attribute projectname {de,erb,gal,X,hst,slp,spl,Y}  
+
+%cagetory of application
+@attribute cat2 {Avionics, application_ground, avionicsmonitoring, batchdataprocessing, communications, datacapture, launchprocessing, missionplanning, monitor_control, operatingsystem, realdataprocessing, science, simulation, utility}
+
+% flight or ground system?
+@attribute forg {f,g}
+
+%which nasa center?
+@attribute center {1,2,3,4,5,6}
+
+%year of development
+@attribute year real
+
+%development mode
+@attribute mode {embedded,organic,semidetached}
+
+%cocomo attributes: described above in section 4
+@attribute rely {vl,l,n,h,vh,xh}
+@attribute data {vl,l,n,h,vh,xh}
+@attribute cplx {vl,l,n,h,vh,xh}
+@attribute time {vl,l,n,h,vh,xh}
+@attribute stor {vl,l,n,h,vh,xh}
+@attribute virt {vl,l,n,h,vh,xh}
+@attribute turn {vl,l,n,h,vh,xh}
+@attribute acap {vl,l,n,h,vh,xh}
+@attribute aexp {vl,l,n,h,vh,xh}
+@attribute pcap {vl,l,n,h,vh,xh}
+@attribute vexp {vl,l,n,h,vh,xh}
+@attribute lexp {vl,l,n,h,vh,xh}
+@attribute modp {vl,l,n,h,vh,xh}
+@attribute tool {vl,l,n,h,vh,xh}
+@attribute sced {vl,l,n,h,vh,xh}
+
+%equivalent physical 1000 lines of source code
+@attribute equivphyskloc real
+
+%development effort in months (one month =152 hours and includes development and management hours)
+@attribute act_effort real
+
+% Section 8. Missing attributes: none
+
+% Section 9: Distribution of class values
+%
+%  #  development months
+%  == ==================
+%  46    0 - 499
+%  28  500 - 999
+%   7 1000 - 1499
+%   3 1500 - 1999
+%   3 2000 - 2499
+%   3 2500 - 2999
+%   0 3000 - 3999
+%   1 4000 - 4499
+%   1 4500 - 4999
+%   0 5000 - 7999 
+%   1 8000
+
+@data
+
+1,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,25.9,117.6
+2,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,24.6,117.6
+3,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,7.7,31.2
+4,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,8.2,36
+5,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,9.7,25.2
+6,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,2.2,8.4
+7,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,3.5,10.8
+8,erb,avionicsmonitoring,g,2,1982,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,66.6,352.8
+9,gal,missionplanning,g,1,1980,semidetached,h,l,h,xh,xh,l,h,h,h,h,n,h,h,h,n,7.5,72
+10,gal,missionplanning,g,1,1980,semidetached,n,l,h,n,n,l,l,h,vh,vh,n,h,n,n,n,20,72
+11,gal,missionplanning,g,1,1984,semidetached,n,l,h,n,n,l,l,h,vh,h,n,h,n,n,n,6,24
+12,gal,missionplanning,g,1,1980,semidetached,n,l,h,n,n,l,l,h,vh,vh,n,h,n,n,n,100,360
+13,gal,missionplanning,g,1,1985,semidetached,n,l,h,n,n,l,l,h,vh,n,n,l,n,n,n,11.3,36
+14,gal,missionplanning,g,1,1980,semidetached,n,l,h,n,n,h,l,h,h,h,l,vl,n,n,n,100,215
+15,gal,missionplanning,g,1,1983,semidetached,n,l,h,n,n,l,l,h,vh,h,n,h,n,n,n,20,48
+16,gal,missionplanning,g,1,1982,semidetached,n,l,h,n,n,l,l,h,n,n,n,vl,n,n,n,100,360
+17,gal,missionplanning,g,1,1980,semidetached,n,l,h,n,xh,l,l,h,vh,vh,n,h,n,n,n,150,324
+18,gal,missionplanning,g,1,1984,semidetached,n,l,h,n,n,l,l,h,h,h,n,h,n,n,n,31.5,60
+19,gal,missionplanning,g,1,1983,semidetached,n,l,h,n,n,l,l,h,vh,h,n,h,n,n,n,15,48
+20,gal,missionplanning,g,1,1984,semidetached,n,l,h,n,xh,l,l,h,h,n,n,h,n,n,n,32.5,60
+21,X,avionicsmonitoring,g,2,1985,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,19.7,60
+22,X,avionicsmonitoring,g,2,1985,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,66.6,300
+23,X,simulation,g,2,1985,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,29.5,120
+24,X,monitor_control,g,2,1986,semidetached,h,n,n,h,n,n,n,n,h,h,n,n,n,n,n,15,90
+25,X,monitor_control,g,2,1986,semidetached,h,n,h,n,n,n,n,n,h,h,n,n,n,n,n,38,210
+26,X,monitor_control,g,2,1986,semidetached,n,n,n,n,n,n,n,n,h,h,n,n,n,n,n,10,48
+27,X,realdataprocessing,g,2,1982,semidetached,n,vh,h,vh,vh,l,h,vh,h,n,l,h,vh,vh,l,15.4,70
+28,X,realdataprocessing,g,2,1982,semidetached,n,vh,h,vh,vh,l,h,vh,h,n,l,h,vh,vh,l,48.5,239
+29,X,realdataprocessing,g,2,1982,semidetached,n,vh,h,vh,vh,l,h,vh,h,n,l,h,vh,vh,l,16.3,82
+30,X,communications,g,2,1982,semidetached,n,vh,h,vh,vh,l,h,vh,h,n,l,h,vh,vh,l,12.8,62
+31,X,batchdataprocessing,g,2,1982,semidetached,n,vh,h,vh,vh,l,h,vh,h,n,l,h,vh,vh,l,32.6,170
+32,X,datacapture,g,2,1982,semidetached,n,vh,h,vh,vh,l,h,vh,h,n,l,h,vh,vh,l,35.5,192
+33,X,missionplanning,g,2,1985,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,5.5,18
+34,X,avionicsmonitoring,g,2,1987,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,10.4,50
+35,X,avionicsmonitoring,g,2,1987,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,14,60
+36,X,monitor_control,g,2,1986,semidetached,h,n,h,n,n,n,n,n,n,n,n,n,n,n,n,6.5,42
+37,X,monitor_control,g,2,1986,semidetached,n,n,h,n,n,n,n,n,n,n,n,n,n,n,n,13,60
+38,X,monitor_control,g,2,1986,semidetached,n,n,h,n,n,n,n,n,n,h,n,h,h,h,n,90,444
+39,X,monitor_control,g,2,1986,semidetached,n,n,h,n,n,n,n,n,n,n,n,n,n,n,n,8,42
+40,X,monitor_control,g,2,1986,semidetached,n,n,h,h,n,n,n,n,n,n,n,n,n,n,n,16,114
+41,hst,datacapture,g,2,1980,semidetached,n,h,h,vh,h,l,h,h,n,h,l,h,h,n,l,177.9,1248
+42,slp,launchprocessing,g,6,1975,semidetached,h,l,h,n,n,l,l,n,n,h,n,n,h,vl,n,302,2400
+43,Y,application_ground,g,5,1982,semidetached,n,h,l,n,n,h,n,h,h,n,n,n,h,h,n,282.1,1368
+44,Y,application_ground,g,5,1982,semidetached,h,h,l,n,n,n,h,h,h,n,n,n,h,n,n,284.7,973
+45,Y,avionicsmonitoring,g,5,1982,semidetached,h,h,n,n,n,l,l,n,h,h,n,h,n,n,n,79,400
+46,Y,avionicsmonitoring,g,5,1977,semidetached,l,n,n,n,n,l,l,h,h,vh,n,h,l,l,h,423,2400
+47,Y,missionplanning,g,5,1977,semidetached,n,n,n,n,n,l,n,h,vh,vh,l,h,h,n,n,190,420
+48,Y,missionplanning,g,5,1984,semidetached,n,n,h,n,h,n,n,h,h,n,n,h,h,n,h,47.5,252
+49,Y,missionplanning,g,5,1980,semidetached,vh,n,xh,h,h,l,l,n,h,n,n,n,l,h,n,21,107
+50,Y,simulation,g,5,1983,semidetached,n,h,h,vh,n,n,h,h,h,h,n,h,l,l,h,78,571.4
+51,Y,simulation,g,5,1984,semidetached,n,h,h,vh,n,n,h,h,h,h,n,h,l,l,h,11.4,98.8
+52,Y,simulation,g,5,1985,semidetached,n,h,h,vh,n,n,h,h,h,h,n,h,l,l,h,19.3,155
+53,Y,missionplanning,g,5,1979,semidetached,h,n,vh,h,h,l,h,h,n,n,h,h,l,vh,h,101,750
+54,Y,missionplanning,g,5,1979,semidetached,h,n,h,h,h,l,h,n,h,n,n,n,l,vh,n,219,2120
+55,Y,utility,g,5,1979,semidetached,h,n,h,h,h,l,h,n,h,n,n,n,l,vh,n,50,370
+56,spl,datacapture,g,2,1979,semidetached,vh,h,h,vh,vh,n,n,vh,vh,vh,n,h,h,h,l,227,1181
+57,spl,batchdataprocessing,g,2,1977,semidetached,n,h,vh,n,n,l,n,h,n,vh,l,n,h,n,l,70,278
+58,de,avionicsmonitoring,g,2,1979,semidetached,h,l,h,n,n,l,l,n,n,n,n,h,h,n,l,0.9,8.4
+59,slp,operatingsystem,g,6,1974,semidetached,vh,l,xh,xh,vh,l,l,h,vh,h,vl,h,vl,vl,h,980,4560
+60,slp,operatingsystem,g,6,1975,embedded,n,l,h,n,n,l,l,vh,n,vh,h,h,n,l,n,350,720
+61,Y,operatingsystem,g,5,1976,embedded,h,n,xh,h,h,l,l,h,n,n,h,h,h,h,n,70,458
+62,Y,utility,g,5,1979,embedded,h,n,xh,h,h,l,l,h,n,n,h,h,h,h,n,271,2460
+63,Y,avionicsmonitoring,g,5,1971,organic,n,n,n,n,n,l,l,h,h,h,n,h,n,l,n,90,162
+64,Y,avionicsmonitoring,g,5,1980,organic,n,n,n,n,n,l,l,h,h,h,n,h,n,l,n,40,150
+65,Y,avionicsmonitoring,g,5,1979,embedded,h,n,h,h,n,l,l,h,h,h,n,h,n,n,n,137,636
+66,Y,avionicsmonitoring,g,5,1977,embedded,h,n,h,h,n,h,l,h,h,h,n,h,n,vl,n,150,882
+67,Y,avionicsmonitoring,g,5,1976,embedded,vh,n,h,h,n,l,l,h,h,h,n,h,n,n,n,339,444
+68,Y,avionicsmonitoring,g,5,1983,organic,l,h,l,n,n,h,l,h,h,h,n,h,n,l,n,240,192
+69,Y,avionicsmonitoring,g,5,1978,semidetached,h,n,h,n,vh,l,n,h,h,h,h,h,l,l,l,144,576
+70,Y,avionicsmonitoring,g,5,1979,semidetached,n,l,n,n,vh,l,n,h,h,h,h,h,l,l,l,151,432
+71,Y,avionicsmonitoring,g,5,1979,semidetached,n,l,h,n,vh,l,n,h,h,h,h,h,l,l,l,34,72
+72,Y,avionicsmonitoring,g,5,1979,semidetached,n,n,h,n,vh,l,n,h,h,h,h,h,l,l,l,98,300
+73,Y,avionicsmonitoring,g,5,1979,semidetached,n,n,h,n,vh,l,n,h,h,h,h,h,l,l,l,85,300
+74,Y,avionicsmonitoring,g,5,1982,semidetached,n,l,n,n,vh,l,n,h,h,h,h,h,l,l,l,20,240
+75,Y,avionicsmonitoring,g,5,1978,semidetached,n,l,n,n,vh,l,n,h,h,h,h,h,l,l,l,111,600
+76,Y,avionicsmonitoring,g,5,1978,semidetached,h,vh,h,n,vh,l,n,h,h,h,h,h,l,l,l,162,756
+77,Y,avionicsmonitoring,g,5,1978,semidetached,h,h,vh,n,vh,l,n,h,h,h,h,h,l,l,l,352,1200
+78,Y,operatingsystem,g,5,1979,semidetached,h,n,vh,n,vh,l,n,h,h,h,h,h,l,l,l,165,97
+79,Y,missionplanning,g,5,1984,embedded,h,n,vh,h,h,l,vh,h,n,n,h,h,h,vh,h,60,409
+80,Y,missionplanning,g,5,1984,embedded,h,n,vh,h,h,l,vh,h,n,n,h,h,h,vh,h,100,703
+81,hst,Avionics,f,2,1980,embedded,h,vh,vh,xh,xh,h,h,n,n,n,l,l,n,n,h,32,1350
+82,hst,Avionics,f,2,1980,embedded,h,h,h,vh,xh,h,h,h,h,h,h,h,h,n,n,53,480
+84,spl,Avionics,f,3,1977,embedded,h,l,vh,vh,xh,l,n,vh,vh,vh,vl,vl,h,h,n,41,599
+89,spl,Avionics,f,3,1977,embedded,h,l,vh,vh,xh,l,n,vh,vh,vh,vl,vl,h,h,n,24,430
+91,Y,Avionics,f,5,1977,embedded,vh,h,vh,xh,xh,n,n,h,h,h,h,h,h,n,h,165,4178.2
+92,Y,science,f,5,1977,embedded,vh,h,vh,xh,xh,n,n,h,h,h,h,h,h,n,h,65,1772.5
+93,Y,Avionics,f,5,1977,embedded,vh,h,vh,xh,xh,n,l,h,h,h,h,h,h,n,h,70,1645.9
+94,Y,Avionics,f,5,1977,embedded,vh,h,xh,xh,xh,n,n,h,h,h,h,h,h,n,h,50,1924.5
+97,gal,Avionics,f,5,1982,embedded,vh,l,vh,vh,xh,l,l,h,l,n,vl,l,l,h,h,7.25,648
+98,Y,Avionics,f,5,1980,embedded,vh,h,vh,xh,xh,n,n,h,h,h,h,h,h,n,h,233,8211
+99,X,Avionics,f,2,1983,embedded,h,n,vh,vh,vh,h,h,n,n,n,l,l,n,n,h,16.3,480
+100,X,Avionics,f,2,1983,embedded,h,n,vh,vh,vh,h,h,n,n,n,l,l,n,n,h,6.2,12
+101,X,science,f,2,1983,embedded,h,n,vh,vh,vh,h,h,n,n,n,l,l,n,n,h,3,38
