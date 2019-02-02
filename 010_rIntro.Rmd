@@ -646,11 +646,55 @@ mydataframeSorted2
 ## Environments
 An environment is a place where R stores variables that is where R binds a set of names to a set of object values. An environment is something like a bag or a list of names. Every name in an environment is unique. 
 
-The top level environment R_GlobalEnv is created when we start up R and is the Global Envirnoment. 
+The top level environment R_GlobalEnv is created when we start up R and is the Global Envirnoment. Every environment has parent environment. When we define a function, a new environment is created. 
+
+### Global variables, local variables and programming scope
+
+Global variables are those variables which exists throughout the execution of a program. Local variables are those variables which exist only within a certain part of a program like a function. The superassignment operator, <<-, is used to make assignments to global variables or to make assignments in the parent environment. 
 
 ```{r}
 # variables and functions in the current environment
 ls()
+# to get the current environment
+environment()
+# the base environment is the environment of the base package
+baseenv()
+
+# list of environments
+search()
+
+# functions 
+myfunction <- function() {
+  myvar_a<- 50
+  myfunctioninside <- function() {
+  myvar_a <- 100
+  # myvar_a <<- 100
+  print(myvar_a)
+  }
+  myfunctioninside()
+  print(myvar_a)
+  # myvar_a <<- 100
+}
+
+myvar_a <- 10
+myfunction()
+print(myvar_a)
+
+# create environment
+my_env <- new.env()
+my_env
+
+ls(my_env)
+character(0)
+assign("myvar_a", 700, envir=my_env)
+my_env$mytext = " a text"
+ls(my_env)
+
+myvar_a
+my_env$myvar_a
+
+parent.env(my_env)
+get('myvar_a', envir=my_env)
 
 ```
 
