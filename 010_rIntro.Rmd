@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # (PART) Introduction to the R Language {-}
 
 # Introduction to R {#r-intro}
@@ -13,7 +18,7 @@ Follow the procedures according to your operating system.
   * Uncomment the following lines for installing all missing packages (this will take some time):
 
 ```{r}
-# listofpackages <- c("bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape", "arules","arulesViz", "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast")
+# listofpackages <- c("arules","arulesViz", "bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape",  "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast", "urca", "glmnet", "FSelector", "pls", "emoa", "foreign" )
 # newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
 # if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
 # 
@@ -32,6 +37,7 @@ Follow the procedures according to your operating system.
 # sudo apt-get install libpq-dev
 # sudo apt-get install -y libmariadb-client-lgpl-dev
 # sudo apt-get install texlive-xetex
+# sudo apt-get install r-cran-rmysql
 
 ```
 
@@ -636,6 +642,19 @@ mydataframeSorted
 mydataframeSorted2 <- mydataframe[order(mydataframe$Age, decreasing = TRUE), c(1,2,6) ]
 mydataframeSorted2
 ```
+
+## Environments
+An environment is a place where R stores variables that is where R binds a set of names to a set of object values. An environment is something like a bag or a list of names. Every name in an environment is unique. 
+
+The top level environment R_GlobalEnv is created when we start up R and is the Global Envirnoment. 
+
+```{r}
+# variables and functions in the current environment
+ls()
+
+```
+
+
 
 ## Reading Data
 
