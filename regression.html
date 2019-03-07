@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Analysis in Software Engineering using R</title>
+  <title>Chapter 10 Regression | Data Analysis in Software Engineering using R</title>
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 10 Regression | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 10 Regression | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2018-12-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="unsupervised-or-descriptive-modeling.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -159,7 +186,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+</ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
@@ -275,9 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
@@ -323,33 +351,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="regression-galton-data" class="section level3">
 <h3><span class="header-section-number">10.1.1</span> Regression: Galton Data</h3>
 <p>Not related to Software Engineering but …</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(UsingR)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(UsingR)
 <span class="kw">data</span>(galton)
 <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw">hist</span>(galton$child,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">breaks=</span><span class="dv">100</span>)
-<span class="kw">hist</span>(galton$parent,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">breaks=</span><span class="dv">100</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(galton$parent,galton$child,<span class="dt">pch=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">cex=</span><span class="fl">0.4</span>)
-lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(galton$child ~<span class="st"> </span>galton$parent)
-<span class="kw">lines</span>(galton$parent,lm1$fitted,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lwd=</span><span class="dv">3</span>)
-<span class="kw">plot</span>(galton$parent,lm1$residuals,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">pch=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">0.4</span>)
-<span class="kw">abline</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-65-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(galton$child)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-65-3.png" width="672" /></p>
+<span class="kw">hist</span>(galton<span class="op">$</span>child,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">breaks=</span><span class="dv">100</span>)
+<span class="kw">hist</span>(galton<span class="op">$</span>parent,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">breaks=</span><span class="dv">100</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(galton<span class="op">$</span>parent,galton<span class="op">$</span>child,<span class="dt">pch=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">cex=</span><span class="fl">0.4</span>)
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(galton<span class="op">$</span>child <span class="op">~</span><span class="st"> </span>galton<span class="op">$</span>parent)
+<span class="kw">lines</span>(galton<span class="op">$</span>parent,lm1<span class="op">$</span>fitted,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lwd=</span><span class="dv">3</span>)
+<span class="kw">plot</span>(galton<span class="op">$</span>parent,lm1<span class="op">$</span>residuals,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">pch=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">0.4</span>)
+<span class="kw">abline</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-69-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(galton<span class="op">$</span>child)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-69-3.png" width="672" /></p>
 </div>
 <div id="simple-linear-regression" class="section level3">
 <h3><span class="header-section-number">10.1.2</span> Simple Linear Regression</h3>
 <ul>
 <li>Given two variables <span class="math inline">\(Y\)</span> (response) and <span class="math inline">\(X\)</span> (predictor), the assumption is that there is an approximate (<span class="math inline">\(\approx\)</span>) <em>linear</em> relation between those variables.</li>
-<li><p>The mathematical model of the observed data is described as (for the case of simple linear regression): <span class="math display">\[ Y \approx \beta_0 + \beta_1 X\]</span></p></li>
+<li><p>The mathematical model of the observed data is described as (for the case of simple linear regression):
+<span class="math display">\[ Y \approx \beta_0 + \beta_1 X\]</span></p></li>
 <li>the parameter <span class="math inline">\(\beta_0\)</span> is named the <em>intercept</em> and <span class="math inline">\(\beta_1\)</span> is the <em>slope</em></li>
 <li><p>Each observation can be modeled as</p></li>
 </ul>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + \epsilon_i;
-\epsilon_i \sim N(0,\sigma^2)\]</span> - <span class="math inline">\(\epsilon_i\)</span> is the <em>error</em> - This means that the variable <span class="math inline">\(y\)</span> is normally distributed: <span class="math display">\[ y_i \sim N( \beta_0 + \beta_1 x_i, \sigma^2) \]</span></p>
+\epsilon_i \sim N(0,\sigma^2)\]</span>
+- <span class="math inline">\(\epsilon_i\)</span> is the <em>error</em>
+- This means that the variable <span class="math inline">\(y\)</span> is normally distributed:
+<span class="math display">\[ y_i \sim N( \beta_0 + \beta_1 x_i, \sigma^2) \]</span></p>
 <ul>
-<li>The <em>predictions</em> or <em>estimations</em> of this model are obtained by a linear equation of the form <span class="math inline">\(\hat{Y}=\hat{\beta_0} + \hat{\beta}_1X\)</span>, that is, each new prediction is computed with <span class="math display">\[\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i \]</span>.</li>
+<li>The <em>predictions</em> or <em>estimations</em> of this model are obtained by a linear equation of the form <span class="math inline">\(\hat{Y}=\hat{\beta_0} + \hat{\beta}_1X\)</span>, that is, each new prediction is computed with
+<span class="math display">\[\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i \]</span>.</li>
 <li>The actual parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are unknown</li>
 <li>The parameters <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> of the linear equation can be estimated with different methods.</li>
 </ul>
@@ -363,7 +396,8 @@ lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(galton$child ~<span
 <li>the Residual Sum of Squares is defined as <span class="math display">\[RSS=e_1^2+\dots + e_i^2+\dots+e_n^2\]</span></li>
 <li>the Least Squares Approach minimizes the RSS</li>
 <li>as result of that minimizitation, it can be obtained, by means of calculus, the estimation of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> as <span class="math display">\[\hat{\beta}_1=\frac{\sum_{i=1}^{n}{(x_i-\bar{x})(y_i-\bar{y})}}{\sum_{i=1}^{n}(x_i-\bar{x})^2}\]</span> and <span class="math display">\[\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x} \]</span> where <span class="math inline">\(\bar{y}\)</span> and <span class="math inline">\(\bar{x}\)</span> are the sample means.</li>
-<li>the variance <span class="math inline">\(\sigma^2\)</span> is estimated by <span class="math display">\[\hat\sigma^2 = {RSS}/{(n-2)}\]</span> where n is the number of observations</li>
+<li>the variance <span class="math inline">\(\sigma^2\)</span> is estimated by
+<span class="math display">\[\hat\sigma^2 = {RSS}/{(n-2)}\]</span> where n is the number of observations</li>
 <li>The <em>Residual Standard Error</em> is defined as <span class="math display">\[RSE = \sqrt{{RSS}/{(n-2)}}\]</span></li>
 <li>The equation <span class="math display">\[ Y = \beta_0 + \beta_1 X + \epsilon\]</span> defines the linear model, i.e., the <em>population regression line</em></li>
 <li>The <em>least squares line</em> is <span class="math inline">\(\hat{Y}=\hat{\beta_0} + \hat{\beta}_1X\)</span></li>
@@ -397,10 +431,10 @@ lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(galton$child ~<span
 <h3><span class="header-section-number">10.2.1</span> Simulation example</h3>
 <div id="simulate-a-dataset" class="section level4">
 <h4><span class="header-section-number">10.2.1.1</span> Simulate a dataset</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">3456</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">3456</span>)
 <span class="co"># equation is  y = -6.6 + 0.13 x +e</span>
 <span class="co"># range x 100,400</span>
-a &lt;-<span class="st"> </span>-<span class="fl">6.6</span>
+a &lt;-<span class="st"> </span><span class="fl">-6.6</span>
 b &lt;-<span class="st"> </span><span class="fl">0.13</span>
 num_obs &lt;-<span class="st"> </span><span class="dv">60</span>
 xmin &lt;-<span class="st"> </span><span class="dv">100</span>
@@ -410,11 +444,11 @@ x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">
 sderror &lt;-<span class="st"> </span><span class="dv">9</span> <span class="co"># sigma for the error term in the model</span>
 e &lt;-<span class="st"> </span><span class="kw">rnorm</span>(num_obs, <span class="dv">0</span>, sderror) 
 
-y &lt;-<span class="st"> </span>a +<span class="st"> </span>b *<span class="st"> </span>x +<span class="st"> </span>e
+y &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>e
 
 
-newlm &lt;-<span class="st"> </span><span class="kw">lm</span>(y~x)
-<span class="kw">summary</span>(newlm)</code></pre></div>
+newlm &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)
+<span class="kw">summary</span>(newlm)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x)
@@ -433,29 +467,29 @@ newlm &lt;-<span class="st"> </span><span class="kw">lm</span>(y~x)
 ## Residual standard error: 7.99 on 58 degrees of freedom
 ## Multiple R-squared:  0.765,  Adjusted R-squared:  0.761 
 ## F-statistic:  189 on 1 and 58 DF,  p-value: &lt;2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfa1 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm)[<span class="dv">1</span>]
+<pre class="sourceCode r"><code class="sourceCode r">cfa1 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm)[<span class="dv">1</span>]
 cfb2 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm)[<span class="dv">2</span>]
 <span class="kw">plot</span>(x,y, <span class="dt">xlab=</span><span class="st">&quot;x axis&quot;</span>, <span class="dt">ylab=</span> <span class="st">&quot;y axis&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">60</span>), <span class="dt">sub =</span> <span class="st">&quot;Line in black is the actual model&quot;</span>)
 <span class="kw">title</span>(<span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Line in blue is the Regression Line for &quot;</span>, num_obs, <span class="st">&quot; points.&quot;</span>))
 
 <span class="kw">abline</span>(<span class="dt">a =</span> cfa1, <span class="dt">b =</span> cfb2, <span class="dt">col=</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)
-<span class="kw">abline</span>(<span class="dt">a =</span> a, <span class="dt">b =</span> b, <span class="dt">col=</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>) <span class="co">#original line</span></code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<span class="kw">abline</span>(<span class="dt">a =</span> a, <span class="dt">b =</span> b, <span class="dt">col=</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>) <span class="co">#original line</span></code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <div id="subset-a-set-of-points-from-the-same-sample" class="section level5">
 <h5><span class="header-section-number">10.2.1.1.1</span> Subset a set of points from the same sample</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sample from  the same  x     to compare least squares lines </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sample from  the same  x     to compare least squares lines </span>
 <span class="co"># change the denominator in newsample to see how the least square lines changes accordingly. </span>
-newsample &lt;-<span class="st"> </span><span class="kw">as.integer</span>(num_obs/<span class="dv">8</span>) <span class="co"># number of pairs x,y</span>
+newsample &lt;-<span class="st"> </span><span class="kw">as.integer</span>(num_obs<span class="op">/</span><span class="dv">8</span>) <span class="co"># number of pairs x,y</span>
 
-idxs_x1 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:num_obs, <span class="dt">size =</span> newsample, <span class="dt">replace =</span> <span class="ot">FALSE</span>) <span class="co">#sample indexes</span>
+idxs_x1 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>num_obs, <span class="dt">size =</span> newsample, <span class="dt">replace =</span> <span class="ot">FALSE</span>) <span class="co">#sample indexes</span>
 x1 &lt;-<span class="st"> </span>x[idxs_x1]
 e1 &lt;-<span class="st"> </span>e[idxs_x1]
-y1 &lt;-<span class="st"> </span>a +<span class="st"> </span>b *<span class="st"> </span>x1 +<span class="st"> </span>e1
+y1 &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>e1
 xy_obs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, y1)
 <span class="kw">names</span>(xy_obs) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x_obs&quot;</span>, <span class="st">&quot;y_obs&quot;</span>)
 
-newlm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1~x1)
-<span class="kw">summary</span>(newlm1)</code></pre></div>
+newlm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1<span class="op">~</span>x1)
+<span class="kw">summary</span>(newlm1)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = y1 ~ x1)
@@ -474,7 +508,7 @@ newlm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1~x1)
 ## Residual standard error: 4.35 on 5 degrees of freedom
 ## Multiple R-squared:  0.857,  Adjusted R-squared:  0.829 
 ## F-statistic: 30.1 on 1 and 5 DF,  p-value: 0.00275</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfa21 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm1)[<span class="dv">1</span>]
+<pre class="sourceCode r"><code class="sourceCode r">cfa21 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm1)[<span class="dv">1</span>]
 cfb22 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm1)[<span class="dv">2</span>]
 
 <span class="kw">plot</span>(x1,y1, <span class="dt">xlab=</span><span class="st">&quot;x axis&quot;</span>, <span class="dt">ylab=</span> <span class="st">&quot;y axis&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">60</span>))
@@ -482,32 +516,32 @@ cfb22 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm1)[<span c
 
 <span class="kw">abline</span>(<span class="dt">a =</span> a, <span class="dt">b =</span> b, <span class="dt">col=</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>)  <span class="co"># True line</span>
 <span class="kw">abline</span>(<span class="dt">a =</span> cfa1, <span class="dt">b =</span> cfb2, <span class="dt">col=</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>)  <span class="co">#sample</span>
-<span class="kw">abline</span>(<span class="dt">a =</span> cfa21, <span class="dt">b =</span> cfb22, <span class="dt">col=</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>) <span class="co">#new line</span></code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<span class="kw">abline</span>(<span class="dt">a =</span> cfa21, <span class="dt">b =</span> cfb22, <span class="dt">col=</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>) <span class="co">#new line</span></code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 <div id="compute-a-confidence-interval-on-the-original-sample-regression-line" class="section level5">
 <h5><span class="header-section-number">10.2.1.1.2</span> Compute a confidence interval on the original sample regression line</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newx &lt;-<span class="st"> </span><span class="kw">seq</span>(xmin, xmax)
+<pre class="sourceCode r"><code class="sourceCode r">newx &lt;-<span class="st"> </span><span class="kw">seq</span>(xmin, xmax)
 ypredicted &lt;-<span class="st"> </span><span class="kw">predict</span>(newlm, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>newx), <span class="dt">interval=</span> <span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span> <span class="fl">0.90</span>, <span class="dt">se =</span> <span class="ot">TRUE</span>)
 
 <span class="kw">plot</span>(x,y, <span class="dt">xlab=</span><span class="st">&quot;x axis&quot;</span>, <span class="dt">ylab=</span> <span class="st">&quot;y axis&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">60</span>))
 <span class="co"># points(x1, fitted(newlm1))</span>
 <span class="kw">abline</span>(newlm)
 
-<span class="kw">lines</span>(newx,ypredicted$fit[,<span class="dv">2</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)
-<span class="kw">lines</span>(newx,ypredicted$fit[,<span class="dv">3</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the residuals or errors</span>
+<span class="kw">lines</span>(newx,ypredicted<span class="op">$</span>fit[,<span class="dv">2</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)
+<span class="kw">lines</span>(newx,ypredicted<span class="op">$</span>fit[,<span class="dv">3</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the residuals or errors</span>
 ypredicted_x &lt;-<span class="st"> </span><span class="kw">predict</span>(newlm, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>x))
 <span class="kw">plot</span>(x,y, <span class="dt">xlab=</span><span class="st">&quot;x axis&quot;</span>, <span class="dt">ylab=</span> <span class="st">&quot;y axis&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">60</span>), <span class="dt">sub =</span> <span class="st">&quot;&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.75</span>)
 <span class="kw">title</span>(<span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Residuals or errors&quot;</span>, num_obs, <span class="st">&quot; points.&quot;</span>))
 <span class="kw">abline</span>(newlm)
-<span class="kw">segments</span>(x, y, x, ypredicted_x)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-68-2.png" width="672" /></p>
+<span class="kw">segments</span>(x, y, x, ypredicted_x)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-72-2.png" width="672" /></p>
 </div>
 <div id="take-another-sample-from-the-model-and-explore" class="section level5">
 <h5><span class="header-section-number">10.2.1.1.3</span> Take another sample from the model and explore</h5>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># equation is  y = -6.6 + 0.13 x +e</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># equation is  y = -6.6 + 0.13 x +e</span>
 <span class="co"># range x 100,400</span>
 num_obs &lt;-<span class="st"> </span><span class="dv">35</span>
 xmin &lt;-<span class="st"> </span><span class="dv">100</span>
@@ -516,10 +550,10 @@ x3 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw"
 sderror &lt;-<span class="st"> </span><span class="dv">14</span> <span class="co"># sigma for the error term in the model</span>
 e3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(num_obs, <span class="dv">0</span>, sderror) 
 
-y3 &lt;-<span class="st"> </span>a +<span class="st"> </span>b *<span class="st"> </span>x3 +<span class="st"> </span>e3
+y3 &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>x3 <span class="op">+</span><span class="st"> </span>e3
 
-newlm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(y3~x3)
-<span class="kw">summary</span>(newlm3)</code></pre></div>
+newlm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(y3<span class="op">~</span>x3)
+<span class="kw">summary</span>(newlm3)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = y3 ~ x3)
@@ -538,7 +572,7 @@ newlm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(y3~x3)
 ## Residual standard error: 15 on 33 degrees of freedom
 ## Multiple R-squared:  0.505,  Adjusted R-squared:  0.49 
 ## F-statistic: 33.7 on 1 and 33 DF,  p-value: 1.72e-06</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfa31 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm3)[<span class="dv">1</span>]
+<pre class="sourceCode r"><code class="sourceCode r">cfa31 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm3)[<span class="dv">1</span>]
 cfb32 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm3)[<span class="dv">2</span>]
 <span class="kw">plot</span>(x3,y3, <span class="dt">xlab=</span><span class="st">&quot;x axis&quot;</span>, <span class="dt">ylab=</span> <span class="st">&quot;y axis&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(xmin, xmax), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">60</span>))
 <span class="kw">title</span>(<span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Line in red is the Regression Line for &quot;</span>, num_obs, <span class="st">&quot; points.&quot;</span>))
@@ -551,9 +585,9 @@ cfb32 &lt;-<span class="st"> </span><span class="kw">coef</span>(newlm3)[<span c
 newx &lt;-<span class="st"> </span><span class="kw">seq</span>(xmin, xmax)
 ypredicted &lt;-<span class="st"> </span><span class="kw">predict</span>(newlm3, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x3=</span>newx), <span class="dt">interval=</span> <span class="st">&quot;confidence&quot;</span>, <span class="dt">level=</span> <span class="fl">0.90</span>, <span class="dt">se =</span> <span class="ot">TRUE</span>)
 
-<span class="kw">lines</span>(newx,ypredicted$fit[,<span class="dv">2</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
-<span class="kw">lines</span>(newx,ypredicted$fit[,<span class="dv">3</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<span class="kw">lines</span>(newx,ypredicted<span class="op">$</span>fit[,<span class="dv">2</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">lines</span>(newx,ypredicted<span class="op">$</span>fit[,<span class="dv">3</span>],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -585,40 +619,42 @@ ypredicted &lt;-<span class="st"> </span><span class="kw">predict</span>(newlm3,
 </div>
 <div id="linear-regression-in-software-effort-estimation" class="section level2">
 <h2><span class="header-section-number">10.4</span> Linear regression in Software Effort estimation</h2>
-<p>Fitting a linear model to log-log - the predictive power equation is <span class="math inline">\(y= e^{b_0 + b_1 log(x)}\)</span>, ignoring the bias corrections - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<p>Fitting a linear model to log-log
+- the predictive power equation is <span class="math inline">\(y= e^{b_0 + b_1 log(x)}\)</span>, ignoring the bias corrections
+- First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
 china &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china.arff&quot;</span>)
-china_size &lt;-<span class="st"> </span>china$AFP
-<span class="kw">summary</span>(china_size)</code></pre></div>
+china_size &lt;-<span class="st"> </span>china<span class="op">$</span>AFP
+<span class="kw">summary</span>(china_size)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##       9     100     215     487     438   17518</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">china_effort &lt;-<span class="st"> </span>china$Effort
-<span class="kw">summary</span>(china_effort)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">china_effort &lt;-<span class="st"> </span>china<span class="op">$</span>Effort
+<span class="kw">summary</span>(china_effort)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##      26     704    1829    3921    3826   54620</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
 <span class="kw">hist</span>(china_size, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Adjusted Function Points&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Distribution of AFP&quot;</span>)
-<span class="kw">hist</span>(china_effort, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Effort&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Distribution of Effort&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(china_size)
-<span class="kw">boxplot</span>(china_effort)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-70-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(china_size)
+<span class="kw">hist</span>(china_effort, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Effort&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Distribution of Effort&quot;</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(china_size)
+<span class="kw">boxplot</span>(china_effort)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-74-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(china_size)
 <span class="kw">qqline</span>(china_size)
 <span class="kw">qqnorm</span>(china_effort)
-<span class="kw">qqline</span>(china_effort)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-70-3.png" width="672" /></p>
+<span class="kw">qqline</span>(china_effort)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-74-3.png" width="672" /></p>
 <p>Applying the <code>log</code> function</p>
-<p><img src="DASE_files/figure-html/unnamed-chunk-71-1.png" width="672" /><img src="DASE_files/figure-html/unnamed-chunk-71-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">linmodel_logchina &lt;-<span class="st"> </span><span class="kw">lm</span>(logchina_effort ~<span class="st"> </span>logchina_size)
+<p><img src="DASE_files/figure-html/unnamed-chunk-75-1.png" width="672" /><img src="DASE_files/figure-html/unnamed-chunk-75-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">linmodel_logchina &lt;-<span class="st"> </span><span class="kw">lm</span>(logchina_effort <span class="op">~</span><span class="st"> </span>logchina_size)
 <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw">plot</span>(logchina_size, logchina_effort)
-<span class="kw">abline</span>(linmodel_logchina, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw">plot</span>(linmodel_logchina, <span class="dt">ask =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-72-2.png" width="672" /><img src="DASE_files/figure-html/unnamed-chunk-72-3.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">linmodel_logchina</code></pre></div>
+<span class="kw">abline</span>(linmodel_logchina, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="dv">3</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+<span class="kw">plot</span>(linmodel_logchina, <span class="dt">ask =</span> <span class="ot">FALSE</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-76-2.png" width="672" /><img src="DASE_files/figure-html/unnamed-chunk-76-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">linmodel_logchina</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = logchina_effort ~ logchina_size)
@@ -658,17 +694,18 @@ china_size &lt;-<span class="st"> </span>china$AFP
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -678,6 +715,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/danrodgar/dasedown/edit/master/417_regression.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["DASE.pdf", "DASE.epub"],
 "toc": {
@@ -692,9 +733,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

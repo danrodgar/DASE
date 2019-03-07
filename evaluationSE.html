@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Analysis in Software Engineering using R</title>
+  <title>Chapter 13 Measures of Evaluation in Software Engineering | Data Analysis in Software Engineering using R</title>
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 13 Measures of Evaluation in Software Engineering | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 13 Measures of Evaluation in Software Engineering | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2018-12-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -159,7 +186,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+</ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
@@ -275,9 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
@@ -309,55 +337,57 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li><p><em>Mean of the Absolute Error (MAR)</em>: compute the absolute errors and take the mean</p></li>
 <li><p><em>Geometric Mean of the Absolute Error (gMAR)</em>: more appropriate when the distribution is skewed</p></li>
-<li><p><em>Mean Magnitude of the Relative Error (MMRE)</em>: this measure has been critisized many times as a biased measure (<span class="math inline">\(\frac{\sum_{i=1}^{n}{|{\hat{y}_i-y_i}|}/y_i}{n}\)</span>)</p></li>
+<li><p><em>Mean Magnitude of the Relative Error (MMRE)</em>: this measure has been critisized many times as a biased measure
+(<span class="math inline">\(\frac{\sum_{i=1}^{n}{|{\hat{y}_i-y_i}|}/y_i}{n}\)</span>)</p></li>
 <li><p><em>Median Magnitude of the Relative Error (MdMRE)</em>: using the median insted of the mean</p></li>
 <li><p><em>Level of Prediction</em> (<span class="math inline">\(Pred(l)\)</span>) defined as the percentage of estimates that are within the percentage level <span class="math inline">\(l\)</span> of the actual values. The level of prediction is typically set at 25% below and above the actual value and an estimation method is considered good if it gives a result of more than 75%.</p></li>
-<li><p><em>Standardised Accuracy (SA)</em> (proposed by Shepperd&amp;MacDonnell): this measure overcomes all the problems of the MMRE. It is defined as the MAR relative to random guessing (<span class="math inline">\(SA=1-{\frac{MAR}{\overline{MAR}_{P_0}}\times100}\)</span>)</p></li>
+<li><p><em>Standardised Accuracy (SA)</em> (proposed by Shepperd&amp;MacDonnell): this measure overcomes all the problems of the MMRE. It is defined as the MAR relative to random guessing
+(<span class="math inline">\(SA=1-{\frac{MAR}{\overline{MAR}_{P_0}}\times100}\)</span>)</p></li>
 <li><em>Random guessing</em>: <span class="math inline">\(\overline{MAR}_{P_0}\)</span> is defined as: predict a <span class="math inline">\(\hat{y}_t\)</span> for the target case <em>t</em> by randomly sampling (with equal probability) over all the remaining n-1 cases and take <span class="math inline">\(\hat{y}_t=y_r\)</span> where <span class="math inline">\(r\)</span> is drawn randomly from <span class="math inline">\(1\)</span> to <span class="math inline">\(n\)</span> and <span class="math inline">\(r\neq t\)</span>.</li>
 <li><p><em>Exact <span class="math inline">\(\overline{MAR}_{P_0}\)</span></em>: it is an improvement over <span class="math inline">\(\overline{MAR}_{P_0}\)</span>. For small datasets the “random guessing” can be computed exactly by iterating over all data points.</p></li>
 </ul>
 <div id="evaluation-of-the-model-in-the-testing-data" class="section level2">
 <h2><span class="header-section-number">13.1</span> Evaluation of the model in the Testing data</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
-gm_mean =<span class="st"> </span>function(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>){
-  <span class="kw">exp</span>(<span class="kw">sum</span>(<span class="kw">log</span>(x[x &gt;<span class="st"> </span><span class="dv">0</span>]), <span class="dt">na.rm=</span>na.rm) /<span class="st"> </span><span class="kw">length</span>(x))}
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+gm_mean =<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>){
+  <span class="kw">exp</span>(<span class="kw">sum</span>(<span class="kw">log</span>(x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>]), <span class="dt">na.rm=</span>na.rm) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(x))}
 
 chinaTrain &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china3AttSelectedAFPTrain.arff&quot;</span>)
-logchina_size &lt;-<span class="st"> </span><span class="kw">log</span>(chinaTrain$AFP)
-logchina_effort &lt;-<span class="st"> </span><span class="kw">log</span>(chinaTrain$Effort)
-linmodel_logchina_train &lt;-<span class="st"> </span><span class="kw">lm</span>(logchina_effort ~<span class="st"> </span>logchina_size)
+logchina_size &lt;-<span class="st"> </span><span class="kw">log</span>(chinaTrain<span class="op">$</span>AFP)
+logchina_effort &lt;-<span class="st"> </span><span class="kw">log</span>(chinaTrain<span class="op">$</span>Effort)
+linmodel_logchina_train &lt;-<span class="st"> </span><span class="kw">lm</span>(logchina_effort <span class="op">~</span><span class="st"> </span>logchina_size)
 
 
 chinaTest &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china3AttSelectedAFPTest.arff&quot;</span>)
-b0 &lt;-<span class="st"> </span>linmodel_logchina_train$coefficients[<span class="dv">1</span>]
-b1 &lt;-<span class="st"> </span>linmodel_logchina_train$coefficients[<span class="dv">2</span>]
-china_size_test &lt;-<span class="st"> </span>chinaTest$AFP
-actualEffort &lt;-<span class="st"> </span>chinaTest$Effort
-predEffort &lt;-<span class="st"> </span><span class="kw">exp</span>(b0+b1*<span class="kw">log</span>(china_size_test))
+b0 &lt;-<span class="st"> </span>linmodel_logchina_train<span class="op">$</span>coefficients[<span class="dv">1</span>]
+b1 &lt;-<span class="st"> </span>linmodel_logchina_train<span class="op">$</span>coefficients[<span class="dv">2</span>]
+china_size_test &lt;-<span class="st"> </span>chinaTest<span class="op">$</span>AFP
+actualEffort &lt;-<span class="st"> </span>chinaTest<span class="op">$</span>Effort
+predEffort &lt;-<span class="st"> </span><span class="kw">exp</span>(b0<span class="op">+</span>b1<span class="op">*</span><span class="kw">log</span>(china_size_test))
 
-err &lt;-<span class="st"> </span>actualEffort -<span class="st"> </span>predEffort  <span class="co">#error or residual</span>
+err &lt;-<span class="st"> </span>actualEffort <span class="op">-</span><span class="st"> </span>predEffort  <span class="co">#error or residual</span>
 ae &lt;-<span class="st"> </span><span class="kw">abs</span>(err)
-<span class="kw">hist</span>(ae, <span class="dt">main=</span><span class="st">&quot;Absolute Error in the China Test data&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mar &lt;-<span class="st"> </span><span class="kw">mean</span>(ae)
-mre &lt;-<span class="st"> </span>ae/actualEffort
+<span class="kw">hist</span>(ae, <span class="dt">main=</span><span class="st">&quot;Absolute Error in the China Test data&quot;</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">mar &lt;-<span class="st"> </span><span class="kw">mean</span>(ae)
+mre &lt;-<span class="st"> </span>ae<span class="op">/</span>actualEffort
 mmre &lt;-<span class="st"> </span><span class="kw">mean</span>(mre)
 mdmre &lt;-<span class="st"> </span><span class="kw">median</span>(mre)
 gmar &lt;-<span class="st"> </span><span class="kw">gm_mean</span>(ae)
-mar</code></pre></div>
+mar</code></pre>
 <pre><code>## [1] 1867</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mmre</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">mmre</code></pre>
 <pre><code>## [1] 1.15</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mdmre</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">mdmre</code></pre>
 <pre><code>## [1] 0.551</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gmar</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">gmar</code></pre>
 <pre><code>## [1] 833</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">level_pred &lt;-<span class="st"> </span><span class="fl">0.25</span> <span class="co">#below and above (both)</span>
-lowpred &lt;-<span class="st"> </span>actualEffort*(<span class="dv">1</span>-level_pred)
-uppred &lt;-<span class="st">  </span>actualEffort*(<span class="dv">1</span>+level_pred)
-pred  &lt;-<span class="st">  </span>predEffort &lt;=<span class="st"> </span>uppred &amp;<span class="st"> </span>predEffort &gt;=<span class="st"> </span>lowpred  <span class="co">#pred is a vector with logical values </span>
-Lpred &lt;-<span class="st"> </span><span class="kw">sum</span>(pred)/<span class="kw">length</span>(pred)
-Lpred</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">level_pred &lt;-<span class="st"> </span><span class="fl">0.25</span> <span class="co">#below and above (both)</span>
+lowpred &lt;-<span class="st"> </span>actualEffort<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>level_pred)
+uppred &lt;-<span class="st">  </span>actualEffort<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span>level_pred)
+pred  &lt;-<span class="st">  </span>predEffort <span class="op">&lt;=</span><span class="st"> </span>uppred <span class="op">&amp;</span><span class="st"> </span>predEffort <span class="op">&gt;=</span><span class="st"> </span>lowpred  <span class="co">#pred is a vector with logical values </span>
+Lpred &lt;-<span class="st"> </span><span class="kw">sum</span>(pred)<span class="op">/</span><span class="kw">length</span>(pred)
+Lpred</code></pre>
 <pre><code>## [1] 0.186</code></pre>
 </div>
 <div id="building-a-linear-model-on-the-telecom1-dataset" class="section level2">
@@ -365,47 +395,51 @@ Lpred</code></pre></div>
 <ul>
 <li>Although there are few datapoints we split the file into Train (2/3) and Test (1/3)</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">telecom1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./datasets/effortEstimation/Telecom1.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>) <span class="co">#read data</span>
+<pre class="sourceCode r"><code class="sourceCode r">telecom1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./datasets/effortEstimation/Telecom1.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>) <span class="co">#read data</span>
 
-samplesize &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.66</span>*<span class="kw">nrow</span>(telecom1))
+samplesize &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.66</span><span class="op">*</span><span class="kw">nrow</span>(telecom1))
 <span class="kw">set.seed</span>(<span class="dv">012</span>) <span class="co"># to make the partition reproducible</span>
 train_idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(telecom1)), <span class="dt">size =</span> samplesize)
 telecom1_train &lt;-<span class="st"> </span>telecom1[train_idx, ]
-telecom1_test &lt;-<span class="st"> </span>telecom1[-train_idx, ]
+telecom1_test &lt;-<span class="st"> </span>telecom1[<span class="op">-</span>train_idx, ]
 
 <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="co"># transformation of variables to log-log</span>
-xtrain &lt;-<span class="st"> </span><span class="kw">log</span>(telecom1_train$size)
-ytrain &lt;-<span class="st"> </span><span class="kw">log</span>(telecom1_train$effort)
-lmtelecom1 &lt;-<span class="st"> </span><span class="kw">lm</span>( ytrain ~<span class="st"> </span>xtrain)
+xtrain &lt;-<span class="st"> </span><span class="kw">log</span>(telecom1_train<span class="op">$</span>size)
+ytrain &lt;-<span class="st"> </span><span class="kw">log</span>(telecom1_train<span class="op">$</span>effort)
+
+lmtelecom1 &lt;-<span class="st"> </span><span class="kw">lm</span>( ytrain <span class="op">~</span><span class="st"> </span>xtrain)
 <span class="kw">plot</span>(xtrain, ytrain)
-<span class="kw">abline</span>(lmtelecom1, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b0_tel1 &lt;-<span class="st"> </span>lmtelecom1$coefficients[<span class="dv">1</span>]
-b1_tel1 &lt;-<span class="st"> </span>lmtelecom1$coefficients[<span class="dv">2</span>]
+
+
+
+<span class="kw">abline</span>(lmtelecom1, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">b0_tel1 &lt;-<span class="st"> </span>lmtelecom1<span class="op">$</span>coefficients[<span class="dv">1</span>]
+b1_tel1 &lt;-<span class="st"> </span>lmtelecom1<span class="op">$</span>coefficients[<span class="dv">2</span>]
 <span class="co"># calculate residuals and predicted values</span>
 res &lt;-<span class="st"> </span><span class="kw">signif</span>(<span class="kw">residuals</span>(lmtelecom1), <span class="dv">5</span>)
 
-xtest &lt;-<span class="st"> </span>telecom1_test$size
-ytest &lt;-<span class="st"> </span>telecom1_test$effort
-pre_tel1 &lt;-<span class="st"> </span><span class="kw">exp</span>(b0+b1*<span class="kw">log</span>(xtest))
+xtest &lt;-<span class="st"> </span>telecom1_test<span class="op">$</span>size
+ytest &lt;-<span class="st"> </span>telecom1_test<span class="op">$</span>effort
+pre_tel1 &lt;-<span class="st"> </span><span class="kw">exp</span>(b0_tel1<span class="op">+</span>b1_tel1<span class="op">*</span><span class="kw">log</span>(xtest))
 <span class="co"># plot distances between points and the regression line</span>
 <span class="kw">plot</span>(xtest, ytest)
-<span class="kw">curve</span>(<span class="kw">exp</span>(b0_tel1+b1_tel1*<span class="kw">log</span>(x)), <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">300</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
-<span class="kw">segments</span>(xtest, ytest, xtest, pre_tel1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-79-2.png" width="672" /></p>
+<span class="kw">curve</span>(<span class="kw">exp</span>(b0_tel1<span class="op">+</span>b1_tel1<span class="op">*</span><span class="kw">log</span>(x)), <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">300</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">segments</span>(xtest, ytest, xtest, pre_tel1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-83-2.png" width="672" /></p>
 </div>
 <div id="building-a-linear-model-on-the-telecom1-dataset-with-all-observations" class="section level2">
 <h2><span class="header-section-number">13.3</span> Building a Linear Model on the Telecom1 dataset with all observations</h2>
 <ul>
 <li>Just to visualize results</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))
 
-effort_telecom1 &lt;-<span class="st"> </span>telecom1$effort
-size_telecom1 &lt;-<span class="st"> </span>telecom1$size
+effort_telecom1 &lt;-<span class="st"> </span>telecom1<span class="op">$</span>effort
+size_telecom1 &lt;-<span class="st"> </span>telecom1<span class="op">$</span>size
 
-lmtelecom &lt;-<span class="st"> </span><span class="kw">lm</span>(effort_telecom1 ~<span class="st"> </span>size_telecom1)
+lmtelecom &lt;-<span class="st"> </span><span class="kw">lm</span>(effort_telecom1 <span class="op">~</span><span class="st"> </span>size_telecom1)
 <span class="kw">plot</span>(size_telecom1, effort_telecom1)
 <span class="kw">abline</span>(lmtelecom, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)
 <span class="co"># calculate residuals and predicted values</span>
@@ -415,18 +449,18 @@ predicted &lt;-<span class="st"> </span><span class="kw">predict</span>(lmteleco
 <span class="kw">segments</span>(size_telecom1, effort_telecom1, size_telecom1, predicted, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)
 
 level_pred &lt;-<span class="st"> </span><span class="fl">0.25</span> <span class="co">#below and above (both)</span>
-lowpred &lt;-<span class="st"> </span>effort_telecom1*(<span class="dv">1</span>-level_pred)
-uppred &lt;-<span class="st">  </span>effort_telecom1*(<span class="dv">1</span>+level_pred)
-predict_inrange  &lt;-<span class="st">  </span>predicted &lt;=<span class="st"> </span>uppred &amp;<span class="st"> </span>predicted &gt;=<span class="st"> </span>lowpred  <span class="co">#pred is a vector with logical values </span>
-Lpred &lt;-<span class="st"> </span><span class="kw">sum</span>(predict_inrange)/<span class="kw">length</span>(predict_inrange)
-Lpred</code></pre></div>
+lowpred &lt;-<span class="st"> </span>effort_telecom1<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>level_pred)
+uppred &lt;-<span class="st">  </span>effort_telecom1<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span>level_pred)
+predict_inrange  &lt;-<span class="st">  </span>predicted <span class="op">&lt;=</span><span class="st"> </span>uppred <span class="op">&amp;</span><span class="st"> </span>predicted <span class="op">&gt;=</span><span class="st"> </span>lowpred  <span class="co">#pred is a vector with logical values </span>
+Lpred &lt;-<span class="st"> </span><span class="kw">sum</span>(predict_inrange)<span class="op">/</span><span class="kw">length</span>(predict_inrange)
+Lpred</code></pre>
 <pre><code>## [1] 0.444</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Visually plot lpred</span>
-<span class="kw">segments</span>(size_telecom1, lowpred, size_telecom1, uppred, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">err_telecom1 &lt;-<span class="st"> </span><span class="kw">abs</span>(effort_telecom1 -<span class="st"> </span>predicted)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Visually plot lpred</span>
+<span class="kw">segments</span>(size_telecom1, lowpred, size_telecom1, uppred, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">err_telecom1 &lt;-<span class="st"> </span><span class="kw">abs</span>(effort_telecom1 <span class="op">-</span><span class="st"> </span>predicted)
 mar_tel1 &lt;-<span class="st"> </span><span class="kw">mean</span>(err_telecom1)
-mar_tel1</code></pre></div>
+mar_tel1</code></pre>
 <pre><code>## [1] 125</code></pre>
 </div>
 <div id="standardised-accuracy.-marp0.-chinatest" class="section level2">
@@ -434,21 +468,21 @@ mar_tel1</code></pre></div>
 <ul>
 <li>Computing <span class="math inline">\(MARP_0\)</span> in the China Test data</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">estimEffChinaTest &lt;-<span class="st"> </span>predEffort  <span class="co"># This will be overwritten, no problem</span>
+<pre class="sourceCode r"><code class="sourceCode r">estimEffChinaTest &lt;-<span class="st"> </span>predEffort  <span class="co"># This will be overwritten, no problem</span>
 numruns &lt;-<span class="st"> </span><span class="dv">9999</span>
 randguessruns &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, numruns)
-for (i in <span class="dv">1</span>:numruns) { 
-  for (j in <span class="dv">1</span>:<span class="kw">length</span>(estimEffChinaTest)) {
-    estimEffChinaTest[j] &lt;-<span class="st"> </span><span class="kw">sample</span>(actualEffort[-j],<span class="dv">1</span>)}<span class="co">#replacement with random guessingt    </span>
-  randguessruns[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">abs</span>(estimEffChinaTest-actualEffort))
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>numruns) { 
+  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(estimEffChinaTest)) {
+    estimEffChinaTest[j] &lt;-<span class="st"> </span><span class="kw">sample</span>(actualEffort[<span class="op">-</span>j],<span class="dv">1</span>)}<span class="co">#replacement with random guessingt    </span>
+  randguessruns[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">abs</span>(estimEffChinaTest<span class="op">-</span>actualEffort))
   } 
 marp0Chinatest &lt;-<span class="st"> </span><span class="kw">mean</span>(randguessruns)
-marp0Chinatest</code></pre></div>
+marp0Chinatest</code></pre>
 <pre><code>## [1] 3956</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(randguessruns, <span class="dt">main=</span><span class="st">&quot;MARP0 distribution of the China dataset&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saChina =<span class="st"> </span>(<span class="dv">1</span>-<span class="st"> </span>mar/marp0Chinatest)*<span class="dv">100</span>
-saChina</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(randguessruns, <span class="dt">main=</span><span class="st">&quot;MARP0 distribution of the China dataset&quot;</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">saChina =<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="st"> </span>mar<span class="op">/</span>marp0Chinatest)<span class="op">*</span><span class="dv">100</span>
+saChina</code></pre>
 <pre><code>## [1] 52.8</code></pre>
 </div>
 <div id="standardised-accuracy.-marp0.-telecom1" class="section level2">
@@ -456,25 +490,25 @@ saChina</code></pre></div>
 <ul>
 <li>Computing <span class="math inline">\(MARP_0\)</span></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">telecom1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./datasets/effortEstimation/Telecom1.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>) <span class="co">#read data</span>
+<pre class="sourceCode r"><code class="sourceCode r">telecom1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./datasets/effortEstimation/Telecom1.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>) <span class="co">#read data</span>
 <span class="co">#par(mfrow=c(1,2))</span>
 <span class="co">#size &lt;- telecom1[1]$size   not needed now</span>
-actualEffTelecom1 &lt;-<span class="st"> </span>telecom1[<span class="dv">2</span>]$effort
-estimEffTelecom1 &lt;-<span class="st"> </span>telecom1[<span class="dv">3</span>]$EstTotal <span class="co"># this will be overwritten</span>
+actualEffTelecom1 &lt;-<span class="st"> </span>telecom1[<span class="dv">2</span>]<span class="op">$</span>effort
+estimEffTelecom1 &lt;-<span class="st"> </span>telecom1[<span class="dv">3</span>]<span class="op">$</span>EstTotal <span class="co"># this will be overwritten</span>
 numruns &lt;-<span class="st"> </span><span class="dv">9999</span>
 randguessruns &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, numruns)
-for (i in <span class="dv">1</span>:numruns) { 
-  for (j in <span class="dv">1</span>:<span class="kw">length</span>(estimEffTelecom1)) {
-    estimEffTelecom1[j] &lt;-<span class="st"> </span><span class="kw">sample</span>(actualEffTelecom1[-j],<span class="dv">1</span>)}<span class="co">#replacement with random guessingt    </span>
-  randguessruns[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">abs</span>(estimEffTelecom1-actualEffTelecom1))
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>numruns) { 
+  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(estimEffTelecom1)) {
+    estimEffTelecom1[j] &lt;-<span class="st"> </span><span class="kw">sample</span>(actualEffTelecom1[<span class="op">-</span>j],<span class="dv">1</span>)}<span class="co">#replacement with random guessingt    </span>
+  randguessruns[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">abs</span>(estimEffTelecom1<span class="op">-</span>actualEffTelecom1))
   } 
 marp0telecom1 &lt;-<span class="st"> </span><span class="kw">mean</span>(randguessruns)
-marp0telecom1</code></pre></div>
+marp0telecom1</code></pre>
 <pre><code>## [1] 271</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(randguessruns, <span class="dt">main=</span><span class="st">&quot;MARP0 distribution of the Telecom1 dataset&quot;</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">saTelecom1 &lt;-<span class="st"> </span>(<span class="dv">1</span>-<span class="st"> </span>mar_tel1/marp0telecom1)*<span class="dv">100</span>
-saTelecom1</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(randguessruns, <span class="dt">main=</span><span class="st">&quot;MARP0 distribution of the Telecom1 dataset&quot;</span>)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">saTelecom1 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="st"> </span>mar_tel1<span class="op">/</span>marp0telecom1)<span class="op">*</span><span class="dv">100</span>
+saTelecom1</code></pre>
 <pre><code>## [1] 54</code></pre>
 <div id="marp0-in-the-atkinson-dataset" class="section level3">
 <h3><span class="header-section-number">13.5.1</span> MARP0 in the Atkinson dataset</h3>
@@ -482,7 +516,7 @@ saTelecom1</code></pre></div>
 <li>For checking results you may use figure Atkinson in Shepperd&amp;MacDonnell</li>
 </ul>
 <pre><code>## [1] 281</code></pre>
-<p><img src="DASE_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="DASE_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 </div>
 </div>
 <div id="exact-marp0" class="section level2">
@@ -506,17 +540,18 @@ saTelecom1</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -526,6 +561,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/danrodgar/dasedown/edit/master/440_evaluationInSoftEng.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["DASE.pdf", "DASE.epub"],
 "toc": {
@@ -540,9 +579,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

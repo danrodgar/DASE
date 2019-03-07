@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Analysis in Software Engineering using R</title>
+  <title>Chapter 8 Preprocessing | Data Analysis in Software Engineering using R</title>
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 8 Preprocessing | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 8 Preprocessing | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2018-12-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="supervised-classification.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -159,7 +186,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+</ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
@@ -275,9 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
@@ -322,7 +350,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="missing-values" class="section level2">
 <h2><span class="header-section-number">8.2</span> Missing values</h2>
 <p><em>Missing values</em> will have a negative effect when analysing the data or learning models. The results can be biased when compared with the models induced from the complete data, the results can be harder to analyse, it may be needed to discard records with missing values depending on the algorithm and this can be an important problems with small datasets such as the effort estimation ones.</p>
-<p>Missing data is typically classified into: * MCAR (Missing Completely at Random) or MAR (Missing At Random) where there is no reason for those missing values and we can assume that the distribution could follow the attribute’s distribution. * MNAR (Missing Not At Random) where there is a pattern for those missing values and it may may be advisable to check the data gathering process to try to understand why such information is missing.</p>
+<p>Missing data is typically classified into:
+* MCAR (Missing Completely at Random) or MAR (Missing At Random) where there is no reason for those missing values and we can assume that the distribution could follow the attribute’s distribution.
+* MNAR (Missing Not At Random) where there is a pattern for those missing values and it may may be advisable to check the data gathering process to try to understand why such information is missing.</p>
 <p><em>Imputation</em> consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and therefore, imputation methods are needed. We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute. More elaborated approaches include:</p>
 <ul>
 <li>EM (Expectation-Maximisation)</li>
@@ -337,23 +367,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="noise" class="section level2">
 <h2><span class="header-section-number">8.3</span> Noise</h2>
-<p>Imperfections of the real-world data that influences negatively in the induced machine learning models. Approaches to deal with noisy data include: * Robust learners capable of handling noisy data (e.g., C4.5 through pruning strategies) * Data polishing methods which aim to correct noisy instances prior training * Noise filters which are used to identify and eliminate noisy instances from the training data.</p>
-<p>Types of noise data: * Class Noise (aka label noise). + There can be contradictory cases (all attributes have the same value except the class) + Misclassifications. The class attribute is not labeled with the true label (golden truth) * Attribute Noise. Values of attributes that are noise, missing or unknown.</p>
+<p>Imperfections of the real-world data that influences negatively in the induced machine learning models. Approaches to deal with noisy data include:
+* Robust learners capable of handling noisy data (e.g., C4.5 through pruning strategies)
+* Data polishing methods which aim to correct noisy instances prior training
+* Noise filters which are used to identify and eliminate noisy instances from the training data.</p>
+<p>Types of noise data:
+* Class Noise (aka label noise).
++ There can be contradictory cases (all attributes have the same value except the class)
++ Misclassifications. The class attribute is not labeled with the true label (golden truth)
+* Attribute Noise. Values of attributes that are noise, missing or unknown.</p>
 </div>
 <div id="outliers" class="section level2">
 <h2><span class="header-section-number">8.4</span> Outliers</h2>
 <p>There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DMwR)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DMwR)
 <span class="kw">library</span>(foreign)
 
-kc1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/KC1.arff&quot;</span>)</code></pre></div>
+kc1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/KC1.arff&quot;</span>)</code></pre>
 <p>The LOF algorithm (<code>lofactor</code>), given a data set it produces a vector of local outlier factors for each case.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kc1num &lt;-<span class="st"> </span>kc1[,<span class="dv">1</span>:<span class="dv">21</span>]
+<pre class="sourceCode r"><code class="sourceCode r">kc1num &lt;-<span class="st"> </span>kc1[,<span class="dv">1</span><span class="op">:</span><span class="dv">21</span>]
 outlier.scores &lt;-<span class="st"> </span><span class="kw">lofactor</span>(kc1num, <span class="dt">k=</span><span class="dv">5</span>)
-<span class="kw">plot</span>(<span class="kw">density</span>(<span class="kw">na.omit</span>(outlier.scores)))</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outliers &lt;-<span class="st"> </span><span class="kw">order</span>(outlier.scores, <span class="dt">decreasing=</span>T)[<span class="dv">1</span>:<span class="dv">5</span>]
-<span class="kw">print</span>(outliers)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw">density</span>(<span class="kw">na.omit</span>(outlier.scores)))</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">outliers &lt;-<span class="st"> </span><span class="kw">order</span>(outlier.scores, <span class="dt">decreasing=</span>T)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+<span class="kw">print</span>(outliers)</code></pre>
 <pre><code>## [1]  1  6 14 31 33</code></pre>
 <p>Another simple method of Hiridoglou and Berthelot for positive observations.</p>
 </div>
@@ -365,26 +402,110 @@ outlier.scores &lt;-<span class="st"> </span><span class="kw">lofactor</span>(kc
 <li><p>Irrelevant and redundant attributes can generate less accurate and more complex models. Furthermore, data mining algorithms can be executed faster.</p></li>
 <li><p>It avoids the collection of data for those irrelevant and redundant attributes in the future.</p></li>
 </ul>
-<p>The problem of FS received a thorough treatment in pattern recognition and machine learning. Most of the FS algorithms tackle the task as a <em>search</em> problem, where each state in the search specifies a distinct subset of the possible attributes <span class="citation">(Blum and Langley <a href="#ref-BL97">1997</a>)</span>. The search procedure is combined with a criterion to evaluate the merit of each candidate subset of attributes. There are a multiple possible combinations between each procedure search and each attribute measure <span class="citation">(Liu and Yu <a href="#ref-LY05">2005</a>)</span>.</p>
+<p>The problem of FS received a thorough treatment in pattern recognition and machine learning. Most of the FS algorithms tackle the task as a <em>search</em> problem, where each
+state in the search specifies a distinct subset of the possible attributes <span class="citation">(Blum and Langley <a href="#ref-BL97">1997</a>)</span>. The search procedure is combined with a criterion to evaluate the merit of each candidate subset of attributes. There are a multiple possible combinations between each procedure search and each attribute measure <span class="citation">(Liu and Yu <a href="#ref-LY05">2005</a>)</span>.</p>
 <p>There are two major approaches in FS from the method’s output point of view:</p>
 <ul>
 <li><p><em>Feature subset selection</em> (FSS)</p></li>
-<li><p><em>Feature ranking</em> in which attributes are ranked as a list of features which are ordered according to evaluation measures (a subset of features is often selected from the top of a ranking list).</p></li>
+<li><p><em>Feature ranking</em> in which attributes are ranked as a list of features which are ordered according to evaluation measures (a subset of features is often selected from the top of the ranking list).</p></li>
 </ul>
 <p>FFS algorithms designed with different evaluation criteria broadly fall into two categories:</p>
 <ul>
 <li><p>The <em>filter</em> model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.</p></li>
-<li><p>The <em>wrapper</em> model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model <span class="citation">(Kohavi and John <a href="#ref-KJ97">1997</a>,<span class="citation">Langley (<a href="#ref-Lan94">1994</a>)</span>)</span>.</p></li>
+<li><p>The <em>wrapper</em> model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model <span class="citation">(Kohavi and John <a href="#ref-KJ97">1997</a>,<span class="citation">@Lan94</span>)</span>.</p></li>
 </ul>
 <p>Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure <span class="citation">(Liu and Motoda <a href="#ref-LM98">1998</a>)</span> which captures the goodness of each subset. An optimal (or near optimal) subset is selected when the search stops.</p>
-<p>Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure <span class="citation">(Dash, Liu, and Motoda <a href="#ref-DLM00">2000</a>)</span>, the correlation measure <span class="citation">(M. Hall <a href="#ref-Hal99">1999</a>)</span> and the estimated accuracy of a learning algorithm <span class="citation">(Kohavi and John <a href="#ref-KJ97">1997</a>)</span>.</p>
+<p>Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure <span class="citation">(Dash, Liu, and Motoda <a href="#ref-DLM00">2000</a>)</span>, the correlation measure <span class="citation">(Hall <a href="#ref-Hal99">1999</a>)</span> and the estimated accuracy of a learning algorithm <span class="citation">(Kohavi and John <a href="#ref-KJ97">1997</a>)</span>.</p>
 <ul>
-<li><p><em>Consistency</em> measure attempts to find a minimum number of features that separate classes as consistently as the full set of features can. An inconsistency is defined as to instances having the same feature values but different class labels.</p></li>
+<li><p><em>Consistency</em> measure attempts to find a minimum number of features that separate classes as consistently as the full set of features can. An inconsistency is defined as to instances having the same
+feature values but different class labels.</p></li>
 <li><p><em>Correlation</em> measure evaluates the goodness of feature subsets based on the hypothesis that good feature subsets contain features highly correlated to the class, yet uncorrelated to each other.</p></li>
-<li><p><em>Wrapper-based</em> attribute selection uses the target learning algorithm to estimate the worth of attribute subsets. The feature subset selection algorithm conducts a search for a good subset using the induction algorithm itself as part of the evaluation function.</p></li>
+<li><p><em>Wrapper-based</em> attribute selection uses the target learning algorithm to estimate the worth of attribute subsets. The feature subset selection algorithm conducts a search for a good subset using
+the induction algorithm itself as part of the evaluation function.</p></li>
 </ul>
 <p>Langley <span class="citation">(<a href="#ref-Lan94">1994</a>)</span> notes that feature selection algorithms that search through the space of feature subsets must address four main issues: (i) the starting point of the search, (ii) the organization of the search, (iii) the evaluation of features subsets and (iv) the criterion used to terminate the search. Different algorithms address theses issues differently.</p>
 <p>It is impractical to look at all possible feature subsets, even with a small number of attributes. Feature selection algorithms usually proceed greedily and are be classified into those that add features to an initially empty set (<em>forward selection</em>) and those that remove features from an initially complete set (<em>backwards elimination</em>). Hybrids both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large data sets. A wide range of search strategies can be used: best-first, branch-and-bound, simulated annealing, genetic algorithms (see Kohavi and John <span class="citation">(<a href="#ref-KJ97">1997</a>)</span> for a review).</p>
+<div id="fselector-package-in-r" class="section level3">
+<h3><span class="header-section-number">8.5.1</span> FSelector package in R</h3>
+<p>The FSelector package in R implements many algorithms available in Weka</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(FSelector)
+<span class="kw">library</span>(foreign)
+
+cm1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/CM1.arff&quot;</span>)
+
+cm1RFWeigths &lt;-<span class="st"> </span><span class="kw">random.forest.importance</span>(Defective <span class="op">~</span><span class="st"> </span>., cm1)
+<span class="kw">cutoff.biggest.diff</span>(cm1RFWeigths)</code></pre>
+<pre><code>## [1] &quot;LOC_COMMENTS&quot;         &quot;NUM_UNIQUE_OPERATORS&quot;</code></pre>
+<p>Using the Information Gain meaure as ranking:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cm1GRWeights &lt;-<span class="st"> </span><span class="kw">gain.ratio</span>(Defective <span class="op">~</span><span class="st"> </span>., cm1)
+cm1GRWeights</code></pre>
+<pre><code>##                                 attr_importance
+## LOC_BLANK                                0.0000
+## BRANCH_COUNT                             0.0000
+## CALL_PAIRS                               0.0000
+## LOC_CODE_AND_COMMENT                     0.0000
+## LOC_COMMENTS                             0.0754
+## CONDITION_COUNT                          0.0000
+## CYCLOMATIC_COMPLEXITY                    0.0000
+## CYCLOMATIC_DENSITY                       0.0000
+## DECISION_COUNT                           0.0000
+## DECISION_DENSITY                         0.0000
+## DESIGN_COMPLEXITY                        0.0000
+## DESIGN_DENSITY                           0.0000
+## EDGE_COUNT                               0.0000
+## ESSENTIAL_COMPLEXITY                     0.0000
+## ESSENTIAL_DENSITY                        0.0000
+## LOC_EXECUTABLE                           0.0888
+## PARAMETER_COUNT                          0.0000
+## HALSTEAD_CONTENT                         0.0701
+## HALSTEAD_DIFFICULTY                      0.0000
+## HALSTEAD_EFFORT                          0.0375
+## HALSTEAD_ERROR_EST                       0.0448
+## HALSTEAD_LENGTH                          0.0425
+## HALSTEAD_LEVEL                           0.0000
+## HALSTEAD_PROG_TIME                       0.0375
+## HALSTEAD_VOLUME                          0.0471
+## MAINTENANCE_SEVERITY                     0.0000
+## MODIFIED_CONDITION_COUNT                 0.0000
+## MULTIPLE_CONDITION_COUNT                 0.0000
+## NODE_COUNT                               0.0000
+## NORMALIZED_CYLOMATIC_COMPLEXITY          0.0000
+## NUM_OPERANDS                             0.0000
+## NUM_OPERATORS                            0.0471
+## NUM_UNIQUE_OPERANDS                      0.0589
+## NUM_UNIQUE_OPERATORS                     0.0616
+## NUMBER_OF_LINES                          0.0573
+## PERCENT_COMMENTS                         0.0663
+## LOC_TOTAL                                0.0763</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cutoff.biggest.diff</span>(cm1GRWeights)</code></pre>
+<pre><code>##  [1] &quot;LOC_EXECUTABLE&quot;       &quot;LOC_TOTAL&quot;            &quot;LOC_COMMENTS&quot;        
+##  [4] &quot;HALSTEAD_CONTENT&quot;     &quot;PERCENT_COMMENTS&quot;     &quot;NUM_UNIQUE_OPERATORS&quot;
+##  [7] &quot;NUM_UNIQUE_OPERANDS&quot;  &quot;NUMBER_OF_LINES&quot;      &quot;HALSTEAD_VOLUME&quot;     
+## [10] &quot;NUM_OPERATORS&quot;        &quot;HALSTEAD_ERROR_EST&quot;   &quot;HALSTEAD_LENGTH&quot;     
+## [13] &quot;HALSTEAD_EFFORT&quot;      &quot;HALSTEAD_PROG_TIME&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># After assigning weights, we can select the statistaclly significant ones</span>
+cm1X2Weights &lt;-<span class="st"> </span><span class="kw">chi.squared</span>(Defective <span class="op">~</span><span class="st"> </span>., cm1)
+<span class="kw">cutoff.biggest.diff</span>(cm1X2Weights)</code></pre>
+<pre><code>##  [1] &quot;LOC_EXECUTABLE&quot;       &quot;LOC_COMMENTS&quot;         &quot;LOC_TOTAL&quot;           
+##  [4] &quot;NUM_UNIQUE_OPERATORS&quot; &quot;NUM_UNIQUE_OPERANDS&quot;  &quot;NUMBER_OF_LINES&quot;     
+##  [7] &quot;HALSTEAD_VOLUME&quot;      &quot;NUM_OPERATORS&quot;        &quot;HALSTEAD_ERROR_EST&quot;  
+## [10] &quot;HALSTEAD_CONTENT&quot;     &quot;HALSTEAD_EFFORT&quot;      &quot;HALSTEAD_PROG_TIME&quot;  
+## [13] &quot;HALSTEAD_LENGTH&quot;      &quot;PERCENT_COMMENTS&quot;</code></pre>
+<p>Using CFS attribute selection</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(FSelector)
+<span class="kw">library</span>(foreign)
+
+cm1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/CM1.arff&quot;</span>)
+
+result &lt;-<span class="st"> </span><span class="kw">cfs</span>(Defective <span class="op">~</span><span class="st"> </span>., cm1)
+f &lt;-<span class="st"> </span><span class="kw">as.simple.formula</span>(result, <span class="st">&quot;Defective&quot;</span>)
+f</code></pre>
+<pre><code>## Defective ~ LOC_COMMENTS + LOC_EXECUTABLE + HALSTEAD_CONTENT + 
+##     NUM_UNIQUE_OPERATORS + PERCENT_COMMENTS
+## &lt;environment: 0x40a58e8&gt;</code></pre>
+<p>Other packages for Feature selection in R include <code>FSelectorRccp</code> which re-implments the FSlector without WEKA dependencies.</p>
+<p>Another popular package is <code>Boruta</code>, which is based on selection based on Random Forest.</p>
+</div>
 </div>
 <div id="instance-selection" class="section level2">
 <h2><span class="header-section-number">8.6</span> Instance selection</h2>
@@ -392,7 +513,7 @@ outlier.scores &lt;-<span class="st"> </span><span class="kw">lofactor</span>(kc
 <p>There are two types of processes:</p>
 <ul>
 <li><p><em>Prototype Selection</em> (PS) <span class="citation">(Garcia et al. <a href="#ref-GDCH12">2012</a>)</span> when the subset is used with a distance based method (kNN)</p></li>
-<li><p><em>Training Set Selection</em> (TSS) <span class="citation">(J. R. Cano, Herrera, and Lozano <a href="#ref-CanoHL07">2007</a>)</span> in which an actual model is learned.</p></li>
+<li><p><em>Training Set Selection</em> (TSS) <span class="citation">(Cano, Herrera, and Lozano <a href="#ref-CanoHL07">2007</a>)</span> in which an actual model is learned.</p></li>
 </ul>
 <p>It is also a search problem as with <em>feature selection</em>. Garcia et al. <span class="citation">(<a href="#ref-GDCH12">2012</a>)</span> provide a comprehensive overview of the topic.</p>
 </div>
@@ -404,13 +525,13 @@ outlier.scores &lt;-<span class="st"> </span><span class="kw">lofactor</span>(kc
 <h2><span class="header-section-number">8.8</span> Correlation Coefficient and Covariance for Numeric Data</h2>
 <p>Two random variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are called independent if the probability distribution of one variable is not affected by the presence of another.</p>
 <p><span class="math inline">\(\tilde{\chi}^2=\frac{1}{d}\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}\)</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(kc1$LOC_BLANK,kc1$BRANCH_TOTAL)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(kc1<span class="op">$</span>LOC_BLANK,kc1<span class="op">$</span>BRANCH_TOTAL)</code></pre>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
 ## data:  kc1$LOC_BLANK
 ## X-squared = 20000, df = 2000, p-value &lt;2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(kc1$DESIGN_COMPLEXITY,kc1$CYCLOMATIC_COMPLEXITY)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(kc1<span class="op">$</span>DESIGN_COMPLEXITY,kc1<span class="op">$</span>CYCLOMATIC_COMPLEXITY)</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -422,8 +543,8 @@ outlier.scores &lt;-<span class="st"> </span><span class="kw">lofactor</span>(kc
 <div id="min-max-normalization" class="section level3">
 <h3><span class="header-section-number">8.9.1</span> Min-Max Normalization</h3>
 <p><span class="math inline">\(z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)}\)</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
-preObj &lt;-<span class="st"> </span><span class="kw">preProcess</span>(kc1[, -<span class="dv">22</span>], <span class="dt">method=</span><span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
+preObj &lt;-<span class="st"> </span><span class="kw">preProcess</span>(kc1[, <span class="dv">-22</span>], <span class="dt">method=</span><span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>))</code></pre>
 </div>
 <div id="z-score-normalization" class="section level3">
 <h3><span class="header-section-number">8.9.2</span> Z-score normalization</h3>
@@ -458,11 +579,12 @@ preObj &lt;-<span class="st"> </span><span class="kw">preProcess</span>(kc1[, -<
 <li>arrange: order the dataset</li>
 <li>joins: as in sql left join</li>
 </ul>
-<p>Tutorial: <a href="https://github.com/justmarkham/dplyr-tutorial" class="uri">https://github.com/justmarkham/dplyr-tutorial</a></p>
+<p>Tutorial:
+<a href="https://github.com/justmarkham/dplyr-tutorial">https://github.com/justmarkham/dplyr-tutorial</a></p>
 <p>Examples</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre>
 <p>Describe the dataframe:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(kc1)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(kc1)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    2096 obs. of  22 variables:
 ##  $ LOC_BLANK            : num  0 0 0 0 2 0 0 0 0 2 ...
 ##  $ BRANCH_COUNT         : num  1 1 1 1 1 1 1 1 1 1 ...
@@ -487,218 +609,215 @@ preObj &lt;-<span class="st"> </span><span class="kw">preProcess</span>(kc1[, -<
 ##  $ LOC_TOTAL            : num  5 3 3 3 12 5 3 3 3 13 ...
 ##  $ Defective            : Factor w/ 2 levels &quot;N&quot;,&quot;Y&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p><code>tbl_df</code> creates a “local data frame” as a wrapper for better printing</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kc1_tbl &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(kc1)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">kc1_tbl &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(kc1)</code></pre>
 <p>Filter:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Filter rows: use comma or &amp; to represent AND condition</span>
-<span class="kw">filter</span>(kc1_tbl, Defective ==<span class="st"> &quot;Y&quot;</span> &amp;<span class="st"> </span>LOC_BLANK !=<span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Filter rows: use comma or &amp; to represent AND condition</span>
+<span class="kw">filter</span>(kc1_tbl, Defective <span class="op">==</span><span class="st"> &quot;Y&quot;</span> <span class="op">&amp;</span><span class="st"> </span>LOC_BLANK <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
 <pre><code>## # A tibble: 251 x 22
-##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
-##        &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
-##  1         6           21                    0           10
-##  2         5           15                    0            2
-##  3         2            5                    0            0
-##  4         4            5                    0            2
-##  5         2           11                    0            2
-##  6         2           23                    0            3
-##  7         1           11                    0            2
-##  8         1           13                    0            2
-##  9         2           17                    0            2
-## 10         3            1                    0            0
-## # ... with 241 more rows, and 18 more variables:
-## #   CYCLOMATIC_COMPLEXITY &lt;dbl&gt;, DESIGN_COMPLEXITY &lt;dbl&gt;,
+##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_CO… LOC_COMMENTS CYCLOMATIC_COMP…
+##        &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;
+##  1         6           21                0           10               11
+##  2         5           15                0            2                8
+##  3         2            5                0            0                3
+##  4         4            5                0            2                3
+##  5         2           11                0            2                6
+##  6         2           23                0            3               12
+##  7         1           11                0            2                6
+##  8         1           13                0            2                7
+##  9         2           17                0            2                9
+## 10         3            1                0            0                1
+## # ... with 241 more rows, and 17 more variables: DESIGN_COMPLEXITY &lt;dbl&gt;,
 ## #   ESSENTIAL_COMPLEXITY &lt;dbl&gt;, LOC_EXECUTABLE &lt;dbl&gt;,
 ## #   HALSTEAD_CONTENT &lt;dbl&gt;, HALSTEAD_DIFFICULTY &lt;dbl&gt;,
 ## #   HALSTEAD_EFFORT &lt;dbl&gt;, HALSTEAD_ERROR_EST &lt;dbl&gt;,
 ## #   HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;, HALSTEAD_PROG_TIME &lt;dbl&gt;,
 ## #   HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;, NUM_OPERATORS &lt;dbl&gt;,
 ## #   NUM_UNIQUE_OPERANDS &lt;dbl&gt;, NUM_UNIQUE_OPERATORS &lt;dbl&gt;,
-## #   LOC_TOTAL &lt;dbl&gt;, Defective &lt;fctr&gt;</code></pre>
+## #   LOC_TOTAL &lt;dbl&gt;, Defective &lt;fct&gt;</code></pre>
 <p>Another operator is <code>%in%</code>.</p>
 <p>Select:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(kc1_tbl, <span class="kw">contains</span>(<span class="st">&quot;LOC&quot;</span>), Defective)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(kc1_tbl, <span class="kw">contains</span>(<span class="st">&quot;LOC&quot;</span>), Defective)</code></pre>
 <pre><code>## # A tibble: 2,096 x 6
-##    LOC_BLANK LOC_CODE_AND_COMMENT LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
-##        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
-##  1         0                    0            0              3         5
-##  2         0                    0            0              1         3
-##  3         0                    0            0              1         3
-##  4         0                    0            0              1         3
-##  5         2                    0            0              8        12
-##  6         0                    0            0              3         5
-##  7         0                    0            0              1         3
-##  8         0                    0            0              1         3
-##  9         0                    0            0              1         3
-## 10         2                    0            0              9        13
-## # ... with 2,086 more rows, and 1 more variables: Defective &lt;fctr&gt;</code></pre>
+##    LOC_BLANK LOC_CODE_AND_CO… LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
+##        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+##  1         0                0            0              3         5
+##  2         0                0            0              1         3
+##  3         0                0            0              1         3
+##  4         0                0            0              1         3
+##  5         2                0            0              8        12
+##  6         0                0            0              3         5
+##  7         0                0            0              1         3
+##  8         0                0            0              1         3
+##  9         0                0            0              1         3
+## 10         2                0            0              9        13
+## # ... with 2,086 more rows, and 1 more variable: Defective &lt;fct&gt;</code></pre>
 <p>Now, <code>kc1_tbl</code> contains(“LOC”), Defective</p>
 <p>Filter and Select together:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nesting method</span>
-<span class="kw">filter</span>(<span class="kw">select</span>(kc1_tbl, <span class="kw">contains</span>(<span class="st">&quot;LOC&quot;</span>), Defective), Defective !=<span class="dv">0</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nesting method</span>
+<span class="kw">filter</span>(<span class="kw">select</span>(kc1_tbl, <span class="kw">contains</span>(<span class="st">&quot;LOC&quot;</span>), Defective), Defective <span class="op">!=</span><span class="dv">0</span>)</code></pre>
 <pre><code>## # A tibble: 2,096 x 6
-##    LOC_BLANK LOC_CODE_AND_COMMENT LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
-##        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
-##  1         0                    0            0              3         5
-##  2         0                    0            0              1         3
-##  3         0                    0            0              1         3
-##  4         0                    0            0              1         3
-##  5         2                    0            0              8        12
-##  6         0                    0            0              3         5
-##  7         0                    0            0              1         3
-##  8         0                    0            0              1         3
-##  9         0                    0            0              1         3
-## 10         2                    0            0              9        13
-## # ... with 2,086 more rows, and 1 more variables: Defective &lt;fctr&gt;</code></pre>
+##    LOC_BLANK LOC_CODE_AND_CO… LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
+##        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+##  1         0                0            0              3         5
+##  2         0                0            0              1         3
+##  3         0                0            0              1         3
+##  4         0                0            0              1         3
+##  5         2                0            0              8        12
+##  6         0                0            0              3         5
+##  7         0                0            0              1         3
+##  8         0                0            0              1         3
+##  9         0                0            0              1         3
+## 10         2                0            0              9        13
+## # ... with 2,086 more rows, and 1 more variable: Defective &lt;fct&gt;</code></pre>
 <p>It is easier usign the chaining method:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># chaining method</span>
-kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&quot;LOC&quot;</span>), Defective) %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(Defective !=<span class="dv">0</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># chaining method</span>
+kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&quot;LOC&quot;</span>), Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(Defective <span class="op">!=</span><span class="dv">0</span>)</code></pre>
 <pre><code>## # A tibble: 2,096 x 6
-##    LOC_BLANK LOC_CODE_AND_COMMENT LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
-##        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
-##  1         0                    0            0              3         5
-##  2         0                    0            0              1         3
-##  3         0                    0            0              1         3
-##  4         0                    0            0              1         3
-##  5         2                    0            0              8        12
-##  6         0                    0            0              3         5
-##  7         0                    0            0              1         3
-##  8         0                    0            0              1         3
-##  9         0                    0            0              1         3
-## 10         2                    0            0              9        13
-## # ... with 2,086 more rows, and 1 more variables: Defective &lt;fctr&gt;</code></pre>
+##    LOC_BLANK LOC_CODE_AND_CO… LOC_COMMENTS LOC_EXECUTABLE LOC_TOTAL
+##        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+##  1         0                0            0              3         5
+##  2         0                0            0              1         3
+##  3         0                0            0              1         3
+##  4         0                0            0              1         3
+##  5         2                0            0              8        12
+##  6         0                0            0              3         5
+##  7         0                0            0              1         3
+##  8         0                0            0              1         3
+##  9         0                0            0              1         3
+## 10         2                0            0              9        13
+## # ... with 2,086 more rows, and 1 more variable: Defective &lt;fct&gt;</code></pre>
 <p>Arrange ascending</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span>
-kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">select</span>(LOC_TOTAL, Defective) %&gt;%
-<span class="st">    </span><span class="kw">arrange</span>(LOC_TOTAL)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span>
+kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(LOC_TOTAL, Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">arrange</span>(LOC_TOTAL)</code></pre>
 <pre><code>## # A tibble: 2,096 x 2
 ##    LOC_TOTAL Defective
-##        &lt;dbl&gt;    &lt;fctr&gt;
-##  1         1         N
-##  2         1         N
-##  3         1         N
-##  4         1         N
-##  5         1         N
-##  6         1         N
-##  7         1         N
-##  8         1         N
-##  9         1         N
-## 10         1         N
+##        &lt;dbl&gt; &lt;fct&gt;    
+##  1         1 N        
+##  2         1 N        
+##  3         1 N        
+##  4         1 N        
+##  5         1 N        
+##  6         1 N        
+##  7         1 N        
+##  8         1 N        
+##  9         1 N        
+## 10         1 N        
 ## # ... with 2,086 more rows</code></pre>
 <p>Arrange descending:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">select</span>(LOC_TOTAL, Defective) %&gt;%
-<span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(LOC_TOTAL))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(LOC_TOTAL, Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(LOC_TOTAL))</code></pre>
 <pre><code>## # A tibble: 2,096 x 2
 ##    LOC_TOTAL Defective
-##        &lt;dbl&gt;    &lt;fctr&gt;
-##  1       288         Y
-##  2       286         Y
-##  3       283         N
-##  4       220         Y
-##  5       217         Y
-##  6       210         N
-##  7       205         Y
-##  8       184         Y
-##  9       179         Y
-## 10       176         Y
+##        &lt;dbl&gt; &lt;fct&gt;    
+##  1       288 Y        
+##  2       286 Y        
+##  3       283 N        
+##  4       220 Y        
+##  5       217 Y        
+##  6       210 N        
+##  7       205 Y        
+##  8       184 Y        
+##  9       179 Y        
+## 10       176 Y        
 ## # ... with 2,086 more rows</code></pre>
 <p>Mutate:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">filter</span>(Defective ==<span class="st"> &quot;Y&quot;</span>) %&gt;%
-<span class="st">    </span><span class="kw">select</span>(NUM_OPERANDS, NUM_OPERATORS, Defective) %&gt;%
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">HalsteadLength =</span> NUM_OPERANDS +<span class="st"> </span>NUM_OPERATORS)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(Defective <span class="op">==</span><span class="st"> &quot;Y&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(NUM_OPERANDS, NUM_OPERATORS, Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">HalsteadLength =</span> NUM_OPERANDS <span class="op">+</span><span class="st"> </span>NUM_OPERATORS)</code></pre>
 <pre><code>## # A tibble: 325 x 4
 ##    NUM_OPERANDS NUM_OPERATORS Defective HalsteadLength
-##           &lt;dbl&gt;         &lt;dbl&gt;    &lt;fctr&gt;          &lt;dbl&gt;
-##  1           64           107         Y            171
-##  2           52            89         Y            141
-##  3           17            41         Y             58
-##  4           41            74         Y            115
-##  5           54            95         Y            149
-##  6           75           156         Y            231
-##  7           54            95         Y            149
-##  8           56            99         Y            155
-##  9           69           124         Y            193
-## 10           44            60         Y            104
+##           &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;              &lt;dbl&gt;
+##  1           64           107 Y                    171
+##  2           52            89 Y                    141
+##  3           17            41 Y                     58
+##  4           41            74 Y                    115
+##  5           54            95 Y                    149
+##  6           75           156 Y                    231
+##  7           54            95 Y                    149
+##  8           56            99 Y                    155
+##  9           69           124 Y                    193
+## 10           44            60 Y                    104
 ## # ... with 315 more rows</code></pre>
 <p><code>summarise</code>: Reduce variables to values</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a table grouped by Defective, and then summarise each group by taking the mean of loc</span>
-kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(Defective) %&gt;%
-<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">avg_loc =</span> <span class="kw">mean</span>(LOC_TOTAL, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a table grouped by Defective, and then summarise each group by taking the mean of loc</span>
+kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">avg_loc =</span> <span class="kw">mean</span>(LOC_TOTAL, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   Defective avg_loc
-##      &lt;fctr&gt;   &lt;dbl&gt;
-## 1         N    15.9
-## 2         Y    44.7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a table grouped by Defective, and then summarise each group by taking the mean of loc</span>
-kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(Defective) %&gt;%
-<span class="st">    </span><span class="kw">summarise_each</span>(<span class="kw">funs</span>(mean, min, max), BRANCH_COUNT, LOC_TOTAL)</code></pre></div>
+##   &lt;fct&gt;       &lt;dbl&gt;
+## 1 N            15.9
+## 2 Y            44.7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a table grouped by Defective, and then summarise each group by taking the mean of loc</span>
+kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise_each</span>(<span class="kw">funs</span>(mean, min, max), BRANCH_COUNT, LOC_TOTAL)</code></pre>
 <pre><code>## `summarise_each()` is deprecated.
 ## Use `summarise_all()`, `summarise_at()` or `summarise_if()` instead.
 ## To map `funs` over a selection of variables, use `summarise_at()`</code></pre>
 <pre><code>## # A tibble: 2 x 7
-##   Defective BRANCH_COUNT_mean LOC_TOTAL_mean BRANCH_COUNT_min
-##      &lt;fctr&gt;             &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;
-## 1         N              3.68           15.9                1
-## 2         Y             10.12           44.7                1
-## # ... with 3 more variables: LOC_TOTAL_min &lt;dbl&gt;, BRANCH_COUNT_max &lt;dbl&gt;,
-## #   LOC_TOTAL_max &lt;dbl&gt;</code></pre>
+##   Defective BRANCH_COUNT_me… LOC_TOTAL_mean BRANCH_COUNT_min LOC_TOTAL_min
+##   &lt;fct&gt;                &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+## 1 N                     3.68           15.9                1             1
+## 2 Y                    10.1            44.7                1             2
+## # ... with 2 more variables: BRANCH_COUNT_max &lt;dbl&gt;, LOC_TOTAL_max &lt;dbl&gt;</code></pre>
 <p>It seems than the number of <em>Defective</em> modules is larger than the <em>Non-Defective</em> ones. We can count them with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># n() or tally</span>
-kc1_tbl %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(Defective) %&gt;%
-<span class="st">    </span><span class="kw">tally</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># n() or tally</span>
+kc1_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(Defective) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">tally</span>()</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   Defective     n
-##      &lt;fctr&gt; &lt;int&gt;
-## 1         N  1771
-## 2         Y   325</code></pre>
+##   &lt;fct&gt;     &lt;int&gt;
+## 1 N          1771
+## 2 Y           325</code></pre>
 <p>It seems that it’s an imbalanced dataset…</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fixed number of rows, without replacement</span>
-kc1_tbl %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fixed number of rows, without replacement</span>
+kc1_tbl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">2</span>)</code></pre>
 <pre><code>## # A tibble: 2 x 22
-##   LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
-##       &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
-## 1         0            1                    0            0
-## 2         4            5                    0            2
-## # ... with 18 more variables: CYCLOMATIC_COMPLEXITY &lt;dbl&gt;,
-## #   DESIGN_COMPLEXITY &lt;dbl&gt;, ESSENTIAL_COMPLEXITY &lt;dbl&gt;,
-## #   LOC_EXECUTABLE &lt;dbl&gt;, HALSTEAD_CONTENT &lt;dbl&gt;,
-## #   HALSTEAD_DIFFICULTY &lt;dbl&gt;, HALSTEAD_EFFORT &lt;dbl&gt;,
-## #   HALSTEAD_ERROR_EST &lt;dbl&gt;, HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;,
-## #   HALSTEAD_PROG_TIME &lt;dbl&gt;, HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;,
-## #   NUM_OPERATORS &lt;dbl&gt;, NUM_UNIQUE_OPERANDS &lt;dbl&gt;,
-## #   NUM_UNIQUE_OPERATORS &lt;dbl&gt;, LOC_TOTAL &lt;dbl&gt;, Defective &lt;fctr&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fraction of rows, with replacement</span>
-kc1_tbl %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.05</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## # A tibble: 105 x 22
-##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_COMMENT LOC_COMMENTS
-##        &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;        &lt;dbl&gt;
-##  1         1            3                    0            0
-##  2         0            1                    0            0
-##  3         0            1                    0            0
-##  4         0            6                    0            0
-##  5         0            1                    0            0
-##  6         0            1                    0            0
-##  7         5           17                    0            7
-##  8        23           25                    0           22
-##  9         5           13                    1            4
-## 10         0            1                    0            0
-## # ... with 95 more rows, and 18 more variables:
-## #   CYCLOMATIC_COMPLEXITY &lt;dbl&gt;, DESIGN_COMPLEXITY &lt;dbl&gt;,
+##   LOC_BLANK BRANCH_COUNT LOC_CODE_AND_CO… LOC_COMMENTS CYCLOMATIC_COMP…
+##       &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;
+## 1         0            1                0            0                1
+## 2         2            7                0            1                4
+## # ... with 17 more variables: DESIGN_COMPLEXITY &lt;dbl&gt;,
 ## #   ESSENTIAL_COMPLEXITY &lt;dbl&gt;, LOC_EXECUTABLE &lt;dbl&gt;,
 ## #   HALSTEAD_CONTENT &lt;dbl&gt;, HALSTEAD_DIFFICULTY &lt;dbl&gt;,
 ## #   HALSTEAD_EFFORT &lt;dbl&gt;, HALSTEAD_ERROR_EST &lt;dbl&gt;,
 ## #   HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;, HALSTEAD_PROG_TIME &lt;dbl&gt;,
 ## #   HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;, NUM_OPERATORS &lt;dbl&gt;,
 ## #   NUM_UNIQUE_OPERANDS &lt;dbl&gt;, NUM_UNIQUE_OPERATORS &lt;dbl&gt;,
-## #   LOC_TOTAL &lt;dbl&gt;, Defective &lt;fctr&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Better formatting adapted to the screen width</span>
-<span class="kw">glimpse</span>(kc1_tbl)</code></pre></div>
+## #   LOC_TOTAL &lt;dbl&gt;, Defective &lt;fct&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fraction of rows, with replacement</span>
+kc1_tbl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.05</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre>
+<pre><code>## # A tibble: 105 x 22
+##    LOC_BLANK BRANCH_COUNT LOC_CODE_AND_CO… LOC_COMMENTS CYCLOMATIC_COMP…
+##        &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;
+##  1         1            1                0            0                1
+##  2         0            1                0            0                1
+##  3         5            7                0            0                4
+##  4         0            1                0            0                1
+##  5         0            1                0            0                1
+##  6         2            3                0            0                2
+##  7         1            3                1            1                2
+##  8         1            3                0            0                2
+##  9         0            3                0            0                2
+## 10         2            5                0            0                3
+## # ... with 95 more rows, and 17 more variables: DESIGN_COMPLEXITY &lt;dbl&gt;,
+## #   ESSENTIAL_COMPLEXITY &lt;dbl&gt;, LOC_EXECUTABLE &lt;dbl&gt;,
+## #   HALSTEAD_CONTENT &lt;dbl&gt;, HALSTEAD_DIFFICULTY &lt;dbl&gt;,
+## #   HALSTEAD_EFFORT &lt;dbl&gt;, HALSTEAD_ERROR_EST &lt;dbl&gt;,
+## #   HALSTEAD_LENGTH &lt;dbl&gt;, HALSTEAD_LEVEL &lt;dbl&gt;, HALSTEAD_PROG_TIME &lt;dbl&gt;,
+## #   HALSTEAD_VOLUME &lt;dbl&gt;, NUM_OPERANDS &lt;dbl&gt;, NUM_OPERATORS &lt;dbl&gt;,
+## #   NUM_UNIQUE_OPERANDS &lt;dbl&gt;, NUM_UNIQUE_OPERATORS &lt;dbl&gt;,
+## #   LOC_TOTAL &lt;dbl&gt;, Defective &lt;fct&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Better formatting adapted to the screen width</span>
+<span class="kw">glimpse</span>(kc1_tbl)</code></pre>
 <pre><code>## Observations: 2,096
 ## Variables: 22
 ## $ LOC_BLANK             &lt;dbl&gt; 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 2, 1...
@@ -722,16 +841,17 @@ kc1_tbl %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span
 ## $ NUM_UNIQUE_OPERANDS   &lt;dbl&gt; 3, 0, 0, 0, 5, 3, 0, 0, 0, 8, 5, 0, 5, 0...
 ## $ NUM_UNIQUE_OPERATORS  &lt;dbl&gt; 4, 1, 1, 1, 5, 4, 1, 1, 1, 6, 5, 1, 5, 1...
 ## $ LOC_TOTAL             &lt;dbl&gt; 5, 3, 3, 3, 12, 5, 3, 3, 3, 13, 12, 3, 1...
-## $ Defective             &lt;fctr&gt; N, N, N, N, N, N, N, N, N, N, N, N, N, ...</code></pre>
+## $ Defective             &lt;fct&gt; N, N, N, N, N, N, N, N, N, N, N, N, N, N...</code></pre>
 </div>
 </div>
 <div id="other-libraries-and-tricks" class="section level2">
 <h2><span class="header-section-number">8.12</span> Other libraries and tricks</h2>
-<p>The <code>lubridate</code> package contains a number of functions facilitating the conversion of text to POSIX dates. As an example, consider the following code. We may use this, for example, with time series.</p>
-<p>For example <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf" class="uri">https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+<p>The <code>lubridate</code> package contains a number of functions facilitating the conversion of text to
+POSIX dates. As an example, consider the following code. We may use this, for example, with time series.</p>
+<p>For example <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf</a></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
 dates &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;15/02/2013&quot;</span>, <span class="st">&quot;15 Feb 13&quot;</span>, <span class="st">&quot;It happened on 15 02 &#39;13&quot;</span>)
-<span class="kw">dmy</span>(dates)</code></pre></div>
+<span class="kw">dmy</span>(dates)</code></pre>
 <pre><code>## [1] &quot;2013-02-15&quot; &quot;2013-02-15&quot; &quot;2013-02-15&quot;</code></pre>
 
 </div>
@@ -745,28 +865,28 @@ dates &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&
 <p>Blum, A.L., and P. Langley. 1997. “Selection of Relevant Features and Examples in Machine Learning.” Edited by R. Greiner and D. Subramanian. <em>Artificial Intelligence</em> 97 (1-2): 245–71.</p>
 </div>
 <div id="ref-LY05">
-<p>Liu, H., and L. Yu. 2005. “Toward Integrating Feature Selection Algorithms for Classification and Clustering.” <em>IEEE Trans. on Knowledge and Data Eng.</em> 17 (3): 1–12.</p>
+<p>Liu, H., and L. Yu. 2005. “Toward Integrating Feature Selection Algorithms for Classification and Clustering.” <em>IEEE Trans. On Knowledge and Data Eng.</em> 17 (3): 1–12.</p>
 </div>
 <div id="ref-KJ97">
 <p>Kohavi, R., and G.H. John. 1997. “Wrappers for Feature Subset Selection.” <em>Artificial Intelligence</em> 1-2: 273–324.</p>
-</div>
-<div id="ref-Lan94">
-<p>Langley, P. 1994. “Selection of Relevant Features in Machine Learning.” In <em>Procs. of the Aaai Fall Symposium on Relevance</em>, 140–44.</p>
 </div>
 <div id="ref-LM98">
 <p>Liu, H., and H. Motoda. 1998. <em>Feature Selection for Knowlegde Discovery and Data Mining</em>. London, UK: Kluwer Academic Publishers.</p>
 </div>
 <div id="ref-DLM00">
-<p>Dash, M., H. Liu, and H. Motoda. 2000. “Consistency Based Feature Selection.” In <em>Pacific-Asia Conf. on Knowledge Discovery and Data Mining</em>, 98–109.</p>
+<p>Dash, M., H. Liu, and H. Motoda. 2000. “Consistency Based Feature Selection.” In <em>Pacific-Asia Conf. On Knowledge Discovery and Data Mining</em>, 98–109.</p>
 </div>
 <div id="ref-Hal99">
 <p>Hall, M.A. 1999. “Correlation-Based Feature Selection for Machine Learning.” PhD thesis, Hamilton, New Zealand: University of Waikato, Department of Computer Science.</p>
 </div>
+<div id="ref-Lan94">
+<p>Langley, P. 1994. “Selection of Relevant Features in Machine Learning.” In <em>Procs. Of the Aaai Fall Symposium on Relevance</em>, 140–44.</p>
+</div>
 <div id="ref-GDCH12">
-<p>Garcia, S., J. Derrac, J. Cano, and F. Herrera. 2012. “Prototype Selection for Nearest Neighbor Classification: Taxonomy and Empirical Study.” <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> 34 (3): 417–35. doi:<a href="https://doi.org/10.1109/TPAMI.2011.142">10.1109/TPAMI.2011.142</a>.</p>
+<p>Garcia, S., J. Derrac, J. Cano, and F. Herrera. 2012. “Prototype Selection for Nearest Neighbor Classification: Taxonomy and Empirical Study.” <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> 34 (3): 417–35. <a href="https://doi.org/10.1109/TPAMI.2011.142">https://doi.org/10.1109/TPAMI.2011.142</a>.</p>
 </div>
 <div id="ref-CanoHL07">
-<p>Cano, José Ramón, Francisco Herrera, and Manuel Lozano. 2007. “Evolutionary Stratified Training Set Selection for Extracting Classification Rules with Trade Off Precision-Interpretability.” <em>Data &amp; Knowledge Engineering</em> 60 (1): 90–108. doi:<a href="https://doi.org/http://dx.doi.org/10.1016/j.datak.2006.01.008">http://dx.doi.org/10.1016/j.datak.2006.01.008</a>.</p>
+<p>Cano, José Ramón, Francisco Herrera, and Manuel Lozano. 2007. “Evolutionary Stratified Training Set Selection for Extracting Classification Rules with Trade Off Precision-Interpretability.” <em>Data &amp; Knowledge Engineering</em> 60 (1): 90–108. <a href="https://doi.org/10.1016/j.datak.2006.01.008">https://doi.org/10.1016/j.datak.2006.01.008</a>.</p>
 </div>
 </div>
             </section>
@@ -786,17 +906,18 @@ dates &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -806,6 +927,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/danrodgar/dasedown/edit/master/300_basicPreprocessing.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["DASE.pdf", "DASE.epub"],
 "toc": {
@@ -820,9 +945,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Analysis in Software Engineering using R</title>
+  <title>Chapter 17 Advanced Models | Data Analysis in Software Engineering using R</title>
   <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 17 Advanced Models | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 17 Advanced Models | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Daniel Rodriguez and Javier Dolado">
 
 
-<meta name="date" content="2017-07-01">
+<meta name="date" content="2018-12-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="further-classification-models.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -159,7 +186,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a></li>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+</ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
@@ -275,9 +304,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
 <li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#basic-tm-commands"><i class="fa fa-check"></i><b>20.2</b> Basic <strong>tm</strong> commands</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.3</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.4" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.4</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
@@ -307,19 +335,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 17</span> Advanced Models</h1>
 <div id="genetic-programming-for-symbolic-regression" class="section level2">
 <h2><span class="header-section-number">17.1</span> Genetic Programming for Symbolic Regression</h2>
-<p>This technique is inspired by Darwin’s evolution theory. + 1960s by I. Rechenberg in his work “Evolution strategies“ + 1975 Genetic Algorithms (GAs) invented by J Holland and published in his book”Adaption in Natural and Artificial Systems“ + 1992 J. Koza has used genetic algorithm to evolve programs to perform certain tasks. He called his method “genetic programming”</p>
+<p>This technique is inspired by Darwin’s evolution theory.
++ 1960s by I. Rechenberg in his work “Evolution strategies“
++ 1975 Genetic Algorithms (GAs) invented by J Holland and published in his book”Adaption in Natural and Artificial Systems“
++ 1992 J. Koza has used genetic algorithm to evolve programs to perform certain tasks. He called his method “genetic programming”</p>
 <p>Other reference for GP: Langdon WB, Poli R (2001) Foundations of Genetic Programming. Springer.</p>
-<div class="figure">
-<img src="figures/gpEvolution.png" />
-
-</div>
+<p><img src="figures/gpEvolution.png" /></p>
 <ul>
 <li>Depending on the function set used and the function to be minimised, GP can generate almost any type of curve</li>
 </ul>
-<p><img src="figures/gp1.png" /> <img src="figures/gp2.png" /></p>
+<p><img src="figures/gp1.png" />
+<img src="figures/gp2.png" /></p>
 <div class="figure">
-<img src="figures/evoAlg.png" />
-
+<img src="figures/evoAlg.png" alt="Evolutionary Algorithms" />
+<p class="caption">Evolutionary Algorithms</p>
 </div>
 <p>In R, we can use the “rgp” package</p>
 </div>
@@ -327,33 +356,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">17.2</span> Genetic Programming Example</h2>
 <div id="load-data" class="section level3">
 <h3><span class="header-section-number">17.2.1</span> Load Data</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
 
 <span class="co">#read data</span>
 telecom1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;./datasets/effortEstimation/Telecom1.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>) 
  
-size_telecom1 &lt;-<span class="st"> </span>telecom1$size
-effort_telecom1 &lt;-<span class="st"> </span>telecom1$effort
+size_telecom1 &lt;-<span class="st"> </span>telecom1<span class="op">$</span>size
+effort_telecom1 &lt;-<span class="st"> </span>telecom1<span class="op">$</span>effort
 
 chinaTrain &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china3AttSelectedAFPTrain.arff&quot;</span>)
-china_train_size &lt;-<span class="st"> </span>chinaTrain$AFP 
-china_train_effort &lt;-<span class="st"> </span>chinaTrain$Effort
+china_train_size &lt;-<span class="st"> </span>chinaTrain<span class="op">$</span>AFP 
+china_train_effort &lt;-<span class="st"> </span>chinaTrain<span class="op">$</span>Effort
 chinaTest &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/effortEstimation/china3AttSelectedAFPTest.arff&quot;</span>)
-china_size_test &lt;-<span class="st"> </span>chinaTest$AFP
-actualEffort &lt;-<span class="st"> </span>chinaTest$Effort</code></pre></div>
+china_size_test &lt;-<span class="st"> </span>chinaTest<span class="op">$</span>AFP
+actualEffort &lt;-<span class="st"> </span>chinaTest<span class="op">$</span>Effort</code></pre>
 </div>
 <div id="genetic-programming-for-symbolic-regression-china-dataset." class="section level3">
 <h3><span class="header-section-number">17.2.2</span> Genetic Programming for Symbolic Regression: China dataset.</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;rgp&quot;</span>)</code></pre></div>
-<pre><code>## *** RGP version 0.4-1 initialized successfully.
-##     Type &#39;help(package=&quot;rgp&quot;)&#39; to bring up the RGP help pages,
-##     or type &#39;vignette(&quot;rgp_introduction&quot;)&#39; to show RGP&#39;s package vignette.
-##     Type &#39;symbolicRegressionUi()&#39; to bring up the symbolic regression UI if
-##     the optional package &#39;rgpui&#39; is installed.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">5</span>)
-stepsGenerations &lt;-<span class="st"> </span><span class="dv">1000</span>
-initialPopulation &lt;-<span class="st"> </span><span class="dv">500</span>
-Steps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;rgp&quot;</span>)
+<span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">5</span>)
+stepsGenerations &lt;-<span class="st"> </span><span class="dv">100</span>
+initialPopulation &lt;-<span class="st"> </span><span class="dv">100</span>
+Steps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>)
 y &lt;-<span class="st"> </span>china_train_effort   <span class="co">#</span>
 x &lt;-<span class="st"> </span>china_train_size  <span class="co"># </span>
 
@@ -365,42 +389,31 @@ data2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y, x)  <s
 <span class="co"># newFuncSet &lt;- arithmeticFunctionSet</span>
 newFuncSet &lt;-<span class="st"> </span><span class="kw">functionSet</span>(<span class="st">&quot;+&quot;</span>,<span class="st">&quot;-&quot;</span>,<span class="st">&quot;*&quot;</span>, <span class="st">&quot;/&quot;</span>,<span class="st">&quot;sqrt&quot;</span>, <span class="st">&quot;log&quot;</span>, <span class="st">&quot;exp&quot;</span>) <span class="co"># ,, )</span>
 
-gpresult &lt;-<span class="st"> </span><span class="kw">symbolicRegression</span>(y ~<span class="st"> </span>x, 
+gpresult &lt;-<span class="st"> </span><span class="kw">symbolicRegression</span>(y <span class="op">~</span><span class="st"> </span>x, 
                                 <span class="dt">data=</span>data2, <span class="dt">functionSet=</span>newFuncSet,
                                 <span class="dt">populationSize=</span>initialPopulation,
-                                <span class="dt">stopCondition=</span><span class="kw">makeStepsStopCondition</span>(stepsGenerations))</code></pre></div>
-<pre><code>## STARTING genetic programming evolution run (Age/Fitness/Complexity Pareto GP search-heuristic) ...</code></pre>
-<pre><code>## evolution step 100, fitness evaluations: 4950, best fitness: 5615.407251, time elapsed: 1 minute, 12.11 seconds</code></pre>
-<pre><code>## evolution step 200, fitness evaluations: 9950, best fitness: 5615.407251, time elapsed: 2 minutes, 10.01 seconds</code></pre>
-<pre><code>## evolution step 300, fitness evaluations: 14950, best fitness: 5615.407251, time elapsed: 3 minutes, 9.48 seconds</code></pre>
-<pre><code>## evolution step 400, fitness evaluations: 19950, best fitness: 5615.407251, time elapsed: 4 minutes, 15.64 seconds</code></pre>
-<pre><code>## evolution step 500, fitness evaluations: 24950, best fitness: 5615.407251, time elapsed: 5 minutes, 20.36 seconds</code></pre>
-<pre><code>## evolution step 600, fitness evaluations: 29950, best fitness: 5615.407251, time elapsed: 6 minutes, 33.88 seconds</code></pre>
-<pre><code>## evolution step 700, fitness evaluations: 34950, best fitness: 5615.407251, time elapsed: 7 minutes, 52.07 seconds</code></pre>
-<pre><code>## evolution step 800, fitness evaluations: 39950, best fitness: 5615.407251, time elapsed: 8 minutes, 56.35 seconds</code></pre>
-<pre><code>## evolution step 900, fitness evaluations: 44950, best fitness: 5615.407251, time elapsed: 10 minutes, 5.48 seconds</code></pre>
-<pre><code>## evolution step 1000, fitness evaluations: 49950, best fitness: 5615.407251, time elapsed: 11 minutes, 11.61 seconds</code></pre>
-<pre><code>## Genetic programming evolution run FINISHED after 1000 evolution steps, 49950 fitness evaluations and 11 minutes, 11.61 seconds.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bf &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.min</span>(<span class="kw">sapply</span>(gpresult$population, gpresult$fitnessFunction))]]
-wf &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.max</span>(<span class="kw">sapply</span>(gpresult$population, gpresult$fitnessFunction))]]
+                                <span class="dt">stopCondition=</span><span class="kw">makeStepsStopCondition</span>(stepsGenerations))
 
-bf1 &lt;-<span class="st"> </span>gpresult$population[[<span class="kw">which.min</span>((gpresult$fitnessValues))]]
+bf &lt;-<span class="st"> </span>gpresult<span class="op">$</span>population[[<span class="kw">which.min</span>(<span class="kw">sapply</span>(gpresult<span class="op">$</span>population, gpresult<span class="op">$</span>fitnessFunction))]]
+wf &lt;-<span class="st"> </span>gpresult<span class="op">$</span>population[[<span class="kw">which.max</span>(<span class="kw">sapply</span>(gpresult<span class="op">$</span>population, gpresult<span class="op">$</span>fitnessFunction))]]
+
+bf1 &lt;-<span class="st"> </span>gpresult<span class="op">$</span>population[[<span class="kw">which.min</span>((gpresult<span class="op">$</span>fitnessValues))]]
 <span class="kw">plot</span>(x,y)
 <span class="kw">lines</span>(x, <span class="kw">bf</span>(x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)
-<span class="kw">lines</span>(x,<span class="kw">wf</span>(x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_test &lt;-<span class="st"> </span>china_size_test
+<span class="kw">lines</span>(x,<span class="kw">wf</span>(x), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre>
+<p><img src="DASE_files/figure-html/geneticProgramingExample-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">x_test &lt;-<span class="st"> </span>china_size_test
 estim_by_gp &lt;-<span class="st"> </span><span class="kw">bf</span>(x_test)
-ae_gp &lt;-<span class="st"> </span><span class="kw">abs</span>(actualEffort -<span class="st"> </span>estim_by_gp)
-<span class="kw">mean</span>(ae_gp)</code></pre></div>
-<pre><code>## [1] 1962</code></pre>
+ae_gp &lt;-<span class="st"> </span><span class="kw">abs</span>(actualEffort <span class="op">-</span><span class="st"> </span>estim_by_gp)
+<span class="kw">mean</span>(ae_gp)</code></pre>
+<pre><code>## [1] 2135.4</code></pre>
 </div>
 <div id="genetic-programming-for-symbolic-regression.-telecom1-dataset." class="section level3">
 <h3><span class="header-section-number">17.2.3</span> Genetic Programming for Symbolic Regression. Telecom1 dataset.</h3>
 <ul>
 <li>For illustration purposes only. We use all data points.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># y &lt;- effort_telecom1   # all data points</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># y &lt;- effort_telecom1   # all data points</span>
 <span class="co"># x &lt;- size_telecom1   # </span>
 <span class="co"># </span>
 <span class="co"># data2 &lt;- data.frame(y, x)  # create a data frame with effort, size</span>
@@ -422,33 +435,37 @@ ae_gp &lt;-<span class="st"> </span><span class="kw">abs</span>(actualEffort -<s
 <span class="co"># bf1 &lt;- gpresult$population[[which.min((gpresult$fitnessValues))]]</span>
 <span class="co"># plot(x,y)</span>
 <span class="co"># lines(x, bf(x), type = &quot;l&quot;, col=&quot;blue&quot;, lwd=3)</span>
-<span class="co"># lines(x,wf(x), type = &quot;l&quot;, col=&quot;red&quot;, lwd=2)</span></code></pre></div>
+<span class="co"># lines(x,wf(x), type = &quot;l&quot;, col=&quot;red&quot;, lwd=2)</span></code></pre>
 </div>
 </div>
 <div id="neural-networks-1" class="section level2">
 <h2><span class="header-section-number">17.3</span> Neural Networks</h2>
 <p>A neural network (NN) simulates some of the learning functions of the human brain.</p>
 <p>It can recognize patterns and “learn” . Through the use of a trial and error method the system “learns” to become an “expert” in the field.</p>
-<p>A NN is composed of a set of nodes (units, neurons, processing elements) + Each node has input and output + Each node performs a simple computation by its node function</p>
-<p>Weighted connections between nodes + Connectivity gives the structure/architecture of the net + What can be computed by a NN is primarily determined by the connections and their weights</p>
-<p><img src="figures/neuralnet.png" /> <img src="figures/neuralnet2.png" /></p>
-<p>There are several packages in R to work with NNs + <a href="https://cran.r-project.org/web/packages/neuralnet/index.html">neuralnet</a> + <a href="https://cran.r-project.org/web/packages/nnet/index.html">nnet</a> + <a href="https://cran.r-project.org/web/packages/RSNNS/index.html">RSNNS</a></p>
+<p>A NN is composed of a set of nodes (units, neurons, processing elements)
++ Each node has input and output
++ Each node performs a simple computation by its node function</p>
+<p>Weighted connections between nodes
++ Connectivity gives the structure/architecture of the net
++ What can be computed by a NN is primarily determined by the connections and their weights</p>
+<p><img src="figures/neuralnet.png" />
+<img src="figures/neuralnet2.png" /></p>
+<p>There are several packages in R to work with NNs
++ <a href="https://cran.r-project.org/web/packages/neuralnet/index.html">neuralnet</a>
++ <a href="https://cran.r-project.org/web/packages/nnet/index.html">nnet</a>
++ <a href="https://cran.r-project.org/web/packages/RSNNS/index.html">RSNNS</a></p>
 <p>TO BE FIXED!!!: The following is an example with the neuralnet package (TO DO, denormalize!). Neural nets need scaling of variables to work properly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
-<span class="kw">library</span>(neuralnet)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;neuralnet&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     compute</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chinaTrain &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/effortEstimation/china3AttSelectedAFPTrain.arff&quot;</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<span class="kw">library</span>(neuralnet)
 
-afpsize &lt;-<span class="st"> </span>chinaTrain$AFP
-effort_china &lt;-<span class="st"> </span>chinaTrain$Effort
+chinaTrain &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/effortEstimation/china3AttSelectedAFPTrain.arff&quot;</span>)
+
+afpsize &lt;-<span class="st"> </span>chinaTrain<span class="op">$</span>AFP
+effort_china &lt;-<span class="st"> </span>chinaTrain<span class="op">$</span>Effort
 
 chinaTest &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;datasets/effortEstimation/china3AttSelectedAFPTest.arff&quot;</span>)
-AFPTest &lt;-<span class="st"> </span>chinaTest$AFP
-actualEffort &lt;-<span class="st"> </span>chinaTest$Effort
+AFPTest &lt;-<span class="st"> </span>chinaTest<span class="op">$</span>AFP
+actualEffort &lt;-<span class="st"> </span>chinaTest<span class="op">$</span>Effort
 
 trainingdata &lt;-<span class="st"> </span><span class="kw">cbind</span>(afpsize,effort_china)
 <span class="kw">colnames</span>(trainingdata) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Input&quot;</span>,<span class="st">&quot;Output&quot;</span>)
@@ -457,7 +474,7 @@ testingdata &lt;-<span class="st"> </span><span class="kw">cbind</span>(afpsize,
 <span class="kw">colnames</span>(trainingdata) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Input&quot;</span>,<span class="st">&quot;Output&quot;</span>)
 
 <span class="co">#Normalize data</span>
-norm.fun =<span class="st"> </span>function(x){(x -<span class="st"> </span><span class="kw">min</span>(x))/(<span class="kw">max</span>(x) -<span class="st"> </span><span class="kw">min</span>(x))}
+norm.fun =<span class="st"> </span><span class="cf">function</span>(x){(x <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(x))<span class="op">/</span>(<span class="kw">max</span>(x) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(x))}
 data.norm =<span class="st"> </span><span class="kw">apply</span>(trainingdata, <span class="dv">2</span>, norm.fun)
 <span class="co">#data.norm</span>
 
@@ -470,7 +487,7 @@ testdata.norm &lt;-<span class="st"> </span><span class="kw">apply</span>(traini
 <span class="co">#Threshold is a numeric value specifying the threshold for the partial</span>
 <span class="co">#derivatives of the error function as stopping criteria.</span>
 <span class="co">#net_eff &lt;- neuralnet(Output~Input,trainingdata, hidden=5, threshold=0.25)</span>
-net_eff &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(Output~Input, data.norm, <span class="dt">hidden=</span><span class="dv">10</span>, <span class="dt">threshold=</span><span class="fl">0.01</span>)
+net_eff &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(Output<span class="op">~</span>Input, data.norm, <span class="dt">hidden=</span><span class="dv">10</span>, <span class="dt">threshold=</span><span class="fl">0.01</span>)
 
 <span class="co"># Print the network</span>
 <span class="co"># print(net_eff)</span>
@@ -496,7 +513,7 @@ net_eff &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(Output~I
 <span class="co">#cleanoutput &lt;- cbind(testdata.norm[,2],actualEffort,</span>
 <span class="co">#                     as.data.frame(net.results$net.result))</span>
 <span class="co">#colnames(cleanoutput) &lt;- c(&quot;Input&quot;,&quot;Expected Output&quot;,&quot;Neural Net Output&quot;)</span>
-<span class="co">#print(cleanoutput)</span></code></pre></div>
+<span class="co">#print(cleanoutput)</span></code></pre>
 </div>
 <div id="support-vector-machines" class="section level2">
 <h2><span class="header-section-number">17.4</span> Support Vector Machines</h2>
@@ -505,55 +522,60 @@ net_eff &lt;-<span class="st"> </span><span class="kw">neuralnet</span>(Output~I
 <div id="ensembles" class="section level2">
 <h2><span class="header-section-number">17.5</span> Ensembles</h2>
 <p>Ensembles or meta-learners combine multiple models to obtain better predictions i.e., this technique consists in combining single classifiers (sometimes are also called weak classifiers).</p>
-<p>A problem with ensembles is that their models are difficult to interpret (they behave as blackboxes) in comparison to decision trees or rules which provide an explanation of their decision making process.</p>
+<p>A problem with ensembles is that their models are difficult to interpret (they behave as blackboxes) in comparison to
+decision trees or rules which provide an explanation of their
+decision making process.</p>
 <p>They are typically classified as Bagging, Boosting and Stacking (Stacked generalization).</p>
 <div id="bagging" class="section level3">
 <h3><span class="header-section-number">17.5.1</span> Bagging</h3>
-<p>Bagging (also known as Bootstrap aggregating) is an ensemble technique in which a base learner is applied to multiple equal size datasets created from the original data using bootstraping. Predictions are based on voting of the individual predictions. An advantage of bagging is that it does not require any modification to the learning algorithm and takes advantage of the instability of the base classifier to create diversity among individual ensembles so that individual members of the ensemble perform well in different regions of the data. Bagging does not perform well with classifiers if their output is robust to perturbation of the data such as nearest-neighbour (NN) classifiers.</p>
+<p>Bagging (also known as Bootstrap aggregating) is an ensemble technique in which a base learner is applied to multiple equal size datasets created from the original data using bootstraping. Predictions are based on voting of the individual predictions. An advantage of bagging is that it does not require any modification to the learning algorithm and takes advantage of the instability of the base classifier to create diversity among individual ensembles so that individual members of the ensemble perform well in different regions of the data. Bagging does not perform well with classifiers if their output is robust to perturbation of the data such as
+nearest-neighbour (NN) classifiers.</p>
 </div>
 <div id="boosting" class="section level3">
 <h3><span class="header-section-number">17.5.2</span> Boosting</h3>
 <p>Boosting techniques generate multiple models that complement each other inducing models that improve regions of the data where previous induced models preformed poorly. This is achieved by increasing the weights of instances wrongly classified, so new learners focus on those instances. Finally, classification is based on a weighted voted among all members of the ensemble.</p>
-<p>In particular, AdaBoost.M1 [15] is a popular boosting algorithm for classification. The set of training examples is assigned an equal weight at the beginning and the weight of instances is either increased or decreased depending on whether the learner classified that instance incorrectly or not. The following iterations focus on those instances with higher weights. AdaBoost.M1 can be applied to any base learner.</p>
+<p>In particular, AdaBoost.M1 [15] is a popular boosting algorithm for classification. The set of training examples is assigned an equal weight at the beginning and the weight of instances is either increased or
+decreased depending on whether the learner classified that instance incorrectly or not. The following iterations focus on those instances with higher weights. AdaBoost.M1 can be applied to any base learner.</p>
 </div>
 <div id="rotation-forests" class="section level3">
 <h3><span class="header-section-number">17.5.3</span> Rotation Forests</h3>
-<p>Rotation Forests [40] combine randomly chosen subsets of attributes (random subspaces) and bagging approaches with principal components feature generation to construct an ensemble of decision trees. Principal Component Analysis is used as a feature selection technique combining subsets of attributes which are used with a bootstrapped subset of the training data by the base classifier.</p>
+<p>Rotation Forests [40] combine randomly chosen subsets of attributes (random subspaces) and bagging approaches with principal components feature generation to construct an ensemble of decision trees. Principal Component Analysis is used as a feature selection technique combining subsets of
+attributes which are used with a bootstrapped subset of the training data by the base classifier.</p>
 </div>
 <div id="boosting-in-r" class="section level3">
 <h3><span class="header-section-number">17.5.4</span> Boosting in R</h3>
 <p>In R, there are three packages to deal with Boosting: gmb, ada and the mboost packages. An example of gbm using the caret package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load libraries</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load libraries</span>
 <span class="kw">library</span>(caret)
 <span class="kw">library</span>(pROC)
 
-#################################################
+<span class="co">#################################################</span>
 <span class="co"># model it</span>
-#################################################
+<span class="co">#################################################</span>
 
 <span class="co"># Get names of caret supported models (just a few - head)</span>
-<span class="kw">head</span>(<span class="kw">names</span>(<span class="kw">getModelInfo</span>()))</code></pre></div>
+<span class="kw">head</span>(<span class="kw">names</span>(<span class="kw">getModelInfo</span>()))</code></pre>
 <pre><code>## [1] &quot;ada&quot;         &quot;AdaBag&quot;      &quot;AdaBoost.M1&quot; &quot;adaboost&quot;    &quot;amdai&quot;      
 ## [6] &quot;ANFIS&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show model info and find out what type of model it is</span>
-<span class="kw">getModelInfo</span>()$gbm$tags</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show model info and find out what type of model it is</span>
+<span class="kw">getModelInfo</span>()<span class="op">$</span>gbm<span class="op">$</span>tags</code></pre>
 <pre><code>## [1] &quot;Tree-Based Model&quot;           &quot;Boosting&quot;                  
 ## [3] &quot;Ensemble Model&quot;             &quot;Implicit Feature Selection&quot;
 ## [5] &quot;Accepts Case Weights&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getModelInfo</span>()$gbm$type</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getModelInfo</span>()<span class="op">$</span>gbm<span class="op">$</span>type</code></pre>
 <pre><code>## [1] &quot;Regression&quot;     &quot;Classification&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
 <span class="kw">library</span>(caret)
 <span class="kw">library</span>(pROC)
 
 kc1 &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/defectPred/D1/KC1.arff&quot;</span>)
 
 <span class="co"># Split data into training and test datasets</span>
-<span class="co"># TODO: Improve this with createDataParticion from Caret</span>
+<span class="co"># </span><span class="al">TODO</span><span class="co">: Improve this with createDataParticion from Caret</span>
 <span class="kw">set.seed</span>(<span class="dv">1234</span>)
 ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2</span>, <span class="kw">nrow</span>(kc1), <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))
-kc1.train &lt;-<span class="st"> </span>kc1[ind==<span class="dv">1</span>, ]
-kc1.test &lt;-<span class="st"> </span>kc1[ind==<span class="dv">2</span>, ]
+kc1.train &lt;-<span class="st"> </span>kc1[ind<span class="op">==</span><span class="dv">1</span>, ]
+kc1.test &lt;-<span class="st"> </span>kc1[ind<span class="op">==</span><span class="dv">2</span>, ]
 
 
 <span class="co"># create caret trainControl object to control the number of cross-validations performed</span>
@@ -561,269 +583,239 @@ objControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<s
 
 
 <span class="co"># run model</span>
-objModel &lt;-<span class="st"> </span><span class="kw">train</span>(Defective ~<span class="st"> </span>.,
+objModel &lt;-<span class="st"> </span><span class="kw">train</span>(Defective <span class="op">~</span><span class="st"> </span>.,
                   <span class="dt">data =</span> kc1.train,
                   <span class="dt">method =</span> <span class="st">&#39;gbm&#39;</span>, 
                   <span class="dt">trControl =</span> objControl,  
                   <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span> <span class="co">#,</span>
                   <span class="co">#preProc = c(&quot;center&quot;, &quot;scale&quot;)</span>
-                  )</code></pre></div>
-<pre><code>## Loading required package: gbm</code></pre>
-<pre><code>## Loading required package: splines</code></pre>
-<pre><code>## Loaded gbm 2.1.3</code></pre>
-<pre><code>## Loading required package: plyr</code></pre>
-<pre><code>## -------------------------------------------------------------------------</code></pre>
-<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
-## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
-## library(plyr); library(dplyr)</code></pre>
-<pre><code>## -------------------------------------------------------------------------</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:reshape&#39;:
-## 
-##     rename, round_any</code></pre>
-<pre><code>## The following objects are masked from &#39;package:Hmisc&#39;:
-## 
-##     is.discrete, summarize</code></pre>
-<pre><code>## The following object is masked from &#39;package:modeltools&#39;:
-## 
-##     empty</code></pre>
-<pre><code>## The following object is masked from &#39;package:lubridate&#39;:
-## 
-##     here</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize</code></pre>
-<pre><code>## The following object is masked from &#39;package:DMwR&#39;:
-## 
-##     join</code></pre>
+                  )</code></pre>
 <pre><code>## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8352            -nan     0.1000    0.0136
-##      2        0.8085            -nan     0.1000    0.0106
-##      3        0.7894            -nan     0.1000    0.0084
-##      4        0.7738            -nan     0.1000    0.0074
-##      5        0.7556            -nan     0.1000    0.0072
-##      6        0.7466            -nan     0.1000    0.0029
-##      7        0.7368            -nan     0.1000    0.0052
-##      8        0.7279            -nan     0.1000    0.0046
-##      9        0.7174            -nan     0.1000    0.0037
-##     10        0.7132            -nan     0.1000    0.0014
-##     20        0.6716            -nan     0.1000    0.0000
-##     40        0.6480            -nan     0.1000   -0.0004
-##     60        0.6366            -nan     0.1000   -0.0001
-##     80        0.6229            -nan     0.1000   -0.0003
-##    100        0.6118            -nan     0.1000   -0.0003
-##    120        0.6050            -nan     0.1000   -0.0005
-##    140        0.5969            -nan     0.1000   -0.0003
-##    150        0.5925            -nan     0.1000   -0.0004
+##      1        0.8424            -nan     0.1000    0.0102
+##      2        0.8182            -nan     0.1000    0.0089
+##      3        0.7997            -nan     0.1000    0.0067
+##      4        0.7873            -nan     0.1000    0.0055
+##      5        0.7786            -nan     0.1000    0.0030
+##      6        0.7714            -nan     0.1000    0.0020
+##      7        0.7640            -nan     0.1000    0.0024
+##      8        0.7544            -nan     0.1000    0.0048
+##      9        0.7463            -nan     0.1000    0.0032
+##     10        0.7410            -nan     0.1000    0.0015
+##     20        0.7080            -nan     0.1000    0.0006
+##     40        0.6832            -nan     0.1000   -0.0002
+##     60        0.6699            -nan     0.1000   -0.0003
+##     80        0.6563            -nan     0.1000   -0.0004
+##    100        0.6472            -nan     0.1000    0.0001
+##    120        0.6391            -nan     0.1000   -0.0003
+##    140        0.6308            -nan     0.1000   -0.0010
+##    150        0.6260            -nan     0.1000   -0.0003
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8270            -nan     0.1000    0.0161
-##      2        0.8060            -nan     0.1000    0.0074
-##      3        0.7785            -nan     0.1000    0.0091
-##      4        0.7557            -nan     0.1000    0.0085
-##      5        0.7423            -nan     0.1000    0.0064
-##      6        0.7331            -nan     0.1000    0.0030
-##      7        0.7223            -nan     0.1000    0.0019
-##      8        0.7115            -nan     0.1000    0.0031
-##      9        0.7009            -nan     0.1000    0.0041
-##     10        0.6909            -nan     0.1000    0.0044
-##     20        0.6449            -nan     0.1000   -0.0002
-##     40        0.6005            -nan     0.1000   -0.0008
-##     60        0.5696            -nan     0.1000   -0.0002
-##     80        0.5462            -nan     0.1000   -0.0002
-##    100        0.5274            -nan     0.1000   -0.0008
-##    120        0.5110            -nan     0.1000   -0.0012
-##    140        0.4952            -nan     0.1000   -0.0004
-##    150        0.4880            -nan     0.1000   -0.0006
+##      1        0.8310            -nan     0.1000    0.0133
+##      2        0.8072            -nan     0.1000    0.0089
+##      3        0.7864            -nan     0.1000    0.0081
+##      4        0.7689            -nan     0.1000    0.0064
+##      5        0.7575            -nan     0.1000    0.0047
+##      6        0.7422            -nan     0.1000    0.0042
+##      7        0.7320            -nan     0.1000    0.0038
+##      8        0.7230            -nan     0.1000    0.0017
+##      9        0.7120            -nan     0.1000    0.0029
+##     10        0.7058            -nan     0.1000    0.0013
+##     20        0.6618            -nan     0.1000    0.0015
+##     40        0.6252            -nan     0.1000   -0.0012
+##     60        0.5999            -nan     0.1000   -0.0010
+##     80        0.5761            -nan     0.1000   -0.0004
+##    100        0.5596            -nan     0.1000    0.0000
+##    120        0.5385            -nan     0.1000   -0.0004
+##    140        0.5240            -nan     0.1000   -0.0011
+##    150        0.5158            -nan     0.1000   -0.0004
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8316            -nan     0.1000    0.0133
-##      2        0.7987            -nan     0.1000    0.0126
-##      3        0.7686            -nan     0.1000    0.0116
-##      4        0.7471            -nan     0.1000    0.0086
-##      5        0.7319            -nan     0.1000    0.0051
-##      6        0.7163            -nan     0.1000    0.0049
-##      7        0.7049            -nan     0.1000    0.0027
-##      8        0.6934            -nan     0.1000    0.0038
-##      9        0.6829            -nan     0.1000    0.0035
-##     10        0.6755            -nan     0.1000    0.0027
-##     20        0.6168            -nan     0.1000   -0.0007
-##     40        0.5707            -nan     0.1000   -0.0018
-##     60        0.5396            -nan     0.1000   -0.0012
-##     80        0.5064            -nan     0.1000   -0.0011
-##    100        0.4836            -nan     0.1000   -0.0009
-##    120        0.4574            -nan     0.1000   -0.0003
-##    140        0.4343            -nan     0.1000   -0.0011
-##    150        0.4248            -nan     0.1000   -0.0004
+##      1        0.8345            -nan     0.1000    0.0118
+##      2        0.8100            -nan     0.1000    0.0114
+##      3        0.7857            -nan     0.1000    0.0083
+##      4        0.7714            -nan     0.1000    0.0058
+##      5        0.7544            -nan     0.1000    0.0049
+##      6        0.7401            -nan     0.1000    0.0067
+##      7        0.7312            -nan     0.1000    0.0022
+##      8        0.7198            -nan     0.1000    0.0033
+##      9        0.7109            -nan     0.1000    0.0014
+##     10        0.7021            -nan     0.1000    0.0028
+##     20        0.6524            -nan     0.1000   -0.0004
+##     40        0.6004            -nan     0.1000   -0.0004
+##     60        0.5621            -nan     0.1000    0.0000
+##     80        0.5350            -nan     0.1000   -0.0017
+##    100        0.5077            -nan     0.1000   -0.0004
+##    120        0.4899            -nan     0.1000   -0.0018
+##    140        0.4690            -nan     0.1000   -0.0007
+##    150        0.4577            -nan     0.1000   -0.0014
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8399            -nan     0.1000    0.0110
-##      2        0.8180            -nan     0.1000    0.0107
-##      3        0.8033            -nan     0.1000    0.0065
-##      4        0.7887            -nan     0.1000    0.0073
-##      5        0.7762            -nan     0.1000    0.0068
-##      6        0.7630            -nan     0.1000    0.0048
-##      7        0.7571            -nan     0.1000    0.0022
-##      8        0.7497            -nan     0.1000    0.0026
-##      9        0.7403            -nan     0.1000    0.0041
-##     10        0.7344            -nan     0.1000    0.0022
-##     20        0.7032            -nan     0.1000    0.0004
-##     40        0.6799            -nan     0.1000   -0.0002
-##     60        0.6617            -nan     0.1000   -0.0005
-##     80        0.6481            -nan     0.1000   -0.0007
-##    100        0.6392            -nan     0.1000   -0.0006
-##    120        0.6302            -nan     0.1000   -0.0001
-##    140        0.6217            -nan     0.1000   -0.0007
-##    150        0.6171            -nan     0.1000   -0.0004
+##      1        0.8434            -nan     0.1000    0.0111
+##      2        0.8213            -nan     0.1000    0.0092
+##      3        0.8043            -nan     0.1000    0.0075
+##      4        0.7867            -nan     0.1000    0.0050
+##      5        0.7735            -nan     0.1000    0.0050
+##      6        0.7650            -nan     0.1000    0.0033
+##      7        0.7572            -nan     0.1000    0.0022
+##      8        0.7500            -nan     0.1000    0.0010
+##      9        0.7425            -nan     0.1000    0.0032
+##     10        0.7395            -nan     0.1000    0.0007
+##     20        0.7068            -nan     0.1000    0.0002
+##     40        0.6827            -nan     0.1000   -0.0005
+##     60        0.6672            -nan     0.1000   -0.0006
+##     80        0.6570            -nan     0.1000   -0.0005
+##    100        0.6460            -nan     0.1000    0.0004
+##    120        0.6387            -nan     0.1000   -0.0005
+##    140        0.6309            -nan     0.1000   -0.0003
+##    150        0.6273            -nan     0.1000   -0.0003
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8328            -nan     0.1000    0.0172
-##      2        0.8082            -nan     0.1000    0.0096
-##      3        0.7898            -nan     0.1000    0.0087
-##      4        0.7758            -nan     0.1000    0.0035
-##      5        0.7619            -nan     0.1000    0.0041
-##      6        0.7492            -nan     0.1000    0.0049
-##      7        0.7379            -nan     0.1000    0.0048
-##      8        0.7311            -nan     0.1000    0.0011
-##      9        0.7197            -nan     0.1000    0.0035
-##     10        0.7160            -nan     0.1000    0.0007
-##     20        0.6746            -nan     0.1000   -0.0001
-##     40        0.6312            -nan     0.1000    0.0003
-##     60        0.6019            -nan     0.1000   -0.0012
-##     80        0.5818            -nan     0.1000   -0.0006
-##    100        0.5623            -nan     0.1000   -0.0010
-##    120        0.5455            -nan     0.1000   -0.0012
-##    140        0.5317            -nan     0.1000   -0.0005
-##    150        0.5227            -nan     0.1000   -0.0003
+##      1        0.8252            -nan     0.1000    0.0149
+##      2        0.8040            -nan     0.1000    0.0074
+##      3        0.7862            -nan     0.1000    0.0052
+##      4        0.7709            -nan     0.1000    0.0062
+##      5        0.7549            -nan     0.1000    0.0062
+##      6        0.7423            -nan     0.1000    0.0033
+##      7        0.7322            -nan     0.1000    0.0024
+##      8        0.7246            -nan     0.1000    0.0019
+##      9        0.7188            -nan     0.1000    0.0006
+##     10        0.7103            -nan     0.1000    0.0030
+##     20        0.6715            -nan     0.1000    0.0003
+##     40        0.6339            -nan     0.1000   -0.0015
+##     60        0.6057            -nan     0.1000   -0.0002
+##     80        0.5866            -nan     0.1000   -0.0012
+##    100        0.5689            -nan     0.1000   -0.0003
+##    120        0.5520            -nan     0.1000   -0.0004
+##    140        0.5372            -nan     0.1000   -0.0007
+##    150        0.5295            -nan     0.1000   -0.0007
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8283            -nan     0.1000    0.0109
-##      2        0.8016            -nan     0.1000    0.0122
-##      3        0.7791            -nan     0.1000    0.0075
-##      4        0.7607            -nan     0.1000    0.0072
-##      5        0.7470            -nan     0.1000    0.0035
-##      6        0.7352            -nan     0.1000    0.0054
-##      7        0.7199            -nan     0.1000    0.0054
-##      8        0.7111            -nan     0.1000    0.0030
-##      9        0.7015            -nan     0.1000    0.0023
-##     10        0.6925            -nan     0.1000    0.0016
-##     20        0.6347            -nan     0.1000    0.0002
-##     40        0.5882            -nan     0.1000   -0.0019
-##     60        0.5546            -nan     0.1000   -0.0014
-##     80        0.5269            -nan     0.1000   -0.0007
-##    100        0.5025            -nan     0.1000   -0.0021
-##    120        0.4782            -nan     0.1000   -0.0008
-##    140        0.4555            -nan     0.1000   -0.0007
-##    150        0.4442            -nan     0.1000   -0.0016
+##      1        0.8347            -nan     0.1000    0.0162
+##      2        0.8090            -nan     0.1000    0.0107
+##      3        0.7864            -nan     0.1000    0.0085
+##      4        0.7725            -nan     0.1000    0.0028
+##      5        0.7588            -nan     0.1000    0.0026
+##      6        0.7448            -nan     0.1000    0.0041
+##      7        0.7348            -nan     0.1000    0.0024
+##      8        0.7237            -nan     0.1000    0.0025
+##      9        0.7178            -nan     0.1000    0.0012
+##     10        0.7049            -nan     0.1000    0.0041
+##     20        0.6472            -nan     0.1000   -0.0004
+##     40        0.6046            -nan     0.1000   -0.0008
+##     60        0.5684            -nan     0.1000   -0.0014
+##     80        0.5432            -nan     0.1000   -0.0011
+##    100        0.5152            -nan     0.1000   -0.0010
+##    120        0.4900            -nan     0.1000   -0.0009
+##    140        0.4707            -nan     0.1000   -0.0008
+##    150        0.4625            -nan     0.1000   -0.0013
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8443            -nan     0.1000    0.0112
-##      2        0.8248            -nan     0.1000    0.0098
-##      3        0.8068            -nan     0.1000    0.0075
-##      4        0.7962            -nan     0.1000    0.0042
-##      5        0.7816            -nan     0.1000    0.0051
-##      6        0.7711            -nan     0.1000    0.0044
-##      7        0.7597            -nan     0.1000    0.0024
-##      8        0.7528            -nan     0.1000    0.0028
-##      9        0.7464            -nan     0.1000    0.0020
-##     10        0.7384            -nan     0.1000    0.0036
-##     20        0.7041            -nan     0.1000   -0.0007
-##     40        0.6821            -nan     0.1000   -0.0012
-##     60        0.6624            -nan     0.1000   -0.0006
-##     80        0.6505            -nan     0.1000   -0.0003
-##    100        0.6412            -nan     0.1000   -0.0003
-##    120        0.6333            -nan     0.1000   -0.0004
-##    140        0.6242            -nan     0.1000   -0.0004
-##    150        0.6206            -nan     0.1000   -0.0009
+##      1        0.8337            -nan     0.1000    0.0127
+##      2        0.8137            -nan     0.1000    0.0085
+##      3        0.7882            -nan     0.1000    0.0102
+##      4        0.7683            -nan     0.1000    0.0089
+##      5        0.7520            -nan     0.1000    0.0071
+##      6        0.7408            -nan     0.1000    0.0030
+##      7        0.7295            -nan     0.1000    0.0052
+##      8        0.7242            -nan     0.1000    0.0006
+##      9        0.7140            -nan     0.1000    0.0037
+##     10        0.7086            -nan     0.1000    0.0016
+##     20        0.6677            -nan     0.1000   -0.0001
+##     40        0.6394            -nan     0.1000   -0.0009
+##     60        0.6252            -nan     0.1000   -0.0002
+##     80        0.6171            -nan     0.1000   -0.0003
+##    100        0.6073            -nan     0.1000   -0.0003
+##    120        0.6011            -nan     0.1000   -0.0002
+##    140        0.5909            -nan     0.1000   -0.0007
+##    150        0.5874            -nan     0.1000   -0.0006
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8370            -nan     0.1000    0.0144
-##      2        0.8118            -nan     0.1000    0.0099
-##      3        0.7922            -nan     0.1000    0.0086
-##      4        0.7748            -nan     0.1000    0.0081
-##      5        0.7630            -nan     0.1000    0.0044
-##      6        0.7521            -nan     0.1000    0.0037
-##      7        0.7405            -nan     0.1000    0.0028
-##      8        0.7317            -nan     0.1000    0.0010
-##      9        0.7265            -nan     0.1000    0.0009
-##     10        0.7196            -nan     0.1000    0.0019
-##     20        0.6801            -nan     0.1000   -0.0000
-##     40        0.6347            -nan     0.1000   -0.0006
-##     60        0.6025            -nan     0.1000   -0.0004
-##     80        0.5789            -nan     0.1000   -0.0007
-##    100        0.5579            -nan     0.1000   -0.0015
-##    120        0.5428            -nan     0.1000   -0.0005
-##    140        0.5289            -nan     0.1000   -0.0011
-##    150        0.5200            -nan     0.1000   -0.0003
+##      1        0.8310            -nan     0.1000    0.0169
+##      2        0.8017            -nan     0.1000    0.0147
+##      3        0.7752            -nan     0.1000    0.0120
+##      4        0.7533            -nan     0.1000    0.0070
+##      5        0.7366            -nan     0.1000    0.0088
+##      6        0.7254            -nan     0.1000    0.0029
+##      7        0.7137            -nan     0.1000    0.0047
+##      8        0.7040            -nan     0.1000    0.0045
+##      9        0.6986            -nan     0.1000   -0.0004
+##     10        0.6945            -nan     0.1000    0.0005
+##     20        0.6445            -nan     0.1000   -0.0006
+##     40        0.5992            -nan     0.1000   -0.0003
+##     60        0.5740            -nan     0.1000   -0.0007
+##     80        0.5518            -nan     0.1000   -0.0002
+##    100        0.5276            -nan     0.1000   -0.0005
+##    120        0.5105            -nan     0.1000   -0.0009
+##    140        0.4939            -nan     0.1000   -0.0003
+##    150        0.4839            -nan     0.1000   -0.0004
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8322            -nan     0.1000    0.0125
-##      2        0.8043            -nan     0.1000    0.0118
-##      3        0.7784            -nan     0.1000    0.0087
-##      4        0.7629            -nan     0.1000    0.0043
-##      5        0.7465            -nan     0.1000    0.0065
-##      6        0.7326            -nan     0.1000    0.0045
-##      7        0.7215            -nan     0.1000    0.0017
-##      8        0.7126            -nan     0.1000    0.0013
-##      9        0.7047            -nan     0.1000   -0.0010
-##     10        0.6936            -nan     0.1000    0.0031
-##     20        0.6480            -nan     0.1000   -0.0008
-##     40        0.5896            -nan     0.1000   -0.0005
-##     60        0.5552            -nan     0.1000   -0.0007
-##     80        0.5259            -nan     0.1000   -0.0005
-##    100        0.4969            -nan     0.1000   -0.0007
-##    120        0.4730            -nan     0.1000   -0.0008
-##    140        0.4522            -nan     0.1000   -0.0003
-##    150        0.4448            -nan     0.1000   -0.0009
+##      1        0.8219            -nan     0.1000    0.0177
+##      2        0.7959            -nan     0.1000    0.0110
+##      3        0.7663            -nan     0.1000    0.0124
+##      4        0.7469            -nan     0.1000    0.0052
+##      5        0.7293            -nan     0.1000    0.0076
+##      6        0.7138            -nan     0.1000    0.0062
+##      7        0.7004            -nan     0.1000    0.0052
+##      8        0.6883            -nan     0.1000    0.0043
+##      9        0.6803            -nan     0.1000    0.0023
+##     10        0.6712            -nan     0.1000    0.0005
+##     20        0.6192            -nan     0.1000   -0.0007
+##     40        0.5594            -nan     0.1000   -0.0000
+##     60        0.5264            -nan     0.1000   -0.0015
+##     80        0.4934            -nan     0.1000   -0.0003
+##    100        0.4707            -nan     0.1000   -0.0009
+##    120        0.4484            -nan     0.1000   -0.0007
+##    140        0.4306            -nan     0.1000   -0.0006
+##    150        0.4218            -nan     0.1000   -0.0004
 ## 
 ## Iter   TrainDeviance   ValidDeviance   StepSize   Improve
-##      1        0.8364            -nan     0.1000    0.0147
-##      2        0.8103            -nan     0.1000    0.0136
-##      3        0.7938            -nan     0.1000    0.0081
-##      4        0.7757            -nan     0.1000    0.0085
-##      5        0.7617            -nan     0.1000    0.0071
-##      6        0.7511            -nan     0.1000    0.0046
-##      7        0.7415            -nan     0.1000    0.0032
-##      8        0.7295            -nan     0.1000    0.0037
-##      9        0.7198            -nan     0.1000    0.0031
-##     10        0.7131            -nan     0.1000    0.0028
-##     20        0.6773            -nan     0.1000   -0.0009
-##     40        0.6413            -nan     0.1000   -0.0006
-##     60        0.6180            -nan     0.1000   -0.0007
-##     80        0.6015            -nan     0.1000   -0.0008
-##    100        0.5866            -nan     0.1000   -0.0002
-##    120        0.5695            -nan     0.1000   -0.0011
-##    140        0.5569            -nan     0.1000   -0.0005
-##    150        0.5518            -nan     0.1000   -0.0006</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find out variable importance</span>
-<span class="kw">summary</span>(objModel)</code></pre></div>
-<p><img src="DASE_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+##      1        0.8323            -nan     0.1000    0.0146
+##      2        0.8053            -nan     0.1000    0.0105
+##      3        0.7798            -nan     0.1000    0.0119
+##      4        0.7633            -nan     0.1000    0.0072
+##      5        0.7492            -nan     0.1000    0.0080
+##      6        0.7378            -nan     0.1000    0.0033
+##      7        0.7258            -nan     0.1000    0.0053
+##      8        0.7136            -nan     0.1000    0.0048
+##      9        0.7027            -nan     0.1000    0.0040
+##     10        0.6940            -nan     0.1000    0.0022
+##     20        0.6475            -nan     0.1000   -0.0009
+##     40        0.6085            -nan     0.1000    0.0001
+##     60        0.5769            -nan     0.1000   -0.0008
+##     80        0.5556            -nan     0.1000   -0.0010
+##    100        0.5358            -nan     0.1000    0.0001
+##    120        0.5147            -nan     0.1000   -0.0010
+##    140        0.4989            -nan     0.1000   -0.0005
+##    150        0.4924            -nan     0.1000   -0.0006</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find out variable importance</span>
+<span class="kw">summary</span>(objModel)</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <pre><code>##                                         var       rel.inf
-## HALSTEAD_CONTENT           HALSTEAD_CONTENT 14.6047519607
-## HALSTEAD_DIFFICULTY     HALSTEAD_DIFFICULTY 10.1873906874
-## NUM_OPERANDS                   NUM_OPERANDS  8.9325104200
-## NUM_OPERATORS                 NUM_OPERATORS  7.9127746116
-## NUM_UNIQUE_OPERATORS   NUM_UNIQUE_OPERATORS  6.7756582333
-## LOC_TOTAL                         LOC_TOTAL  6.2296682519
-## NUM_UNIQUE_OPERANDS     NUM_UNIQUE_OPERANDS  6.1410664847
-## HALSTEAD_EFFORT             HALSTEAD_EFFORT  5.1853100309
-## LOC_COMMENTS                   LOC_COMMENTS  5.1306009233
-## LOC_EXECUTABLE               LOC_EXECUTABLE  4.7274594398
-## LOC_CODE_AND_COMMENT   LOC_CODE_AND_COMMENT  3.8598106671
-## HALSTEAD_LENGTH             HALSTEAD_LENGTH  3.7668756935
-## HALSTEAD_VOLUME             HALSTEAD_VOLUME  3.4277318907
-## ESSENTIAL_COMPLEXITY   ESSENTIAL_COMPLEXITY  3.4005292639
-## BRANCH_COUNT                   BRANCH_COUNT  3.2023641850
-## DESIGN_COMPLEXITY         DESIGN_COMPLEXITY  1.9630713543
-## LOC_BLANK                         LOC_BLANK  1.9252046668
-## HALSTEAD_LEVEL               HALSTEAD_LEVEL  1.1178129374
-## CYCLOMATIC_COMPLEXITY CYCLOMATIC_COMPLEXITY  1.0945057892
-## HALSTEAD_ERROR_EST       HALSTEAD_ERROR_EST  0.4149025082
+## HALSTEAD_CONTENT           HALSTEAD_CONTENT 11.9719209365
+## HALSTEAD_DIFFICULTY     HALSTEAD_DIFFICULTY 11.6281222487
+## HALSTEAD_EFFORT             HALSTEAD_EFFORT  7.3982708323
+## LOC_EXECUTABLE               LOC_EXECUTABLE  6.6547461836
+## HALSTEAD_LENGTH             HALSTEAD_LENGTH  6.6481194643
+## HALSTEAD_VOLUME             HALSTEAD_VOLUME  6.2651829677
+## NUM_OPERANDS                   NUM_OPERANDS  5.9550331042
+## LOC_TOTAL                         LOC_TOTAL  5.9217452855
+## NUM_UNIQUE_OPERATORS   NUM_UNIQUE_OPERATORS  5.6928518350
+## LOC_COMMENTS                   LOC_COMMENTS  5.0355938149
+## NUM_UNIQUE_OPERANDS     NUM_UNIQUE_OPERANDS  4.8712914173
+## NUM_OPERATORS                 NUM_OPERATORS  4.2714353987
+## LOC_BLANK                         LOC_BLANK  4.1242127346
+## LOC_CODE_AND_COMMENT   LOC_CODE_AND_COMMENT  2.8625349112
+## ESSENTIAL_COMPLEXITY   ESSENTIAL_COMPLEXITY  2.8170600164
+## DESIGN_COMPLEXITY         DESIGN_COMPLEXITY  2.5833211480
+## CYCLOMATIC_COMPLEXITY CYCLOMATIC_COMPLEXITY  2.3053896008
+## BRANCH_COUNT                   BRANCH_COUNT  2.2287410148
+## HALSTEAD_ERROR_EST       HALSTEAD_ERROR_EST  0.5509628978
+## HALSTEAD_LEVEL               HALSTEAD_LEVEL  0.2134641879
 ## HALSTEAD_PROG_TIME       HALSTEAD_PROG_TIME  0.0000000000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># find out model details</span>
-objModel</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># find out model details</span>
+objModel</code></pre>
 <pre><code>## Stochastic Gradient Boosting 
 ## 
 ## 1500 samples
@@ -836,51 +828,51 @@ objModel</code></pre></div>
 ## Resampling results across tuning parameters:
 ## 
 ##   interaction.depth  n.trees  ROC           Sens          Spec        
-##   1                   50      0.8054441609  0.9826224329  0.1282051282
-##   1                  100      0.8090442338  0.9802527646  0.1581196581
-##   1                  150      0.8050492162  0.9755134281  0.1794871795
-##   2                   50      0.8068619111  0.9739336493  0.1623931624
-##   2                  100      0.8085834650  0.9763033175  0.2051282051
-##   2                  150      0.8108518654  0.9684044234  0.2307692308
-##   3                   50      0.8042340098  0.9691943128  0.1837606838
-##   3                  100      0.8054694779  0.9668246445  0.2094017094
-##   3                  150      0.8047859197  0.9636650869  0.2478632479
+##   1                   50      0.8064922834  0.9826224329  0.1495726496
+##   1                  100      0.8098239964  0.9802527646  0.1923076923
+##   1                  150      0.8110442743  0.9794628752  0.2051282051
+##   2                   50      0.8137379998  0.9731437599  0.1965811966
+##   2                  100      0.8153785393  0.9644549763  0.2393162393
+##   2                  150      0.8135405274  0.9644549763  0.2606837607
+##   3                   50      0.8161532385  0.9715639810  0.2136752137
+##   3                  100      0.8155608215  0.9644549763  0.2905982906
+##   3                  150      0.8164165350  0.9668246445  0.3034188034
 ## 
 ## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
 ## 
 ## Tuning parameter &#39;n.minobsinnode&#39; was held constant at a value of 10
-## ROC was used to select the optimal model using  the largest value.
+## ROC was used to select the optimal model using the largest value.
 ## The final values used for the model were n.trees = 150,
-##  interaction.depth = 2, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#################################################
+##  interaction.depth = 3, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#################################################</span>
 <span class="co"># evalutate model</span>
-#################################################
+<span class="co">#################################################</span>
 <span class="co"># get predictions on your testing data</span>
 
 <span class="co"># class prediction</span>
-predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object=</span>objModel, kc1.test[,-<span class="dv">22</span>], <span class="dt">type=</span><span class="st">&#39;raw&#39;</span>)
-<span class="kw">head</span>(predictions)</code></pre></div>
+predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object=</span>objModel, kc1.test[,<span class="op">-</span><span class="dv">22</span>], <span class="dt">type=</span><span class="st">&#39;raw&#39;</span>)
+<span class="kw">head</span>(predictions)</code></pre>
 <pre><code>## [1] N N N N N N
 ## Levels: N Y</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred=</span>predictions, <span class="dt">obs=</span><span class="kw">as.factor</span>(kc1.test[,<span class="dv">22</span>]))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred=</span>predictions, <span class="dt">obs=</span><span class="kw">as.factor</span>(kc1.test[,<span class="dv">22</span>]))</code></pre>
 <pre><code>##     Accuracy        Kappa 
-## 0.8691275168 0.2982095951</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># probabilities </span>
-predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object=</span>objModel, kc1.test[,-<span class="dv">22</span>], <span class="dt">type=</span><span class="st">&#39;prob&#39;</span>)
-<span class="kw">head</span>(predictions)</code></pre></div>
+## 0.8657718121 0.2891009393</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># probabilities </span>
+predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object=</span>objModel, kc1.test[,<span class="op">-</span><span class="dv">22</span>], <span class="dt">type=</span><span class="st">&#39;prob&#39;</span>)
+<span class="kw">head</span>(predictions)</code></pre>
 <pre><code>##              N             Y
-## 1 0.9135315703 0.08646842967
-## 2 0.9756990212 0.02430097876
-## 3 0.8465454841 0.15345451590
-## 4 0.8366086073 0.16339139270
-## 5 0.8333283490 0.16667165098
-## 6 0.9344452820 0.06555471799</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred=</span>predictions[[<span class="dv">2</span>]], <span class="dt">obs=</span><span class="kw">ifelse</span>(kc1.test[,<span class="dv">22</span>]==<span class="st">&#39;yes&#39;</span>,<span class="dv">1</span>,<span class="dv">0</span>))</code></pre></div>
-<pre><code>##         RMSE     Rsquared 
-## 0.2143954918           NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auc &lt;-<span class="st"> </span><span class="kw">roc</span>(<span class="kw">ifelse</span>(kc1.test[,<span class="dv">22</span>]==<span class="st">&quot;Y&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>), predictions[[<span class="dv">2</span>]])
-<span class="kw">print</span>(auc$auc)</code></pre></div>
-<pre><code>## Area under the curve: 0.8049179</code></pre>
+## 1 0.9185156057 0.08148439428
+## 2 0.9797772040 0.02022279595
+## 3 0.8470294127 0.15297058732
+## 4 0.8799954090 0.12000459096
+## 5 0.8298472743 0.17015272568
+## 6 0.9578031188 0.04219688123</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">postResample</span>(<span class="dt">pred=</span>predictions[[<span class="dv">2</span>]], <span class="dt">obs=</span><span class="kw">ifelse</span>(kc1.test[,<span class="dv">22</span>]<span class="op">==</span><span class="st">&#39;yes&#39;</span>,<span class="dv">1</span>,<span class="dv">0</span>))</code></pre>
+<pre><code>##         RMSE     Rsquared          MAE 
+## 0.2165564399           NA 0.1347441023</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">auc &lt;-<span class="st"> </span><span class="kw">roc</span>(<span class="kw">ifelse</span>(kc1.test[,<span class="dv">22</span>]<span class="op">==</span><span class="st">&quot;Y&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>), predictions[[<span class="dv">2</span>]])
+<span class="kw">print</span>(auc<span class="op">$</span>auc)</code></pre>
+<pre><code>## Area under the curve: 0.8031553</code></pre>
 
 </div>
 </div>
@@ -902,17 +894,18 @@ predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span 
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -922,6 +915,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/danrodgar/dasedown/edit/master/510_advancedModelBuilding.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["DASE.pdf", "DASE.epub"],
 "toc": {
@@ -936,9 +933,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
