@@ -1,0 +1,32 @@
+---
+title: "ggplot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ggplot2
+
+**ggplot2** is one of the visualization tools that the R system has. The others are the Base R plotting functions and the **lattice** package. ggplot2 is the most evolved and complete plotting
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## References
+
+-   [The book ggplot2](https://ggplot2-book.org/index.html)
+-   Video Introduction to ggplot in R [Youtube video](https://www.youtube.com/watch?v=1GmQ5BdAhG4)
+-   [Ggplot2 gallery](https://www.r-graph-gallery.com/ggplot2-package.html)
