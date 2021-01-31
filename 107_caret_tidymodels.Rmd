@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Reference
 -   [Caret vs Tidymodels, Yu En Hsu](https://github.com/yuenhsu/Machine-Learning-Projects)
 -   [Bike Sharing Dataset from UCI repository](https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset).
+- [Caret vs. tidymodels - comparing the old and new](https://konradsemsch.netlify.app/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/)
 
 ### Data
 
@@ -43,4 +44,109 @@ Apart from interesting real world applications of bike sharing systems, the char
 - cnt: count of total rental bikes including both casual and registered
 
 ***
+
+
+###  Load libraries
+
+```{r libraries, message=FALSE, collapse=TRUE}
+library(tidymodels) 
+library(caret)
+library(lubridate) 
+library(tidyverse) 
+library(moments) 
+library(corrr) 
+library(randomForest)
+```
+
+
+```{r loaddata, message=FALSE, collapse=TRUE}
+bike <- read_csv("datasets/other/DataBikeSharing.csv")
+
+bike %>% dim() # pipe tidyverse approach
+
+dim(bike) # Base R
+nrow(bike)
+ncol(bike)
+length(bike)
+```
+### Remove and rename columns
+```{r bike}
+# bike %>%
+#   mutate(instant = NULL, yr = yr + 2011) %>%
+#   rename(
+#     date = dteday,
+#     year = yr,
+#     month = mnth,
+#     hour = hr,
+#     weather = weathersit,
+#     humidity = hum,
+#     total = cnt
+#   ) -> 
+#   bike
+head(bike)
+
+# remove 1st column
+bike = subset(bike, select = -c(instant) )
+bike$yr <-bike$yr + 2011
+
+# Base R or data.table
+names(bike)[names(bike) == 'dteday'] <- 'date'
+colnames(bike)[colnames(bike) == 'yr'] <- 'year'
+
+library(data.table)
+setnames(bike, "mnth", "month")
+
+nms <- c("date", "season", "year", "month", "hour", "holiday", "weekday", "workingday", "weather", "temp", "atemp", "humidity", "windspeed", "casual", "registered", "total")
+setnames(bike, nms)
+```
+
+
+```{r bike_long}
+bike %>%
+  pivot_longer(
+    cols = c(casual, registered, total),
+    names_to = "usertype",
+    values_to = "count"
+  ) ->
+bike_long
+head(bike_long)
+tail(bike_long)
+
+# This could be done with the package data.table
+
+```
+## Exploring and plotting data using ggplot {.tabset}
+
+### Target variable
+
+```{r plot_target}
+# Rental count
+bike_long %>%
+  ggplot(aes(count, colour = usertype)) +
+  geom_density() +
+  labs(
+    title = "Distribution of the number of rental bikes",
+    x = "Number per hour", y = "Density"
+  ) +
+  scale_colour_discrete(
+    name = "User type",
+    breaks = c("casual", "registered", "total"),
+    labels = c("Non-registered", "Registered", "Total")
+  )
+```
+
+### By year
+
+```{r plot_year}
+bike_long %>%
+  filter(!usertype == "total") %>%
+  ggplot(aes(as.factor(year), count)) +
+  geom_violin(aes(fill = usertype))
+```
+
+
+
+```{r}
+
+```
 

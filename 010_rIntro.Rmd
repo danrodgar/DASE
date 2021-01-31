@@ -1,21 +1,24 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
-# (PART) Introduction to the R Language {-}
+
+# (PART) Introduction to the R Language {.unnumbered}
 
 # Introduction to R {#r-intro}
 
-The goal of the first part of this book is to get you up to speed with the basics of __R__ as quickly as possible. 
+The goal of the first part of this book is to get you up to speed with the basics of **R** as quickly as possible.
 
-## Installation 
-  
+## Installation
+
+Install the latest preview version for getting all features.
+
 Follow the procedures according to your operating system.
 
-  * Linux: You need to have `blas` and `gfortran` installed on your Linux, for installing the `coin` package.
-  * _Rgraphviz_ requires installation from  `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
-  * Uncomment the following lines for installing all missing packages (this will take some time):
+-   Linux: You need to have `blas` and `gfortran` installed on your Linux, for installing the `coin` package.
+-   *Rgraphviz* requires installation from `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
+-   Uncomment the following lines for installing all missing packages (this will take some time):
 
 ```{r}
 # listofpackages <- c("arules","arulesViz", "bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape",  "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast", "urca", "glmnet", "FSelector", "pls", "emoa", "foreign" )
@@ -42,21 +45,34 @@ Follow the procedures according to your operating system.
 ```
 
 ## R and RStudio
-  * R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
-  * R has multiple online resources and books.
-  * [R coding style](https://google.github.io/styleguide/Rguide.xml)
-  * [R-Bloggers](https://www.r-bloggers.com/)
-  * Getting help in R
-    + [RStudio cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf) 
-    + [Base R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
-    + [Advanced R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
-    + [Data Visualization cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf)
-    + [R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-    + [R Markdown Basics] (http://rmarkdown.rstudio.com/authoring_basics.html)
-    + `help("    ")` command 
-  - R as a calculator. Console: It uses the command-line interface. 
+
+-   R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
+
+-   R has multiple online resources and books.
+
+-   [R coding style](https://google.github.io/styleguide/Rguide.xml)
+
+-   [R-Bloggers](https://www.r-bloggers.com/)
+
+-   Getting help in R
+
+    -   [RStudio cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+    -   [Base R cheat sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
+    -   [Advanced R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
+    -   [Data Visualization cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+    -   [R Markdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+    -   [R Markdown Basics] (<http://rmarkdown.rstudio.com/authoring_basics.html>)
+    -   [Python with R and Reticulate Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/reticulate.pdf)
+    -   [caret](https://github.com/rstudio/cheatsheets/raw/master/caret.pdf)
+    -   [All cheatsheets and translations](https://rstudio.com/resources/cheatsheets/)
+    -   `help("    ")` command
+
+-   R as a calculator. Console: It uses the command-line interface.
+
+-   This document is an RMarkdown document.
 
 Examples:
+
 ```{r}
 x <- c(1,2,3,4,5,6)   # Create ordered collection (vector)
 y <- x^2              # Square the elements of x
@@ -70,36 +86,39 @@ summary(lm_1)         # Compute and print statistics for the fit
                       # of the (linear model object) lm_1
 par(mfrow=c(2, 2))    # Request 2x2 plot layout
 plot(lm_1)            # Diagnostic plot of regression model
-```  
+```
 
-  * R script. # A file with R commands
-    `# comments`
-    `source("filewithcommands.R")`
-    `sink("recordmycommands.lis")`
-    `savehistory()`
+-   R script. \# A file with R commands `# comments` `source("filewithcommands.R")` `sink("recordmycommands.lis")` `savehistory()`
 
-  * From command line:
-    + Rscript  
-    + Rscript file with `-e` (e.g. `Rscript -e 2+2`)  
-    + To exit R: `quit()`
- 
-  * Variables
-  * Operators
-    + assign operator `<-`   
-    + sequence operator, for example: `mynums <- 0:20`
-    + arithmetic operators: + - = / ^   %/% (integer division) %% (modulus operator)
-  * The workspace. Objects.
-    + `ls()` `objects()`  `ls.str()` lists and describes the objects   
-    + `rm(x)` delete a variable. E.g., `rm(totalCost)`
-    + `s.str()`
-    + `objects()`
-    + `str()`  The structure function provides information about the variable
-  * RStudio, RCommander and RKWard are the well-known IDEs for R (more later). 
+-   From command line:
 
-***
-  * Four # ('####') create an _environment_ in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names. 
-    + [Environment basics](http://adv-r.had.co.nz/Environments.html#env-basics)
+    -   Rscript\
+    -   Rscript file with `-e` (e.g. `Rscript -e 2+2`)\
+    -   To exit R: `quit()`
 
+-   Variables
+
+-   Operators
+
+    -   assign operator `<-`\
+    -   sequence operator, for example: `mynums <- 0:20`
+    -   arithmetic operators: + - = / \^ %/% (integer division) %% (modulus operator)
+
+-   The workspace. Objects.
+
+    -   `ls()` `objects()` `ls.str()` lists and describes the objects\
+    -   `rm(x)` delete a variable. E.g., `rm(totalCost)`
+    -   `s.str()`
+    -   `objects()`
+    -   `str()` The structure function provides information about the variable
+
+-   RStudio, RCommander and RKWard are the well-known IDEs for R (more later).
+
+------------------------------------------------------------------------
+
+-   Four \# ('\#\#\#\#') create an *environment* in RStudio. An environment binds a set of names to a set of values. You can think of an environment as a bag of names.
+
+    -   [Environment basics](http://adv-r.had.co.nz/Environments.html#env-basics)
 
 ```{r rstudio, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("figures/environments.png")
@@ -115,18 +134,23 @@ getwd()
 # sink("recordmycommands.txt", append = TRUE)
 ```
 
-***
-    
-## Basic Data Types
-  - `class( )`
-  - logical: `TRUE`,  `FALSE`
-  - numeric, integer:  
-      * `is.numeric(  )`
-      * `is.integer(  )`  
-  - `character`
+------------------------------------------------------------------------
 
+## Basic Data Types
+
+-   `class( )`
+
+-   logical: `TRUE`, `FALSE`
+
+-   numeric, integer:
+
+    -   `is.numeric(  )`
+    -   `is.integer(  )`\
+
+-   `character`
 
 Examples:
+
 ```{r}
 TRUE
 class(TRUE)
@@ -149,12 +173,14 @@ is.integer(2)
 is.integer(2L)
 ```
 
-  - data type coercion:  
-      * `as.numeric(  )`
-      * `as.character(  )`   
-      * `as.integer(  )`
+-   data type coercion:
+
+    -   `as.numeric(  )`
+    -   `as.character(  )`\
+    -   `as.integer(  )`
 
 Examples:
+
 ```{r}
 truenum <- as.numeric(TRUE)
 truenum
@@ -170,21 +196,21 @@ char2int  <- as.integer("55.3")
 
 ```
 
-
 ### Mising values
 
-  - `NA` stands for Not Available, which is not a number as well. It applies to missing values. 
-  - `NaN` means 'Not a Number'
+-   `NA` stands for Not Available, which is not a number as well. It applies to missing values.
+-   `NaN` means 'Not a Number'
 
 Examples:
+
 ```{r}
 NA + 1
 mean(c(5,NA,7))
 mean(c(5,NA,7), na.rm=TRUE)  # some functions allow to remove NAs
 ```
 
-***
-  
+------------------------------------------------------------------------
+
 ## Vectors
 
 Examples:
@@ -206,6 +232,7 @@ is.vector(aphase)
 ```
 
 A single value is a vector! Example:
+
 ```{r}
 aphase <- 44
 is.vector(aphase)
@@ -215,6 +242,7 @@ length(thevalues)
 ```
 
 ### Coercion for vectors
+
 ```{r}
 thevalues1 <- c(15, 60, "30", 35, 22)
 class(thevalues1)
@@ -243,6 +271,7 @@ sum(earnings)
 ```
 
 Subsetting vectors
+
 ```{r}
 ### Subsetting vectors  []
 
@@ -331,9 +360,10 @@ aseqofvalues3 <- aseqofvalues3[!is.na(aseqofvalues3)]
 aseqofvalues3
 ```
 
-***
+------------------------------------------------------------------------
 
 ## Arrays and Matrices
+
 ```{r}
 mymat <- matrix(1:12, nrow =2)
 mymat
@@ -448,9 +478,12 @@ index
 m1[index] <-0
 m1
 ```
-***
-## Factors  
-  - Factors in R are stored as a vector of integer values with a corresponding set of character values to use when the factor is displayed.
+
+------------------------------------------------------------------------
+
+## Factors
+
+-   Factors in R are stored as a vector of integer values with a corresponding set of character values to use when the factor is displayed.
 
 ```{r}
 personnel <- c("Analyst1", "ManagerL2", "Analyst1", "Analyst2",  "Boss", "ManagerL1", "ManagerL2", "Programmer1", "Programmer2", "Programmer3", "Designer1","Designer2", "OtherStaff")  # staff in a company
@@ -487,13 +520,14 @@ tshirt_factor
 tshirt_factor[1] < tshirt_factor[2]
 ```
 
-***
+------------------------------------------------------------------------
+
 ## Lists
 
-  - '['  returns a list
-  - '[[' returns the list element
-  - '$' returns the content of that element in the list
-  
+-   '[' returns a list
+-   '[[' returns the list element
+-   '\$' returns the content of that element in the list
+
 ```{r}
 
 c("R good times", 190, 5)
@@ -569,8 +603,11 @@ cities <- list("Bilbao", "New York", "Tartu")
 song3[["cities"]] <- cities
 str(song3)
 ```
-***
+
+------------------------------------------------------------------------
+
 ## Data frames
+
 ```{r}
 thenames <- c("Ane", "Mike", "Xabi", "Viktoria", "Edurne")
 ages <- c(44, 20, 33, 15, 65)
@@ -644,13 +681,14 @@ mydataframeSorted2
 ```
 
 ## Environments
-An environment is a place where R stores variables that is where R binds a set of names to a set of object values. An environment is something like a bag or a list of names. Every name in an environment is unique. 
 
-The top level environment R_GlobalEnv is created when we start up R and is the Global Envirnoment. Every environment has parent environment. When we define a function, a new environment is created. 
+An environment is a place where R stores variables that is where R binds a set of names to a set of object values. An environment is something like a bag or a list of names. Every name in an environment is unique.
+
+The top level environment R_GlobalEnv is created when we start up R and is the Global Envirnoment. Every environment has parent environment. When we define a function, a new environment is created.
 
 ### Global variables, local variables and programming scope
 
-Global variables are those variables which exists throughout the execution of a program. Local variables are those variables which exist only within a certain part of a program like a function. The superassignment operator, <<-, is used to make assignments to global variables or to make assignments in the parent environment. 
+Global variables are those variables which exists throughout the execution of a program. Local variables are those variables which exist only within a certain part of a program like a function. The superassignment operator, \<\<-, is used to make assignments to global variables or to make assignments in the parent environment.
 
 ```{r}
 # variables and functions in the current environment
@@ -698,8 +736,6 @@ get('myvar_a', envir=my_env)
 
 ```
 
-
-
 ## Reading Data
 
 ```{r}
@@ -711,7 +747,7 @@ mydataISBSG <- isbsg[, c("FS", "N_effort")]
 str(mydataISBSG)
 ```
 
-***
+------------------------------------------------------------------------
 
 ## Plots
 
@@ -721,10 +757,9 @@ There are several graphic packages that are recommended, in particular `ggplot`.
 plot(mydataISBSG$FS, mydataISBSG$N_effort)
 ```
 
+------------------------------------------------------------------------
 
-
-***
-## Flow of Control 
+## Flow of Control
 
 Ifelse:
 
@@ -737,8 +772,23 @@ head(kc1, 1)
 
 ## Rattle
 
-There is graphical interface, Rattle, that allow us to perform some data mining tasks with R [@Williams11].  
-
+There is graphical interface, Rattle, that allow us to perform some data mining tasks with R [@Williams11].
 
 ![Rattle: GUI for Data mining with R](./figures/rattle.png)
 
+## Datasets
+
+R comes with some built-in datasets ready to use
+[Description of datasets](http://www.sthda.com/english/wiki/r-built-in-data-sets)
+
+```{r}
+data()
+# load the mtcars  Motor Trend Car Road Tests
+data("mtcars")
+
+# Monthly Airline Passenger Numbers 1949-1960
+# Time series object ts() convert a vector to a time series
+data("AirPassengers")
+str(AirPassengers)
+plot(AirPassengers)
+```

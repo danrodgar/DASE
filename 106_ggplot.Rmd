@@ -9,24 +9,330 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## ggplot2
 
-**ggplot2** is one of the visualization tools that the R system has. The others are the Base R plotting functions and the **lattice** package. ggplot2 is the most evolved and complete plotting
+**ggplot2** is one of the visualization tools that the R system has. The others are the Base R plotting functions and the **lattice** package. ggplot2 is the most evolved and complete plotting package. the components of a plot, including:
+    - the data being plotted, a data frame, or tibble (*tidy* data frame)
+    - the geometric objects (circles, lines, etc.) that appear on the plot
+    - a set of mappings from variables in the data to the aesthetics (appearance) of the geometric objects: what column x,y is,the color, the size, etc…
+    - a statistical transformation used to calculate the data values used in the plot
+    - a position adjustment for locating each geometric object on the plot
+    - a scale (e.g., range of values) for each aesthetic mapping used: color_manual, x_continuous, 
+    - a coordinate system used to organize the geometric objects
+    - the facets or groups of data shown in different plots: wrap, grid
+    - layers, where each layer has a single geometric object, statistical transformation, and position adjustment. You can think of each plot as a set of layers of images,
+    - theme: theme_bw(), theme_light()
+    - The typical call to ggplot()
+    
+    
+    ggplot(data=<data>, aes(x=<x>, y=<y>, color=<z>, size=<w>))+
+    geom_<geometry>()+
+    scale_<scales>()+
+    facet_<facets>()+
+    <theme>
 
-```{r cars}
-summary(cars)
+There are hundreds of geometries and ways to plot the data. 
+
+Two examples from datasets available in the R system: mtcars and diamonds 
+
+## Diamonds dataset
+
+### Exploratory data analysis
+Visualising distributions
+```{r}
+library(ggplot2)
+library(dplyr) # or library(tidyverse)
+data("diamonds")
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut))
+
+# the height of the bars is the number of observations
+diamonds %>% 
+  dplyr::count(cut)
+
+# For continuous variables we use the histogram
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+
+diamonds %>% 
+  count(cut_width(carat, 0.5))
+
 ```
 
-## Including Plots
+We may subset the data for plotting a smaller part of the data
 
-You can also embed plots, for example:
+```{r smaller}
+smaller <- diamonds %>% 
+  filter(carat < 3)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+# set the width of the intervals in a histogram with the binwidth argument 
+ggplot(data = smaller, mapping = aes(x = carat)) +
+  geom_histogram(binwidth = 0.1)
+
+# multiple histograms, using the variables carat and cut
+ggplot(data = smaller, mapping = aes(x = carat, colour = cut)) +
+  geom_freqpoly(binwidth = 0.1)
+```
+Identifying some specific points, outliers, etc. by changing the size of the x or y axis
+
+```{r}
+# reducing the width of the binwith
+ggplot(data = smaller, mapping = aes(x = carat)) +
+  geom_histogram(binwidth = 0.01)
+
+# all values in the x and y axis
+ggplot(diamonds) + 
+  geom_histogram(mapping = aes(x = y), binwidth = 0.5)
+
+# zoom to small values in the y-axis
+ggplot(diamonds) + 
+  geom_histogram(mapping = aes(x = y), binwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50))
+
+# we identify those values 
+unusual <- diamonds %>% 
+  filter(y < 3 | y > 20) %>% 
+  select(price, x, y, z) %>%
+  arrange(y)
+unusual
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Removing extreme points and plot the new data
+
+```{r}
+diamonds2 <- diamonds %>% 
+  mutate(y = ifelse(y < 3 | y > 20, NA, y))
+
+ggplot(data = diamonds2, mapping = aes(x = x, y = y)) + 
+  geom_point()
+
+```
+### Boxplots
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
+  geom_boxplot()
+```
+
+### Two categorical variables
+
+Different visualisations
+
+```{r}
+ggplot(data = diamonds) +
+  geom_count(mapping = aes(x = cut, y = color))
+
+diamonds %>% 
+  count(color, cut)
+
+# different geometry
+diamonds %>% 
+  count(color, cut) %>%  
+  ggplot(mapping = aes(x = color, y = cut)) +
+    geom_tile(mapping = aes(fill = n))
+```
+
+
+## Plotting relationships diamonds
+Simple plot of carats vs price
+
+```{r plotdiamonds}
+data("diamonds") # from ggplot2  ?diamonds
+p <- ggplot(data = diamonds, aes(x = carat, y = price))
+p + geom_point()
+
+# alpha to add transparency
+ggplot(data = diamonds) + 
+  geom_point(mapping = aes(x = carat, y = price), alpha = 1 / 100)
+```
+
+Plot the `smaller` subset with different geometries
+```{r}
+
+ggplot(data = smaller) +
+  geom_bin2d(mapping = aes(x = carat, y = price))
+
+# install.packages("hexbin")
+ggplot(data = smaller) +
+  geom_hex(mapping = aes(x = carat, y = price))
+```
+
+
+
+Cutting data above or equal to 2 carats, adding color depending on the variable cut and adding some transparency to the points (alpha)
+
+```{r}
+#carat < 2
+data("diamonds")
+p <- diamonds %>% filter(carat<2) %>% 
+        ggplot(aes(x = carat, y = price, color = cut))
+p + geom_point(alpha=0.5)
+
+```
+Adding some smooth splines
+
+```{r}
+p + geom_point(alpha=0.5) + geom_smooth()
+```
+Coloring points in a different way to understand the possible relationship
+```{r}
+p <- diamonds %>% filter(carat<2) %>% 
+        ggplot(aes(x = carat, y = price, color = clarity))
+p + geom_point(alpha=0.5) + geom_smooth()
+```
+
+Since we have several variables that may affect the price we may plot different graphs using `facet_wrap(~cut)`
+```{r}
+colors <- rainbow(length(unique(diamonds$clarity)))
+p <- ggplot(diamonds, aes(x = price, y = carat)) + 
+        geom_point(aes(color = clarity), alpha = 0.5, size = 1) + 
+        geom_smooth(color = "black") + 
+        scale_colour_manual(values = colors, name = "Clarity") +
+        facet_wrap(~cut) 
+p
+```
+
+Or we may change the size of the point
+
+```{r}
+p <- ggplot(diamonds, aes(x = price, y = carat, size = cut)) + 
+        geom_point(aes(color = clarity), alpha = 0.5) + 
+        scale_colour_manual(values = colors, name = "Clarity")
+p
+```
+Sampling the data to unclutter the plot
+
+```{r}
+p <- ggplot(diamonds[sample(nrow(diamonds), size=500),], 
+            aes(x = carat, y = price, size = cut)) + 
+        geom_point(aes(color = clarity), alpha = 0.5) + 
+        scale_colour_manual(values = colors, name = "Clarity")
+p
+```
+
+### Using Themes
+
+theme_grey(), theme_classic(), theme_dark(), theme_minimal()
+
+```{r}
+my_theme <- theme_bw()+
+            theme(text = element_text(size = 18, family = "Times", face = "bold"),
+                  axis.ticks = element_line(size = 1),
+                  legend.text = element_text(size = 14, family = "Times"),
+                  panel.border = element_rect(size = 2),
+                  panel.grid.major = element_blank(), 
+                  panel.grid.minor = element_blank()
+                  )
+p + my_theme
+```
+
+## Interactivity with plotly
+
+```{r}
+library(plotly)
+p <- ggplot(diamonds[sample(nrow(diamonds), size = 100),], 
+        aes(x = carat, y = price)) + 
+        geom_point(aes(color = clarity), alpha = 0.5, size = 2) + 
+        my_theme
+ggplotly(p, dynamicTicks = TRUE)
+```
+
+Chapter 28 from R for Data Science
+```{r plotmtcars}
+library(ggplot2)
+data("mtcars") # from Base R  ?mtcars
+
+hist(mtcars$mpg)
+
+# create canvas
+ggplot(mpg)
+
+# variables of interest mapped
+ggplot(mpg, aes(x = displ, y = hwy))
+
+# data plotted
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+### Labels, subtitles, captions
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(title = "Fuel efficiency generally decreases with engine size")
+
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Fuel efficiency generally decreases with engine size",
+    subtitle = "Two seaters (sports cars) are an exception because of their light weight",
+    caption = "Data from fueleconomy.gov"
+  )
+
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)",
+    colour = "Car type"
+  )
+
+df <- tibble(
+  x = runif(10),
+  y = runif(10)
+)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(
+    x = quote(sum(x[i] ^ 2, i == 1, n)),
+    y = quote(alpha + beta + frac(delta, theta))
+  )
+
+
+```
+
+### Annotations
+
+We may label individual observations or groups of observations with `geom_text()`, `geom_label` and using some transformation with the package `ggrepel`
+
+```{r}
+best_in_class <- mpg %>%
+  group_by(class) %>%
+  filter(row_number(desc(hwy)) == 1)
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_text(aes(label = model), data = best_in_class)
+
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_label(aes(label = model), data = best_in_class, nudge_y = 2, alpha = 0.5)
+
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_point(size = 3, shape = 1, data = best_in_class) +
+  ggrepel::geom_label_repel(aes(label = model), data = best_in_class)
+```
+
+
+
+```{r unified}
+ufdf <- readr::read_csv("datasets/defectPred/unified/Unified-file.csv")
+ufdc <- readr::read_csv("datasets/defectPred/unified/Unified-class.csv")
+```
 
 ## References
 
 -   [The book ggplot2](https://ggplot2-book.org/index.html)
 -   Video Introduction to ggplot in R [Youtube video](https://www.youtube.com/watch?v=1GmQ5BdAhG4)
 -   [Ggplot2 gallery](https://www.r-graph-gallery.com/ggplot2-package.html)
+-   [Chapter Data Visualization, R for Data Science](https://r4ds.had.co.nz/data-visualisation.html)
+-   [Chapter Graphics for Communication, R for Data Science](https://r4ds.had.co.nz/graphics-for-communication.html)
+-   [An introduction to ggplot2](https://uc-r.github.io/ggplot_intro)
