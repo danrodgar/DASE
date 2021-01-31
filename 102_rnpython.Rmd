@@ -3,49 +3,33 @@ title: "R and Python"
 output: html_document
 ---
 
-link for the rmarkdown document
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R and Python. Brief introduction.
 
-R and Python can interact via the *reticulate* package Instruction for configuring the system can be found at RStudio <https://support.rstudio.com/hc/en-us/articles/360023654474-Installing-and-Configuring-Python-with-RStudio>.
+R and Python can interact via the *reticulate* package. Instructions for configuring the system can be found at RStudio <https://support.rstudio.com/hc/en-us/articles/360023654474-Installing-and-Configuring-Python-with-RStudio>.
 
 Or we can create our environment following - [R and Python -- a happy union with reticulate webinar]<https://www.youtube.com/watch?v=8WE-EU5k97Q&t=27s>
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-Arrays in R and in Python
-https://rstudio.github.io/reticulate/articles/arrays.html
-
 
 ```{r installreticulate}
 # install.packages("reticulate")
 ```
 
 ## Installing Python on your system
-check that the python version is 
-python3 --version
-If the version level is lower than 3.7.x install it. 
-import pandas matplotlib
 
+check that the python version is python3 --version If the version level is lower than 3.7.x install it. import pandas matplotlib
 
-You can also embed plots, for example:
 ```{r}
 library("reticulate")
-use_virtualenv("myenv")
+# use_virtualenv("myenv")
+data("mtcars")
 ```
-
-
-
 
 ```{python}
 print("Hello Python!")
-data = {
+datactrs = {
     'CHN': {'COUNTRY': 'China', 'POP': 1_398.72, 'AREA': 9_596.96,
             'GDP': 12_234.78, 'CONT': 'Asia'},
     'IND': {'COUNTRY': 'India', 'POP': 1_351.16, 'AREA': 3_287.26,
@@ -92,6 +76,35 @@ data = {
 columns = ('COUNTRY', 'POP', 'AREA', 'GDP', 'CONT', 'IND_DAY')
 
 ```
+
+```{python impor_tips_fmri}
+import pandas as pd
+import seaborn as sns  #ubuntu #sudo apt-get install -y python3-seaborn 
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+mylist = ["youtube", 'linkedin', '1littlecoder']
+sns.scatterplot(x=tips['total_bill'], y = tips['tip'], hue=tips['day'])
+plt.show()
+
+fmri = sns.load_dataset("fmri")
+```
+
+
+```{r accesing_py}
+f1 <- subset(py$fmri, region == "parietal")
+```
+
+```{python accesing_r}
+import matplotlib as mpl
+sns.lmplot("timepoint","signal", data=r.f1)
+mpl.pyplot.show()
+
+sns.lmplot("mpg", "cyl", data=r.mtcars)
+mpl.pyplot.show()
+```
+
+
 ```{python pandas}
 import pandas as pd 
 df = pd.DataFrame(data=data, index=columns).T
@@ -100,12 +113,9 @@ df
 df.to_csv('data_countries.csv')
 ```
 
-
-
 ```{python }
-df1 = pd.read_csv('data_countries.csv', index_col=0)
+df1 = pd.read_csv("/datasets/other/data_countries.csv", index_col=0)
 ```
-
 
 ```{python }
 flights = pandas.read_csv("flights.csv")
@@ -114,7 +124,6 @@ flights = flights[['carrier', 'dep_delay', 'arr_delay']]
 flights = flights.dropna()
 print(flights.head())
 ```
-
 
 ```{python matplotlib}
 import matplotlib.pyplot as plt
@@ -130,8 +139,6 @@ plt.show()
 
 ```
 
-
-
 ```{r fig.width=7, fig.height=3, echo=FALSE}
 library(ggplot2)
 ggplot(py$flights, aes(carrier, arr_delay)) + geom_point() + geom_jitter()
@@ -140,3 +147,7 @@ ggplot(py$flights, aes(carrier, arr_delay)) + geom_point() + geom_jitter()
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ## References
+
+-   [3 Wild-Caught R and Python Applications](https://blog.rstudio.com/2020/07/28/practical-interoperability/)
+-   [RStudio + Python, Visual Markdown Editor -- RStudio Latest Update](https://www.r-bloggers.com/2021/01/rstudio-python-visual-markdown-editor-rstudio-latest-update/)
+-   [Arrays in R and in Python]<https://rstudio.github.io/reticulate/articles/arrays.html>

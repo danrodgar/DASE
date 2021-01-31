@@ -66,7 +66,7 @@ Using the C50 package, there are two ways, specifying train and testing
 library(C50)
 require(utils)
 # c50t <- C5.0(jm1.train[,-ncol(jm1.train)], jm1.train[,ncol(jm1.train)])
-c50t2 <- C5.0(Defective ~ ., jm1.train)
+c50t <- C5.0(Defective ~ ., jm1.train)
 summary(c50t)
 plot(c50t)
 c50tPred <- predict(c50t, jm1.train)

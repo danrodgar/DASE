@@ -1,0 +1,16 @@
+---
+title: "otherCode"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+```{r unified}
+ufdf <- readr::read_csv("datasets/defectPred/unified/Unified-file.csv")
+ufdc <- readr::read_csv("datasets/defectPred/unified/Unified-class.csv")
+```

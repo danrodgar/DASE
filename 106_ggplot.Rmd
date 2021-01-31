@@ -30,6 +30,10 @@ knitr::opts_chunk$set(echo = TRUE)
     <theme>
 
 There are hundreds of geometries and ways to plot the data. 
+In summary, to create a plot we need to:
+- call `ggplot` function that creates a blank canvas
+- specify *aesthetic mappings* between variables and visual aspects
+- add new layers of geometric objects such as geom_point, geom_bar, etc. 
 
 Two examples from datasets available in the R system: mtcars and diamonds 
 
@@ -321,13 +325,6 @@ ggplot(mpg, aes(displ, hwy)) +
   ggrepel::geom_label_repel(aes(label = model), data = best_in_class)
 ```
 
-
-
-```{r unified}
-ufdf <- readr::read_csv("datasets/defectPred/unified/Unified-file.csv")
-ufdc <- readr::read_csv("datasets/defectPred/unified/Unified-class.csv")
-```
-
 ## References
 
 -   [The book ggplot2](https://ggplot2-book.org/index.html)
@@ -336,3 +333,4 @@ ufdc <- readr::read_csv("datasets/defectPred/unified/Unified-class.csv")
 -   [Chapter Data Visualization, R for Data Science](https://r4ds.had.co.nz/data-visualisation.html)
 -   [Chapter Graphics for Communication, R for Data Science](https://r4ds.had.co.nz/graphics-for-communication.html)
 -   [An introduction to ggplot2](https://uc-r.github.io/ggplot_intro)
+- [Top 50 ggplot visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
