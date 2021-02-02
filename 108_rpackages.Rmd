@@ -12,8 +12,57 @@ output: html_document
 
 ## R Packages
 
+We are going to create a minimal package with RStudio. The package structure will be uploaded to Github in order to track all changes made to the package. Other users will be able to install your package from Github.
+
+### Create a repository in your Github account
+
+The repository will contain your package. Example: hellopackage, basicpackage2, etc. Tick the cell "Add README.md": This will create the `main` branch in github. Accordingly, we will use the **main** branch in our project for the first commits (and not the **master** branch)
+
+### Create your Package-Project in Rstudio, allowing Git to track changes
+
+git remote add origin <https://github.com/javierdolado/se----.git>
+
+-   use **main** (and not master) in order to conform to the github standard
+
+git pull origin main
+
+git push -u origin main
+
+Now, we should see our changes in the github repository.
+
+### Continue creating the package with RStudio
+Switch to the Build tab
+- Check
+  Usually we get the warnings about the License, the documentation and the NAMESPACE file. 
+
+- Go to Tools > Project Options > Build Tools --> Tick the cell "Generate documentation with Roxygen" and do not change the defaults.
+
+- in the Build panel  More > Clean and Rebuild
+- Check
+- delete the NAMESPACE file (if requested)
+- go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file
+- Documentation warnings. We may include comments and other information for our functions using #' in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
+- go to More > Document  (or hit Ctrl+Shift+D)
+- More > Clean and Rebuild
+- Check
+- We should see  0 errors | 0 warnings | 0 notes 
+
+### Commit and push all your changes to Github
+
+In order to install your new package and to see your changes, close the Project without saving the data and restart RStudio with a clean environment.
+
+#### To install the new package from github
+Load the library devtools
+- library(devtools)  
+- install_github("yourusername/the_name_of_the_repo_containing_your_package")
+
+Now you can use your functions by typing
+yourpackage::yourfunction1()
+
+
+
 ## R packages with R Markdown: the `fusen` package
-The easy way.
+
 Important: change working directory
 
 ```{r}
@@ -29,13 +78,14 @@ dev_file <- fusen::add_dev_history(open = TRUE)
 
 ```
 
-
 ```{r}
 fill_description(fields = list(Title = "My Awesome Package"))
-# usethis::use_mit_license("Sébastien Rochette")
+# usethis::use_mit_license("My Name")
 ```
 
 ## References
-- https://rtask.thinkr.fr/fusen-create-a-package-from-a-single-rmarkdown-file/
-- https://r-pkgs.org/intro.html
 
+-   [Version Control with Git and SVN]<https://support.rstudio.com/hc/en-us/articles/200532077?version=1.4.1103&mode=desktop>
+-   <https://r-pkgs.org/intro.html>
+-   <https://www.zdnet.com/article/github-to-replace-master-with-main-starting-next-month/>
+-   <https://rtask.thinkr.fr/fusen-create-a-package-from-a-single-rmarkdown-file/>
