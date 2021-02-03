@@ -11,22 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The replacement for the `caret` package from the tidyverse point of view. 
 
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ### References 
 
 [The tidymodels Package on CRAN](https://www.tidyverse.org/blog/2018/08/tidymodels-0-0-1/)
 https://www.tidymodels.org/
-

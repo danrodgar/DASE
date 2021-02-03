@@ -1,0 +1,21 @@
+---
+title: "tidyverse"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Tidyverse approach to Data Analysis
+
+<https://www.tidyverse.org/>
+
+## Packages included
+
+### Criticism to this approach
+
+-   <https://towardsdatascience.com/a-thousand-gadgets-my-thoughts-on-the-r-tidyverse-2441d8504433>
+-   <https://github.com/matloff/TidyverseSkeptic/blob/master/READMEFull.md>
+-   <https://www.r-bloggers.com/2019/12/why-i-dont-use-the-tidyverse/>
+-   Jared P. Lander, R for Everyone. Advanced Analytics and Graphics, 2nd ed., Addison-Wesley, 2017

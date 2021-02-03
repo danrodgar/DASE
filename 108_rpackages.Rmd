@@ -59,6 +59,11 @@ Load the library devtools
 Now you can use your functions by typing
 yourpackage::yourfunction1()
 
+## A good use of a package: to export data
+How to add a dataset to a package so that it can be used when the package is installed:
+-
+- 
+
 
 
 ## R packages with R Markdown: the `fusen` package
