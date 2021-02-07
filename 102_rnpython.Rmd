@@ -90,7 +90,6 @@ plt.show()
 fmri = sns.load_dataset("fmri")
 ```
 
-
 ```{r accesing_py}
 f1 <- subset(py$fmri, region == "parietal")
 ```
@@ -103,7 +102,6 @@ mpl.pyplot.show()
 sns.lmplot("mpg", "cyl", data=r.mtcars)
 mpl.pyplot.show()
 ```
-
 
 ```{python pandas}
 import pandas as pd 
@@ -147,7 +145,15 @@ ggplot(py$flights, aes(carrier, arr_delay)) + geom_point() + geom_jitter()
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 ## References
-- [R interface to Python](https://rstudio.github.io/reticulate/)
+
+-   [https://rstudio.com/resources/webinars/rstudio-a-single-home-for-r-and-python/](https://info.rstudio.com/WN07MCXqS1A2NYS0040LW00)
+
+-   [R interface to Python](https://rstudio.github.io/reticulate/)
+
 -   [3 Wild-Caught R and Python Applications](https://blog.rstudio.com/2020/07/28/practical-interoperability/)
+
 -   [RStudio + Python, Visual Markdown Editor -- RStudio Latest Update](https://www.r-bloggers.com/2021/01/rstudio-python-visual-markdown-editor-rstudio-latest-update/)
+
 -   [Arrays in R and in Python]<https://rstudio.github.io/reticulate/articles/arrays.html>
+
+-   <https://www.r-bloggers.com/2021/02/pythons-pandas-vs-rs-dplyr-which-is-the-best-data-analysis-library/?utm_source=feedburner&utm_medium=email&utm_campaign=Feed%3A+RBloggers+%28R+bloggers%29>

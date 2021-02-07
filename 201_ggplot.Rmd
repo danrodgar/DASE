@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## ggplot2
 
-**ggplot2** is one of the visualization tools that the R system has. The others are the Base R plotting functions and the **lattice** package. ggplot2 is the most evolved and complete plotting package. the components of a plot, including:
+**ggplot2** is one of the visualization tools that the R system has. The others are the Base R plotting functions and the **lattice** package. ggplot2 is the most evolved and complete plotting package. The components of a plot, include:
     - the data being plotted, a data frame, or tibble (*tidy* data frame)
     - the geometric objects (circles, lines, etc.) that appear on the plot
     - a set of mappings from variables in the data to the aesthetics (appearance) of the geometric objects: what column x,y is,the color, the size, etc…

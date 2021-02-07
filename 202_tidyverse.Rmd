@@ -11,9 +11,49 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <https://www.tidyverse.org/>
 
+`tidyverse` is a family of packages promoted by RStudio with the purpose of standardizing the processes in data science
+
 ## Packages included
 
-### Criticism to this approach
+-   `readr`
+-   `tibble`
+-   `dplyr` for data manipulation
+-   `tidyr` for "tidy"ing data
+-   `forcats`
+-   `ggplot2` for plotting data
+-   `purrr`
+-   `stringr`
+-   and the Pipe operator `%>%`
+
+### The Pipe operator in packages magrittr and dplyr
+The pipe %>% operator was first introduced in the magrittr package. Now it is an essential part of the tidyverse library. 
+It allows to concatenate a sequence of methods or calls to functions.
+The operator is read from "left to right". The %>% takes the data that is on the left hand side and passes it to the function that is on the right hand side.
+
+It comes in handy when applying a sequence of functions to data frames. 
+
+```{r, echo=FALSE}
+library(magrittr)
+print("Compute the square root of the elements of a vector")
+x <- 0:5
+x
+sqrt(x)
+
+"  Using the pipe %>% ..." %>% print()
+x %>% sqrt()
+
+x %>% summary()
+
+library(dplyr)
+mtcars %>% select(mpg, cyl, hp) %>% filter(cyl > 4) %>% summary()
+
+mtcars_2 <- mtcars %>% select(mpg, cyl, hp) %>% filter(cyl > 4) %>% head()
+mtcars_2
+
+
+```
+
+### Criticisms to this approach
 
 -   <https://towardsdatascience.com/a-thousand-gadgets-my-thoughts-on-the-r-tidyverse-2441d8504433>
 -   <https://github.com/matloff/TidyverseSkeptic/blob/master/READMEFull.md>

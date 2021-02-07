@@ -5,9 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 # knitr::opts_chunk$set(echo = TRUE)
-# # opts_knit$set(root.dir = "~/path/to/folder/")
 # require("knitr")
-# opts_knit$set(root.dir = "~/fusenpackage/")
 ```
 
 ## R Packages
@@ -31,62 +29,135 @@ git push -u origin main
 Now, we should see our changes in the github repository.
 
 ### Continue creating the package with RStudio
-Switch to the Build tab
-- Check
-  Usually we get the warnings about the License, the documentation and the NAMESPACE file. 
 
-- Go to Tools > Project Options > Build Tools --> Tick the cell "Generate documentation with Roxygen" and do not change the defaults.
+Switch to the Build tab - Check Usually we get the warnings about the License, the documentation and the NAMESPACE file.
 
-- in the Build panel  More > Clean and Rebuild
-- Check
-- delete the NAMESPACE file (if requested)
-- go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file
-- Documentation warnings. We may include comments and other information for our functions using #' in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
-- go to More > Document  (or hit Ctrl+Shift+D)
-- More > Clean and Rebuild
-- Check
-- We should see  0 errors | 0 warnings | 0 notes 
+-   Go to Tools \> Project Options \> Build Tools --\> Tick the cell "Generate documentation with Roxygen" and do not change the defaults.
+
+-   in the Build panel More \> Clean and Rebuild
+
+-   Check
+
+-   delete the NAMESPACE file (if requested)
+
+-   go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file
+
+-   Documentation warnings. We may include comments and other information for our functions using \#' in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
+
+-   go to More \> Document (or hit Ctrl+Shift+D)
+
+-   More \> Clean and Rebuild
+
+-   Check
+
+-   We should see 0 errors \| 0 warnings \| 0 notes
 
 ### Commit and push all your changes to Github
 
 In order to install your new package and to see your changes, close the Project without saving the data and restart RStudio with a clean environment.
 
 #### To install the new package from github
-Load the library devtools
-- library(devtools)  
-- install_github("yourusername/the_name_of_the_repo_containing_your_package")
 
-Now you can use your functions by typing
-yourpackage::yourfunction1()
+Load the library devtools - library(devtools)\
+- devtools::install_github("yourusername/the_name_of_the_repo_containing_your_package")
 
-## A good use of a package: to export data
-How to add a dataset to a package so that it can be used when the package is installed:
--
-- 
+Now you can use your functions by typing yourpackage::yourfunction1()
+
+## A good use of a package: to export and to share data
+
+We may add a dataset to a package so that it can be used when the package is installed. Or we can create a package that contains only data to be shared. An example of the second use is the well-known R package `gapminder`. We focus now on the second aspect and we will create a package that contains only data (but we may add also some reports in the form of documentation).
+
+-   RStudio: create a New project \> New directory \> newname . For the sake of example we create the new project with name "datapackaplusb" (we intend to combine two simple datasets into one single file)
+
+-   Create a repository in Github with the same name as the project, for the sake of clarity. Add some comments to the README.md. You will You will see the "main" branch created for the repo. -- -- Button Code: copy the <https://github>...
+
+-   Go to RStudio \> More \> Configure Build tools \> Git/SVN \> Select Git and Say yes to create a git repository and restart RStudio. Now you have your local repository created (most probably in the "master" branch)
+
+-   Open the Shell Git -\> More -\> Shell and paste the text that you copied from Github in the command 
+`git remote add origin <https://github.com-----------.git>`
+
+-   Type `git pull origin main`. With this first pull your local directory contains all changes done in "main". in Github. You should see now the "main" branch in RStudio.
+
+-   Important: Go to the Git tab and switch from the "master" branch to the "main" branch so that both local and Github are now in the same "main" branch.
+
+-   In the Git tab select the files and directories that you want to commit and push to Github (First commit and then push or "git push -u origin main"). Now, you should see your changes in the github repository.
+
+### Create folder for the original files to be processed
+1. Usually external files are placed in the dir ins/extdata. We may place the data there. 
+2. Perform a first check of the package (click the button or devtools::check)
+	-- Warning about the license --> correct, for instance, GPL-3
+3. Usually, the external files are not uploaded to Github, specially their size is too big.
+ Additionally, when building the package We may ignore files located in some directories by adding those files to .Rbuildignore 
+ 			^data-raw$
+      ^inst/extdata$
+4. Clean and rebuild the package. This will install the package we are creating in our environment, so that everything is available for use. 
+5. For the sake of example we copy and paste the files albretch.csv and bailey.csv in the folder inst/extdata
+6. We can retrieve the actual path to those files extdata files with
+	system.file( "extdata",  "albretch.csv",   package = "datapackaplusb")
+7. Processing those external files into a data frame that is usable
+We will create a script in a new data_raw folder with `usethis::use_data_raw(name = "aandb")` (Give it the name that you like)
+8. Do whatever  you wish with the data. In this case we simple create a new file. 
+	The final command 
+	# save the dfaandb dataframe as an .rda file in datapackaplusb/data/
+usethis::use_data(dfaandb, overwrite = TRUE)
+creates the data/ folder with the data frame stored as .rda
+
+9. Clean and Rebuild the package
+
+10. The data can be accessed in the environment with 
+data("dfaandb", package = "datapackaplusb")
+
+11. Document the data 
+Go to Build > More > Configure Build Tools
+and check the tick in the "Document with ROxygen"
+
+12. Create the file data.R in the R/ folder
+More > Document    or devtools::document()
+
+13. Delete the NAMESPACE file and repeat devtools::document() (NAMESPACE is overwritten)
+
+14. Add the the following content (change as appropriate) to the file data.R 
 
 
+#' Data of effort and size for several projects
+#'
+#' No missing values
+#' A dataset containing -----  whatever you put here.
+#'
+#' @title DATASET OF ALBRETCH AND BAILEY
+#' @format A data frame with 42 rows and three variables:
+#' \describe{
+#' \item{effort}{Effort measured in -------.}
+#' \item{size}{Size measured in ....}
+#' \item{source}{A or B indicating one source or another.}
+#' }
+#' @source \url{https://....DASE... }
+"dfaandb"
 
-## R packages with R Markdown: the `fusen` package
+15. Roxygen transforms the code above into a dfaandb.Rd file and adds it to the man/ folder. We can view this documentation in the help pane by typing ?dfaandb in the R console.
 
-Important: change working directory
+16. Check. (you may delete the file hello.R or add the following lines if you want to have that function)
 
-```{r}
-# install.packages("remotes")
-# remotes::install_github("rundel/parsermd")
-# remotes::install_github("Thinkr-open/fusen")
+#' The usual Hello World!
+#' @export
+#'
 
+17. Commit and push all your changes to Github. You may ignore /data-raw and inst/extdata
 
-```
+18. close the project. Restart and install the package from github. devtools::install_github("yourrepo/datapackaplusb")
+library(datapackaplusb)
+19. Type data("dfaandb", package="datapackaplusb")
 
-```{r}
-dev_file <- fusen::add_dev_history(open = TRUE)
+Additional steps
+--  Vignette. If you wish you can create a vignette in an .Rmd with a report obtained from the data do this
+usethis::use_vignette(name = "effort_eda", title = "Basic EDA of the Effort data")
+The directory vignettes is created and you may complete the .Rmd
 
-```
+You may have to install the package qpdf to avoid the Warning about the size of the documents
+(sudo apt-get install -y qpdf in Ubuntu)
+ 
+-- Working with R Markdown. We may add RMarkdown to our package. We create a sub folder rmd/ in the inst/ folder. 
 
-```{r}
-fill_description(fields = list(Title = "My Awesome Package"))
-# usethis::use_mit_license("My Name")
-```
 
 ## References
 
