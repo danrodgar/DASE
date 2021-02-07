@@ -36,7 +36,14 @@ The Cross Industry Process for Data Mining (CRISP-DM) also provides a common and
   - We want to find a function $f()$, that given $X1, X2, ...$  computes $Y=f(X1, X2, ..., Xn)$
 
 
-## Basic References 
+## Data Science 
+Data science (DS) is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structured and unstructured data. Data science is related to data mining, machine learning and big data. 
+
+We may say that the term DS embraces all terms related to data analysis that previously were under different disciplines. 
+
+![Wikipedia Data Science](figures/Data_science.png)
+
+## Some References 
 
 Generic books about statistics:
 
@@ -49,7 +56,10 @@ Generic books about statistics:
   * [Geoff Cumming, *Understanding the New Statistics: Effect Sizes, Confidence Intervals, and Meta-Analysis*, Routledge, New York, 2012](https://www.routledge.com/products/9780415879682)
     
 
-## Data Mining with R
+## Data Mining and Data Science with R
+* [R for Data Science](https://r4ds.had.co.nz/)
+* [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition)
+*[R for Everyone: Advanced Analytics and Graphics](https://www.jaredlander.com/r-for-everyone/)
 
   * [Graham Williams, *Data Mining with Rattle and R: The Art of Excavating Data for Knowledge Discovery*, Springer 2011](http://www.springer.com/gp/book/9781441998897)
   

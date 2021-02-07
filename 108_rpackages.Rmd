@@ -137,10 +137,14 @@ More > Document    or devtools::document()
 15. Roxygen transforms the code above into a dfaandb.Rd file and adds it to the man/ folder. We can view this documentation in the help pane by typing ?dfaandb in the R console.
 
 16. Check. (you may delete the file hello.R or add the following lines if you want to have that function)
-
-#' The usual Hello World!
+#' The most used program :-) Greeting. 
+#' @description  Hello to the world
+#' @param No parameters
 #' @export
 #'
+#' @examples
+#' hello()
+#' 
 
 17. Commit and push all your changes to Github. You may ignore /data-raw and inst/extdata
 
