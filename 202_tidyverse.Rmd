@@ -92,6 +92,9 @@ arrange is used to sort cases in ascending or descending order.
 ```{r}
 mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg)) %>% arrange(desc(cyl))
 ```
+## Tibble
+"Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors)."
+https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html
 
 
 ### Criticisms to this approach
