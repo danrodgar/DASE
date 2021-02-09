@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   and the Pipe operator `%>%`
 
 ### The Pipe operator in packages magrittr and dplyr
-The pipe %>% operator was first introduced in the magrittr package. Now it is an essential part of the tidyverse library. 
+The pipe %>% operator was first introduced in the magrittr package. Now, it is an essential part of the tidyverse library. 
 It allows to concatenate a sequence of methods or calls to functions.
 The operator is read from "left to right". The %>% takes the data that is on the left hand side and passes it to the function that is on the right hand side.
 

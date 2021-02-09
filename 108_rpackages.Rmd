@@ -18,7 +18,7 @@ The repository will contain your package. Example: hellopackage, basicpackage2, 
 
 ### Create your Package-Project in Rstudio, allowing Git to track changes
 
-git remote add origin <https://github.com/javierdolado/se----.git>
+git remote add origin <https://github.com/yourrepo......./yourpackage----.git>
 
 -   use **main** (and not master) in order to conform to the github standard
 
@@ -30,7 +30,7 @@ Now, we should see our changes in the github repository.
 
 ### Continue creating the package with RStudio
 
-Switch to the Build tab - Check Usually we get the warnings about the License, the documentation and the NAMESPACE file.
+Switch to the Build tab - Check. Usually we get the warnings about the License, the documentation and the NAMESPACE file.
 
 -   Go to Tools \> Project Options \> Build Tools --\> Tick the cell "Generate documentation with Roxygen" and do not change the defaults.
 
@@ -38,11 +38,13 @@ Switch to the Build tab - Check Usually we get the warnings about the License, t
 
 -   Check
 
--   delete the NAMESPACE file (if requested)
+-   delete the NAMESPACE file because it is automatically created when building the package. 
 
 -   go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file
 
 -   Documentation warnings. We may include comments and other information for our functions using \#' in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
+
+Example: Code your own function or use the file funhist2df.R that is in the folder toAddLater
 
 -   go to More \> Document (or hit Ctrl+Shift+D)
 
