@@ -52,6 +52,47 @@ mtcars_2
 
 
 ```
+## dplyr
+dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
+
+    mutate() adds new variables that are functions of existing variables
+    select() picks variables based on their names.
+    filter() picks cases based on their values.
+    summarise() reduces multiple values down to a single summary.
+    arrange() changes the ordering of the rows.
+    group_by() which allows you to perform any operation “by group”.
+
+### Examples
+
+`glimpse` 
+```{r}
+glimpse(mtcars)
+```
+
+`select` is used for subsetting variables
+```{r}
+select(mtcars,mpg)
+
+select(mtcars, mpg:disp,-cyl) # mpg to disp, except cyl
+
+```
+
+`mutate` adds new columns to a dataset
+
+`filter` selects cases based on the values of the rows
+
+```{r}
+mtcars %>% filter(hp>100)
+```
+Group_by is used to group data by one or more columns. Usually 
+```{r}
+mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg))
+```
+arrange is used to sort cases in ascending or descending order. 
+```{r}
+mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg)) %>% arrange(desc(cyl))
+```
+
 
 ### Criticisms to this approach
 

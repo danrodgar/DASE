@@ -48,7 +48,7 @@ Follow the procedures according to your operating system.
 
 -   R is a programming language for statistical computing and data analysis that supports a variety of programming styles. See [R in Wikipedia](https://en.wikipedia.org/wiki/R_(programming_language))
 
--   R has multiple online resources and books.
+-   R has multiple online resources and books. 
 
 -   [R coding style](https://google.github.io/styleguide/Rguide.xml)
 
@@ -65,11 +65,11 @@ Follow the procedures according to your operating system.
     -   [Python with R and Reticulate Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/reticulate.pdf)
     -   [caret](https://github.com/rstudio/cheatsheets/raw/master/caret.pdf)
     -   [All cheatsheets and translations](https://rstudio.com/resources/cheatsheets/)
-    -   `help("    ")` command
+    -   `help("    ")` command  
 
 -   R as a calculator. Console: It uses the command-line interface.
 
--   This document is an RMarkdown document.
+-   This document is an RMarkdown document. See [bookdown.org](bookdown.org)
 
 Examples:
 
@@ -86,6 +86,11 @@ summary(lm_1)         # Compute and print statistics for the fit
                       # of the (linear model object) lm_1
 par(mfrow=c(2, 2))    # Request 2x2 plot layout
 plot(lm_1)            # Diagnostic plot of regression model
+
+help(lm)
+?lm
+apropos("lm")
+example(lm)
 ```
 
 -   R script. \# A file with R commands `# comments` `source("filewithcommands.R")` `sink("recordmycommands.lis")` `savehistory()`
@@ -96,7 +101,15 @@ plot(lm_1)            # Diagnostic plot of regression model
     -   Rscript file with `-e` (e.g. `Rscript -e 2+2`)\
     -   To exit R: `quit()`
 
--   Variables
+-   Variables. R is case sensitive
+```{r}
+var1 <- 1:10
+vAr1 <- 11:20
+var1
+vAr1 
+```
+
+
 
 -   Operators
 
@@ -159,6 +172,8 @@ NA  # missing
 class(NA)
 T
 F
+NaN
+class(NaN)
 
 # numeric data type
 2
@@ -171,6 +186,7 @@ is.numeric(2)
 is.numeric(2L)
 is.integer(2)
 is.integer(2L)
+is.numeric(NaN)
 ```
 
 -   data type coercion:
@@ -607,9 +623,12 @@ str(song3)
 ------------------------------------------------------------------------
 
 ## Data frames
+A data frame is the data structure most often used for data analyses. A data frame is a list of equal-length vectors. Each element of the list can be thought of as a column and the length of each element of the list is the number of rows. As a result, data frames can store different classes of objects in each column (i.e. numeric, character, factor). 
+
+The `tidyverse` package provides a version of the data frame called `tibble`
 
 ```{r}
-thenames <- c("Ane", "Mike", "Xabi", "Viktoria", "Edurne")
+thenames <- c("Ane", "Mike", "Laura", "Viktoria", "Martin")
 ages <- c(44, 20, 33, 15, 65)
 employee <- c(FALSE, FALSE, TRUE, TRUE, FALSE)
 
@@ -782,7 +801,7 @@ R comes with some built-in datasets ready to use
 [Description of datasets](http://www.sthda.com/english/wiki/r-built-in-data-sets)
 
 ```{r}
-data()
+data()  #list of datasets already available
 # load the mtcars  Motor Trend Car Road Tests
 data("mtcars")
 

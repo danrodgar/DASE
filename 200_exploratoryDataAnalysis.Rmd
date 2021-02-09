@@ -74,7 +74,7 @@ hist(sample.means)
 
 ## Using a running Example to visualise the different plots
 
-As a running exmple we do next:
+As a running example we do next:
 
   1. Set the path to to the file
   

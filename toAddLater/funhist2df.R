@@ -1,7 +1,7 @@
 #' Creates some plots and numeric summary
 #'
 #' @param x vector
-#' @return None
+#' @return the data frame with the summary
 #'
 #' @examples
 #' x <- sample(1:50, 200, replace = TRUE)

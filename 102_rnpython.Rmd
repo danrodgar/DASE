@@ -1,11 +1,12 @@
 ---
-title: "R and Python"
-output: html_document
+ output: html_document
+  pdf_document: default
 ---
 
-```{r setup, include=FALSE}
+```{r rnpython}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 
 ## R and Python. Brief introduction.
 
