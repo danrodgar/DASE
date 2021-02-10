@@ -241,10 +241,6 @@ names(thevalues) <- phases
 str(thevalues)
 thevalues
 
-# a single value is a vector
-aphase <- 44
-is.vector(aphase)
-
 ```
 
 A single value is a vector! Example:
@@ -283,7 +279,12 @@ costs <- costs - 5
 incomes <- c(200, 800, 10)
 earnings <- incomes - costs
 sum(earnings)
+
 # R recycles values in vectors!
+vector1 <- c(1,2,3)
+vector2 <- c(10,11,12,13,14,15,16)
+vector1 + vector2
+
 ```
 
 Subsetting vectors
@@ -379,6 +380,7 @@ aseqofvalues3
 ------------------------------------------------------------------------
 
 ## Arrays and Matrices
+Matrices are actually long vectors.
 
 ```{r}
 mymat <- matrix(1:12, nrow =2)
@@ -437,7 +439,7 @@ matchars
 
 ### Subsetting  
 
-mymat3 <- matrix(sample(-8:15, 12), nrow=3)
+mymat3 <- matrix(sample(-8:15, 12), nrow=3)  #sample 12 numbers between -8 and 15
 mymat3
 mymat3[2,3]
 mymat3[1,4]
@@ -491,6 +493,7 @@ m1
 index <- array(c(1:3, 3:1), dim=c(3,2))
 index
 
+#use the "index matrix" as the index for the other matrix
 m1[index] <-0
 m1
 ```
@@ -498,8 +501,9 @@ m1
 ------------------------------------------------------------------------
 
 ## Factors
-
+- Factors are variables in R which take on a limited number of different values; such variables are often referred to as 'categorical variables' and 'enumerated type'. 
 -   Factors in R are stored as a vector of integer values with a corresponding set of character values to use when the factor is displayed.
+- The function `factor` is used to encode a vector as a factor 
 
 ```{r}
 personnel <- c("Analyst1", "ManagerL2", "Analyst1", "Analyst2",  "Boss", "ManagerL1", "ManagerL2", "Programmer1", "Programmer2", "Programmer3", "Designer1","Designer2", "OtherStaff")  # staff in a company
@@ -539,6 +543,8 @@ tshirt_factor[1] < tshirt_factor[2]
 ------------------------------------------------------------------------
 
 ## Lists
+Lists are the R objects which contain elements of different types: numbers, strings, vectors and other lists. A list can also contain a matrix or a function as one of their elements. 
+A list is created using list() function.
 
 -   '[' returns a list
 -   '[[' returns the list element
@@ -610,7 +616,7 @@ song[c(TRUE, FALSE, TRUE, FALSE)]
 result3 <- song[c(TRUE, FALSE, TRUE, FALSE)]  # is a list of two elements
 
 # extending the list
-shared <- c("Hillary", "Javi", "Mikel", "Patty")
+shared <- c("Hillary", "Mari", "Mikel", "Patty")
 
 song3$shared <- shared
 str(song3)
@@ -699,6 +705,15 @@ mydataframeSorted2 <- mydataframe[order(mydataframe$Age, decreasing = TRUE), c(1
 mydataframeSorted2
 ```
 
+## R - Functions apply(), lapply(), sapply(), tapply(), mapply, vapply
+
+R is a functional language. 
+
+One of its main strengths lies in the use of the functions apply() (and all its variations) on lists, matrices, data frames or other data structures.
+The tidyverse package provides the `purrr` package for functional programming. The topic of functional programming lies beyond the purpose of this introduction. 
+
+Most of the commands that we use in our scripts are functions applied to data. 
+
 ## Environments
 
 An environment is a place where R stores variables that is where R binds a set of names to a set of object values. An environment is something like a bag or a list of names. Every name in an environment is unique.
@@ -720,7 +735,9 @@ baseenv()
 # list of environments
 search()
 
-# functions 
+# functions and environments 
+# in this example we do not return any value 
+
 myfunction <- function() {
   myvar_a<- 50
   myfunctioninside <- function() {

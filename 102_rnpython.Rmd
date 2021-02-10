@@ -2,12 +2,6 @@
  output: html_document
   pdf_document: default
 ---
-
-```{r rnpython}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-
 ## R and Python. Brief introduction.
 
 R and Python can interact via the *reticulate* package. Instructions for configuring the system can be found at RStudio <https://support.rstudio.com/hc/en-us/articles/360023654474-Installing-and-Configuring-Python-with-RStudio>.

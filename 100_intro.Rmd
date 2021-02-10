@@ -45,6 +45,8 @@ We may say that the term DS embraces all terms related to data analysis that pre
 
 ## Some References 
 
+* [W.N. Venables, D.M. Smith and the R Core Team, An Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf)
+
 Generic books about statistics:
 
   * [John Verzani, *simpleR - Using R for Introductory Statistics*](https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf)

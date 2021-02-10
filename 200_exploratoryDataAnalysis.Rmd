@@ -4,7 +4,7 @@
 
 ## Descriptive statistics
 
-The first task with any dataset is to characterise it in terms of summary statistics and graphics. 
+The first task to do with any dataset is to characterize it in terms of summary statistics and graphics. 
 
 Displaying information graphically will help us to identify the main characteristics of the data. To describe a distribution we often want to know where it is centered and and what the spread is (mean, median, quantiles)
  
@@ -16,15 +16,18 @@ Displaying information graphically will help us to identify the main characteris
     
 ![Boxplot description](./figures/boxplotexp.png)
 
-* _Q-Q plot_ is used to determine if the data is close to being normally distributed. The quantiles of the standard normal distribution is represented by a straight line. The normality of the data can be evaluated by observing the extent in which the points appear on the line. When the data is normally distributed around the mean, then the mean and the median should be equal. 
+* _Q-Q plot_ is used to determine if the data is close to being normally distributed. The quantiles of the standard normal distribution is represented by a straight line. The normality of the data can be evaluated by observing the extent in which the points appear on the line. When the data is normally distributed around the mean, then the mean and the median should be equal. Quantiles are cut points dividing the range of a probability distribution into continuous intervals with equal probabilities, or dividing the observations in a sample in the same way.
+
+![Quartiles in a normal distribution -- wikimedia id 14702157](./figures/Iqr_with_quantile.png)
 
 * _Scatterplot_ provides a graphical view of the relationship between two sets of numbers: one numerical variable against another. 
   
-* _Kernel Density_ plot visualizes the underlying distribution of a variable. Kernel density estimatiion is a non-parametric method of estimating the probability density function of continuous random variable. It helps to identify the distribution of the variable.
+* _Kernel Density_ plot visualizes the underlying distribution of a variable. Kernel density estimation is a non-parametric method of estimating the probability density function of continuous random variable. It helps to identify the distribution of the variable.
     
 * _Violin plot_ is a combination of a boxplot and a kernel density plot. 
     
-    
+
+ 
 ## Normality 
 
   * A normal distribution is an arrangement of a data set in which most values cluster in the middle of the range
@@ -52,6 +55,8 @@ segments(8, 0, 8, 0.1)
   - if we sample from this population we get "another population":
   
 ```{r, tidy=TRUE}
+#tidy uses the package formatR to format the code
+
 sample.means <- rep(NA, 1000)
 for (i in 1:1000) {
   sample.40 <- rnorm(40, mean = 60, sd = 4) 

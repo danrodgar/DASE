@@ -8,7 +8,7 @@ output:
 
 In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons,  etc.  Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple's AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.
 
-The main package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another popular package is `wordcloud`. 
+A well-known package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another popular package is `wordcloud`. 
 
 ```{r setup, message=FALSE, eval=FALSE, echo=FALSE, warning=FALSE}
 # - Install packages
