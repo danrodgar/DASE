@@ -63,7 +63,7 @@ Load the library devtools - library(devtools)\
 ### Adding a vignette with data analysis 
 A **vignette** is a standard form of writing long and detailed documentation for a package. That includes any type of report. 
 Type in the console 
-
+(change names as you wish)
 usethis::use_vignette(name = “vignette1”, title = “My analysis of the data”)
 
 You will see that a file vignette1.Rmd has been created. You can place any set of R chunks there. 
@@ -71,12 +71,31 @@ For each package that you need to use in the vignette you need to declare the pa
 
 usethis::use_package("...whatever..package...")
 
-If you do not want to include vignettes you may include any number of R Markdown documents. 
+The content of the "vignette1.Rmd" will usually contain several chunks of R code:
+
+```{r setup}
+library(thepackagethatyouarecreating)
+```
+
+```{r}
+# load the data that you have created
+data(thedatasetthatyouhavecreatedinthispackage)
+# other data manipulation as examples 
+```
+
+```{r}
+# do whatever with the functions and datasets that you have created
+summary(thedatasetthatyou....)
+```
+
+You may now Install and Restart. It will create a package that can be shared. 
+
+Those files must be tracked on Github.
+If you do not want to include vignettes you may include any number of R Markdown documents. See next paragraph.
 
 ### Adding RMarkdown documents
 We can add any number R Markdown files to our package. Usually we will put them in a new **rmd/** folder in the **inst/** folder. This folder must be tracked on Github. 
 
-A more formal 
 
 Now you can use your functions by typing yourpackage::yourfunction1()
 
