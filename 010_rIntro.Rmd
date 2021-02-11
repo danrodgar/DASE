@@ -546,6 +546,7 @@ tshirt_factor[1] < tshirt_factor[2]
 Lists are the R objects which contain elements of different types: numbers, strings, vectors and other lists. A list can also contain a matrix or a function as one of their elements. 
 A list is created using list() function.
 
+Operators for subsetting lists include:
 -   '[' returns a list
 -   '[[' returns the list element
 -   '\$' returns the content of that element in the list

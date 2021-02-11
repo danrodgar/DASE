@@ -41,7 +41,7 @@ Switch to the Build tab - Check. Usually we get the warnings about the License, 
 
 -   Documentation warnings. We may include comments and other information for our functions using \#' in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
 
-Example: Code your own function or use the file funhist2df.R that is in the folder toAddLater
+Example: Code your own function or use the file `funhist2df.R` that is in the folder  toAddLater
 
 -   go to More \> Document (or hit Ctrl+Shift+D)
 
@@ -59,6 +59,24 @@ In order to install your new package and to see your changes, close the Project 
 
 Load the library devtools - library(devtools)\
 - devtools::install_github("yourusername/the_name_of_the_repo_containing_your_package")
+
+### Adding a vignette with data analysis 
+A **vignette** is a standard form of writing long and detailed documentation for a package. That includes any type of report. 
+Type in the console 
+
+usethis::use_vignette(name = “vignette1”, title = “My analysis of the data”)
+
+You will see that a file vignette1.Rmd has been created. You can place any set of R chunks there. 
+For each package that you need to use in the vignette you need to declare the package in the description. It can be done automatically with
+
+usethis::use_package("...whatever..package...")
+
+If you do not want to include vignettes you may include any number of R Markdown documents. 
+
+### Adding RMarkdown documents
+We can add any number R Markdown files to our package. Usually we will put them in a new **rmd/** folder in the **inst/** folder. This folder must be tracked on Github. 
+
+A more formal 
 
 Now you can use your functions by typing yourpackage::yourfunction1()
 

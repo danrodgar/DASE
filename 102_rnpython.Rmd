@@ -100,24 +100,32 @@ mpl.pyplot.show()
 
 ```{python pandas}
 import pandas as pd 
-df = pd.DataFrame(data=data, index=columns).T
+df = pd.DataFrame(data=datactrs, index=columns).T
 df
 
-df.to_csv('data_countries.csv')
+df.to_csv('datasets/data_countries.csv')
+```
+We can read the dataset from python
+```{python }
+df1 = pd.read_csv("datasets/other/data_countries.csv", index_col=0)
 ```
 
-```{python }
-df1 = pd.read_csv("/datasets/other/data_countries.csv", index_col=0)
+Use R to read and write data from a package
+```{r}
+library("nycflights13")
+write.csv(flights, "datasets/other/flights.csv")
 ```
 
+Use python to read the dataset and process the data
 ```{python }
-flights = pandas.read_csv("flights.csv")
+import pandas
+flights = pandas.read_csv("datasets/other/flights.csv")
 flights = flights[flights['dest'] =="ORD"]
 flights = flights[['carrier', 'dep_delay', 'arr_delay']]
 flights = flights.dropna()
 print(flights.head())
 ```
-
+Use python for plotting
 ```{python matplotlib}
 import matplotlib.pyplot as plt
 import numpy as np
@@ -131,7 +139,7 @@ plt.savefig("test.png")
 plt.show()
 
 ```
-
+Use R for plotting Python objects
 ```{r fig.width=7, fig.height=3, echo=FALSE}
 library(ggplot2)
 ggplot(py$flights, aes(carrier, arr_delay)) + geom_point() + geom_jitter()
