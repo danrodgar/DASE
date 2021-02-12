@@ -37,7 +37,7 @@ Switch to the Build tab - Check. Usually we get the warnings about the License, 
 
 -   delete the NAMESPACE file because it is automatically created when building the package. 
 
--   go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file
+-   go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file.
 
 -   Documentation warnings. We may include comments and other information for our functions using "#' " in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
 
@@ -58,7 +58,7 @@ Example: Code your own function or use the file `funhist2df.R` that is in the fo
   #'       "
 -   We should see 0 errors \| 0 warnings \| 0 notes
 
-- 
+- Save all changes done. 
 
 ### Commit and push all your changes to Github
 
@@ -121,7 +121,7 @@ We may add a dataset to a package so that it can be used when the package is ins
 -   Open the Shell Git -\> More -\> Shell and paste the text that you copied from Github in the command 
 `git remote add origin <https://github.com-----------.git>`
 
--   Type `git pull origin main`. With this first pull your local directory contains all changes done in "main". in Github. You should see now the "main" branch in RStudio.
+-   Type `git pull origin main`. With this first pull your local directory contains all changes done in "main" in Github. You should see now the "main" branch in RStudio.
 
 -   Important: Go to the Git tab and switch from the "master" branch to the "main" branch so that both local and Github are now in the same "main" branch.
 
@@ -129,9 +129,10 @@ We may add a dataset to a package so that it can be used when the package is ins
 
 ### Create folder for the original files to be processed
 1. Usually external files are placed in the dir ins/extdata. We may place the data there. 
+We copy and paste the files "albrecht.csv" and bailey.csv (available in datasets/efforEstimation)  to ins/extdata
 2. Perform a first check of the package (click the button or devtools::check)
-	-- Warning about the license --> correct, for instance, GPL-3
-3. Usually, the external files are not uploaded to Github, specially their size is too big.
+	-- Warning about the license --> rewrite to, for instance, GPL-3
+3. Usually, the external files are not uploaded to Github, specially if their size is too big.
  Additionally, when building the package We may ignore files located in some directories by adding those files to .Rbuildignore 
  			^data-raw$
       ^inst/extdata$
@@ -140,12 +141,13 @@ We may add a dataset to a package so that it can be used when the package is ins
 6. We can retrieve the actual path to those files extdata files with
 	system.file( "extdata",  "albretch.csv",   package = "datapackaplusb")
 7. Processing those external files into a data frame that is usable
-We will create a script in a new data_raw folder with `usethis::use_data_raw(name = "aandb")` (Give it the name that you like)
-8. Do whatever  you wish with the data. In this case we simple create a new file. 
-	The final command 
+We will create a script in a new data_raw folder with `usethis::use_data_raw(name = "dfaandb")` (Give it the name that you like)
+8. Do whatever  you wish with the data. In this case we simple create a new file.
+Copy and paste the content of the file dfaandb.R available in the folder "toAddLater"
+	The final command is 
 	# save the dfaandb dataframe as an .rda file in datapackaplusb/data/
 usethis::use_data(dfaandb, overwrite = TRUE)
-creates the data/ folder with the data frame stored as .rda
+  creates the data/ folder with the data frame stored as .rda
 
 9. Clean and Rebuild the package
 
@@ -176,7 +178,7 @@ More > Document    or devtools::document()
 #' \item{size}{Size measured in ....}
 #' \item{source}{A or B indicating one source or another.}
 #' }
-#' @source \url{https://....DASE... }
+#' @source \url{https://....domain.com... }
 "dfaandb"
 
 15. Roxygen transforms the code above into a dfaandb.Rd file and adds it to the man/ folder. We can view this documentation in the help pane by typing ?dfaandb in the R console.

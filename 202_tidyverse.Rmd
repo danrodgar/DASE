@@ -85,6 +85,7 @@ select(mtcars, mpg:disp,-cyl) # mpg to disp, except cyl
 mtcars %>% filter(hp>100)
 ```
 Group_by is used to group data by one or more columns. Usually 
+
 ```{r}
 mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg))
 ```
