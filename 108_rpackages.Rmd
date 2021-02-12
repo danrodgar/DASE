@@ -11,7 +11,7 @@ We are going to create a minimal package with RStudio. The package structure wil
 
 ### Create a repository in your Github account
 
-The repository will contain your package. Example: hellopackage, basicpackage2, etc. Tick the cell "Add README.md": This will create the `main` branch in github. Accordingly, we will use the **main** branch in our project for the first commits (and not the **master** branch)
+The repository will contain your package. Example: hellopackage, basicpackage2, etc. Tick the cell "Add README.md": This will create the `main` branch in Github. Accordingly, we will use the **main** branch in our project for the first commits (and not the **master** branch)
 
 ### Create your Package-Project in Rstudio, allowing Git to track changes
 
@@ -39,7 +39,7 @@ Switch to the Build tab - Check. Usually we get the warnings about the License, 
 
 -   go to the DESCRIPTION file and change the License to GPL-3 (or whatever). Save the file
 
--   Documentation warnings. We may include comments and other information for our functions using \#' in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
+-   Documentation warnings. We may include comments and other information for our functions using "#' " in the .R files. We should include the @export for exporting the functions and the @param for describing the parameters
 
 Example: Code your own function or use the file `funhist2df.R` that is in the folder  toAddLater
 
@@ -49,7 +49,16 @@ Example: Code your own function or use the file `funhist2df.R` that is in the fo
 
 -   Check
 
+- Most probably, there is an error in the file hello.R 
+  We must document and export that file, too: 
+  include the following lines that begin with the characters "#' "
+
+  "#'
+  #' @export
+  #'       "
 -   We should see 0 errors \| 0 warnings \| 0 notes
+
+- 
 
 ### Commit and push all your changes to Github
 

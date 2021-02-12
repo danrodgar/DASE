@@ -89,6 +89,7 @@ fmri = sns.load_dataset("fmri")
 f1 <- subset(py$fmri, region == "parietal")
 ```
 
+
 ```{python accesing_r}
 import matplotlib as mpl
 sns.lmplot("timepoint","signal", data=r.f1)
