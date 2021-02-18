@@ -38,7 +38,7 @@ b0 <- linmodel_logchina_train$coefficients[1]
 b1 <- linmodel_logchina_train$coefficients[2]
 china_size_test <- chinaTest$AFP
 actualEffort <- chinaTest$Effort
-# predEffort <- exp(b0+b1*log(china_size_test))
+# predEffort <- exp(b0+b1*log(china_size_test))  wr
 predEffort <- exp(b0)*china_size_test^b1
 
 err <- actualEffort - predEffort  #error or residual

@@ -233,7 +233,6 @@ lines(newx,ypredicted$fit[,3],col="red",lty=2, lwd=2)
 ## Linear regression in Software Effort estimation
 
 Fitting a linear model to log-log
-  - (((the predictive power equation is $y= e^{b_0 + b_1 log(x)}$, ignoring the bias corrections
   - the predictive power equation is $y= e^{b_0}*x^{b_1}$, ignoring the bias corrections. Note: depending how the error term behaves we could try another general linear model (GLM) or other model that does not rely on the normality of the residuals (quantile regression, etc.)
   - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.
 

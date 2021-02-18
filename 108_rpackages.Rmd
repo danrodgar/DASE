@@ -128,7 +128,7 @@ We may add a dataset to a package so that it can be used when the package is ins
 -   In the Git tab select the files and directories that you want to commit and push to Github (First commit and then push or "git push -u origin main"). Now, you should see your changes in the github repository.
 
 ### Create folder for the original files to be processed
-1. Usually external files are placed in the dir ins/extdata. We may place the data there. 
+1. Usually external files are placed in the dir ins/extdata. We may place the data there. Create those folders.
 We copy and paste the files "albrecht.csv" and bailey.csv (available in datasets/efforEstimation)  to ins/extdata
 2. Perform a first check of the package (click the button or devtools::check)
 	-- Warning about the license --> rewrite to, for instance, GPL-3
