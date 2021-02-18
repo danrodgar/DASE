@@ -1,4 +1,4 @@
-#' Creates some plots and numeric summary
+#' Creates some plots and a numeric summary
 #'
 #' @param x vector
 #' @return the data frame with the summary
@@ -6,7 +6,7 @@
 #' @examples
 #' x <- sample(1:50, 200, replace = TRUE)
 #' funhist2df(x)
-#' 
+#'
 #' @export
 funhist2df <- function(x) {
   # 1 row and 2 columns
