@@ -1,11 +1,15 @@
 ## code to prepare `dfaandb` dataset goes here
 # retrieve paths to datafiles
-first_file_path <- system.file("extdata",
-                               "albretch.csv",
-                               package = "datapackaplusb")
-second_file_path <- system.file("extdata",
-                                "bailey.csv",
-                                package = "datapackaplusb")# read the two .csv files
+# first_file_path <- system.file("extdata",
+#                                "albretch.csv",
+#                                package = "datapackaplusb")
+# second_file_path <- system.file("extdata",
+#                                 "bailey.csv",
+#                                 package = "datapackaplusb")# read the two .csv files
+
+first_file_path <- paste0(getwd(),"/ins/extdata/albretch.csv")
+second_file_path <- paste0(getwd(),"/ins/extdata/bailey.csv")
+
 data_one <- read.csv(first_file_path,
                      stringsAsFactors = FALSE,
                      encoding = "UTF-8")

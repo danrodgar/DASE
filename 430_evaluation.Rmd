@@ -11,9 +11,9 @@ Once we obtain the model with the training data, we need to evaluate it with som
 
 ## Building and Validating a Model
 
-We cannnot use the the same data for training and testing (it is like evaluating a student with the exercises previouly solved in class, the sudent's marks will be “optimistic” and we do not know about student capability to generalise the learned concepts).
+We cannot use the the same data for training and testing (it is like evaluating a student with the exercises previously solved in class, the sudent's marks will be “optimistic” and we do not know about student capability to generalise the learned concepts).
 
-Therefore, we should, at a minimun, divide the dataset into _training_ and _testing_, learn the model with the training data and test it with the rest of data as explained next.
+Therefore, we should, at a minimum, divide the dataset into _training_ and _testing_, learn the model with the training data and test it with the rest of data as explained next.
 
 
 ### Holdout approach
