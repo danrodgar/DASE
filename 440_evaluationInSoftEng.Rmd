@@ -38,7 +38,8 @@ b0 <- linmodel_logchina_train$coefficients[1]
 b1 <- linmodel_logchina_train$coefficients[2]
 china_size_test <- chinaTest$AFP
 actualEffort <- chinaTest$Effort
-predEffort <- exp(b0+b1*log(china_size_test))
+# predEffort <- exp(b0+b1*log(china_size_test))
+predEffort <- exp(b0)*china_size_test^b1
 
 err <- actualEffort - predEffort  #error or residual
 ae <- abs(err)
@@ -98,7 +99,8 @@ res <- signif(residuals(lmtelecom1), 5)
 
 xtest <- telecom1_test$size
 ytest <- telecom1_test$effort
-pre_tel1 <- exp(b0_tel1+b1_tel1*log(xtest))
+# pre_tel1 <- exp(b0_tel1+b1_tel1*log(xtest)) wr
+pre_tel1 <- exp(b0_tel1)*xtest^b1_tel1
 # plot distances between points and the regression line
 plot(xtest, ytest)
 curve(exp(b0_tel1+b1_tel1*log(x)), from=0, to=300, add=TRUE, col="blue", lwd=2)

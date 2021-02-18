@@ -231,7 +231,7 @@ TBD
 
 ### The `dplyr` package
 
-The *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* package created by Hadley Wickham. Some functions are similar to SQL syntax and it key functions in dplyr include:
+The *[dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)* package created by Hadley Wickham. Some functions are similar to SQL syntax.  key functions in dplyr include:
 
  + select: select columns from a dataframe
  + filter: select rows from a dataframe
@@ -258,8 +258,10 @@ str(kc1)
 `tbl_df` creates a “local data frame” as a wrapper for better printing
 
 ```{r}
-kc1_tbl <- tbl_df(kc1)
+kc1_tbl <- tbl_df(kc1) #deprecated
+kc1_tbl <- tibble(kc1)
 ```
+
 
 Filter:
 

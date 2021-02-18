@@ -9,7 +9,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## The Tidyverse approach to Data Analysis
 
-<https://www.tidyverse.org/>
+<https://www.tidyverse.org/> 
+
+<https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html>
 
 `tidyverse` is a family of packages promoted by RStudio with the purpose of standardizing the processes in data science
 
@@ -26,11 +28,10 @@ knitr::opts_chunk$set(echo = TRUE)
 -   and the Pipe operator `%>%`
 
 ### The Pipe operator in packages magrittr and dplyr
-The pipe %>% operator was first introduced in the magrittr package. Now, it is an essential part of the tidyverse library. 
-It allows to concatenate a sequence of methods or calls to functions.
-The operator is read from "left to right". The %>% takes the data that is on the left hand side and passes it to the function that is on the right hand side.
 
-It comes in handy when applying a sequence of functions to data frames. 
+The pipe %\>% operator was first introduced in the magrittr package. Now, it is an essential part of the tidyverse library. It allows to concatenate a sequence of methods or calls to functions. The operator is read from "left to right". The %\>% takes the data that is on the left hand side and passes it to the function that is on the right hand side.
+
+It comes in handy when applying a sequence of functions to data frames.
 
 ```{r, echo=FALSE}
 library(magrittr)
@@ -43,8 +44,9 @@ sqrt(x)
 x %>% sqrt()
 
 x %>% summary()
-
+summary(x)
 library(dplyr)
+mtcars %>% select(mpg, cyl, hp)
 mtcars %>% select(mpg, cyl, hp) %>% filter(cyl > 4) %>% summary()
 
 mtcars_2 <- mtcars %>% select(mpg, cyl, hp) %>% filter(cyl > 4) %>% head()
@@ -52,7 +54,9 @@ mtcars_2
 
 
 ```
+
 ## dplyr
+
 dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
 
     mutate() adds new variables that are functions of existing variables
@@ -64,12 +68,14 @@ dplyr is a grammar of data manipulation, providing a consistent set of verbs tha
 
 ### Examples
 
-`glimpse` 
+`glimpse`
+
 ```{r}
 glimpse(mtcars)
 ```
 
 `select` is used for subsetting variables
+
 ```{r}
 select(mtcars,mpg)
 
@@ -84,19 +90,22 @@ select(mtcars, mpg:disp,-cyl) # mpg to disp, except cyl
 ```{r}
 mtcars %>% filter(hp>100)
 ```
-Group_by is used to group data by one or more columns. Usually 
+
+Group_by is used to group data by one or more columns. Usually
 
 ```{r}
 mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg))
 ```
-arrange is used to sort cases in ascending or descending order. 
+
+arrange is used to sort cases in ascending or descending order.
+
 ```{r}
 mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg)) %>% arrange(desc(cyl))
 ```
-## Tibble
-"Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors)."
-https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html
 
+## Tibble
+
+"Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors)." <https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html>
 
 ### Criticisms to this approach
 

@@ -212,7 +212,7 @@ cor(china_size,china_effort, method="kendall")
 
 ## Confidence Intervals. Bootstrap
   * Until now we have generated point estimates
-  * A _confidence interval_ (CI) is an interval estimate of a population parameter. The parameter can be the mean, the median or other. The frequentist CI is an observed interval that is different from sample to sample. It frequently includes the value of the unobservable parameter of interes if the experiment is repeated. The *confidence level* is the value that measures the frequency that the constructed intervals contain the true value of the parameter. 
+  * A _confidence interval_ (CI) is an interval estimate of a population parameter. The parameter can be the mean, the median or other. The frequentist CI is an observed interval that is different from sample to sample. It frequently includes the value of the unobservable parameter of interest if the experiment is repeated. The *confidence level* is the value that measures the frequency that the constructed intervals contain the true value of the parameter. 
   * The construction of a confidence interval with an exact value of confidence level for a distribution requires some statistical properties. Usually, *normality* is one of the properties required for computing confidence intervals. 
     + Not all confidence intervals contain the true value of the parameter.
     + Simulation of confidence intervals
