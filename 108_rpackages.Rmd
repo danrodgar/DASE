@@ -140,6 +140,7 @@ We copy and paste the files "albrecht.csv" and bailey.csv (available in datasets
 5. For the sake of example we copy and paste the files albretch.csv and bailey.csv in the folder ins/extdata
 6. We can retrieve the actual path to those files extdata files with
 	system.file( "extdata",  "albretch.csv",   package = "datapackaplusb")
+	or using the read.csv or read.table 
 7. Processing those external files into a data frame that is usable
 We will create a script in a new data_raw folder with `usethis::use_data_raw(name = "dfaandb")` (Give it the name that you like)
 8. Do whatever  you wish with the data. In this case we simple create a new file.
@@ -193,7 +194,7 @@ More > Document    or devtools::document()
 #' hello()
 #' 
 
-17. Commit and push all your changes to Github. You may ignore /data-raw and inst/extdata
+17. Commit and push all your changes to Github. You may ignore /data-raw and ins/extdata
 
 18. close the project. Restart and install the package from github. devtools::install_github("yourrepo/datapackaplusb")
 library(datapackaplusb)

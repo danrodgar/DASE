@@ -1,0 +1,96 @@
+---
+title: "Script Assignment LR"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment. Create an R Markdown document with a basic Linear Regression method
+The assignment consists of two parts
+* A) Create the linear regression model between two variables: the predictor is "size" and the response is "effort"
+
+### Part A. Build a regression model for predicting "effort"
+
+The assignment will consist of creating a R Markdown document that must run some of the R scripts given in class. Each student must select a dataset from the Promise repository or other source of software engineering data (the folder datasets in the R project). The student will have to analyze the dataset and extract some conclusions about the data and about the model proposed. The basic model required is the linear regression, but the student is free to add additional predictive models.
+
+The steps that you have to follow in order to complete the assignment are:
+
+1.  Create a New R project and a new .Rmd document
+
+2.  Go to the "datasets/effortEstimation" folder and download one of the datasets related to effort, for example: boehm.arff, albrecht.arff, miyazaki.arff. The file should contain a variable "size" and other variable "effort"
+
+3.  Read the dataset into the R environment. Adapt lines 88-92 of **document 200**. You can get the default path with the command `getwd() And you can build the string with the path to the file with the function paste0(string1,string2,...)
+
+```{r dataset1, tidy=TRUE}
+#assuming you are in the default directory for the project. Or copy and paste the file(s) in a folder in your project
+path2thefile <- paste0(getwd(), "/datasets/effortEstimation/...thefile....csv")
+path2thefile
+thefile <- read.table(path2thefile, sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+```
+
+4.  Adapt lines 102-129 of **document 200** to the dataset that you've read
+
+5.  Adapt lines 137-139: we plot the dataset
+    Check for normality
+
+6.  Transform the variables, if needed. Lines 180-190 in document 200.
+    Use the function `log`
+7.  Plot the transformed variables
+8.  Check for correlation in the original variables. Lines 202-209 in document 200.
+    We may check for correlation in the transformed variables, too.
+9.  We start building the model now.
+10. Split the dataset into Training and Testing . Lines 71-79 in document 440 show how it is done on the Telecom1 dataset. Repeat the same process with the file that you have read. 
+11. Now you should have two files: one contains the training data and another the test data. We save those files as .csv files. Later we will build a data package for sharing them through a package stored in Github
+
+```{r}
+write.csv(thefile_train, "thefile_train.csv") #write data
+write.csv(thefile_test, "thefile_test.csv") #write data
+
+```
+12. Build the linear model with the training data lines 81-91 in document 440. It is the same code used several times in document 417 (regression.Rmd). Example: lines 272-279 in document 417
+13. Plot the linear model on the Training data. Same lines as above.
+14. Evaluate the model on the Test data. If the variables have been transformed, your code should be similar to lines 95-107 in document 440
+15. Compute classical measures MAR .... Lpred: lines 43-65 in document 440
+16. Plot the model on the Test data and write some conclusions about the model.
+
+### Part B. Create a package with the data Training and Testing generated in Part A. Publish it on Github and install it with devtools::install_github(...)
+
+In this part we take the two files .csv with the training and test data points and create a package for distributing them.
+
+The process that we follow is similar to what is explained in part 2 in document 108_rpackages.Rmd
+
+The only changes that we do to the process are
+7. Processing those external files into a data frame that is usable
+We will create a script in a new data_raw folder with `usethis::use_data_raw(name = "trainandtest")` (Give it the name that you like)
+In the script trainandtest.R:
+Read the csv files that you saved in part A into two different data frames. 
+and save them with
+	# save the trainfile dataframe as an .rda file in yourpackagename/data/
+usethis::use_data(trainfile, overwrite = TRUE)
+usethis::use_data(testfile, overwrite = TRUE)
+
+
+14. Document and export your data 
+Add the the following content (change as appropriate) to the file data.R in the R folder
+
+
+#' Data of effort and size for training
+#'
+#' No missing values
+#' A dataset containing -----  whatever you put here.
+#'
+#' @title DATASET OF ...............
+#' @format A data frame with ....... rows and .......... variables:
+#' \describe{
+#' \item{effort}{Effort measured in -------.}
+#' \item{size}{Size measured in ....}
+#' \item{source}{whatever indicating one source or another.}
+#' }
+#' @source \url{https://....domain.com... }
+"trainfile"
+
+15. Copy, paste the same content for the "testfile" in the same data.R script and comment as appropriate.  
+16. The rest of the steps are the same as in document 108 (change the names as appropriate)
+
