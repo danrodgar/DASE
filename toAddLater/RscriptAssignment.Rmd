@@ -61,6 +61,8 @@ In this part we take the two files .csv with the training and test data points a
 
 The process that we follow is similar to what is explained in part 2 in document 108_rpackages.Rmd
 
+0. Create a new project "package" in RStudio
+
 The only changes that we do to the process are
 7. Processing those external files into a data frame that is usable
 We will create a script in a new data_raw folder with `usethis::use_data_raw(name = "trainandtest")` (Give it the name that you like)
