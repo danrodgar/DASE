@@ -110,7 +110,9 @@ Now you can use your functions by typing yourpackage::yourfunction1()
 
 ## A good use of a package: to export and to share data
 
-We may add a dataset to a package so that it can be used when the package is installed. Or we can create a package that contains only data to be shared. An example of the second use is the well-known R package `gapminder`. We focus now on the second aspect and we will create a package that contains only data (but we may add also some reports in the form of documentation).
+We may add a dataset to a package so that it can be used when the package is installed. Or we can create a package that contains only data to be shared. An example of the second use is the well-known R package `gapminder`. Another recent example of a data package is the `hagr` (remotes::install_github("datawookie/hagr")).
+
+We focus now on the second aspect and we will create a package that contains only data (but we may add also some reports in the form of documentation).
 
 -   RStudio: create a New project \> New directory \> newname . For the sake of example we create the new project with name "datapackaplusb" (we intend to combine two simple datasets into one single file)
 
