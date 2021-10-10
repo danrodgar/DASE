@@ -3,41 +3,48 @@
 
 ## Numeric Prediction Evaluation
 
-RSME 
+In the case of defect prediction, it matters the difference between the predicted value and the actual value. Common performance metrics used for numeric prediction are as follows, where $\hat{y_n}$ represents the predicted value and $y_n$ the actual one.
 
 
-Mean Square Error = $MSE$ = $\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{n}$
+Mean Square Error ($MSE$)
 
-${MSE}=\frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2$
+$MSE = \frac{(\hat{y_1} - y_1)^2 + \ldots  +(\hat{y_n} - y_n)^2}{n} = \frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2$
+
+
+Root mean-squared error ($RMSE$) 
+
+${RMSE} = \sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}$ 
  
-${RMSD}=\sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}$ 
- 
 
-Mean-absolute error $MAE$
+Mean Absolute Error ($MAE$)
 
-$\frac{|p_1-a_1| + \ldots  +|p_n-a_n|}{n}$
+$MAE = \frac{|\hat{y_1} - y_1| + \ldots  +|\hat{y_n} - y_n|}{n} = \sqrt{\frac{\sum_{t=1}^n |\hat y_t - y|}{n}}$
 
-Relative absolute error:
+Relative Absolute Error ($RAE$)
 
 $RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | }$
 
-Root relative-squared error:
 
-$RAE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | } }$
+Root Relative-Squared Error ($RRSE$)
+
+$RRSE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | } }$
 
 where $\hat{\theta}$ is a mean value of $\theta$.
 
 
-Relative-squared error
+Relative-Squared r ($RSE$)
+
 $\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}$
-($\hat{a}$ is the mean value over the training data)
+
+where ($\hat{a}$ is the mean value over the training data)
 
 
-Relative Absolut Error
+Relative Absolute Error ($RAE$)
+
 
 Correlation Coefficient
 
-Correlation coefficient between two random variables $X$ and $Y$ is defined as $\rho(X,Y) = \frac{{\bf Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}$. The sample correlation coefficient} $r$ between two samples $x_i$ and $y_j$ is vvdefined as $r = S_{xy}/\sqrt{S_{xx}S_{yy}}$ 
+_Correlation coefficient_ between two random variables $X$ and $Y$ is defined as $\rho(X,Y) = \frac{{\bf Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}$. The sample correlation coefficient} $r$ between two samples $x_i$ and $y_j$ is vvdefined as $r = S_{xy}/\sqrt{S_{xx}S_{yy}}$ 
 
 Example: Is there any linear relationship between the effort estimates ($p_i$) and actual effort ($a_i$)? 
 

@@ -11,7 +11,7 @@ Once we obtain the model with the training data, we need to evaluate it with som
 
 ## Building and Validating a Model
 
-We cannot use the the same data for training and testing (it is like evaluating a student with the exercises previously solved in class, the sudent's marks will be “optimistic” and we do not know about student capability to generalise the learned concepts).
+We cannot use the the same data for training and testing (it is like evaluating a student with the exercises previously solved in class, the student's marks will be “optimistic” and we do not know about student capability to generalise the learned concepts).
 
 Therefore, we should, at a minimum, divide the dataset into _training_ and _testing_, learn the model with the training data and test it with the rest of data as explained next.
 
@@ -19,14 +19,14 @@ Therefore, we should, at a minimum, divide the dataset into _training_ and _test
 ### Holdout approach
 
 **Holdout approach** consists of dividing the dataset into *training* (typically approx. 2/3 of the data) and *testing* (approx 1/3 of the data).
-  + Problems: Data can be skewed, missing classes, etc. if randomly divided. Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains aprox 45% of positive cases, the training and testing datasets should mantain similar proportion of positive cases).
+  + Problems: Data can be skewed, missing classes, etc. if randomly divided. Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains approximately 45% of positive cases, the training and testing datasets should maintain similar proportion of positive cases).
 
-Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method)
+Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method).
 
-The error rates on the different iterations are averaged (overall error rate)
+The error rates on the different iterations are averaged (overall error rate).
 
   - Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.
-  - *Validation Set approach*: it is the simplest method. It consists of randomly dividing the available set of oservations into two parts, a *training set* and a *validation set* or hold-out
+  - *Validation Set approach*: it is the simplest method. It consists of randomly dividing the available set of observations into two parts, a *training set* and a *validation set* or hold-out
 set. Usually 2/3 of the data points are used for training and 1/3 is used for testing purposes.
 
    ![Hold out validation](figures/validation.png) 
@@ -37,7 +37,7 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
 
 *k-fold Cross-Validation* involves randomly dividing the set of observations into $k$ groups, or folds, of approximately equal size. One fold is treated as a validation set and the method is trained on the remaining $k-1$ folds. This procedure is repeated $k$ times. If $k$ is equal to $n$ we are in the previous method.
   
-  + 1st step: split dataset ($\cal D$) into $k$ subsets of approximatelly equal size $C_1, \dots, C_k$ 
+  + 1st step: split dataset ($\cal D$) into $k$ subsets of approximately equal size $C_1, \dots, C_k$ 
   
   + 2nd step: we construct a dataset $D_i = D-C_i$ used for training and test the accuracy of the classifier $D_i$ on $C_i$ subset for testing
   
@@ -45,8 +45,9 @@ Having done this for all $k$ we estimate the accuracy of the method by averaging
   
   ![k-fold](figures/kfold.png) 
   
+### Leave-One-Out Cross-Validation (LOO-CV)
 
-  - *Leave-One-Out Cross-Validation*: This is a special case of CV. Instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated n times (the total number of observations) and the estimate for the test mean squared error is the average of the n test estimates.
+  - *Leave-One-Out Cross-Validation* (LOO-CV): This is a special case of CV. Instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated $n$ times (the total number of observations) and the estimate for the test mean squared error is the average of the $n$ test estimates.
   
    ![Leave One Out](figures/leaveone.png) 
   

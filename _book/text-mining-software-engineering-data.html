@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 20 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R</title>
-  <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R</title>
+  <meta name="description" content="DASE Data Analysis in Software Engineering" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 20 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 9 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,30 +16,33 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 20 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 9 Text Mining Software Engineering Data | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
+<meta name="author" content="Daniel Rodriguez and Javier Dolado" />
 
 
-<meta name="date" content="2018-12-26">
+<meta name="date" content="2021-10-10" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="social-network-analysis-in-se.html">
-<link rel="next" href="time-series.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="social-network-analysis-in-se.html"/>
+<link rel="next" href="time-series.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,29 +50,33 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -114,6 +120,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -132,13 +161,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="part"><span><b>I Introduction to the R Language</b></span></li>
-<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="r-intro.html"><a href="r-intro.html#installation"><i class="fa fa-check"></i><b>1.1</b> Installation</a></li>
 <li class="chapter" data-level="1.2" data-path="r-intro.html"><a href="r-intro.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2</b> R and RStudio</a></li>
-<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.3</b> Basic Data Types</a><ul>
+<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.3</b> Basic Data Types</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="r-intro.html"><a href="r-intro.html#mising-values"><i class="fa fa-check"></i><b>1.3.1</b> Mising values</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a><ul>
+<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="r-intro.html"><a href="r-intro.html#coercion-for-vectors"><i class="fa fa-check"></i><b>1.4.1</b> Coercion for vectors</a></li>
 <li class="chapter" data-level="1.4.2" data-path="r-intro.html"><a href="r-intro.html#vector-arithmetic"><i class="fa fa-check"></i><b>1.4.2</b> Vector arithmetic</a></li>
 </ul></li>
@@ -146,169 +178,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="r-intro.html"><a href="r-intro.html#factors"><i class="fa fa-check"></i><b>1.6</b> Factors</a></li>
 <li class="chapter" data-level="1.7" data-path="r-intro.html"><a href="r-intro.html#lists"><i class="fa fa-check"></i><b>1.7</b> Lists</a></li>
 <li class="chapter" data-level="1.8" data-path="r-intro.html"><a href="r-intro.html#data-frames"><i class="fa fa-check"></i><b>1.8</b> Data frames</a></li>
-<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.9</b> Reading Data</a></li>
-<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.10</b> Plots</a></li>
-<li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.11</b> Flow of Control</a></li>
-<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.12</b> Rattle</a></li>
+<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#r-functional-functions"><i class="fa fa-check"></i><b>1.9</b> R Functional Functions</a></li>
+<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#environments"><i class="fa fa-check"></i><b>1.10</b> Environments</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="r-intro.html"><a href="r-intro.html#global-variables-local-variables-and-programming-scope"><i class="fa fa-check"></i><b>1.10.1</b> Global variables, local variables and programming scope</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.11</b> Reading Data</a></li>
+<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.12</b> Plots</a></li>
+<li class="chapter" data-level="1.13" data-path="r-intro.html"><a href="r-intro.html#control-flow-in-r"><i class="fa fa-check"></i><b>1.13</b> Control flow in R</a></li>
+<li class="chapter" data-level="1.14" data-path="r-intro.html"><a href="r-intro.html#built-in-datasets"><i class="fa fa-check"></i><b>1.14</b> Built-in Datasets</a></li>
+<li class="chapter" data-level="1.15" data-path="r-intro.html"><a href="r-intro.html#other-tools-with-r"><i class="fa fa-check"></i><b>1.15</b> Other tools with R</a>
+<ul>
+<li class="chapter" data-level="1.15.1" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.15.1</b> Rattle</a></li>
+<li class="chapter" data-level="1.15.2" data-path="r-intro.html"><a href="r-intro.html#jamovi"><i class="fa fa-check"></i><b>1.15.2</b> Jamovi</a></li>
+<li class="chapter" data-level="1.15.3" data-path="r-intro.html"><a href="r-intro.html#jasp"><i class="fa fa-check"></i><b>1.15.3</b> JASP</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>II Introduction to Data Mining</b></span></li>
-<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a><ul>
+<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#the-aim-of-data-analysis-and-statistical-learning"><i class="fa fa-check"></i><b>2.1</b> The Aim of Data Analysis and Statistical Learning</a></li>
-<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#basic-references"><i class="fa fa-check"></i><b>2.2</b> Basic References</a></li>
-<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-r"><i class="fa fa-check"></i><b>2.3</b> Data Mining with R</a></li>
-<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.4</b> Data Mining with Weka</a></li>
+<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-science"><i class="fa fa-check"></i><b>2.2</b> Data Science</a></li>
+<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#some-references"><i class="fa fa-check"></i><b>2.3</b> Some References</a></li>
+<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-and-data-science-with-r"><i class="fa fa-check"></i><b>2.4</b> Data Mining and Data Science with R</a></li>
+<li class="chapter" data-level="2.5" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.5</b> Data Mining with Weka</a></li>
+<li class="chapter" data-level="2.6" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#r-markdown"><i class="fa fa-check"></i><b>2.6</b> R Markdown</a></li>
+<li class="chapter" data-level="2.7" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#including-plots"><i class="fa fa-check"></i><b>2.7</b> Including Plots</a></li>
+<li class="chapter" data-level="2.8" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#references"><i class="fa fa-check"></i><b>2.8</b> References</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>2.8.1</b> Prediction in probabilistic classifiers</a></li>
 </ul></li>
-<li class="part"><span><b>III Data Sources and Metrics and Standards in Software Engineering Defect Prediction</b></span></li>
-<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a></li>
-<li class="chapter" data-level="4" data-path="repositories.html"><a href="repositories.html"><i class="fa fa-check"></i><b>4</b> Repositories</a></li>
-<li class="chapter" data-level="5" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html"><i class="fa fa-check"></i><b>5</b> Open Tools/Dashboards to extract data</a><ul>
-<li class="chapter" data-level="5.1" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#issues"><i class="fa fa-check"></i><b>5.1</b> Issues</a></li>
-<li class="chapter" data-level="5.2" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#effort-estimation-data-in-software-engineering"><i class="fa fa-check"></i><b>5.2</b> Effort Estimation Data in Software Engineering</a></li>
+<li class="chapter" data-level="2.9" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#other-metrics-used-in-software-engineering-with-classification"><i class="fa fa-check"></i><b>2.9</b> Other Metrics used in Software Engineering with Classification</a></li>
+<li class="chapter" data-level="2.10" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#graphical-evaluation"><i class="fa fa-check"></i><b>2.10</b> Graphical Evaluation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#receiver-operating-characteristic-roc"><i class="fa fa-check"></i><b>2.10.1</b> Receiver Operating Characteristic (ROC)</a></li>
+<li class="chapter" data-level="2.10.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#precision-recall-curve-prc"><i class="fa fa-check"></i><b>2.10.2</b> Precision-Recall Curve (PRC)</a></li>
 </ul></li>
-<li class="part"><span><b>IV Exploratory and Descriptive Data analysis</b></span></li>
-<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.1</b> Descriptive statistics</a></li>
-<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>6.2</b> Basic Plots</a></li>
-<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#normality"><i class="fa fa-check"></i><b>6.3</b> Normality</a></li>
-<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#using-a-running-example-to-visualise-the-different-plots"><i class="fa fa-check"></i><b>6.4</b> Using a running Example to visualise the different plots</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#example-with-the-china-dataset-from-the-tera-promise-repository"><i class="fa fa-check"></i><b>6.4.1</b> Example with the China dataset (from the tera-Promise Repository)</a></li>
+<li class="chapter" data-level="2.11" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>2.11</b> Numeric Prediction Evaluation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation"><i class="fa fa-check"></i><b>6.5</b> Correlation</a></li>
-<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>6.6</b> Confidence Intervals. Bootstrap</a></li>
-<li class="chapter" data-level="6.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>6.7</b> Nonparametric Bootstrap</a></li>
+<li class="chapter" data-level="3" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>3</b> Measures of Evaluation in Software Engineering</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="evaluationSE.html"><a href="evaluationSE.html#effort-estimation-evaluation-metrics"><i class="fa fa-check"></i><b>3.1</b> Effort estimation evaluation metrics</a></li>
+<li class="chapter" data-level="3.2" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>3.2</b> Evaluation of the Model in the Testing data</a></li>
+<li class="chapter" data-level="3.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>3.3</b> Building a Linear Model on the Telecom1 dataset</a></li>
+<li class="chapter" data-level="3.4" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>3.4</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
+<li class="chapter" data-level="3.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy-examples"><i class="fa fa-check"></i><b>3.5</b> Standardised Accuracy Examples</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy-marp0-using-the-china-test-dataset"><i class="fa fa-check"></i><b>3.5.1</b> Standardised Accuracy MARP0 using the China Test dataset</a></li>
+<li class="chapter" data-level="3.5.2" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0-using-the-telecom1-dataset"><i class="fa fa-check"></i><b>3.5.2</b> Standardised Accuracy. MARP0 using the Telecom1 dataset</a></li>
+<li class="chapter" data-level="3.5.3" data-path="evaluationSE.html"><a href="evaluationSE.html#standard-accuracy-marp0-using-the-atkinson-dataset"><i class="fa fa-check"></i><b>3.5.3</b> Standard Accuracy MARP0 using the Atkinson Dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Classical Hypothesis Testing</a><ul>
-<li class="chapter" data-level="7.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>7.1</b> p-values</a></li>
+<li class="chapter" data-level="3.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>3.6</b> Exact MARP0</a></li>
+<li class="chapter" data-level="3.7" data-path="evaluationSE.html"><a href="evaluationSE.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>3.7</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
+<li class="chapter" data-level="3.8" data-path="evaluationSE.html"><a href="evaluationSE.html#defect-prediction-evaluation-metrics"><i class="fa fa-check"></i><b>3.8</b> Defect prediction evaluation metrics</a></li>
 </ul></li>
-<li class="part"><span><b>V Preprocessing</b></span></li>
-<li class="chapter" data-level="8" data-path="preprocessing.html"><a href="preprocessing.html"><i class="fa fa-check"></i><b>8</b> Preprocessing</a><ul>
-<li class="chapter" data-level="8.1" data-path="preprocessing.html"><a href="preprocessing.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
-<li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
-<li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
-<li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+<li class="part"><span><b>III Advanced Topics</b></span></li>
+<li class="chapter" data-level="4" data-path="feature-selection.html"><a href="feature-selection.html"><i class="fa fa-check"></i><b>4</b> Feature Selection</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="feature-selection.html"><a href="feature-selection.html#instance-selection"><i class="fa fa-check"></i><b>4.1</b> Instance Selection</a></li>
+<li class="chapter" data-level="4.2" data-path="feature-selection.html"><a href="feature-selection.html#missing-data-imputation"><i class="fa fa-check"></i><b>4.2</b> Missing Data Imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
-<li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
-<li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
-<li class="chapter" data-level="8.9" data-path="preprocessing.html"><a href="preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>8.9</b> Normalization</a><ul>
-<li class="chapter" data-level="8.9.1" data-path="preprocessing.html"><a href="preprocessing.html#min-max-normalization"><i class="fa fa-check"></i><b>8.9.1</b> Min-Max Normalization</a></li>
-<li class="chapter" data-level="8.9.2" data-path="preprocessing.html"><a href="preprocessing.html#z-score-normalization"><i class="fa fa-check"></i><b>8.9.2</b> Z-score normalization</a></li>
+<li class="chapter" data-level="5" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>5</b> Feature Selection Example</a></li>
+<li class="chapter" data-level="6" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>6</b> Advanced Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>6.1</b> Genetic Programming for Symbolic Regression</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>6.2</b> Genetic Programming Example</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>6.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>6.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
+<li class="chapter" data-level="6.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>6.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="preprocessing.html"><a href="preprocessing.html#transformations"><i class="fa fa-check"></i><b>8.10</b> Transformations</a><ul>
-<li class="chapter" data-level="8.10.1" data-path="preprocessing.html"><a href="preprocessing.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>8.10.1</b> Linear Transformations and Quadratic Trans formations</a></li>
-<li class="chapter" data-level="8.10.2" data-path="preprocessing.html"><a href="preprocessing.html#box-cox-transformation"><i class="fa fa-check"></i><b>8.10.2</b> Box-cox transformation</a></li>
-<li class="chapter" data-level="8.10.3" data-path="preprocessing.html"><a href="preprocessing.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>8.10.3</b> Nominal to Binary tranformations</a></li>
-</ul></li>
-<li class="chapter" data-level="8.11" data-path="preprocessing.html"><a href="preprocessing.html#preprocessing-in-r"><i class="fa fa-check"></i><b>8.11</b> Preprocessing in R</a><ul>
-<li class="chapter" data-level="8.11.1" data-path="preprocessing.html"><a href="preprocessing.html#the-dplyr-package"><i class="fa fa-check"></i><b>8.11.1</b> The <code>dplyr</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="8.12" data-path="preprocessing.html"><a href="preprocessing.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>8.12</b> Other libraries and tricks</a></li>
-</ul></li>
-<li class="part"><span><b>VI Supervised Models</b></span></li>
-<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a><ul>
-<li class="chapter" data-level="9.1" data-path="supervised-classification.html"><a href="supervised-classification.html#classification-trees"><i class="fa fa-check"></i><b>9.1</b> Classification Trees</a></li>
-<li class="chapter" data-level="9.2" data-path="supervised-classification.html"><a href="supervised-classification.html#rules"><i class="fa fa-check"></i><b>9.2</b> Rules</a></li>
-<li class="chapter" data-level="9.3" data-path="supervised-classification.html"><a href="supervised-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>9.3</b> Distanced-based Methods</a></li>
-<li class="chapter" data-level="9.4" data-path="supervised-classification.html"><a href="supervised-classification.html#neural-networks"><i class="fa fa-check"></i><b>9.4</b> Neural Networks</a></li>
-<li class="chapter" data-level="9.5" data-path="supervised-classification.html"><a href="supervised-classification.html#support-vector-machine"><i class="fa fa-check"></i><b>9.5</b> Support Vector Machine</a></li>
-<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.6</b> Probabilistic Methods</a><ul>
-<li class="chapter" data-level="9.6.1" data-path="supervised-classification.html"><a href="supervised-classification.html#naive-bayes"><i class="fa fa-check"></i><b>9.6.1</b> Naive Bayes</a></li>
-</ul></li>
-<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.7</b> Linear Discriminant Analysis (LDA)</a><ul>
-<li class="chapter" data-level="9.7.1" data-path="supervised-classification.html"><a href="supervised-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>9.7.1</b> Predicting the number of defects (numerical class)</a></li>
-</ul></li>
-<li class="chapter" data-level="9.8" data-path="supervised-classification.html"><a href="supervised-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>9.8</b> Binary Logistic Regression (BLR)</a></li>
-<li class="chapter" data-level="9.9" data-path="supervised-classification.html"><a href="supervised-classification.html#the-caret-package"><i class="fa fa-check"></i><b>9.9</b> The caret package</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
-<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#linear-regression-modeling"><i class="fa fa-check"></i><b>10.1</b> Linear Regression modeling</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="regression.html"><a href="regression.html#regression-galton-data"><i class="fa fa-check"></i><b>10.1.1</b> Regression: Galton Data</a></li>
-<li class="chapter" data-level="10.1.2" data-path="regression.html"><a href="regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1.2</b> Simple Linear Regression</a></li>
-<li class="chapter" data-level="10.1.3" data-path="regression.html"><a href="regression.html#least-squares"><i class="fa fa-check"></i><b>10.1.3</b> Least Squares</a></li>
-<li class="chapter" data-level="10.1.4" data-path="regression.html"><a href="regression.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.4</b> Linear regression in R</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>10.2</b> Linear Regression Diagnostics</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="regression.html"><a href="regression.html#simulation-example"><i class="fa fa-check"></i><b>10.2.1</b> Simulation example</a></li>
-<li class="chapter" data-level="10.2.2" data-path="regression.html"><a href="regression.html#diagnostics-fro-assessing-the-regression-line"><i class="fa fa-check"></i><b>10.2.2</b> Diagnostics fro assessing the regression line</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="regression.html"><a href="regression.html#partial-least-squares"><i class="fa fa-check"></i><b>10.3.1</b> Partial Least Squares</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#linear-regression-in-software-effort-estimation"><i class="fa fa-check"></i><b>10.4</b> Linear regression in Software Effort estimation</a></li>
-<li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#references"><i class="fa fa-check"></i><b>10.5</b> References</a></li>
-</ul></li>
-<li class="part"><span><b>VII Unsupervised Models</b></span></li>
-<li class="chapter" data-level="11" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html"><i class="fa fa-check"></i><b>11</b> Unsupervised or Descriptive modeling</a><ul>
-<li class="chapter" data-level="11.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#clustering"><i class="fa fa-check"></i><b>11.1</b> Clustering</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#k-means"><i class="fa fa-check"></i><b>11.1.1</b> k-Means</a></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#association-rules"><i class="fa fa-check"></i><b>11.2</b> Association rules</a></li>
-</ul></li>
-<li class="part"><span><b>VIII Evaluation</b></span></li>
-<li class="chapter" data-level="12" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>12</b> Evaluation of Models</a><ul>
-<li class="chapter" data-level="12.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>12.1</b> Building and Validating a Model</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>12.1.1</b> Holdout approach</a></li>
-<li class="chapter" data-level="12.1.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>12.1.2</b> Cross Validation (CV)</a></li>
-</ul></li>
-<li class="chapter" data-level="12.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classification-models"><i class="fa fa-check"></i><b>12.2</b> Evaluation of Classification Models</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>12.2.1</b> Prediction in probabilistic classifiers</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#other-metrics-used-in-software-engineering-with-classification"><i class="fa fa-check"></i><b>12.3</b> Other Metrics used in Software Engineering with Classification</a></li>
-<li class="chapter" data-level="12.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>12.4</b> Graphical Evaluation</a><ul>
-<li class="chapter" data-level="12.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#receiver-operating-characteristic-roc"><i class="fa fa-check"></i><b>12.4.1</b> Receiver Operating Characteristic (ROC)</a></li>
-<li class="chapter" data-level="12.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#precision-recall-curve-prc"><i class="fa fa-check"></i><b>12.4.2</b> Precision-Recall Curve (PRC)</a></li>
-</ul></li>
-<li class="chapter" data-level="12.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>12.5</b> Numeric Prediction Evaluation</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>13</b> Measures of Evaluation in Software Engineering</a><ul>
-<li class="chapter" data-level="13.1" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>13.1</b> Evaluation of the model in the Testing data</a></li>
-<li class="chapter" data-level="13.2" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>13.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
-<li class="chapter" data-level="13.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>13.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
-<li class="chapter" data-level="13.4" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>13.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
-<li class="chapter" data-level="13.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>13.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
-<li class="chapter" data-level="13.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>13.5.1</b> MARP0 in the Atkinson dataset</a></li>
-</ul></li>
-<li class="chapter" data-level="13.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>13.6</b> Exact MARP0</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><i class="fa fa-check"></i><b>14</b> WBL simple R code to calculate Shepperd and MacDonell’s marp0 exactly</a><ul>
-<li class="chapter" data-level="14.1" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>14.1</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
-</ul></li>
-<li class="part"><span><b>IX Advanced Topics</b></span></li>
-<li class="chapter" data-level="15" data-path="feature-selection-1.html"><a href="feature-selection-1.html"><i class="fa fa-check"></i><b>15</b> Feature Selection</a><ul>
-<li class="chapter" data-level="15.1" data-path="feature-selection-1.html"><a href="feature-selection-1.html#instance-selection-1"><i class="fa fa-check"></i><b>15.1</b> Instance Selection</a></li>
-<li class="chapter" data-level="15.2" data-path="feature-selection-1.html"><a href="feature-selection-1.html#missing-data-imputation"><i class="fa fa-check"></i><b>15.2</b> Missing Data Imputation</a></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>16</b> Feature Selection Example</a></li>
-<li class="chapter" data-level="17" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>17</b> Advanced Models</a><ul>
-<li class="chapter" data-level="17.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>17.1</b> Genetic Programming for Symbolic Regression</a></li>
-<li class="chapter" data-level="17.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>17.2</b> Genetic Programming Example</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>17.2.1</b> Load Data</a></li>
-<li class="chapter" data-level="17.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>17.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
-<li class="chapter" data-level="17.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>17.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
-</ul></li>
-<li class="chapter" data-level="17.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks-1"><i class="fa fa-check"></i><b>17.3</b> Neural Networks</a></li>
-<li class="chapter" data-level="17.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>17.4</b> Support Vector Machines</a></li>
-<li class="chapter" data-level="17.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>17.5</b> Ensembles</a><ul>
-<li class="chapter" data-level="17.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>17.5.1</b> Bagging</a></li>
-<li class="chapter" data-level="17.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>17.5.2</b> Boosting</a></li>
-<li class="chapter" data-level="17.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>17.5.3</b> Rotation Forests</a></li>
-<li class="chapter" data-level="17.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>17.5.4</b> Boosting in R</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks"><i class="fa fa-check"></i><b>6.3</b> Neural Networks</a></li>
+<li class="chapter" data-level="6.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>6.4</b> Support Vector Machines</a></li>
+<li class="chapter" data-level="6.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>6.5</b> Ensembles</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>6.5.1</b> Bagging</a></li>
+<li class="chapter" data-level="6.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>6.5.2</b> Boosting</a></li>
+<li class="chapter" data-level="6.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>6.5.3</b> Rotation Forests</a></li>
+<li class="chapter" data-level="6.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>6.5.4</b> Boosting in R</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>18</b> Further Classification Models</a><ul>
-<li class="chapter" data-level="18.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>18.1</b> Multilabel classification</a></li>
-<li class="chapter" data-level="18.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>18.2</b> Semi-supervised Learning</a></li>
+<li class="chapter" data-level="7" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>7</b> Further Classification Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>7.1</b> Multilabel classification</a></li>
+<li class="chapter" data-level="7.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>7.2</b> Semi-supervised Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
-<li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
-<li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="8" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>8</b> Social Network Analysis in SE</a></li>
+<li class="chapter" data-level="9" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>9</b> Text Mining Software Engineering Data</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>9.1</b> Terminology</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>9.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>9.3</b> Extracting data from Twitter</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
-<li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
+<li class="chapter" data-level="10" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>10</b> Time Series</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>10.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -331,12 +295,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="text-mining-software-engineering-data" class="section level1">
-<h1><span class="header-section-number">Chapter 20</span> Text Mining Software Engineering Data</h1>
+<div id="text-mining-software-engineering-data" class="section level1" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Text Mining Software Engineering Data</h1>
 <p>In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons, etc. Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple’s AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.</p>
-<p>The main package for <em>text mining</em> is <code>tm</code> <span class="citation">(Feinerer and Hornik <a href="#ref-FeinererH15">2015</a>,<span class="citation">@FeinererHM08</span>)</span>. Another popular package is <code>wordcloud</code>.</p>
-<div id="terminology" class="section level2">
-<h2><span class="header-section-number">20.1</span> Terminology</h2>
+<p>A well-known package for <em>text mining</em> is <code>tm</code> <span class="citation"><a href="#ref-FeinererHM08" role="doc-biblioref">Feinerer, Hornik, and Meyer</a> (<a href="#ref-FeinererHM08" role="doc-biblioref">2008</a>)</span>. Another popular package is <code>wordcloud</code>.</p>
+<div id="terminology" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Terminology</h2>
 <p>The workflow that we follow for analyzing a set of text documents are:</p>
 <ol style="list-style-type: decimal">
 <li>Importing data. A <em>Corpus</em> is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The <code>tm</code> provides several corpus constructors: <code>DirSource</code>, <code>VectorSource</code>, or <code>DataframeSource</code> (<code>getSources()</code>).</li>
@@ -346,71 +310,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="2" style="list-style-type: decimal">
 <li><p>Preprocessing: in this step we may remove common words, punctuation and we may perform other operations. We may do this operations after creating the DocumentTermMatrix.</p></li>
 <li><p>Inspecting and exploring data: Individual documents can be accessed via [[</p></li>
-<li>Transformations: Transformations are done via the <code>tm_map()</code> function.
+<li><p>Transformations: Transformations are done via the <code>tm_map()</code> function.
 + <code>tm_map(_____, stripWhitespace)</code><br />
 + <code>tm_map(_____, content_transformer(tolower))</code>
-+ <code>tm_map(_____, removeWords, stopwords(&quot;english&quot;))</code>
-+ <code>tm_map(_____, stemDocument)</code></li>
++ <code>tm_map(_____, removeWords, stopwords("english"))</code>
++ <code>tm_map(_____, stemDocument)</code></p></li>
 <li><p>Creating <code>Term-Document</code> Matrices: TermDocumentMatrix and DocumentTermMatrix
 + A document term matrix is a matrix with documents as the rows and terms as the columns. Each cell of the matrix contains the count of the frequency of words. We use DocumentTermMatrix()
 to create the matrix.
-+ <code>inspect(DocumentTermMatrix( newsreuters, list(dictionary = c(&quot;term1&quot;, &quot;term2&quot;, &quot;term3&quot;))))</code>. It displays detailed information on a corpus or a term-document matrix.</p></li>
++ <code>inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3"))))</code>. It displays detailed information on a corpus or a term-document matrix.</p></li>
 <li><p>Relationships between terms.
 + <code>findFreqTerms(_____, anumber)</code>
-+ <code>findAssocs(Mydtm, &quot;aterm&quot;, anumbercorrelation)</code>
++ <code>findAssocs(Mydtm, "aterm", anumbercorrelation)</code>
 + A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.</p></li>
 <li><p>Clustering and Classification</p></li>
 </ol>
 </div>
-<div id="example-of-classifying-bugs-from-bugzilla" class="section level2">
-<h2><span class="header-section-number">20.2</span> Example of classifying bugs from Bugzilla</h2>
+<div id="example-of-classifying-bugs-from-bugzilla" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Example of classifying bugs from Bugzilla</h2>
 <p>Bugzilla is Issue Tracking System that allow us to follow the evolution of a project.</p>
 <p>The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
-<span class="co"># path_name &lt;- file.path(&quot;C:&quot;, &quot;datasets&quot;, &quot;textMining&quot;)</span>
-<span class="co"># path_name</span>
-<span class="co"># dir(path_name)</span>
-
-<span class="co">#Import data</span>
-<span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-d &lt;-<span class="st"> </span><span class="kw">read.arff</span>(<span class="st">&quot;./datasets/textMining/reviewsBugs.arff&quot;</span> )
-<span class="kw">str</span>(d) <span class="co">#print out information about d</span></code></pre>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="text-mining-software-engineering-data.html#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb516-2"><a href="text-mining-software-engineering-data.html#cb516-2" aria-hidden="true" tabindex="-1"></a><span class="co"># path_name &lt;- file.path(&quot;C:&quot;, &quot;datasets&quot;, &quot;textMining&quot;)</span></span>
+<span id="cb516-3"><a href="text-mining-software-engineering-data.html#cb516-3" aria-hidden="true" tabindex="-1"></a><span class="co"># path_name</span></span>
+<span id="cb516-4"><a href="text-mining-software-engineering-data.html#cb516-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dir(path_name)</span></span>
+<span id="cb516-5"><a href="text-mining-software-engineering-data.html#cb516-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb516-6"><a href="text-mining-software-engineering-data.html#cb516-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Import data</span></span>
+<span id="cb516-7"><a href="text-mining-software-engineering-data.html#cb516-7" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb516-8"><a href="text-mining-software-engineering-data.html#cb516-8" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.arff</span>(<span class="st">&quot;./datasets/textMining/reviewsBugs.arff&quot;</span> )</span>
+<span id="cb516-9"><a href="text-mining-software-engineering-data.html#cb516-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d) <span class="co">#print out information about d</span></span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    789 obs. of  2 variables:
 ##  $ revContent: chr  &quot;Can&#39;t see traffic colors now With latest updates I can&#39;t see the traffic green/red/yellow - I have to pull over&quot;| __truncated__ &quot;Google Map I like it so far, it has not steered me wrong.&quot; &quot;Could be 100X better Google should start listening to customers then they&#39;d actually build a proper product.&quot; &quot;I like that! Easily more helpful than the map app that comes with your phone.&quot; ...
 ##  $ revBug    : Factor w/ 2 levels &quot;N&quot;,&quot;Y&quot;: 2 1 1 1 1 1 2 1 2 1 ...</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(d,<span class="dv">2</span>) <span class="co"># the first two rows of d. </span></code></pre>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="text-mining-software-engineering-data.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d,<span class="dv">2</span>) <span class="co"># the first two rows of d. </span></span></code></pre></div>
 <pre><code>##                                                                                                                                                                                                                                   revContent
 ## 1 Can&#39;t see traffic colors now With latest updates I can&#39;t see the traffic green/red/yellow - I have to pull over and zoom in the map so that one road fills the entire screen. Traffic checks are (were) the only reason I use google maps!
 ## 2                                                                                                                                                                                  Google Map I like it so far, it has not steered me wrong.
 ##   revBug
 ## 1      Y
 ## 2      N</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fifth entry</span>
-d<span class="op">$</span>revContent[<span class="dv">5</span>]</code></pre>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="text-mining-software-engineering-data.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fifth entry</span></span>
+<span id="cb520-2"><a href="text-mining-software-engineering-data.html#cb520-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>revContent[<span class="dv">5</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;Just deleted No I don&#39;t want to sign in or sign up for anything stop asking&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">d<span class="op">$</span>revBug[<span class="dv">5</span>]</code></pre>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="text-mining-software-engineering-data.html#cb522-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>revBug[<span class="dv">5</span>]</span></code></pre></div>
 <pre><code>## [1] N
 ## Levels: N Y</code></pre>
 <p>Creating a Document-Term Matrix (DTM)</p>
-<p>Now, we can explore things such as “which words are associated with”feature“?”</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which words are associated with &quot;bug&quot;?</span>
-<span class="kw">findAssocs</span>(dtm, <span class="st">&#39;bug&#39;</span>, <span class="fl">.3</span>) <span class="co"># minimum correlation of 0.3. Change accordingly. </span></code></pre>
+<p>Now, we can explore things such as “which words are associated with”feature”?”</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="text-mining-software-engineering-data.html#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which words are associated with &quot;bug&quot;?</span></span>
+<span id="cb524-2"><a href="text-mining-software-engineering-data.html#cb524-2" aria-hidden="true" tabindex="-1"></a><span class="fu">findAssocs</span>(dtm, <span class="st">&#39;bug&#39;</span>, .<span class="dv">3</span>) <span class="co"># minimum correlation of 0.3. Change accordingly. </span></span></code></pre></div>
 <pre><code>## $bug
 ##     it?    mini   major   users causing    ipad 
 ##    1.00    0.92    0.91    0.80    0.62    0.57</code></pre>
 <p>And find frequent terms.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">findFreqTerms</span>(dtm, <span class="dv">15</span>) <span class="co">#terms that appear 15 or more times, in this case</span></code></pre>
-<pre><code>##  [1] &quot;google&quot;    &quot;map&quot;       &quot;like&quot;      &quot;app&quot;       &quot;just&quot;     
-##  [6] &quot;good&quot;      &quot;crashes&quot;   &quot;maps&quot;      &quot;time&quot;      &quot;get&quot;      
-## [11] &quot;much&quot;      &quot;really&quot;    &quot;update&quot;    &quot;great&quot;     &quot;nice&quot;     
-## [16] &quot;best&quot;      &quot;ever&quot;      &quot;fun&quot;       &quot;review&quot;    &quot;love&quot;     
-## [21] &quot;awesome&quot;   &quot;cool&quot;      &quot;amazing&quot;   &quot;game&quot;      &quot;clans&quot;    
-## [26] &quot;clash&quot;     &quot;game.&quot;     &quot;game!&quot;     &quot;addicting&quot; &quot;play&quot;     
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="text-mining-software-engineering-data.html#cb526-1" aria-hidden="true" tabindex="-1"></a><span class="fu">findFreqTerms</span>(dtm, <span class="dv">15</span>) <span class="co">#terms that appear 15 or more times, in this case</span></span></code></pre></div>
+<pre><code>##  [1] &quot;google&quot;    &quot;map&quot;       &quot;like&quot;      &quot;app&quot;       &quot;just&quot;      &quot;good&quot;     
+##  [7] &quot;crashes&quot;   &quot;maps&quot;      &quot;time&quot;      &quot;get&quot;       &quot;much&quot;      &quot;really&quot;   
+## [13] &quot;update&quot;    &quot;great&quot;     &quot;nice&quot;      &quot;best&quot;      &quot;ever&quot;      &quot;fun&quot;      
+## [19] &quot;review&quot;    &quot;love&quot;      &quot;awesome&quot;   &quot;cool&quot;      &quot;amazing&quot;   &quot;game&quot;     
+## [25] &quot;clans&quot;     &quot;clash&quot;     &quot;game.&quot;     &quot;game!&quot;     &quot;addicting&quot; &quot;play&quot;     
 ## [31] &quot;playing&quot;   &quot;addictive&quot;</code></pre>
 <p>Remove some terms</p>
-<pre class="sourceCode r"><code class="sourceCode r">sparseparam &lt;-<span class="st"> </span><span class="fl">0.90</span> <span class="co"># will make the matrix 90% empty space, maximum. Change this, as you like.</span>
-dtm_sprs &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>(dtm,<span class="dt">sparse=</span>sparseparam)
-<span class="kw">inspect</span>(dtm_sprs)</code></pre>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="text-mining-software-engineering-data.html#cb528-1" aria-hidden="true" tabindex="-1"></a>sparseparam <span class="ot">&lt;-</span> <span class="fl">0.90</span> <span class="co"># will make the matrix 90% empty space, maximum. Change this, as you like.</span></span>
+<span id="cb528-2"><a href="text-mining-software-engineering-data.html#cb528-2" aria-hidden="true" tabindex="-1"></a>dtm_sprs <span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(dtm,<span class="at">sparse=</span>sparseparam)</span>
+<span id="cb528-3"><a href="text-mining-software-engineering-data.html#cb528-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(dtm_sprs)</span></code></pre></div>
 <pre><code>## &lt;&lt;DocumentTermMatrix (documents: 789, terms: 9)&gt;&gt;
 ## Non-/sparse entries: 1233/5868
 ## Sparsity           : 83%
@@ -418,227 +381,214 @@ dtm_sprs &lt;-<span class="st"> </span><span class="kw">removeSparseTerms</span>
 ## Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
 ## Sample             :
 ##      Terms
-## Docs  app     awesome best       clash fun game        good great
-##   159   0 0.000000000    0 1.598808368   0    0 0.000000000     0
-##   163   0 3.116086850    0 0.000000000   0    0 0.000000000     0
-##   178   0 3.116086850    0 0.000000000   0    0 0.000000000     0
-##   400   0 0.000000000    0 0.000000000   0    0 3.100319534     0
-##   421   0 0.000000000    0 0.000000000   0    0 3.100319534     0
-##   472   0 0.000000000    0 0.000000000   0    0 3.100319534     0
-##   50    0 0.000000000    0 0.000000000   0    0 3.100319534     0
-##   525   0 1.558043425    0 0.000000000   0    0 0.000000000     0
-##   527   0 0.000000000    0 0.000000000   0    0 3.100319534     0
-##   532   0 0.000000000    0 1.598808368   0    0 0.000000000     0
-##      Terms
-## Docs         love
-##   159 1.461720886
-##   163 0.000000000
-##   178 0.000000000
-##   400 0.000000000
-##   421 0.000000000
-##   472 0.000000000
-##   50  0.000000000
-##   525 1.461720886
-##   527 0.000000000
-##   532 1.461720886</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">maintitle &lt;-<span class="kw">paste0</span>(<span class="st">&quot;Most frequent terms (sparseness=&quot;</span> ,sparseparam , <span class="st">&quot;  )&quot;</span>)
-<span class="kw">barplot</span>(<span class="kw">as.matrix</span>(dtm_sprs),<span class="dt">xlab=</span><span class="st">&quot;terms&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;number of occurrences&quot;</span>, <span class="dt">main=</span>maintitle)</code></pre>
-<p><img src="DASE_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># organize terms by their frequency </span>
-
-freq_dtm_sprs &lt;-<span class="st"> </span><span class="kw">colSums</span>(<span class="kw">as.matrix</span>(dtm_sprs))
-<span class="kw">length</span>(freq_dtm_sprs)</code></pre>
+## Docs  app awesome best clash fun game good great love
+##   159   0    0.00    0   1.6   0    0  0.0     0 1.46
+##   163   0    3.12    0   0.0   0    0  0.0     0 0.00
+##   178   0    3.12    0   0.0   0    0  0.0     0 0.00
+##   400   0    0.00    0   0.0   0    0  3.1     0 0.00
+##   421   0    0.00    0   0.0   0    0  3.1     0 0.00
+##   472   0    0.00    0   0.0   0    0  3.1     0 0.00
+##   50    0    0.00    0   0.0   0    0  3.1     0 0.00
+##   525   0    1.56    0   0.0   0    0  0.0     0 1.46
+##   527   0    0.00    0   0.0   0    0  3.1     0 0.00
+##   532   0    0.00    0   1.6   0    0  0.0     0 1.46</code></pre>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="text-mining-software-engineering-data.html#cb530-1" aria-hidden="true" tabindex="-1"></a>maintitle <span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;Most frequent terms (sparseness=&quot;</span> ,sparseparam , <span class="st">&quot;  )&quot;</span>)</span>
+<span id="cb530-2"><a href="text-mining-software-engineering-data.html#cb530-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">as.matrix</span>(dtm_sprs),<span class="at">xlab=</span><span class="st">&quot;terms&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;number of occurrences&quot;</span>, <span class="at">main=</span>maintitle)</span></code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="text-mining-software-engineering-data.html#cb531-1" aria-hidden="true" tabindex="-1"></a><span class="co"># organize terms by their frequency </span></span>
+<span id="cb531-2"><a href="text-mining-software-engineering-data.html#cb531-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb531-3"><a href="text-mining-software-engineering-data.html#cb531-3" aria-hidden="true" tabindex="-1"></a>freq_dtm_sprs <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">as.matrix</span>(dtm_sprs))</span>
+<span id="cb531-4"><a href="text-mining-software-engineering-data.html#cb531-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(freq_dtm_sprs)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">sorted_freq_dtm_sprs &lt;-<span class="st"> </span><span class="kw">sort</span>(freq_dtm_sprs, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
-sorted_freq_dtm_sprs</code></pre>
-<pre><code>##        good       great        game     awesome         fun        best 
-## 77.76636458 68.77637155 68.66996351 64.60649534 55.84940440 54.07372345 
-##        love       clash         app 
-## 45.36493131 42.48777519 31.29319954</code></pre>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="text-mining-software-engineering-data.html#cb533-1" aria-hidden="true" tabindex="-1"></a>sorted_freq_dtm_sprs <span class="ot">&lt;-</span> <span class="fu">sort</span>(freq_dtm_sprs, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb533-2"><a href="text-mining-software-engineering-data.html#cb533-2" aria-hidden="true" tabindex="-1"></a>sorted_freq_dtm_sprs</span></code></pre></div>
+<pre><code>##    good   great    game awesome     fun    best    love   clash     app 
+##    77.8    68.8    68.7    64.6    55.8    54.1    45.4    42.5    31.3</code></pre>
 <p>Create a data frame that will be the input to the classifier.
 Last column will be the label.</p>
 <p>As data frame:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dtmdf &lt;- as.data.frame(dtm.90)</span>
-<span class="co">#dtmdf &lt;- as.data.frame(inspect(dtm_sprs))</span>
-dtmdf &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">as.matrix</span>(dtm_sprs))
-<span class="co"># rownames(dtm)&lt;- 1:nrow(dtm)</span>
-
-class &lt;-<span class="st"> </span>d<span class="op">$</span>revBug
-dtmdf &lt;-<span class="st"> </span><span class="kw">cbind</span>(dtmdf,class)
-<span class="kw">head</span>(dtmdf, <span class="dv">3</span>)</code></pre>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="text-mining-software-engineering-data.html#cb535-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dtmdf &lt;- as.data.frame(dtm.90)</span></span>
+<span id="cb535-2"><a href="text-mining-software-engineering-data.html#cb535-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dtmdf &lt;- as.data.frame(inspect(dtm_sprs))</span></span>
+<span id="cb535-3"><a href="text-mining-software-engineering-data.html#cb535-3" aria-hidden="true" tabindex="-1"></a>dtmdf <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.matrix</span>(dtm_sprs))</span>
+<span id="cb535-4"><a href="text-mining-software-engineering-data.html#cb535-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rownames(dtm)&lt;- 1:nrow(dtm)</span></span>
+<span id="cb535-5"><a href="text-mining-software-engineering-data.html#cb535-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb535-6"><a href="text-mining-software-engineering-data.html#cb535-6" aria-hidden="true" tabindex="-1"></a>class <span class="ot">&lt;-</span> d<span class="sc">$</span>revBug</span>
+<span id="cb535-7"><a href="text-mining-software-engineering-data.html#cb535-7" aria-hidden="true" tabindex="-1"></a>dtmdf <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dtmdf,class)</span>
+<span id="cb535-8"><a href="text-mining-software-engineering-data.html#cb535-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dtmdf, <span class="dv">3</span>)</span></code></pre></div>
 <p>Use any classifier now:
 - split the dataframe into training and testing
 - Build the classification model using the training subset
 - apply the model to the testing subset and obtain the Confusion Matrix
 - Analise the results</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
-<span class="kw">library</span>(randomForest)
-
-
-inTraining &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(dtmdf<span class="op">$</span>class, <span class="dt">p =</span> <span class="fl">.75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
-training &lt;-<span class="st"> </span>dtmdf[ inTraining,]
-testing  &lt;-<span class="st"> </span>dtmdf[<span class="op">-</span>inTraining,]
-
-fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="co">## 5-fold CV</span>
-                           <span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,
-                           <span class="dt">number =</span> <span class="dv">5</span>,
-                           <span class="co">## repeated ten times</span>
-                           <span class="dt">repeats =</span> <span class="dv">5</span>)
-
-
-gbmFit1 &lt;-<span class="st"> </span><span class="kw">train</span>(class <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> training,
-                 <span class="dt">method =</span> <span class="st">&quot;gbm&quot;</span>,
-                 <span class="dt">trControl =</span> fitControl,
-                 <span class="co">## This last option is actually one</span>
-                 <span class="co">## for gbm() that passes through</span>
-                 <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
-
-gbmFit1</code></pre>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="text-mining-software-engineering-data.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb536-2"><a href="text-mining-software-engineering-data.html#cb536-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb536-3"><a href="text-mining-software-engineering-data.html#cb536-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-4"><a href="text-mining-software-engineering-data.html#cb536-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-5"><a href="text-mining-software-engineering-data.html#cb536-5" aria-hidden="true" tabindex="-1"></a>inTraining <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(dtmdf<span class="sc">$</span>class, <span class="at">p =</span> .<span class="dv">75</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb536-6"><a href="text-mining-software-engineering-data.html#cb536-6" aria-hidden="true" tabindex="-1"></a>training <span class="ot">&lt;-</span> dtmdf[ inTraining,]</span>
+<span id="cb536-7"><a href="text-mining-software-engineering-data.html#cb536-7" aria-hidden="true" tabindex="-1"></a>testing  <span class="ot">&lt;-</span> dtmdf[<span class="sc">-</span>inTraining,]</span>
+<span id="cb536-8"><a href="text-mining-software-engineering-data.html#cb536-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-9"><a href="text-mining-software-engineering-data.html#cb536-9" aria-hidden="true" tabindex="-1"></a>fitControl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="do">## 5-fold CV</span></span>
+<span id="cb536-10"><a href="text-mining-software-engineering-data.html#cb536-10" aria-hidden="true" tabindex="-1"></a>                           <span class="at">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,</span>
+<span id="cb536-11"><a href="text-mining-software-engineering-data.html#cb536-11" aria-hidden="true" tabindex="-1"></a>                           <span class="at">number =</span> <span class="dv">5</span>,</span>
+<span id="cb536-12"><a href="text-mining-software-engineering-data.html#cb536-12" aria-hidden="true" tabindex="-1"></a>                           <span class="do">## repeated ten times</span></span>
+<span id="cb536-13"><a href="text-mining-software-engineering-data.html#cb536-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">repeats =</span> <span class="dv">5</span>)</span>
+<span id="cb536-14"><a href="text-mining-software-engineering-data.html#cb536-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-15"><a href="text-mining-software-engineering-data.html#cb536-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-16"><a href="text-mining-software-engineering-data.html#cb536-16" aria-hidden="true" tabindex="-1"></a>gbmFit1 <span class="ot">&lt;-</span> <span class="fu">train</span>(class <span class="sc">~</span> ., <span class="at">data =</span> training,</span>
+<span id="cb536-17"><a href="text-mining-software-engineering-data.html#cb536-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;gbm&quot;</span>,</span>
+<span id="cb536-18"><a href="text-mining-software-engineering-data.html#cb536-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trControl =</span> fitControl,</span>
+<span id="cb536-19"><a href="text-mining-software-engineering-data.html#cb536-19" aria-hidden="true" tabindex="-1"></a>                 <span class="do">## This last option is actually one</span></span>
+<span id="cb536-20"><a href="text-mining-software-engineering-data.html#cb536-20" aria-hidden="true" tabindex="-1"></a>                 <span class="do">## for gbm() that passes through</span></span>
+<span id="cb536-21"><a href="text-mining-software-engineering-data.html#cb536-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb536-22"><a href="text-mining-software-engineering-data.html#cb536-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb536-23"><a href="text-mining-software-engineering-data.html#cb536-23" aria-hidden="true" tabindex="-1"></a>gbmFit1</span></code></pre></div>
 <pre><code>## Stochastic Gradient Boosting 
 ## 
 ## 593 samples
-##   9 predictors
+##   9 predictor
 ##   2 classes: &#39;N&#39;, &#39;Y&#39; 
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold, repeated 5 times) 
-## Summary of sample sizes: 475, 474, 475, 474, 474, 474, ... 
+## Summary of sample sizes: 475, 474, 474, 475, 474, 474, ... 
 ## Resampling results across tuning parameters:
 ## 
-##   interaction.depth  n.trees  Accuracy      Kappa         
-##   1                   50      0.7983107819  0.005187831537
-##   1                  100      0.8030309073  0.100972529170
-##   1                  150      0.8185586099  0.251719781992
-##   2                   50      0.8161942743  0.214069621088
-##   2                  100      0.8162028201  0.281341413948
-##   2                  150      0.8114798462  0.280302861433
-##   3                   50      0.8168636946  0.274826252003
-##   3                  100      0.8114883920  0.279902522189
-##   3                  150      0.8087850734  0.282684783972
+##   interaction.depth  n.trees  Accuracy  Kappa 
+##   1                   50      0.798     0.0026
+##   1                  100      0.801     0.0830
+##   1                  150      0.806     0.2030
+##   2                   50      0.810     0.1918
+##   2                  100      0.808     0.2585
+##   2                  150      0.808     0.2743
+##   3                   50      0.813     0.2629
+##   3                  100      0.809     0.2733
+##   3                  150      0.807     0.2822
 ## 
 ## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
 ## 
 ## Tuning parameter &#39;n.minobsinnode&#39; was held constant at a value of 10
 ## Accuracy was used to select the optimal model using the largest value.
-## The final values used for the model were n.trees = 150,
-##  interaction.depth = 1, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># trellis.par.set(caretTheme())</span>
-<span class="co"># plot(gbmFit1)</span>
-<span class="co"># </span>
-<span class="co"># trellis.par.set(caretTheme())</span>
-<span class="co"># plot(gbmFit1, metric = &quot;Kappa&quot;)</span>
-
-<span class="kw">head</span>(<span class="kw">predict</span>(gbmFit1, testing, <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>))</code></pre>
-<pre><code>##              N             Y
-## 1 0.6128782934 0.38712170665
-## 2 0.5754602498 0.42453975017
-## 3 0.6422679898 0.35773201018
-## 4 0.6866949197 0.31330508027
-## 5 0.9802477705 0.01975222952
-## 6 0.9307476992 0.06925230082</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">conf_mat &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(testing<span class="op">$</span>class, <span class="kw">predict</span>(gbmFit1, testing))
-conf_mat</code></pre>
+## The final values used for the model were n.trees = 50, interaction.depth =
+##  3, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="text-mining-software-engineering-data.html#cb538-1" aria-hidden="true" tabindex="-1"></a><span class="co"># trellis.par.set(caretTheme())</span></span>
+<span id="cb538-2"><a href="text-mining-software-engineering-data.html#cb538-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(gbmFit1)</span></span>
+<span id="cb538-3"><a href="text-mining-software-engineering-data.html#cb538-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb538-4"><a href="text-mining-software-engineering-data.html#cb538-4" aria-hidden="true" tabindex="-1"></a><span class="co"># trellis.par.set(caretTheme())</span></span>
+<span id="cb538-5"><a href="text-mining-software-engineering-data.html#cb538-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(gbmFit1, metric = &quot;Kappa&quot;)</span></span>
+<span id="cb538-6"><a href="text-mining-software-engineering-data.html#cb538-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb538-7"><a href="text-mining-software-engineering-data.html#cb538-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">predict</span>(gbmFit1, testing, <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>))</span></code></pre></div>
+<pre><code>##       N      Y
+## 1 0.718 0.2816
+## 2 0.901 0.0993
+## 3 0.677 0.3233
+## 4 0.677 0.3233
+## 5 0.596 0.4039
+## 6 0.950 0.0499</code></pre>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="text-mining-software-engineering-data.html#cb540-1" aria-hidden="true" tabindex="-1"></a>conf_mat <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(testing<span class="sc">$</span>class, <span class="fu">predict</span>(gbmFit1, testing))</span>
+<span id="cb540-2"><a href="text-mining-software-engineering-data.html#cb540-2" aria-hidden="true" tabindex="-1"></a>conf_mat</span></code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction   N   Y
 ##          N 152   5
-##          Y  35   4
-##                                                 
-##                Accuracy : 0.7959184             
-##                  95% CI : (0.7326392, 0.8500172)
-##     No Information Rate : 0.9540816             
-##     P-Value [Acc &gt; NIR] : 1                     
-##                                                 
-##                   Kappa : 0.0994716             
-##  Mcnemar&#39;s Test P-Value : 0.000004533294        
-##                                                 
-##             Sensitivity : 0.8128342             
-##             Specificity : 0.4444444             
-##          Pos Pred Value : 0.9681529             
-##          Neg Pred Value : 0.1025641             
-##              Prevalence : 0.9540816             
-##          Detection Rate : 0.7755102             
-##    Detection Prevalence : 0.8010204             
-##       Balanced Accuracy : 0.6286393             
-##                                                 
-##        &#39;Positive&#39; Class : N                     
+##          Y  31   8
+##                                         
+##                Accuracy : 0.816         
+##                  95% CI : (0.755, 0.868)
+##     No Information Rate : 0.934         
+##     P-Value [Acc &gt; NIR] : 1             
+##                                         
+##                   Kappa : 0.231         
+##                                         
+##  Mcnemar&#39;s Test P-Value : 3.09e-05      
+##                                         
+##             Sensitivity : 0.831         
+##             Specificity : 0.615         
+##          Pos Pred Value : 0.968         
+##          Neg Pred Value : 0.205         
+##              Prevalence : 0.934         
+##          Detection Rate : 0.776         
+##    Detection Prevalence : 0.801         
+##       Balanced Accuracy : 0.723         
+##                                         
+##        &#39;Positive&#39; Class : N             
 ## </code></pre>
 <p>We may compute manually all derived variables from the Confusion Matrix. See Section – with the description of the Confusion Matrix</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># str(conf_mat)</span>
-TruePositive &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">1</span>,<span class="dv">1</span>]
-TruePositive</code></pre>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="text-mining-software-engineering-data.html#cb542-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str(conf_mat)</span></span>
+<span id="cb542-2"><a href="text-mining-software-engineering-data.html#cb542-2" aria-hidden="true" tabindex="-1"></a>TruePositive <span class="ot">&lt;-</span> conf_mat<span class="sc">$</span>table[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb542-3"><a href="text-mining-software-engineering-data.html#cb542-3" aria-hidden="true" tabindex="-1"></a>TruePositive</span></code></pre></div>
 <pre><code>## [1] 152</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">FalsePositive &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">1</span>,<span class="dv">2</span>]
-FalsePositive</code></pre>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="text-mining-software-engineering-data.html#cb544-1" aria-hidden="true" tabindex="-1"></a>FalsePositive <span class="ot">&lt;-</span> conf_mat<span class="sc">$</span>table[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb544-2"><a href="text-mining-software-engineering-data.html#cb544-2" aria-hidden="true" tabindex="-1"></a>FalsePositive</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">FalseNegative &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">2</span>,<span class="dv">1</span>]
-FalseNegative</code></pre>
-<pre><code>## [1] 35</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">TrueNegative &lt;-<span class="st"> </span>conf_mat<span class="op">$</span>table[<span class="dv">2</span>,<span class="dv">2</span>]
-TrueNegative</code></pre>
-<pre><code>## [1] 4</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sum columns in the confusion matrix</span>
-ConditionPositive &lt;-<span class="st"> </span>TruePositive <span class="op">+</span><span class="st"> </span>FalseNegative
-ConditionNegative &lt;-<span class="st"> </span>FalsePositive <span class="op">+</span><span class="st"> </span>TrueNegative
-TotalPopulation &lt;-<span class="st"> </span>ConditionPositive <span class="op">+</span><span class="st"> </span>ConditionNegative
-TotalPopulation</code></pre>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="text-mining-software-engineering-data.html#cb546-1" aria-hidden="true" tabindex="-1"></a>FalseNegative <span class="ot">&lt;-</span> conf_mat<span class="sc">$</span>table[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb546-2"><a href="text-mining-software-engineering-data.html#cb546-2" aria-hidden="true" tabindex="-1"></a>FalseNegative</span></code></pre></div>
+<pre><code>## [1] 31</code></pre>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="text-mining-software-engineering-data.html#cb548-1" aria-hidden="true" tabindex="-1"></a>TrueNegative <span class="ot">&lt;-</span> conf_mat<span class="sc">$</span>table[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb548-2"><a href="text-mining-software-engineering-data.html#cb548-2" aria-hidden="true" tabindex="-1"></a>TrueNegative</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="text-mining-software-engineering-data.html#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum columns in the confusion matrix</span></span>
+<span id="cb550-2"><a href="text-mining-software-engineering-data.html#cb550-2" aria-hidden="true" tabindex="-1"></a>ConditionPositive <span class="ot">&lt;-</span> TruePositive <span class="sc">+</span> FalseNegative</span>
+<span id="cb550-3"><a href="text-mining-software-engineering-data.html#cb550-3" aria-hidden="true" tabindex="-1"></a>ConditionNegative <span class="ot">&lt;-</span> FalsePositive <span class="sc">+</span> TrueNegative</span>
+<span id="cb550-4"><a href="text-mining-software-engineering-data.html#cb550-4" aria-hidden="true" tabindex="-1"></a>TotalPopulation <span class="ot">&lt;-</span> ConditionPositive <span class="sc">+</span> ConditionNegative</span>
+<span id="cb550-5"><a href="text-mining-software-engineering-data.html#cb550-5" aria-hidden="true" tabindex="-1"></a>TotalPopulation</span></code></pre></div>
 <pre><code>## [1] 196</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Sum rows in the confusion matrix</span>
-PredictedPositive &lt;-<span class="st"> </span>TruePositive <span class="op">+</span><span class="st"> </span>FalsePositive
-PredictedNegative &lt;-<span class="st"> </span>FalseNegative <span class="op">+</span><span class="st"> </span>TrueNegative
-<span class="co"># Total Predicted must be equal to the total population</span>
-PredictedPositive<span class="op">+</span>PredictedNegative</code></pre>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="text-mining-software-engineering-data.html#cb552-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sum rows in the confusion matrix</span></span>
+<span id="cb552-2"><a href="text-mining-software-engineering-data.html#cb552-2" aria-hidden="true" tabindex="-1"></a>PredictedPositive <span class="ot">&lt;-</span> TruePositive <span class="sc">+</span> FalsePositive</span>
+<span id="cb552-3"><a href="text-mining-software-engineering-data.html#cb552-3" aria-hidden="true" tabindex="-1"></a>PredictedNegative <span class="ot">&lt;-</span> FalseNegative <span class="sc">+</span> TrueNegative</span>
+<span id="cb552-4"><a href="text-mining-software-engineering-data.html#cb552-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total Predicted must be equal to the total population</span></span>
+<span id="cb552-5"><a href="text-mining-software-engineering-data.html#cb552-5" aria-hidden="true" tabindex="-1"></a>PredictedPositive<span class="sc">+</span>PredictedNegative</span></code></pre></div>
 <pre><code>## [1] 196</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">SensitivityRecall_TPR &lt;-<span class="st"> </span>TruePositive <span class="op">/</span><span class="st"> </span>ConditionPositive
-SensitivityRecall_TPR</code></pre>
-<pre><code>## [1] 0.8128342246</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Specificity_TNR_SPC &lt;-<span class="st"> </span>TrueNegative <span class="op">/</span><span class="st"> </span>ConditionNegative
-Specificity_TNR_SPC</code></pre>
-<pre><code>## [1] 0.4444444444</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Precision_PPV &lt;-<span class="st"> </span>TruePositive <span class="op">/</span><span class="st"> </span>PredictedPositive
-Precision_PPV </code></pre>
-<pre><code>## [1] 0.9681528662</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">NegativePredictedValue_NPV &lt;-<span class="st"> </span>TrueNegative <span class="op">/</span><span class="st"> </span>PredictedNegative
-NegativePredictedValue_NPV</code></pre>
-<pre><code>## [1] 0.1025641026</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Prevalence &lt;-<span class="st"> </span>ConditionPositive <span class="op">/</span><span class="st"> </span>TotalPopulation
-Prevalence</code></pre>
-<pre><code>## [1] 0.9540816327</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Accuracy_ACC &lt;-<span class="st"> </span>(TruePositive <span class="op">+</span><span class="st"> </span>TrueNegative) <span class="op">/</span><span class="st"> </span>TotalPopulation
-Accuracy_ACC</code></pre>
-<pre><code>## [1] 0.7959183673</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">FalseDiscoveryRate_FDR &lt;-<span class="st"> </span>FalsePositive <span class="op">/</span><span class="st"> </span>PredictedPositive
-FalseDiscoveryRate_FDR</code></pre>
-<pre><code>## [1] 0.03184713376</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">FalseOmisionRate_FOR &lt;-<span class="st"> </span>FalseNegative <span class="op">/</span><span class="st"> </span>PredictedNegative 
-FalseOmisionRate_FOR</code></pre>
-<pre><code>## [1] 0.8974358974</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">FallOut_FPR &lt;-<span class="st"> </span>FalsePositive <span class="op">/</span><span class="st"> </span>ConditionNegative
-FallOut_FPR</code></pre>
-<pre><code>## [1] 0.5555555556</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">MissRate_FNR &lt;-<span class="st"> </span>FalseNegative <span class="op">/</span><span class="st"> </span>ConditionPositive
-MissRate_FNR </code></pre>
-<pre><code>## [1] 0.1871657754</code></pre>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="text-mining-software-engineering-data.html#cb554-1" aria-hidden="true" tabindex="-1"></a>SensitivityRecall_TPR <span class="ot">&lt;-</span> TruePositive <span class="sc">/</span> ConditionPositive</span>
+<span id="cb554-2"><a href="text-mining-software-engineering-data.html#cb554-2" aria-hidden="true" tabindex="-1"></a>SensitivityRecall_TPR</span></code></pre></div>
+<pre><code>## [1] 0.831</code></pre>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="text-mining-software-engineering-data.html#cb556-1" aria-hidden="true" tabindex="-1"></a>Specificity_TNR_SPC <span class="ot">&lt;-</span> TrueNegative <span class="sc">/</span> ConditionNegative</span>
+<span id="cb556-2"><a href="text-mining-software-engineering-data.html#cb556-2" aria-hidden="true" tabindex="-1"></a>Specificity_TNR_SPC</span></code></pre></div>
+<pre><code>## [1] 0.615</code></pre>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="text-mining-software-engineering-data.html#cb558-1" aria-hidden="true" tabindex="-1"></a>Precision_PPV <span class="ot">&lt;-</span> TruePositive <span class="sc">/</span> PredictedPositive</span>
+<span id="cb558-2"><a href="text-mining-software-engineering-data.html#cb558-2" aria-hidden="true" tabindex="-1"></a>Precision_PPV </span></code></pre></div>
+<pre><code>## [1] 0.968</code></pre>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="text-mining-software-engineering-data.html#cb560-1" aria-hidden="true" tabindex="-1"></a>NegativePredictedValue_NPV <span class="ot">&lt;-</span> TrueNegative <span class="sc">/</span> PredictedNegative</span>
+<span id="cb560-2"><a href="text-mining-software-engineering-data.html#cb560-2" aria-hidden="true" tabindex="-1"></a>NegativePredictedValue_NPV</span></code></pre></div>
+<pre><code>## [1] 0.205</code></pre>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="text-mining-software-engineering-data.html#cb562-1" aria-hidden="true" tabindex="-1"></a>Prevalence <span class="ot">&lt;-</span> ConditionPositive <span class="sc">/</span> TotalPopulation</span>
+<span id="cb562-2"><a href="text-mining-software-engineering-data.html#cb562-2" aria-hidden="true" tabindex="-1"></a>Prevalence</span></code></pre></div>
+<pre><code>## [1] 0.934</code></pre>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="text-mining-software-engineering-data.html#cb564-1" aria-hidden="true" tabindex="-1"></a>Accuracy_ACC <span class="ot">&lt;-</span> (TruePositive <span class="sc">+</span> TrueNegative) <span class="sc">/</span> TotalPopulation</span>
+<span id="cb564-2"><a href="text-mining-software-engineering-data.html#cb564-2" aria-hidden="true" tabindex="-1"></a>Accuracy_ACC</span></code></pre></div>
+<pre><code>## [1] 0.816</code></pre>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="text-mining-software-engineering-data.html#cb566-1" aria-hidden="true" tabindex="-1"></a>FalseDiscoveryRate_FDR <span class="ot">&lt;-</span> FalsePositive <span class="sc">/</span> PredictedPositive</span>
+<span id="cb566-2"><a href="text-mining-software-engineering-data.html#cb566-2" aria-hidden="true" tabindex="-1"></a>FalseDiscoveryRate_FDR</span></code></pre></div>
+<pre><code>## [1] 0.0318</code></pre>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="text-mining-software-engineering-data.html#cb568-1" aria-hidden="true" tabindex="-1"></a>FalseOmisionRate_FOR <span class="ot">&lt;-</span> FalseNegative <span class="sc">/</span> PredictedNegative </span>
+<span id="cb568-2"><a href="text-mining-software-engineering-data.html#cb568-2" aria-hidden="true" tabindex="-1"></a>FalseOmisionRate_FOR</span></code></pre></div>
+<pre><code>## [1] 0.795</code></pre>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="text-mining-software-engineering-data.html#cb570-1" aria-hidden="true" tabindex="-1"></a>FallOut_FPR <span class="ot">&lt;-</span> FalsePositive <span class="sc">/</span> ConditionNegative</span>
+<span id="cb570-2"><a href="text-mining-software-engineering-data.html#cb570-2" aria-hidden="true" tabindex="-1"></a>FallOut_FPR</span></code></pre></div>
+<pre><code>## [1] 0.385</code></pre>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="text-mining-software-engineering-data.html#cb572-1" aria-hidden="true" tabindex="-1"></a>MissRate_FNR <span class="ot">&lt;-</span> FalseNegative <span class="sc">/</span> ConditionPositive</span>
+<span id="cb572-2"><a href="text-mining-software-engineering-data.html#cb572-2" aria-hidden="true" tabindex="-1"></a>MissRate_FNR </span></code></pre></div>
+<pre><code>## [1] 0.169</code></pre>
 <p>And finally, a word cloud as an example that appears everywhere these days.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(wordcloud)
-
-<span class="co"># calculate the frequency of words and sort in descending order.</span>
-wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span class="kw">as.matrix</span>(dtm_sprs)),<span class="dt">decreasing=</span><span class="ot">TRUE</span>)
-
-<span class="kw">wordcloud</span>(<span class="dt">words=</span><span class="kw">names</span>(wordFreqs),<span class="dt">freq=</span>wordFreqs)</code></pre>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="text-mining-software-engineering-data.html#cb574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb574-2"><a href="text-mining-software-engineering-data.html#cb574-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb574-3"><a href="text-mining-software-engineering-data.html#cb574-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the frequency of words and sort in descending order.</span></span>
+<span id="cb574-4"><a href="text-mining-software-engineering-data.html#cb574-4" aria-hidden="true" tabindex="-1"></a>wordFreqs<span class="ot">=</span><span class="fu">sort</span>(<span class="fu">colSums</span>(<span class="fu">as.matrix</span>(dtm_sprs)),<span class="at">decreasing=</span><span class="cn">TRUE</span>)</span>
+<span id="cb574-5"><a href="text-mining-software-engineering-data.html#cb574-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb574-6"><a href="text-mining-software-engineering-data.html#cb574-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span><span class="fu">names</span>(wordFreqs),<span class="at">freq=</span>wordFreqs)</span></code></pre></div>
 <p><img src="DASE_files/figure-html/WordCloud-1.png" width="672" /></p>
 </div>
-<div id="extracting-data-from-twitter" class="section level2">
-<h2><span class="header-section-number">20.3</span> Extracting data from Twitter</h2>
+<div id="extracting-data-from-twitter" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Extracting data from Twitter</h2>
 <p>The hardest bit is to link with Twitter. Using the TwitteR package is explained following this <a href="./twitter.Rmd">example</a>.</p>
 
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-FeinererH15">
-<p>Feinerer, Ingo, and Kurt Hornik. 2015. <em>Tm: Text Mining Package</em>. <a href="http://CRAN.R-project.org/package=tm">http://CRAN.R-project.org/package=tm</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-FeinererHM08" class="csl-entry">
+Feinerer, Ingo, Kurt Hornik, and David Meyer. 2008. <span>“Text Mining Infrastructure in r.”</span> <em>Journal of Statistical Software</em> 25 (5): 1–54. <a href="http://www.jstatsoft.org/v25/i05/">http://www.jstatsoft.org/v25/i05/</a>.
 </div>
 </div>
             </section>
@@ -651,12 +601,13 @@ wordFreqs=<span class="kw">sort</span>(<span class="kw">colSums</span>(<span cla
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -664,12 +615,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -684,7 +635,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["DASE.pdf", "DASE.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -699,8 +658,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

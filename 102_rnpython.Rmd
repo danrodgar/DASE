@@ -1,21 +1,26 @@
----
- output: html_document
-  pdf_document: default
----
-## R and Python. Brief introduction.
 
-R and Python can interact via the *reticulate* package. Instructions for configuring the system can be found at RStudio <https://support.rstudio.com/hc/en-us/articles/360023654474-Installing-and-Configuring-Python-with-RStudio>.
+## R and Python
+
+R and Python can interact together via the *reticulate* package. 
+
+The documentation for the `reticulate` package can be found here:
+[https://rstudio.github.io/reticulate/](https://rstudio.github.io/reticulate/)
+
+![reticulate](./figures/reticulated_python.png)
+
+Instructions for configuring the system can be found at RStudio site: <https://support.rstudio.com/hc/en-us/articles/360023654474-Installing-and-Configuring-Python-with-RStudio>.
 
 Or we can create our environment following - [R and Python -- a happy union with reticulate webinar]<https://www.youtube.com/watch?v=8WE-EU5k97Q&t=27s>
 
-```{r installreticulate}
-# install.packages("reticulate")
+```{r installreticulate, eval=FALSE}
+install.packages("reticulate")
 ```
 
-## Installing Python on your system
+Note that the `reticulate` package needs Python >= 2.7 and for `NumPy` requires NumPy >= 1.6.
 
-check that the python version is python3 --version If the version level is lower than 3.7.x install it. import pandas matplotlib
+## Using Python with RMarkdown and RStudio
 
+The R build-in dataset will be used later
 ```{r}
 library("reticulate")
 # use_virtualenv("myenv")
@@ -126,7 +131,7 @@ flights = flights[['carrier', 'dep_delay', 'arr_delay']]
 flights = flights.dropna()
 print(flights.head())
 ```
-Use python for plotting
+Use Python for plotting
 ```{python matplotlib}
 import matplotlib.pyplot as plt
 import numpy as np
@@ -138,9 +143,9 @@ plt.ylabel('voltage (mV)')
 plt.grid(True)
 plt.savefig("test.png")
 plt.show()
-
 ```
-Use R for plotting Python objects
+
+Use R for plotting Python objects:
 ```{r fig.width=7, fig.height=3, echo=FALSE}
 library(ggplot2)
 ggplot(py$flights, aes(carrier, arr_delay)) + geom_point() + geom_jitter()

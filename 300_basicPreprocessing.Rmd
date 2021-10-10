@@ -4,9 +4,9 @@
 
 Following the data mining process, we describe what is meant by preprocessing, classical supervised models,  unsupervised models and evaluation in the context of software engineering with examples
 
-This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, tranforming input data, merging variables, etc.
+This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, transforming input data, merging variables, etc.
 
-Typically, preprocessing consist of the following tasks (subprocesses):
+Typically, pre-processing consist of the following tasks (subprocesses):
  
  + Data cleaning (consistency, noise detection, outliers)
  + Data integration
@@ -33,12 +33,14 @@ _Imputation_ consists in replacing missing values for estimates of those missing
 
   * EM (Expectation-Maximisation)
   * Distance-based
-      + kNN (k Nearest Neighbours)
+      + $k$-NN ($k$-Nearest Neighbours)
       + Clustering
 
 In R, a missing value is represented with `NA` and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the `na.rm` option.
 
 The `mice` R package. MICE (Multivariate Imputation via Chained Equations) assumes that data are missing at random.  Other packages include `Amelia`, `missForest`, `Hmisc` and `mi`.
+
+
 
 ## Noise
 
@@ -60,7 +62,7 @@ Types of noise data:
 There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist. 
 
 ```{r message=FALSE, warning=FALSE}
-library(DMwR)
+library(DMwR2)
 library(foreign)
 
 kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
@@ -75,6 +77,8 @@ plot(density(na.omit(outlier.scores)))
 outliers <- order(outlier.scores, decreasing=T)[1:5]
 print(outliers)
 ```
+
+
 
 Another simple method of Hiridoglou and Berthelot for positive observations.
 
@@ -140,7 +144,8 @@ cm1RFWeigths <- random.forest.importance(Defective ~ ., cm1)
 cutoff.biggest.diff(cm1RFWeigths)
 ```
 
-Using the Information Gain meaure as ranking:
+Using the Information Gain measure as ranking:
+
 ```{r message=FALSE, warning=FALSE}
 cm1GRWeights <- gain.ratio(Defective ~ ., cm1)
 cm1GRWeights
@@ -150,6 +155,8 @@ cutoff.biggest.diff(cm1GRWeights)
 cm1X2Weights <- chi.squared(Defective ~ ., cm1)
 cutoff.biggest.diff(cm1X2Weights)
 ```
+
+
 
 Using CFS attribute selection
 

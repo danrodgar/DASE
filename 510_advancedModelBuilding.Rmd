@@ -28,7 +28,7 @@ In R, we can use the "rgp" package
 
 ### Load Data
 
-```{r loadData, }
+```{r loadData, eval = FALSE}
 library(foreign)
 
 #read data
@@ -48,7 +48,7 @@ actualEffort <- chinaTest$Effort
 
 ### Genetic Programming for Symbolic Regression: China dataset.
 
-```{r geneticProgramingExample, message=FALSE, warning=FALSE}
+```{r geneticProgramingExample, message=FALSE, warning=FALSE, eval = FALSE}
 library("rgp")
 options(digits = 5)
 stepsGenerations <- 100
@@ -90,7 +90,7 @@ mean(ae_gp)
 
   - For illustration purposes only. We use all data points. 
   
-```{r}
+```{r, eval = FALSE}
 # y <- effort_telecom1   # all data points
 # x <- size_telecom1   # 
 # 

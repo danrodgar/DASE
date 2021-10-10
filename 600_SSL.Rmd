@@ -12,9 +12,9 @@ Some datasets, for example, reviews of applications and mobile applications repo
 Self train a model on semi-supervised data
 [http://www.inside-r.org/packages/cran/dmwr/docs/SelfTrain](http://www.inside-r.org/packages/cran/dmwr/docs/SelfTrain)
 
-```{r ssl, message=FALSE, warning=FALSE}
+```{r ssl, message=FALSE, warning=FALSE, eval = FALSE}
 
-library(DMwR)
+library(DMwR2)
 
 ## Small example with the Iris classification data set
 data(iris)

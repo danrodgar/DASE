@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 19 Social Network Analysis in SE | Data Analysis in Software Engineering using R</title>
-  <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Social Network Analysis in SE | Data Analysis in Software Engineering using R</title>
+  <meta name="description" content="DASE Data Analysis in Software Engineering" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 19 Social Network Analysis in SE | Data Analysis in Software Engineering using R" />
+  <meta property="og:title" content="Chapter 8 Social Network Analysis in SE | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,30 +16,33 @@
   <meta name="github-repo" content="danrodgar/DASE" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 19 Social Network Analysis in SE | Data Analysis in Software Engineering using R" />
+  <meta name="twitter:title" content="Chapter 8 Social Network Analysis in SE | Data Analysis in Software Engineering using R" />
   
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
+<meta name="author" content="Daniel Rodriguez and Javier Dolado" />
 
 
-<meta name="date" content="2018-12-26">
+<meta name="date" content="2021-10-10" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="further-classification-models.html">
-<link rel="next" href="text-mining-software-engineering-data.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="further-classification-models.html"/>
+<link rel="next" href="text-mining-software-engineering-data.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,29 +50,33 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -114,6 +120,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -132,13 +161,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="part"><span><b>I Introduction to the R Language</b></span></li>
-<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="r-intro.html"><a href="r-intro.html#installation"><i class="fa fa-check"></i><b>1.1</b> Installation</a></li>
 <li class="chapter" data-level="1.2" data-path="r-intro.html"><a href="r-intro.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2</b> R and RStudio</a></li>
-<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.3</b> Basic Data Types</a><ul>
+<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.3</b> Basic Data Types</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="r-intro.html"><a href="r-intro.html#mising-values"><i class="fa fa-check"></i><b>1.3.1</b> Mising values</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a><ul>
+<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="r-intro.html"><a href="r-intro.html#coercion-for-vectors"><i class="fa fa-check"></i><b>1.4.1</b> Coercion for vectors</a></li>
 <li class="chapter" data-level="1.4.2" data-path="r-intro.html"><a href="r-intro.html#vector-arithmetic"><i class="fa fa-check"></i><b>1.4.2</b> Vector arithmetic</a></li>
 </ul></li>
@@ -146,169 +178,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="r-intro.html"><a href="r-intro.html#factors"><i class="fa fa-check"></i><b>1.6</b> Factors</a></li>
 <li class="chapter" data-level="1.7" data-path="r-intro.html"><a href="r-intro.html#lists"><i class="fa fa-check"></i><b>1.7</b> Lists</a></li>
 <li class="chapter" data-level="1.8" data-path="r-intro.html"><a href="r-intro.html#data-frames"><i class="fa fa-check"></i><b>1.8</b> Data frames</a></li>
-<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.9</b> Reading Data</a></li>
-<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.10</b> Plots</a></li>
-<li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.11</b> Flow of Control</a></li>
-<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.12</b> Rattle</a></li>
+<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#r-functional-functions"><i class="fa fa-check"></i><b>1.9</b> R Functional Functions</a></li>
+<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#environments"><i class="fa fa-check"></i><b>1.10</b> Environments</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="r-intro.html"><a href="r-intro.html#global-variables-local-variables-and-programming-scope"><i class="fa fa-check"></i><b>1.10.1</b> Global variables, local variables and programming scope</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.11</b> Reading Data</a></li>
+<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.12</b> Plots</a></li>
+<li class="chapter" data-level="1.13" data-path="r-intro.html"><a href="r-intro.html#control-flow-in-r"><i class="fa fa-check"></i><b>1.13</b> Control flow in R</a></li>
+<li class="chapter" data-level="1.14" data-path="r-intro.html"><a href="r-intro.html#built-in-datasets"><i class="fa fa-check"></i><b>1.14</b> Built-in Datasets</a></li>
+<li class="chapter" data-level="1.15" data-path="r-intro.html"><a href="r-intro.html#other-tools-with-r"><i class="fa fa-check"></i><b>1.15</b> Other tools with R</a>
+<ul>
+<li class="chapter" data-level="1.15.1" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.15.1</b> Rattle</a></li>
+<li class="chapter" data-level="1.15.2" data-path="r-intro.html"><a href="r-intro.html#jamovi"><i class="fa fa-check"></i><b>1.15.2</b> Jamovi</a></li>
+<li class="chapter" data-level="1.15.3" data-path="r-intro.html"><a href="r-intro.html#jasp"><i class="fa fa-check"></i><b>1.15.3</b> JASP</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>II Introduction to Data Mining</b></span></li>
-<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a><ul>
+<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#the-aim-of-data-analysis-and-statistical-learning"><i class="fa fa-check"></i><b>2.1</b> The Aim of Data Analysis and Statistical Learning</a></li>
-<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#basic-references"><i class="fa fa-check"></i><b>2.2</b> Basic References</a></li>
-<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-r"><i class="fa fa-check"></i><b>2.3</b> Data Mining with R</a></li>
-<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.4</b> Data Mining with Weka</a></li>
+<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-science"><i class="fa fa-check"></i><b>2.2</b> Data Science</a></li>
+<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#some-references"><i class="fa fa-check"></i><b>2.3</b> Some References</a></li>
+<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-and-data-science-with-r"><i class="fa fa-check"></i><b>2.4</b> Data Mining and Data Science with R</a></li>
+<li class="chapter" data-level="2.5" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.5</b> Data Mining with Weka</a></li>
+<li class="chapter" data-level="2.6" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#r-markdown"><i class="fa fa-check"></i><b>2.6</b> R Markdown</a></li>
+<li class="chapter" data-level="2.7" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#including-plots"><i class="fa fa-check"></i><b>2.7</b> Including Plots</a></li>
+<li class="chapter" data-level="2.8" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#references"><i class="fa fa-check"></i><b>2.8</b> References</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>2.8.1</b> Prediction in probabilistic classifiers</a></li>
 </ul></li>
-<li class="part"><span><b>III Data Sources and Metrics and Standards in Software Engineering Defect Prediction</b></span></li>
-<li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a></li>
-<li class="chapter" data-level="4" data-path="repositories.html"><a href="repositories.html"><i class="fa fa-check"></i><b>4</b> Repositories</a></li>
-<li class="chapter" data-level="5" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html"><i class="fa fa-check"></i><b>5</b> Open Tools/Dashboards to extract data</a><ul>
-<li class="chapter" data-level="5.1" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#issues"><i class="fa fa-check"></i><b>5.1</b> Issues</a></li>
-<li class="chapter" data-level="5.2" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#effort-estimation-data-in-software-engineering"><i class="fa fa-check"></i><b>5.2</b> Effort Estimation Data in Software Engineering</a></li>
+<li class="chapter" data-level="2.9" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#other-metrics-used-in-software-engineering-with-classification"><i class="fa fa-check"></i><b>2.9</b> Other Metrics used in Software Engineering with Classification</a></li>
+<li class="chapter" data-level="2.10" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#graphical-evaluation"><i class="fa fa-check"></i><b>2.10</b> Graphical Evaluation</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#receiver-operating-characteristic-roc"><i class="fa fa-check"></i><b>2.10.1</b> Receiver Operating Characteristic (ROC)</a></li>
+<li class="chapter" data-level="2.10.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#precision-recall-curve-prc"><i class="fa fa-check"></i><b>2.10.2</b> Precision-Recall Curve (PRC)</a></li>
 </ul></li>
-<li class="part"><span><b>IV Exploratory and Descriptive Data analysis</b></span></li>
-<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.1</b> Descriptive statistics</a></li>
-<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>6.2</b> Basic Plots</a></li>
-<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#normality"><i class="fa fa-check"></i><b>6.3</b> Normality</a></li>
-<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#using-a-running-example-to-visualise-the-different-plots"><i class="fa fa-check"></i><b>6.4</b> Using a running Example to visualise the different plots</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#example-with-the-china-dataset-from-the-tera-promise-repository"><i class="fa fa-check"></i><b>6.4.1</b> Example with the China dataset (from the tera-Promise Repository)</a></li>
+<li class="chapter" data-level="2.11" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>2.11</b> Numeric Prediction Evaluation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation"><i class="fa fa-check"></i><b>6.5</b> Correlation</a></li>
-<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>6.6</b> Confidence Intervals. Bootstrap</a></li>
-<li class="chapter" data-level="6.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>6.7</b> Nonparametric Bootstrap</a></li>
+<li class="chapter" data-level="3" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>3</b> Measures of Evaluation in Software Engineering</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="evaluationSE.html"><a href="evaluationSE.html#effort-estimation-evaluation-metrics"><i class="fa fa-check"></i><b>3.1</b> Effort estimation evaluation metrics</a></li>
+<li class="chapter" data-level="3.2" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>3.2</b> Evaluation of the Model in the Testing data</a></li>
+<li class="chapter" data-level="3.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>3.3</b> Building a Linear Model on the Telecom1 dataset</a></li>
+<li class="chapter" data-level="3.4" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>3.4</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
+<li class="chapter" data-level="3.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy-examples"><i class="fa fa-check"></i><b>3.5</b> Standardised Accuracy Examples</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy-marp0-using-the-china-test-dataset"><i class="fa fa-check"></i><b>3.5.1</b> Standardised Accuracy MARP0 using the China Test dataset</a></li>
+<li class="chapter" data-level="3.5.2" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0-using-the-telecom1-dataset"><i class="fa fa-check"></i><b>3.5.2</b> Standardised Accuracy. MARP0 using the Telecom1 dataset</a></li>
+<li class="chapter" data-level="3.5.3" data-path="evaluationSE.html"><a href="evaluationSE.html#standard-accuracy-marp0-using-the-atkinson-dataset"><i class="fa fa-check"></i><b>3.5.3</b> Standard Accuracy MARP0 using the Atkinson Dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Classical Hypothesis Testing</a><ul>
-<li class="chapter" data-level="7.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>7.1</b> p-values</a></li>
+<li class="chapter" data-level="3.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>3.6</b> Exact MARP0</a></li>
+<li class="chapter" data-level="3.7" data-path="evaluationSE.html"><a href="evaluationSE.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>3.7</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
+<li class="chapter" data-level="3.8" data-path="evaluationSE.html"><a href="evaluationSE.html#defect-prediction-evaluation-metrics"><i class="fa fa-check"></i><b>3.8</b> Defect prediction evaluation metrics</a></li>
 </ul></li>
-<li class="part"><span><b>V Preprocessing</b></span></li>
-<li class="chapter" data-level="8" data-path="preprocessing.html"><a href="preprocessing.html"><i class="fa fa-check"></i><b>8</b> Preprocessing</a><ul>
-<li class="chapter" data-level="8.1" data-path="preprocessing.html"><a href="preprocessing.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
-<li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
-<li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
-<li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
+<li class="part"><span><b>III Advanced Topics</b></span></li>
+<li class="chapter" data-level="4" data-path="feature-selection.html"><a href="feature-selection.html"><i class="fa fa-check"></i><b>4</b> Feature Selection</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="feature-selection.html"><a href="feature-selection.html#instance-selection"><i class="fa fa-check"></i><b>4.1</b> Instance Selection</a></li>
+<li class="chapter" data-level="4.2" data-path="feature-selection.html"><a href="feature-selection.html#missing-data-imputation"><i class="fa fa-check"></i><b>4.2</b> Missing Data Imputation</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
-<li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
-<li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
-<li class="chapter" data-level="8.9" data-path="preprocessing.html"><a href="preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>8.9</b> Normalization</a><ul>
-<li class="chapter" data-level="8.9.1" data-path="preprocessing.html"><a href="preprocessing.html#min-max-normalization"><i class="fa fa-check"></i><b>8.9.1</b> Min-Max Normalization</a></li>
-<li class="chapter" data-level="8.9.2" data-path="preprocessing.html"><a href="preprocessing.html#z-score-normalization"><i class="fa fa-check"></i><b>8.9.2</b> Z-score normalization</a></li>
+<li class="chapter" data-level="5" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>5</b> Feature Selection Example</a></li>
+<li class="chapter" data-level="6" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>6</b> Advanced Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>6.1</b> Genetic Programming for Symbolic Regression</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>6.2</b> Genetic Programming Example</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>6.2.1</b> Load Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>6.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
+<li class="chapter" data-level="6.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>6.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="preprocessing.html"><a href="preprocessing.html#transformations"><i class="fa fa-check"></i><b>8.10</b> Transformations</a><ul>
-<li class="chapter" data-level="8.10.1" data-path="preprocessing.html"><a href="preprocessing.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>8.10.1</b> Linear Transformations and Quadratic Trans formations</a></li>
-<li class="chapter" data-level="8.10.2" data-path="preprocessing.html"><a href="preprocessing.html#box-cox-transformation"><i class="fa fa-check"></i><b>8.10.2</b> Box-cox transformation</a></li>
-<li class="chapter" data-level="8.10.3" data-path="preprocessing.html"><a href="preprocessing.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>8.10.3</b> Nominal to Binary tranformations</a></li>
-</ul></li>
-<li class="chapter" data-level="8.11" data-path="preprocessing.html"><a href="preprocessing.html#preprocessing-in-r"><i class="fa fa-check"></i><b>8.11</b> Preprocessing in R</a><ul>
-<li class="chapter" data-level="8.11.1" data-path="preprocessing.html"><a href="preprocessing.html#the-dplyr-package"><i class="fa fa-check"></i><b>8.11.1</b> The <code>dplyr</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="8.12" data-path="preprocessing.html"><a href="preprocessing.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>8.12</b> Other libraries and tricks</a></li>
-</ul></li>
-<li class="part"><span><b>VI Supervised Models</b></span></li>
-<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a><ul>
-<li class="chapter" data-level="9.1" data-path="supervised-classification.html"><a href="supervised-classification.html#classification-trees"><i class="fa fa-check"></i><b>9.1</b> Classification Trees</a></li>
-<li class="chapter" data-level="9.2" data-path="supervised-classification.html"><a href="supervised-classification.html#rules"><i class="fa fa-check"></i><b>9.2</b> Rules</a></li>
-<li class="chapter" data-level="9.3" data-path="supervised-classification.html"><a href="supervised-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>9.3</b> Distanced-based Methods</a></li>
-<li class="chapter" data-level="9.4" data-path="supervised-classification.html"><a href="supervised-classification.html#neural-networks"><i class="fa fa-check"></i><b>9.4</b> Neural Networks</a></li>
-<li class="chapter" data-level="9.5" data-path="supervised-classification.html"><a href="supervised-classification.html#support-vector-machine"><i class="fa fa-check"></i><b>9.5</b> Support Vector Machine</a></li>
-<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.6</b> Probabilistic Methods</a><ul>
-<li class="chapter" data-level="9.6.1" data-path="supervised-classification.html"><a href="supervised-classification.html#naive-bayes"><i class="fa fa-check"></i><b>9.6.1</b> Naive Bayes</a></li>
-</ul></li>
-<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.7</b> Linear Discriminant Analysis (LDA)</a><ul>
-<li class="chapter" data-level="9.7.1" data-path="supervised-classification.html"><a href="supervised-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>9.7.1</b> Predicting the number of defects (numerical class)</a></li>
-</ul></li>
-<li class="chapter" data-level="9.8" data-path="supervised-classification.html"><a href="supervised-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>9.8</b> Binary Logistic Regression (BLR)</a></li>
-<li class="chapter" data-level="9.9" data-path="supervised-classification.html"><a href="supervised-classification.html#the-caret-package"><i class="fa fa-check"></i><b>9.9</b> The caret package</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
-<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#linear-regression-modeling"><i class="fa fa-check"></i><b>10.1</b> Linear Regression modeling</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="regression.html"><a href="regression.html#regression-galton-data"><i class="fa fa-check"></i><b>10.1.1</b> Regression: Galton Data</a></li>
-<li class="chapter" data-level="10.1.2" data-path="regression.html"><a href="regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1.2</b> Simple Linear Regression</a></li>
-<li class="chapter" data-level="10.1.3" data-path="regression.html"><a href="regression.html#least-squares"><i class="fa fa-check"></i><b>10.1.3</b> Least Squares</a></li>
-<li class="chapter" data-level="10.1.4" data-path="regression.html"><a href="regression.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.4</b> Linear regression in R</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>10.2</b> Linear Regression Diagnostics</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="regression.html"><a href="regression.html#simulation-example"><i class="fa fa-check"></i><b>10.2.1</b> Simulation example</a></li>
-<li class="chapter" data-level="10.2.2" data-path="regression.html"><a href="regression.html#diagnostics-fro-assessing-the-regression-line"><i class="fa fa-check"></i><b>10.2.2</b> Diagnostics fro assessing the regression line</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="regression.html"><a href="regression.html#partial-least-squares"><i class="fa fa-check"></i><b>10.3.1</b> Partial Least Squares</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#linear-regression-in-software-effort-estimation"><i class="fa fa-check"></i><b>10.4</b> Linear regression in Software Effort estimation</a></li>
-<li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#references"><i class="fa fa-check"></i><b>10.5</b> References</a></li>
-</ul></li>
-<li class="part"><span><b>VII Unsupervised Models</b></span></li>
-<li class="chapter" data-level="11" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html"><i class="fa fa-check"></i><b>11</b> Unsupervised or Descriptive modeling</a><ul>
-<li class="chapter" data-level="11.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#clustering"><i class="fa fa-check"></i><b>11.1</b> Clustering</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#k-means"><i class="fa fa-check"></i><b>11.1.1</b> k-Means</a></li>
-</ul></li>
-<li class="chapter" data-level="11.2" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#association-rules"><i class="fa fa-check"></i><b>11.2</b> Association rules</a></li>
-</ul></li>
-<li class="part"><span><b>VIII Evaluation</b></span></li>
-<li class="chapter" data-level="12" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>12</b> Evaluation of Models</a><ul>
-<li class="chapter" data-level="12.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>12.1</b> Building and Validating a Model</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>12.1.1</b> Holdout approach</a></li>
-<li class="chapter" data-level="12.1.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>12.1.2</b> Cross Validation (CV)</a></li>
-</ul></li>
-<li class="chapter" data-level="12.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classification-models"><i class="fa fa-check"></i><b>12.2</b> Evaluation of Classification Models</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>12.2.1</b> Prediction in probabilistic classifiers</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#other-metrics-used-in-software-engineering-with-classification"><i class="fa fa-check"></i><b>12.3</b> Other Metrics used in Software Engineering with Classification</a></li>
-<li class="chapter" data-level="12.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>12.4</b> Graphical Evaluation</a><ul>
-<li class="chapter" data-level="12.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#receiver-operating-characteristic-roc"><i class="fa fa-check"></i><b>12.4.1</b> Receiver Operating Characteristic (ROC)</a></li>
-<li class="chapter" data-level="12.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#precision-recall-curve-prc"><i class="fa fa-check"></i><b>12.4.2</b> Precision-Recall Curve (PRC)</a></li>
-</ul></li>
-<li class="chapter" data-level="12.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>12.5</b> Numeric Prediction Evaluation</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>13</b> Measures of Evaluation in Software Engineering</a><ul>
-<li class="chapter" data-level="13.1" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>13.1</b> Evaluation of the model in the Testing data</a></li>
-<li class="chapter" data-level="13.2" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>13.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
-<li class="chapter" data-level="13.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>13.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
-<li class="chapter" data-level="13.4" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>13.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
-<li class="chapter" data-level="13.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>13.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
-<li class="chapter" data-level="13.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>13.5.1</b> MARP0 in the Atkinson dataset</a></li>
-</ul></li>
-<li class="chapter" data-level="13.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>13.6</b> Exact MARP0</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><i class="fa fa-check"></i><b>14</b> WBL simple R code to calculate Shepperd and MacDonell’s marp0 exactly</a><ul>
-<li class="chapter" data-level="14.1" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>14.1</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
-</ul></li>
-<li class="part"><span><b>IX Advanced Topics</b></span></li>
-<li class="chapter" data-level="15" data-path="feature-selection-1.html"><a href="feature-selection-1.html"><i class="fa fa-check"></i><b>15</b> Feature Selection</a><ul>
-<li class="chapter" data-level="15.1" data-path="feature-selection-1.html"><a href="feature-selection-1.html#instance-selection-1"><i class="fa fa-check"></i><b>15.1</b> Instance Selection</a></li>
-<li class="chapter" data-level="15.2" data-path="feature-selection-1.html"><a href="feature-selection-1.html#missing-data-imputation"><i class="fa fa-check"></i><b>15.2</b> Missing Data Imputation</a></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>16</b> Feature Selection Example</a></li>
-<li class="chapter" data-level="17" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>17</b> Advanced Models</a><ul>
-<li class="chapter" data-level="17.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>17.1</b> Genetic Programming for Symbolic Regression</a></li>
-<li class="chapter" data-level="17.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>17.2</b> Genetic Programming Example</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>17.2.1</b> Load Data</a></li>
-<li class="chapter" data-level="17.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>17.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
-<li class="chapter" data-level="17.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>17.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
-</ul></li>
-<li class="chapter" data-level="17.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks-1"><i class="fa fa-check"></i><b>17.3</b> Neural Networks</a></li>
-<li class="chapter" data-level="17.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>17.4</b> Support Vector Machines</a></li>
-<li class="chapter" data-level="17.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>17.5</b> Ensembles</a><ul>
-<li class="chapter" data-level="17.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>17.5.1</b> Bagging</a></li>
-<li class="chapter" data-level="17.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>17.5.2</b> Boosting</a></li>
-<li class="chapter" data-level="17.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>17.5.3</b> Rotation Forests</a></li>
-<li class="chapter" data-level="17.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>17.5.4</b> Boosting in R</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks"><i class="fa fa-check"></i><b>6.3</b> Neural Networks</a></li>
+<li class="chapter" data-level="6.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>6.4</b> Support Vector Machines</a></li>
+<li class="chapter" data-level="6.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>6.5</b> Ensembles</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>6.5.1</b> Bagging</a></li>
+<li class="chapter" data-level="6.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>6.5.2</b> Boosting</a></li>
+<li class="chapter" data-level="6.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>6.5.3</b> Rotation Forests</a></li>
+<li class="chapter" data-level="6.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>6.5.4</b> Boosting in R</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>18</b> Further Classification Models</a><ul>
-<li class="chapter" data-level="18.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>18.1</b> Multilabel classification</a></li>
-<li class="chapter" data-level="18.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>18.2</b> Semi-supervised Learning</a></li>
+<li class="chapter" data-level="7" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>7</b> Further Classification Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>7.1</b> Multilabel classification</a></li>
+<li class="chapter" data-level="7.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>7.2</b> Semi-supervised Learning</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
-<li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
-<li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
-<li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
-<li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
+<li class="chapter" data-level="8" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>8</b> Social Network Analysis in SE</a></li>
+<li class="chapter" data-level="9" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>9</b> Text Mining Software Engineering Data</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>9.1</b> Terminology</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>9.2</b> Example of classifying bugs from Bugzilla</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>9.3</b> Extracting data from Twitter</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
-<li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
+<li class="chapter" data-level="10" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>10</b> Time Series</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>10.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -331,44 +295,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="social-network-analysis-in-se" class="section level1">
-<h1><span class="header-section-number">Chapter 19</span> Social Network Analysis in SE</h1>
+<div id="social-network-analysis-in-se" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Social Network Analysis in SE</h1>
 <p>In this example, we will data from the MSR14 challenge. Further information and datasets:
 <a href="http://openscience.us/repo/msr/msr14.html">http://openscience.us/repo/msr/msr14.html</a></p>
 <p>Similar databases can be obtained using MetricsGrimoire or other tools.</p>
 <p>In this simple example, we create a network form the users and following extracted from GitHub and stored in a MySQL database.</p>
 <p>We can read a file directely from MySQL dump</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RMySQL)
-
-<span class="co"># Connecting to MySQL</span>
-mydb =<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">MySQL</span>(), <span class="dt">user=</span><span class="st">&#39;msr14&#39;</span>, <span class="dt">password=</span><span class="st">&#39;msr14&#39;</span>, <span class="dt">dbname=</span><span class="st">&#39;msr14&#39;</span>, <span class="dt">host=</span><span class="st">&#39;localhost&#39;</span>)
-
-<span class="co"># Retrieving data from MySQL</span>
-sql &lt;-<span class="st"> &quot;select user_id, follower_id from followers limit 100;&quot;</span>
-rs =<span class="st"> </span><span class="kw">dbSendQuery</span>(mydb, sql)
-data &lt;-<span class="st"> </span><span class="kw">fetch</span>(rs, <span class="dt">n=</span><span class="op">-</span><span class="dv">1</span>)</code></pre>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="social-network-analysis-in-se.html#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMySQL)</span>
+<span id="cb492-2"><a href="social-network-analysis-in-se.html#cb492-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-3"><a href="social-network-analysis-in-se.html#cb492-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Connecting to MySQL</span></span>
+<span id="cb492-4"><a href="social-network-analysis-in-se.html#cb492-4" aria-hidden="true" tabindex="-1"></a>mydb <span class="ot">=</span> <span class="fu">dbConnect</span>(<span class="fu">MySQL</span>(), <span class="at">user=</span><span class="st">&#39;msr14&#39;</span>, <span class="at">password=</span><span class="st">&#39;msr14&#39;</span>, <span class="at">dbname=</span><span class="st">&#39;msr14&#39;</span>, <span class="at">host=</span><span class="st">&#39;localhost&#39;</span>)</span>
+<span id="cb492-5"><a href="social-network-analysis-in-se.html#cb492-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-6"><a href="social-network-analysis-in-se.html#cb492-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieving data from MySQL</span></span>
+<span id="cb492-7"><a href="social-network-analysis-in-se.html#cb492-7" aria-hidden="true" tabindex="-1"></a>sql <span class="ot">&lt;-</span> <span class="st">&quot;select user_id, follower_id from followers limit 100;&quot;</span></span>
+<span id="cb492-8"><a href="social-network-analysis-in-se.html#cb492-8" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">=</span> <span class="fu">dbSendQuery</span>(mydb, sql)</span>
+<span id="cb492-9"><a href="social-network-analysis-in-se.html#cb492-9" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">fetch</span>(rs, <span class="at">n=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p>Alternatively, we can create e CSV file directly from MySQL and load it</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">$</span>mysql <span class="op">-</span>u msr14 <span class="op">-</span>pmsr14 msr14
-
-
-<span class="op">&gt;</span><span class="st"> </span>SELECT <span class="st">&#39;user&#39;</span>,<span class="st">&#39;follower&#39;</span>
-UNION ALL
-SELECT user_id,follower_id 
-    FROM followers 
-    LIMIT <span class="dv">1000</span> 
-    INTO OUTFILE <span class="st">&quot;/tmp/followers.csv&quot;</span>
-    FIELDS TERMINATED BY <span class="st">&#39;,&#39;</span>
-    LINES TERMINATED BY <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data already extracted and stored as CSV file (for demo purposes)</span>
-dat =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./datasets/sna/followers.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
-dat &lt;-<span class="st"> </span><span class="kw">head</span>(dat,<span class="dv">100</span>)</code></pre>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="social-network-analysis-in-se.html#cb493-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>mysql <span class="sc">-</span>u msr14 <span class="sc">-</span>pmsr14 msr14</span>
+<span id="cb493-2"><a href="social-network-analysis-in-se.html#cb493-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb493-3"><a href="social-network-analysis-in-se.html#cb493-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb493-4"><a href="social-network-analysis-in-se.html#cb493-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> SELECT <span class="st">&#39;user&#39;</span>,<span class="st">&#39;follower&#39;</span></span>
+<span id="cb493-5"><a href="social-network-analysis-in-se.html#cb493-5" aria-hidden="true" tabindex="-1"></a>UNION ALL</span>
+<span id="cb493-6"><a href="social-network-analysis-in-se.html#cb493-6" aria-hidden="true" tabindex="-1"></a>SELECT user_id,follower_id </span>
+<span id="cb493-7"><a href="social-network-analysis-in-se.html#cb493-7" aria-hidden="true" tabindex="-1"></a>    FROM followers </span>
+<span id="cb493-8"><a href="social-network-analysis-in-se.html#cb493-8" aria-hidden="true" tabindex="-1"></a>    LIMIT <span class="dv">1000</span> </span>
+<span id="cb493-9"><a href="social-network-analysis-in-se.html#cb493-9" aria-hidden="true" tabindex="-1"></a>    INTO OUTFILE <span class="st">&quot;/tmp/followers.csv&quot;</span></span>
+<span id="cb493-10"><a href="social-network-analysis-in-se.html#cb493-10" aria-hidden="true" tabindex="-1"></a>    FIELDS TERMINATED BY <span class="st">&#39;,&#39;</span></span>
+<span id="cb493-11"><a href="social-network-analysis-in-se.html#cb493-11" aria-hidden="true" tabindex="-1"></a>    LINES TERMINATED BY <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="social-network-analysis-in-se.html#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data already extracted and stored as CSV file (for demo purposes)</span></span>
+<span id="cb494-2"><a href="social-network-analysis-in-se.html#cb494-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;./datasets/sna/followers.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb494-3"><a href="social-network-analysis-in-se.html#cb494-3" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">head</span>(dat,<span class="dv">100</span>)</span></code></pre></div>
 <p>We can now create the graph</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(igraph)</code></pre>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="social-network-analysis-in-se.html#cb495-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:rgp&#39;:
-## 
-##     %-&gt;%, normalize</code></pre>
 <pre><code>## The following object is masked from &#39;package:arules&#39;:
 ## 
 ##     union</code></pre>
@@ -390,66 +351,66 @@ dat &lt;-<span class="st"> </span><span class="kw">head</span>(dat,<span class="
 <pre><code>## The following object is masked from &#39;package:base&#39;:
 ## 
 ##     union</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a graph</span>
-g &lt;-<span class="st"> </span><span class="kw">graph.data.frame</span>(dat, <span class="dt">directed =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="social-network-analysis-in-se.html#cb504-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a graph</span></span>
+<span id="cb504-2"><a href="social-network-analysis-in-se.html#cb504-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph.data.frame</span>(dat, <span class="at">directed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Some values:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(g); </code></pre>
-<pre><code>## IGRAPH 87e426d DN-- 95 100 -- 
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="social-network-analysis-in-se.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(g); </span></code></pre></div>
+<pre><code>## IGRAPH 9921829 DN-- 95 100 -- 
 ## + attr: name (v/c)</code></pre>
 <p>Plotting the graph:</p>
-<pre class="sourceCode r"><code class="sourceCode r">layout1 &lt;-<span class="st">  </span><span class="kw">layout.fruchterman.reingold</span>(g)
-<span class="kw">plot</span>(g, layout1)</code></pre>
-<pre><code>## Warning in if (axes) {: the condition has length &gt; 1 and only the first
-## element will be used</code></pre>
-<p><img src="DASE_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="social-network-analysis-in-se.html#cb507-1" aria-hidden="true" tabindex="-1"></a>layout1 <span class="ot">&lt;-</span>  <span class="fu">layout.fruchterman.reingold</span>(g)</span>
+<span id="cb507-2"><a href="social-network-analysis-in-se.html#cb507-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g, layout1)</span></code></pre></div>
+<pre><code>## Warning in if (axes) {: the condition has length &gt; 1 and only the first element
+## will be used</code></pre>
+<p><img src="DASE_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <p>Other layout</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g, <span class="dt">layout=</span>layout.kamada.kawai)</code></pre>
-<p><img src="DASE_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="social-network-analysis-in-se.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout=</span>layout.kamada.kawai)</span></code></pre></div>
+<p><img src="DASE_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
 <p>A tk application can launched to show the plot interactively:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g, <span class="dt">layout =</span> layout.fruchterman.reingold)</code></pre>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="social-network-analysis-in-se.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout.fruchterman.reingold)</span></code></pre></div>
 <p>Some metrics:</p>
-<pre class="sourceCode r"><code class="sourceCode r">metrics &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">deg =</span> <span class="kw">degree</span>(g),
-  <span class="dt">bet =</span> <span class="kw">betweenness</span>(g),
-  <span class="dt">clo =</span> <span class="kw">closeness</span>(g),
-  <span class="dt">eig =</span> <span class="kw">evcent</span>(g)<span class="op">$</span>vector,
-  <span class="dt">cor =</span> <span class="kw">graph.coreness</span>(g)
-)</code></pre>
-<pre><code>## Warning in closeness(g): At centrality.c:2784 :closeness centrality is not
-## well-defined for disconnected graphs</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#</span>
-<span class="kw">head</span>(metrics)</code></pre>
-<pre><code>##        deg bet             clo            eig cor
-## 6183     1   0 0.0001131733816 0.000000000000   1
-## 49199    1   0 0.0001131733816 0.000000000000   1
-## 71080    1   0 0.0001131733816 0.000000000000   1
-## 162983   1   0 0.0001131733816 0.000000000000   1
-## 772      3   0 0.0001156336725 0.104085365595   2
-## 907      1   0 0.0001131733816 0.008141832109   1</code></pre>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="social-network-analysis-in-se.html#cb511-1" aria-hidden="true" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb511-2"><a href="social-network-analysis-in-se.html#cb511-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">deg =</span> <span class="fu">degree</span>(g),</span>
+<span id="cb511-3"><a href="social-network-analysis-in-se.html#cb511-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">bet =</span> <span class="fu">betweenness</span>(g),</span>
+<span id="cb511-4"><a href="social-network-analysis-in-se.html#cb511-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">clo =</span> <span class="fu">closeness</span>(g),</span>
+<span id="cb511-5"><a href="social-network-analysis-in-se.html#cb511-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">eig =</span> <span class="fu">evcent</span>(g)<span class="sc">$</span>vector,</span>
+<span id="cb511-6"><a href="social-network-analysis-in-se.html#cb511-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor =</span> <span class="fu">graph.coreness</span>(g)</span>
+<span id="cb511-7"><a href="social-network-analysis-in-se.html#cb511-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning in closeness(g): At centrality.c:2784 :closeness centrality is not well-
+## defined for disconnected graphs</code></pre>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="social-network-analysis-in-se.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb513-2"><a href="social-network-analysis-in-se.html#cb513-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metrics)</span></code></pre></div>
+<pre><code>##        deg bet      clo     eig cor
+## 6183     1   0 0.000113 0.00000   1
+## 49199    1   0 0.000113 0.00000   1
+## 71080    1   0 0.000113 0.00000   1
+## 162983   1   0 0.000113 0.00000   1
+## 772      3   0 0.000116 0.10409   2
+## 907      1   0 0.000113 0.00814   1</code></pre>
 <p>To fix and to do: Explain metrics and better graphs</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-
-<span class="kw">ggplot</span>(
-  metrics,
-  <span class="kw">aes</span>(<span class="dt">x=</span>bet, <span class="dt">y=</span>eig,
-    <span class="dt">label=</span><span class="kw">rownames</span>(metrics),
-    <span class="dt">colour=</span>res, <span class="dt">size=</span><span class="kw">abs</span>(res))
-)<span class="op">+</span>
-<span class="kw">xlab</span>(<span class="st">&quot;Betweenness Centrality&quot;</span>)<span class="op">+</span>
-<span class="kw">ylab</span>(<span class="st">&quot;Eigenvector Centrality&quot;</span>)<span class="op">+</span>
-<span class="kw">geom_text</span>()
-<span class="op">+</span>
-<span class="kw">theme</span>(<span class="dt">title=</span><span class="st">&quot;Key Actor Analysis&quot;</span>)
-
-
-<span class="kw">V</span>(g)<span class="op">$</span>label.cex &lt;-<span class="st"> </span><span class="fl">2.2</span> <span class="op">*</span><span class="st"> </span><span class="kw">V</span>(g)<span class="op">$</span>degree <span class="op">/</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">V</span>(g)<span class="op">$</span>degree)<span class="op">+</span><span class="st"> </span><span class="fl">.2</span>
-<span class="kw">V</span>(g)<span class="op">$</span>label.color &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">.2</span>, <span class="fl">.8</span>)
-<span class="kw">V</span>(g)<span class="op">$</span>frame.color &lt;-<span class="st"> </span><span class="ot">NA</span>
-egam &lt;-<span class="st"> </span>(<span class="kw">log</span>(<span class="kw">E</span>(g)<span class="op">$</span>weight)<span class="op">+</span>.<span class="dv">4</span>) <span class="op">/</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">log</span>(<span class="kw">E</span>(g)<span class="op">$</span>weight)<span class="op">+</span>.<span class="dv">4</span>)
-<span class="kw">E</span>(g)<span class="op">$</span>color &lt;-<span class="st"> </span><span class="kw">rgb</span>(.<span class="dv">5</span>, <span class="fl">.5</span>, <span class="dv">0</span>, egam)
-<span class="kw">E</span>(g)<span class="op">$</span>width &lt;-<span class="st"> </span>egam
-<span class="co"># plot the graph in layout1</span>
-<span class="kw">plot</span>(g, <span class="dt">layout=</span>layout1)</code></pre>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="social-network-analysis-in-se.html#cb515-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb515-2"><a href="social-network-analysis-in-se.html#cb515-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb515-3"><a href="social-network-analysis-in-se.html#cb515-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb515-4"><a href="social-network-analysis-in-se.html#cb515-4" aria-hidden="true" tabindex="-1"></a>  metrics,</span>
+<span id="cb515-5"><a href="social-network-analysis-in-se.html#cb515-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>bet, <span class="at">y=</span>eig,</span>
+<span id="cb515-6"><a href="social-network-analysis-in-se.html#cb515-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">label=</span><span class="fu">rownames</span>(metrics),</span>
+<span id="cb515-7"><a href="social-network-analysis-in-se.html#cb515-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour=</span>res, <span class="at">size=</span><span class="fu">abs</span>(res))</span>
+<span id="cb515-8"><a href="social-network-analysis-in-se.html#cb515-8" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb515-9"><a href="social-network-analysis-in-se.html#cb515-9" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">&quot;Betweenness Centrality&quot;</span>)<span class="sc">+</span></span>
+<span id="cb515-10"><a href="social-network-analysis-in-se.html#cb515-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">&quot;Eigenvector Centrality&quot;</span>)<span class="sc">+</span></span>
+<span id="cb515-11"><a href="social-network-analysis-in-se.html#cb515-11" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_text</span>()</span>
+<span id="cb515-12"><a href="social-network-analysis-in-se.html#cb515-12" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span></span>
+<span id="cb515-13"><a href="social-network-analysis-in-se.html#cb515-13" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">title=</span><span class="st">&quot;Key Actor Analysis&quot;</span>)</span>
+<span id="cb515-14"><a href="social-network-analysis-in-se.html#cb515-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb515-15"><a href="social-network-analysis-in-se.html#cb515-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb515-16"><a href="social-network-analysis-in-se.html#cb515-16" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>label.cex <span class="ot">&lt;-</span> <span class="fl">2.2</span> <span class="sc">*</span> <span class="fu">V</span>(g)<span class="sc">$</span>degree <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">V</span>(g)<span class="sc">$</span>degree)<span class="sc">+</span> .<span class="dv">2</span></span>
+<span id="cb515-17"><a href="social-network-analysis-in-se.html#cb515-17" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>label.color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, .<span class="dv">2</span>, .<span class="dv">8</span>)</span>
+<span id="cb515-18"><a href="social-network-analysis-in-se.html#cb515-18" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>frame.color <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb515-19"><a href="social-network-analysis-in-se.html#cb515-19" aria-hidden="true" tabindex="-1"></a>egam <span class="ot">&lt;-</span> (<span class="fu">log</span>(<span class="fu">E</span>(g)<span class="sc">$</span>weight)<span class="sc">+</span>.<span class="dv">4</span>) <span class="sc">/</span> <span class="fu">max</span>(<span class="fu">log</span>(<span class="fu">E</span>(g)<span class="sc">$</span>weight)<span class="sc">+</span>.<span class="dv">4</span>)</span>
+<span id="cb515-20"><a href="social-network-analysis-in-se.html#cb515-20" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">rgb</span>(.<span class="dv">5</span>, .<span class="dv">5</span>, <span class="dv">0</span>, egam)</span>
+<span id="cb515-21"><a href="social-network-analysis-in-se.html#cb515-21" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(g)<span class="sc">$</span>width <span class="ot">&lt;-</span> egam</span>
+<span id="cb515-22"><a href="social-network-analysis-in-se.html#cb515-22" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the graph in layout1</span></span>
+<span id="cb515-23"><a href="social-network-analysis-in-se.html#cb515-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout=</span>layout1)</span></code></pre></div>
 <p>Further information:</p>
 <p><a href="http://sna.stanford.edu/lab.php?l=1" class="uri">http://sna.stanford.edu/lab.php?l=1</a></p>
 
@@ -464,12 +425,13 @@ egam &lt;-<span class="st"> </span>(<span class="kw">log</span>(<span class="kw"
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -477,12 +439,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -497,7 +459,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["DASE.pdf", "DASE.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -512,8 +482,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

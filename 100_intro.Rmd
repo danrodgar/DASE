@@ -37,6 +37,7 @@ The Cross Industry Process for Data Mining (CRISP-DM) also provides a common and
 
 
 ## Data Science 
+
 Data science (DS) is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structured and unstructured data. Data science is related to data mining, machine learning and big data. 
 
 We may say that the term DS embraces all terms related to data analysis that previously were under different disciplines. 
@@ -75,7 +76,7 @@ Generic books about statistics:
   
 ## Data Mining with Weka
 
-Weka is another popular framework in Java:
+Weka is another popular framework written in Java that can be used and extended with other languages and frameworks. The authors of Weka also have a popular book:
 
   *  Ian Witten, Eibe Frank, Mark Hall, Christopher J. Pal, Data Mining: Practical Machine Learning Tools and Techniques (4th Edt), Morgan Kaufmann, 2016, ISBN: 978-0128042915
 

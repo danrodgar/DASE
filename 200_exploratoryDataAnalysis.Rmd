@@ -132,14 +132,14 @@ qqline(effort_telecom1)
 
   * We can observe the non-normality of the data. 
   
-  * We may look the posible relationship between size and effort with a scatterplot
+  * We may look the possible relationship between size and effort with a scatter plot
   
 ```{r scatterplotExample, fig.cap="Scatterplot. Relationship between size and effort", tidy=TRUE}
 plot(size_telecom1, effort_telecom1)
 ```
 
 
-### Example with the China dataset (from the tera-Promise Repository)
+### Example with the China dataset
 
 
 ```{r message=FALSE, warning=FALSE}

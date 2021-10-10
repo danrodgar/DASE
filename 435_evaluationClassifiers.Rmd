@@ -8,10 +8,10 @@ output:
 The confusion matrix (which can be extended to multiclass problems) is a table that presents the results of a classification algorithm. The following table shows the possible outcomes for binary classification problems:
 
 
-|           |$Act Pos$ | $Act Neg$ |
-|-----------|-----------|------------|
-| $Pred Pos$ |   $TP$    | $FP$       |
-| $Pred Neg$ |   $FN$    | $TN$       |
+|            |$Act Pos$ | $Act Neg$ |
+|------------|----------|-----------|
+| $Pred Pos$ |   $TP$   | $FP$      |
+| $Pred Neg$ |   $FN$   | $TN$      |
 
 
 where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
@@ -20,7 +20,7 @@ where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the n
 
 From the confusion matrix, we can calculate:
 
-   + *True positive rate*, or *recall * ($TP_r = recall = r = TP/TP+FN$) is the proportion of positive cases correctly classified as belonging to the positive class.
+   + *True positive rate*, or *recall * ($TP_r = recall = TP/TP+FN$) is the proportion of positive cases correctly classified as belonging to the positive class.
    
    + *False negative rate* ($FN_r=FN/TP+FN$) is the proportion of positive cases misclassified as belonging to the negative class.
    
@@ -29,7 +29,7 @@ From the confusion matrix, we can calculate:
    + *True negative rate* ($TN_r=TN/FP+TN$) is the proportion of negative cases correctly classified as belonging to the negative class.
 
 
-There is a tradeoff between $FP_r$ and $FN_r$ as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive $accuracy$:
+There is a trade-off between $FP_r$ and $FN_r$ as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive $accuracy$:
 
 $$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$$
 
@@ -48,9 +48,6 @@ $2 \cdot \frac{precision \cdot recall}{precision + recall}$
 
 + J coefficient, $j-coeff = sensitivity + specificity - 1 = PD-PF$
 
-(Jiang, Cubic and Ma, 2008 ESE)
-
-
 + A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew's Correlation Coefficient ($MCC$)~\cite{Matthews1975Comparison}: 
 
 $$MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
@@ -66,8 +63,6 @@ A probabilistic classifier estimates the probability of each of the posible clas
 
 $\psi({x}) = argmax_c (P(c|{x}))$
 
- 
- 
 
 ## Other Metrics used in Software Engineering with Classification
 

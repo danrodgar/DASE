@@ -7,6 +7,8 @@ rmd_files: [
   "010_rIntro.Rmd",
 
   "100_intro.Rmd",
+  "101_rmarkdown.Rmd",
+  "102_rnpython.Rmd",
   "110_dataSources.Rmd",
   "120_dataEffortEstimation.Rmd",
 

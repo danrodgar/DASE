@@ -4,7 +4,6 @@
 
 # Feature Selection
 
-
 This technique consists in selecting the most relevant attributes. The need of applying FS includes the following points:
 
   + A reduced volume of data allows different data mining or searching techniques to be applied.
@@ -14,11 +13,12 @@ This technique consists in selecting the most relevant attributes. The need of a
   + It is possible to avoid the collection of data for those irrelevant and redundant attributes in the future.
 
 
+
 FS algorithms designed with different evaluation criteria broadly fall into two categories [21, 14, 13, 3, 1, 12, 5]:
 
-  + The filter model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
+  + The *filter model* relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
 
-  + The wrapper model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model [11, 12].
+  + The *wrapper model* requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model [11, 12].
 
 
 
@@ -27,3 +27,5 @@ FS algorithms designed with different evaluation criteria broadly fall into two 
 
 
 ## Missing Data Imputation
+
+

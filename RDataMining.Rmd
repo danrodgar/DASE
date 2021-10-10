@@ -18,7 +18,7 @@ Web Resources:
 
 Books:
 
-Luis Torgo, 2010. Data Mining with R: Learning with Case Studies (1st edt.). Chapman & Hall/CRC.
+Torgo, Luis, 2020. Data Mining with R: Learning with Case Studies (2nd Edt.). Chapman & Hall/CRC.
 
 Rattle
 

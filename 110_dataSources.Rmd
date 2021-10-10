@@ -53,15 +53,23 @@ people that participated.
 
 # Repositories
 
+
 There is a number of open research repositories in Software Engineering. Among them:
 
-  + PROMISE (PRedictOr Models In Software Engineering): 
-[http://openscience.us/repo/](http://openscience.us/repo/)
+  + Zenodo. It is becoming a popular site for publishing datasets associated with papers. It provides DOIs for referencing data and code:
+  [https://zenodo.org/](https://zenodo.org/)
+  
+  + Spinellis maintais a curated repository on Github:
+  [https://github.com/dspinellis/awesome-msr](https://github.com/dspinellis/awesome-msr)
 
-![Promise Repository](figures/Promise.png)
+  + PROMISE (PRedictOr Models In Software Engineering). There is a conference with this name ([Promise Conference](https://promiseconf.github.io/))
+  
+ Some popular datasets used as benchmarking in may paper can still be found on: 
+[http://promise.site.uottawa.ca/SERepository/datasets-page.html](http://promise.site.uottawa.ca/SERepository/datasets-page.html)
+The is some well-known issues wit the NASA datasets and the source code is not available.
 
-  + Finding Faults using Ensemble Learners (ELFF) [@Shippey2016Esem]
-  [http://www.elff.org.uk/](http://www.elff.org.uk/)
+<!--  + Finding Faults using Ensemble Learners (ELFF) [@Shippey2016Esem]
+  [http://www.elff.org.uk/](http://www.elff.org.uk/)-->
 
   + FLOSSMole [@HCC06] 
 [http://flossmole.org/](http://flossmole.org/)
@@ -81,8 +89,9 @@ There is a number of open research repositories in Software Engineering. Among t
   + SourceForge Research Data Archive (SRDA) [@VanAntwerpM2008] 
 [http://zerlot.cse.nd.edu/](http://zerlot.cse.nd.edu/)
 
-  + SECOLD (Source code ECOsystem Linked Data): 
+<!--  + SECOLD (Source code ECOsystem Linked Data): 
     [http://www.secold.org/](http://www.secold.org/)
+-->
 
   + Software-artifact Infrastructure Repository (SIR) 
 [http://sir.unl.edu]
@@ -96,9 +105,9 @@ Not openly available (and mainly for effort estimation):
   + The International Software Benchmarking Standards Group (ISBSG)
     [http://www.isbsg.org/](http://www.isbsg.org/)
   
-  + TukuTuku
+<!--  + TukuTuku
     [http://www.metriq.biz/tukutuku/](http://www.metriq.biz/tukutuku/)
-
+-->
 
 Some papers and publications/theses that have been used in the literature:
 

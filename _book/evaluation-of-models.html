@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Evaluation of Models | Data Analysis in Software Engineering using R</title>
-  <meta name="description" content="DASE Data Analysis in Software Engineering">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="DASE Data Analysis in Software Engineering" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Evaluation of Models | Data Analysis in Software Engineering using R" />
   <meta property="og:type" content="book" />
@@ -22,25 +21,28 @@
   <meta name="twitter:description" content="DASE Data Analysis in Software Engineering" />
   
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
+<meta name="author" content="Daniel Rodriguez and Javier Dolado" />
 
 
-<meta name="date" content="2018-12-26">
+<meta name="date" content="2021-10-09" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="unsupervised-or-descriptive-modeling.html">
-<link rel="next" href="evaluationSE.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="unsupervised-or-descriptive-modeling.html"/>
+<link rel="next" href="evaluationSE.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,29 +50,33 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -114,6 +120,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -132,13 +161,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="part"><span><b>I Introduction to the R Language</b></span></li>
-<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1" data-path="r-intro.html"><a href="r-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="r-intro.html"><a href="r-intro.html#installation"><i class="fa fa-check"></i><b>1.1</b> Installation</a></li>
 <li class="chapter" data-level="1.2" data-path="r-intro.html"><a href="r-intro.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2</b> R and RStudio</a></li>
-<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.3</b> Basic Data Types</a><ul>
+<li class="chapter" data-level="1.3" data-path="r-intro.html"><a href="r-intro.html#basic-data-types"><i class="fa fa-check"></i><b>1.3</b> Basic Data Types</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="r-intro.html"><a href="r-intro.html#mising-values"><i class="fa fa-check"></i><b>1.3.1</b> Mising values</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a><ul>
+<li class="chapter" data-level="1.4" data-path="r-intro.html"><a href="r-intro.html#vectors"><i class="fa fa-check"></i><b>1.4</b> Vectors</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="r-intro.html"><a href="r-intro.html#coercion-for-vectors"><i class="fa fa-check"></i><b>1.4.1</b> Coercion for vectors</a></li>
 <li class="chapter" data-level="1.4.2" data-path="r-intro.html"><a href="r-intro.html#vector-arithmetic"><i class="fa fa-check"></i><b>1.4.2</b> Vector arithmetic</a></li>
 </ul></li>
@@ -146,168 +178,211 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="r-intro.html"><a href="r-intro.html#factors"><i class="fa fa-check"></i><b>1.6</b> Factors</a></li>
 <li class="chapter" data-level="1.7" data-path="r-intro.html"><a href="r-intro.html#lists"><i class="fa fa-check"></i><b>1.7</b> Lists</a></li>
 <li class="chapter" data-level="1.8" data-path="r-intro.html"><a href="r-intro.html#data-frames"><i class="fa fa-check"></i><b>1.8</b> Data frames</a></li>
-<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.9</b> Reading Data</a></li>
-<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.10</b> Plots</a></li>
-<li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.11</b> Flow of Control</a></li>
-<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.12</b> Rattle</a></li>
+<li class="chapter" data-level="1.9" data-path="r-intro.html"><a href="r-intro.html#r---functions-apply-lapply-sapply-tapply-mapply-vapply"><i class="fa fa-check"></i><b>1.9</b> R - Functions <code>apply()</code>, <code>lapply()</code>, <code>sapply()</code>, <code>tapply()</code>, <code>mapply()</code>, <code>vapply()</code></a></li>
+<li class="chapter" data-level="1.10" data-path="r-intro.html"><a href="r-intro.html#environments"><i class="fa fa-check"></i><b>1.10</b> Environments</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="r-intro.html"><a href="r-intro.html#global-variables-local-variables-and-programming-scope"><i class="fa fa-check"></i><b>1.10.1</b> Global variables, local variables and programming scope</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="r-intro.html"><a href="r-intro.html#reading-data"><i class="fa fa-check"></i><b>1.11</b> Reading Data</a></li>
+<li class="chapter" data-level="1.12" data-path="r-intro.html"><a href="r-intro.html#plots"><i class="fa fa-check"></i><b>1.12</b> Plots</a></li>
+<li class="chapter" data-level="1.13" data-path="r-intro.html"><a href="r-intro.html#flow-of-control"><i class="fa fa-check"></i><b>1.13</b> Flow of Control</a></li>
+<li class="chapter" data-level="1.14" data-path="r-intro.html"><a href="r-intro.html#rattle"><i class="fa fa-check"></i><b>1.14</b> Rattle</a></li>
+<li class="chapter" data-level="1.15" data-path="r-intro.html"><a href="r-intro.html#datasets"><i class="fa fa-check"></i><b>1.15</b> Datasets</a></li>
 </ul></li>
 <li class="part"><span><b>II Introduction to Data Mining</b></span></li>
-<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a><ul>
+<li class="chapter" data-level="2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><i class="fa fa-check"></i><b>2</b> What is Data Mining / Knowledge Discovery in Databases (KDD)</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#the-aim-of-data-analysis-and-statistical-learning"><i class="fa fa-check"></i><b>2.1</b> The Aim of Data Analysis and Statistical Learning</a></li>
-<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#basic-references"><i class="fa fa-check"></i><b>2.2</b> Basic References</a></li>
-<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-r"><i class="fa fa-check"></i><b>2.3</b> Data Mining with R</a></li>
-<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.4</b> Data Mining with Weka</a></li>
+<li class="chapter" data-level="2.2" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-science"><i class="fa fa-check"></i><b>2.2</b> Data Science</a></li>
+<li class="chapter" data-level="2.3" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#some-references"><i class="fa fa-check"></i><b>2.3</b> Some References</a></li>
+<li class="chapter" data-level="2.4" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-and-data-science-with-r"><i class="fa fa-check"></i><b>2.4</b> Data Mining and Data Science with R</a></li>
+<li class="chapter" data-level="2.5" data-path="what-is-data-mining-knowledge-discovery-in-databases-kdd.html"><a href="what-is-data-mining-knowledge-discovery-in-databases-kdd.html#data-mining-with-weka"><i class="fa fa-check"></i><b>2.5</b> Data Mining with Weka</a></li>
 </ul></li>
 <li class="part"><span><b>III Data Sources and Metrics and Standards in Software Engineering Defect Prediction</b></span></li>
 <li class="chapter" data-level="3" data-path="data-sources-in-software-engineering.html"><a href="data-sources-in-software-engineering.html"><i class="fa fa-check"></i><b>3</b> Data Sources in Software Engineering</a></li>
 <li class="chapter" data-level="4" data-path="repositories.html"><a href="repositories.html"><i class="fa fa-check"></i><b>4</b> Repositories</a></li>
-<li class="chapter" data-level="5" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html"><i class="fa fa-check"></i><b>5</b> Open Tools/Dashboards to extract data</a><ul>
+<li class="chapter" data-level="5" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html"><i class="fa fa-check"></i><b>5</b> Open Tools/Dashboards to extract data</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#issues"><i class="fa fa-check"></i><b>5.1</b> Issues</a></li>
 <li class="chapter" data-level="5.2" data-path="open-toolsdashboards-to-extract-data.html"><a href="open-toolsdashboards-to-extract-data.html#effort-estimation-data-in-software-engineering"><i class="fa fa-check"></i><b>5.2</b> Effort Estimation Data in Software Engineering</a></li>
 </ul></li>
 <li class="part"><span><b>IV Exploratory and Descriptive Data analysis</b></span></li>
-<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.1</b> Descriptive statistics</a></li>
 <li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#basic-plots"><i class="fa fa-check"></i><b>6.2</b> Basic Plots</a></li>
 <li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#normality"><i class="fa fa-check"></i><b>6.3</b> Normality</a></li>
-<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#using-a-running-example-to-visualise-the-different-plots"><i class="fa fa-check"></i><b>6.4</b> Using a running Example to visualise the different plots</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#example-with-the-china-dataset-from-the-tera-promise-repository"><i class="fa fa-check"></i><b>6.4.1</b> Example with the China dataset (from the tera-Promise Repository)</a></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#using-a-running-example-to-visualise-the-different-plots"><i class="fa fa-check"></i><b>6.4</b> Using a running Example to visualise the different plots</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#example-with-the-china-dataset"><i class="fa fa-check"></i><b>6.4.1</b> Example with the China dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#correlation"><i class="fa fa-check"></i><b>6.5</b> Correlation</a></li>
 <li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#confidence-intervals.-bootstrap"><i class="fa fa-check"></i><b>6.6</b> Confidence Intervals. Bootstrap</a></li>
 <li class="chapter" data-level="6.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#nonparametric-bootstrap"><i class="fa fa-check"></i><b>6.7</b> Nonparametric Bootstrap</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Classical Hypothesis Testing</a><ul>
+<li class="chapter" data-level="7" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Classical Hypothesis Testing</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="classical-hypothesis-testing.html"><a href="classical-hypothesis-testing.html#p-values"><i class="fa fa-check"></i><b>7.1</b> p-values</a></li>
 </ul></li>
 <li class="part"><span><b>V Preprocessing</b></span></li>
-<li class="chapter" data-level="8" data-path="preprocessing.html"><a href="preprocessing.html"><i class="fa fa-check"></i><b>8</b> Preprocessing</a><ul>
+<li class="chapter" data-level="8" data-path="preprocessing.html"><a href="preprocessing.html"><i class="fa fa-check"></i><b>8</b> Preprocessing</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="preprocessing.html"><a href="preprocessing.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
 <li class="chapter" data-level="8.2" data-path="preprocessing.html"><a href="preprocessing.html#missing-values"><i class="fa fa-check"></i><b>8.2</b> Missing values</a></li>
 <li class="chapter" data-level="8.3" data-path="preprocessing.html"><a href="preprocessing.html#noise"><i class="fa fa-check"></i><b>8.3</b> Noise</a></li>
 <li class="chapter" data-level="8.4" data-path="preprocessing.html"><a href="preprocessing.html#outliers"><i class="fa fa-check"></i><b>8.4</b> Outliers</a></li>
-<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a><ul>
+<li class="chapter" data-level="8.5" data-path="preprocessing.html"><a href="preprocessing.html#feature-selection"><i class="fa fa-check"></i><b>8.5</b> Feature selection</a>
+<ul>
 <li class="chapter" data-level="8.5.1" data-path="preprocessing.html"><a href="preprocessing.html#fselector-package-in-r"><i class="fa fa-check"></i><b>8.5.1</b> FSelector package in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="preprocessing.html"><a href="preprocessing.html#instance-selection"><i class="fa fa-check"></i><b>8.6</b> Instance selection</a></li>
 <li class="chapter" data-level="8.7" data-path="preprocessing.html"><a href="preprocessing.html#discretization"><i class="fa fa-check"></i><b>8.7</b> Discretization</a></li>
 <li class="chapter" data-level="8.8" data-path="preprocessing.html"><a href="preprocessing.html#correlation-coefficient-and-covariance-for-numeric-data"><i class="fa fa-check"></i><b>8.8</b> Correlation Coefficient and Covariance for Numeric Data</a></li>
-<li class="chapter" data-level="8.9" data-path="preprocessing.html"><a href="preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>8.9</b> Normalization</a><ul>
+<li class="chapter" data-level="8.9" data-path="preprocessing.html"><a href="preprocessing.html#normalization-1"><i class="fa fa-check"></i><b>8.9</b> Normalization</a>
+<ul>
 <li class="chapter" data-level="8.9.1" data-path="preprocessing.html"><a href="preprocessing.html#min-max-normalization"><i class="fa fa-check"></i><b>8.9.1</b> Min-Max Normalization</a></li>
 <li class="chapter" data-level="8.9.2" data-path="preprocessing.html"><a href="preprocessing.html#z-score-normalization"><i class="fa fa-check"></i><b>8.9.2</b> Z-score normalization</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="preprocessing.html"><a href="preprocessing.html#transformations"><i class="fa fa-check"></i><b>8.10</b> Transformations</a><ul>
+<li class="chapter" data-level="8.10" data-path="preprocessing.html"><a href="preprocessing.html#transformations"><i class="fa fa-check"></i><b>8.10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="8.10.1" data-path="preprocessing.html"><a href="preprocessing.html#linear-transformations-and-quadratic-trans-formations"><i class="fa fa-check"></i><b>8.10.1</b> Linear Transformations and Quadratic Trans formations</a></li>
 <li class="chapter" data-level="8.10.2" data-path="preprocessing.html"><a href="preprocessing.html#box-cox-transformation"><i class="fa fa-check"></i><b>8.10.2</b> Box-cox transformation</a></li>
 <li class="chapter" data-level="8.10.3" data-path="preprocessing.html"><a href="preprocessing.html#nominal-to-binary-tranformations"><i class="fa fa-check"></i><b>8.10.3</b> Nominal to Binary tranformations</a></li>
 </ul></li>
-<li class="chapter" data-level="8.11" data-path="preprocessing.html"><a href="preprocessing.html#preprocessing-in-r"><i class="fa fa-check"></i><b>8.11</b> Preprocessing in R</a><ul>
+<li class="chapter" data-level="8.11" data-path="preprocessing.html"><a href="preprocessing.html#preprocessing-in-r"><i class="fa fa-check"></i><b>8.11</b> Preprocessing in R</a>
+<ul>
 <li class="chapter" data-level="8.11.1" data-path="preprocessing.html"><a href="preprocessing.html#the-dplyr-package"><i class="fa fa-check"></i><b>8.11.1</b> The <code>dplyr</code> package</a></li>
 </ul></li>
 <li class="chapter" data-level="8.12" data-path="preprocessing.html"><a href="preprocessing.html#other-libraries-and-tricks"><i class="fa fa-check"></i><b>8.12</b> Other libraries and tricks</a></li>
 </ul></li>
 <li class="part"><span><b>VI Supervised Models</b></span></li>
-<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a><ul>
+<li class="chapter" data-level="9" data-path="supervised-classification.html"><a href="supervised-classification.html"><i class="fa fa-check"></i><b>9</b> Supervised Classification</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="supervised-classification.html"><a href="supervised-classification.html#classification-trees"><i class="fa fa-check"></i><b>9.1</b> Classification Trees</a></li>
 <li class="chapter" data-level="9.2" data-path="supervised-classification.html"><a href="supervised-classification.html#rules"><i class="fa fa-check"></i><b>9.2</b> Rules</a></li>
 <li class="chapter" data-level="9.3" data-path="supervised-classification.html"><a href="supervised-classification.html#distanced-based-methods"><i class="fa fa-check"></i><b>9.3</b> Distanced-based Methods</a></li>
 <li class="chapter" data-level="9.4" data-path="supervised-classification.html"><a href="supervised-classification.html#neural-networks"><i class="fa fa-check"></i><b>9.4</b> Neural Networks</a></li>
 <li class="chapter" data-level="9.5" data-path="supervised-classification.html"><a href="supervised-classification.html#support-vector-machine"><i class="fa fa-check"></i><b>9.5</b> Support Vector Machine</a></li>
-<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.6</b> Probabilistic Methods</a><ul>
+<li class="chapter" data-level="9.6" data-path="supervised-classification.html"><a href="supervised-classification.html#probabilistic-methods"><i class="fa fa-check"></i><b>9.6</b> Probabilistic Methods</a>
+<ul>
 <li class="chapter" data-level="9.6.1" data-path="supervised-classification.html"><a href="supervised-classification.html#naive-bayes"><i class="fa fa-check"></i><b>9.6.1</b> Naive Bayes</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.7</b> Linear Discriminant Analysis (LDA)</a><ul>
+<li class="chapter" data-level="9.7" data-path="supervised-classification.html"><a href="supervised-classification.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.7</b> Linear Discriminant Analysis (LDA)</a>
+<ul>
 <li class="chapter" data-level="9.7.1" data-path="supervised-classification.html"><a href="supervised-classification.html#predicting-the-number-of-defects-numerical-class"><i class="fa fa-check"></i><b>9.7.1</b> Predicting the number of defects (numerical class)</a></li>
 </ul></li>
 <li class="chapter" data-level="9.8" data-path="supervised-classification.html"><a href="supervised-classification.html#binary-logistic-regression-blr"><i class="fa fa-check"></i><b>9.8</b> Binary Logistic Regression (BLR)</a></li>
 <li class="chapter" data-level="9.9" data-path="supervised-classification.html"><a href="supervised-classification.html#the-caret-package"><i class="fa fa-check"></i><b>9.9</b> The caret package</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a><ul>
-<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#linear-regression-modeling"><i class="fa fa-check"></i><b>10.1</b> Linear Regression modeling</a><ul>
+<li class="chapter" data-level="10" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>10</b> Regression</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="regression.html"><a href="regression.html#linear-regression-modeling"><i class="fa fa-check"></i><b>10.1</b> Linear Regression modeling</a>
+<ul>
 <li class="chapter" data-level="10.1.1" data-path="regression.html"><a href="regression.html#regression-galton-data"><i class="fa fa-check"></i><b>10.1.1</b> Regression: Galton Data</a></li>
 <li class="chapter" data-level="10.1.2" data-path="regression.html"><a href="regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>10.1.2</b> Simple Linear Regression</a></li>
 <li class="chapter" data-level="10.1.3" data-path="regression.html"><a href="regression.html#least-squares"><i class="fa fa-check"></i><b>10.1.3</b> Least Squares</a></li>
 <li class="chapter" data-level="10.1.4" data-path="regression.html"><a href="regression.html#linear-regression-in-r"><i class="fa fa-check"></i><b>10.1.4</b> Linear regression in R</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>10.2</b> Linear Regression Diagnostics</a><ul>
+<li class="chapter" data-level="10.2" data-path="regression.html"><a href="regression.html#linear-regression-diagnostics"><i class="fa fa-check"></i><b>10.2</b> Linear Regression Diagnostics</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="regression.html"><a href="regression.html#simulation-example"><i class="fa fa-check"></i><b>10.2.1</b> Simulation example</a></li>
 <li class="chapter" data-level="10.2.2" data-path="regression.html"><a href="regression.html#diagnostics-fro-assessing-the-regression-line"><i class="fa fa-check"></i><b>10.2.2</b> Diagnostics fro assessing the regression line</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="10.3" data-path="regression.html"><a href="regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Linear Regression</a>
+<ul>
 <li class="chapter" data-level="10.3.1" data-path="regression.html"><a href="regression.html#partial-least-squares"><i class="fa fa-check"></i><b>10.3.1</b> Partial Least Squares</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="regression.html"><a href="regression.html#linear-regression-in-software-effort-estimation"><i class="fa fa-check"></i><b>10.4</b> Linear regression in Software Effort estimation</a></li>
 <li class="chapter" data-level="10.5" data-path="regression.html"><a href="regression.html#references"><i class="fa fa-check"></i><b>10.5</b> References</a></li>
 </ul></li>
 <li class="part"><span><b>VII Unsupervised Models</b></span></li>
-<li class="chapter" data-level="11" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html"><i class="fa fa-check"></i><b>11</b> Unsupervised or Descriptive modeling</a><ul>
-<li class="chapter" data-level="11.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#clustering"><i class="fa fa-check"></i><b>11.1</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html"><i class="fa fa-check"></i><b>11</b> Unsupervised or Descriptive modeling</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#clustering"><i class="fa fa-check"></i><b>11.1</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1.1" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#k-means"><i class="fa fa-check"></i><b>11.1.1</b> k-Means</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="unsupervised-or-descriptive-modeling.html"><a href="unsupervised-or-descriptive-modeling.html#association-rules"><i class="fa fa-check"></i><b>11.2</b> Association rules</a></li>
 </ul></li>
 <li class="part"><span><b>VIII Evaluation</b></span></li>
-<li class="chapter" data-level="12" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>12</b> Evaluation of Models</a><ul>
-<li class="chapter" data-level="12.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>12.1</b> Building and Validating a Model</a><ul>
+<li class="chapter" data-level="12" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html"><i class="fa fa-check"></i><b>12</b> Evaluation of Models</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#building-and-validating-a-model"><i class="fa fa-check"></i><b>12.1</b> Building and Validating a Model</a>
+<ul>
 <li class="chapter" data-level="12.1.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#holdout-approach"><i class="fa fa-check"></i><b>12.1.1</b> Holdout approach</a></li>
 <li class="chapter" data-level="12.1.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#cross-validation-cv"><i class="fa fa-check"></i><b>12.1.2</b> Cross Validation (CV)</a></li>
+<li class="chapter" data-level="12.1.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#leave-one-out-cross-validation-loo-cv"><i class="fa fa-check"></i><b>12.1.3</b> Leave-One-Out Cross-Validation (LOO-CV)</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classification-models"><i class="fa fa-check"></i><b>12.2</b> Evaluation of Classification Models</a><ul>
+<li class="chapter" data-level="12.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#evaluation-of-classification-models"><i class="fa fa-check"></i><b>12.2</b> Evaluation of Classification Models</a>
+<ul>
 <li class="chapter" data-level="12.2.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#prediction-in-probabilistic-classifiers"><i class="fa fa-check"></i><b>12.2.1</b> Prediction in probabilistic classifiers</a></li>
 </ul></li>
 <li class="chapter" data-level="12.3" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#other-metrics-used-in-software-engineering-with-classification"><i class="fa fa-check"></i><b>12.3</b> Other Metrics used in Software Engineering with Classification</a></li>
-<li class="chapter" data-level="12.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>12.4</b> Graphical Evaluation</a><ul>
+<li class="chapter" data-level="12.4" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#graphical-evaluation"><i class="fa fa-check"></i><b>12.4</b> Graphical Evaluation</a>
+<ul>
 <li class="chapter" data-level="12.4.1" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#receiver-operating-characteristic-roc"><i class="fa fa-check"></i><b>12.4.1</b> Receiver Operating Characteristic (ROC)</a></li>
 <li class="chapter" data-level="12.4.2" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#precision-recall-curve-prc"><i class="fa fa-check"></i><b>12.4.2</b> Precision-Recall Curve (PRC)</a></li>
 </ul></li>
 <li class="chapter" data-level="12.5" data-path="evaluation-of-models.html"><a href="evaluation-of-models.html#numeric-prediction-evaluation"><i class="fa fa-check"></i><b>12.5</b> Numeric Prediction Evaluation</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>13</b> Measures of Evaluation in Software Engineering</a><ul>
-<li class="chapter" data-level="13.1" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>13.1</b> Evaluation of the model in the Testing data</a></li>
-<li class="chapter" data-level="13.2" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>13.2</b> Building a Linear Model on the Telecom1 dataset</a></li>
-<li class="chapter" data-level="13.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>13.3</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
-<li class="chapter" data-level="13.4" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-chinatest"><i class="fa fa-check"></i><b>13.4</b> Standardised Accuracy. MARP0. ChinaTest</a></li>
-<li class="chapter" data-level="13.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0.-telecom1"><i class="fa fa-check"></i><b>13.5</b> Standardised Accuracy. MARP0. Telecom1</a><ul>
-<li class="chapter" data-level="13.5.1" data-path="evaluationSE.html"><a href="evaluationSE.html#marp0-in-the-atkinson-dataset"><i class="fa fa-check"></i><b>13.5.1</b> MARP0 in the Atkinson dataset</a></li>
+<li class="chapter" data-level="13" data-path="evaluationSE.html"><a href="evaluationSE.html"><i class="fa fa-check"></i><b>13</b> Measures of Evaluation in Software Engineering</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="evaluationSE.html"><a href="evaluationSE.html#effort-estimation-evaluation-metrics"><i class="fa fa-check"></i><b>13.1</b> Effort estimation evaluation metrics</a></li>
+<li class="chapter" data-level="13.2" data-path="evaluationSE.html"><a href="evaluationSE.html#evaluation-of-the-model-in-the-testing-data"><i class="fa fa-check"></i><b>13.2</b> Evaluation of the Model in the Testing data</a></li>
+<li class="chapter" data-level="13.3" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset"><i class="fa fa-check"></i><b>13.3</b> Building a Linear Model on the Telecom1 dataset</a></li>
+<li class="chapter" data-level="13.4" data-path="evaluationSE.html"><a href="evaluationSE.html#building-a-linear-model-on-the-telecom1-dataset-with-all-observations"><i class="fa fa-check"></i><b>13.4</b> Building a Linear Model on the Telecom1 dataset with all observations</a></li>
+<li class="chapter" data-level="13.5" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0-using-the-china-test-dataset"><i class="fa fa-check"></i><b>13.5</b> Standardised Accuracy. MARP0 using the China Test dataset</a></li>
+<li class="chapter" data-level="13.6" data-path="evaluationSE.html"><a href="evaluationSE.html#standardised-accuracy.-marp0-using-the-telecom1-dataset"><i class="fa fa-check"></i><b>13.6</b> Standardised Accuracy. MARP0 using the Telecom1 dataset</a>
+<ul>
+<li class="chapter" data-level="13.6.1" data-path="evaluationSE.html"><a href="evaluationSE.html#marp0-using-the-atkinson-dataset"><i class="fa fa-check"></i><b>13.6.1</b> MARP0 using the Atkinson dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="13.6" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>13.6</b> Exact MARP0</a></li>
+<li class="chapter" data-level="13.7" data-path="evaluationSE.html"><a href="evaluationSE.html#exact-marp0"><i class="fa fa-check"></i><b>13.7</b> Exact MARP0</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><i class="fa fa-check"></i><b>14</b> WBL simple R code to calculate Shepperd and MacDonell’s marp0 exactly</a><ul>
+<li class="chapter" data-level="14" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><i class="fa fa-check"></i><b>14</b> WBL simple R code to calculate Shepperd and MacDonell’s MARP0 exactly</a>
+<ul>
 <li class="chapter" data-level="14.1" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html#computing-the-bootstraped-confidence-interval-of-the-mean-for-the-test-observations-of-the-china-dataset"><i class="fa fa-check"></i><b>14.1</b> Computing the bootstraped confidence interval of the mean for the Test observations of the China dataset:</a></li>
+<li class="chapter" data-level="14.2" data-path="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html"><a href="wbl-simple-r-code-to-calculate-shepperd-and-macdonells-marp0-exactly.html#defect-prediction-evaluation-metrics"><i class="fa fa-check"></i><b>14.2</b> Defect prediction evaluation metrics</a></li>
 </ul></li>
 <li class="part"><span><b>IX Advanced Topics</b></span></li>
-<li class="chapter" data-level="15" data-path="feature-selection-1.html"><a href="feature-selection-1.html"><i class="fa fa-check"></i><b>15</b> Feature Selection</a><ul>
+<li class="chapter" data-level="15" data-path="feature-selection-1.html"><a href="feature-selection-1.html"><i class="fa fa-check"></i><b>15</b> Feature Selection</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="feature-selection-1.html"><a href="feature-selection-1.html#instance-selection-1"><i class="fa fa-check"></i><b>15.1</b> Instance Selection</a></li>
 <li class="chapter" data-level="15.2" data-path="feature-selection-1.html"><a href="feature-selection-1.html#missing-data-imputation"><i class="fa fa-check"></i><b>15.2</b> Missing Data Imputation</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="feature-selection-example.html"><a href="feature-selection-example.html"><i class="fa fa-check"></i><b>16</b> Feature Selection Example</a></li>
-<li class="chapter" data-level="17" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>17</b> Advanced Models</a><ul>
+<li class="chapter" data-level="17" data-path="advanced-models.html"><a href="advanced-models.html"><i class="fa fa-check"></i><b>17</b> Advanced Models</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression"><i class="fa fa-check"></i><b>17.1</b> Genetic Programming for Symbolic Regression</a></li>
-<li class="chapter" data-level="17.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>17.2</b> Genetic Programming Example</a><ul>
+<li class="chapter" data-level="17.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-example"><i class="fa fa-check"></i><b>17.2</b> Genetic Programming Example</a>
+<ul>
 <li class="chapter" data-level="17.2.1" data-path="advanced-models.html"><a href="advanced-models.html#load-data"><i class="fa fa-check"></i><b>17.2.1</b> Load Data</a></li>
 <li class="chapter" data-level="17.2.2" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression-china-dataset."><i class="fa fa-check"></i><b>17.2.2</b> Genetic Programming for Symbolic Regression: China dataset.</a></li>
 <li class="chapter" data-level="17.2.3" data-path="advanced-models.html"><a href="advanced-models.html#genetic-programming-for-symbolic-regression.-telecom1-dataset."><i class="fa fa-check"></i><b>17.2.3</b> Genetic Programming for Symbolic Regression. Telecom1 dataset.</a></li>
 </ul></li>
 <li class="chapter" data-level="17.3" data-path="advanced-models.html"><a href="advanced-models.html#neural-networks-1"><i class="fa fa-check"></i><b>17.3</b> Neural Networks</a></li>
 <li class="chapter" data-level="17.4" data-path="advanced-models.html"><a href="advanced-models.html#support-vector-machines"><i class="fa fa-check"></i><b>17.4</b> Support Vector Machines</a></li>
-<li class="chapter" data-level="17.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>17.5</b> Ensembles</a><ul>
+<li class="chapter" data-level="17.5" data-path="advanced-models.html"><a href="advanced-models.html#ensembles"><i class="fa fa-check"></i><b>17.5</b> Ensembles</a>
+<ul>
 <li class="chapter" data-level="17.5.1" data-path="advanced-models.html"><a href="advanced-models.html#bagging"><i class="fa fa-check"></i><b>17.5.1</b> Bagging</a></li>
 <li class="chapter" data-level="17.5.2" data-path="advanced-models.html"><a href="advanced-models.html#boosting"><i class="fa fa-check"></i><b>17.5.2</b> Boosting</a></li>
 <li class="chapter" data-level="17.5.3" data-path="advanced-models.html"><a href="advanced-models.html#rotation-forests"><i class="fa fa-check"></i><b>17.5.3</b> Rotation Forests</a></li>
 <li class="chapter" data-level="17.5.4" data-path="advanced-models.html"><a href="advanced-models.html#boosting-in-r"><i class="fa fa-check"></i><b>17.5.4</b> Boosting in R</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>18</b> Further Classification Models</a><ul>
+<li class="chapter" data-level="18" data-path="further-classification-models.html"><a href="further-classification-models.html"><i class="fa fa-check"></i><b>18</b> Further Classification Models</a>
+<ul>
 <li class="chapter" data-level="18.1" data-path="further-classification-models.html"><a href="further-classification-models.html#multilabel-classification"><i class="fa fa-check"></i><b>18.1</b> Multilabel classification</a></li>
 <li class="chapter" data-level="18.2" data-path="further-classification-models.html"><a href="further-classification-models.html#semi-supervised-learning"><i class="fa fa-check"></i><b>18.2</b> Semi-supervised Learning</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="social-network-analysis-in-se.html"><a href="social-network-analysis-in-se.html"><i class="fa fa-check"></i><b>19</b> Social Network Analysis in SE</a></li>
-<li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a><ul>
+<li class="chapter" data-level="20" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html"><i class="fa fa-check"></i><b>20</b> Text Mining Software Engineering Data</a>
+<ul>
 <li class="chapter" data-level="20.1" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#terminology"><i class="fa fa-check"></i><b>20.1</b> Terminology</a></li>
 <li class="chapter" data-level="20.2" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#example-of-classifying-bugs-from-bugzilla"><i class="fa fa-check"></i><b>20.2</b> Example of classifying bugs from Bugzilla</a></li>
 <li class="chapter" data-level="20.3" data-path="text-mining-software-engineering-data.html"><a href="text-mining-software-engineering-data.html#extracting-data-from-twitter"><i class="fa fa-check"></i><b>20.3</b> Extracting data from Twitter</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a><ul>
+<li class="chapter" data-level="21" data-path="time-series.html"><a href="time-series.html"><i class="fa fa-check"></i><b>21</b> Time Series</a>
+<ul>
 <li class="chapter" data-level="21.1" data-path="time-series.html"><a href="time-series.html#web-tutorials-about-time-series"><i class="fa fa-check"></i><b>21.1</b> Web tutorials about Time Series:</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
@@ -331,7 +406,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="evaluation-of-models" class="section level1">
+<div id="evaluation-of-models" class="section level1" number="12">
 <h1><span class="header-section-number">Chapter 12</span> Evaluation of Models</h1>
 <p>Once we obtain the model with the training data, we need to evaluate it with some new data (testing data).</p>
 <blockquote>
@@ -339,49 +414,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 In the absence of any knowledge about the prediction problem, no model
 can be said to be uniformly better than any other</p>
 </blockquote>
-<div id="building-and-validating-a-model" class="section level2">
+<div id="building-and-validating-a-model" class="section level2" number="12.1">
 <h2><span class="header-section-number">12.1</span> Building and Validating a Model</h2>
-<p>We cannnot use the the same data for training and testing (it is like evaluating a student with the exercises previouly solved in class, the sudent’s marks will be “optimistic” and we do not know about student capability to generalise the learned concepts).</p>
-<p>Therefore, we should, at a minimun, divide the dataset into <em>training</em> and <em>testing</em>, learn the model with the training data and test it with the rest of data as explained next.</p>
-<div id="holdout-approach" class="section level3">
+<p>We cannot use the the same data for training and testing (it is like evaluating a student with the exercises previously solved in class, the student’s marks will be “optimistic” and we do not know about student capability to generalise the learned concepts).</p>
+<p>Therefore, we should, at a minimum, divide the dataset into <em>training</em> and <em>testing</em>, learn the model with the training data and test it with the rest of data as explained next.</p>
+<div id="holdout-approach" class="section level3" number="12.1.1">
 <h3><span class="header-section-number">12.1.1</span> Holdout approach</h3>
 <p><strong>Holdout approach</strong> consists of dividing the dataset into <em>training</em> (typically approx. 2/3 of the data) and <em>testing</em> (approx 1/3 of the data).
-+ Problems: Data can be skewed, missing classes, etc. if randomly divided. Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains aprox 45% of positive cases, the training and testing datasets should mantain similar proportion of positive cases).</p>
-<p>Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method)</p>
-<p>The error rates on the different iterations are averaged (overall error rate)</p>
++ Problems: Data can be skewed, missing classes, etc. if randomly divided. Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains approximately 45% of positive cases, the training and testing datasets should maintain similar proportion of positive cases).</p>
+<p>Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method).</p>
+<p>The error rates on the different iterations are averaged (overall error rate).</p>
 <ul>
 <li>Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.</li>
-<li><em>Validation Set approach</em>: it is the simplest method. It consists of randomly dividing the available set of oservations into two parts, a <em>training set</em> and a <em>validation set</em> or hold-out
+<li><em>Validation Set approach</em>: it is the simplest method. It consists of randomly dividing the available set of observations into two parts, a <em>training set</em> and a <em>validation set</em> or hold-out
 set. Usually 2/3 of the data points are used for training and 1/3 is used for testing purposes.</li>
 </ul>
 <div class="figure">
-<img src="figures/validation.png" alt="Hold out validation" />
+<img src="figures/validation.png" alt="" />
 <p class="caption">Hold out validation</p>
 </div>
 </div>
-<div id="cross-validation-cv" class="section level3">
+<div id="cross-validation-cv" class="section level3" number="12.1.2">
 <h3><span class="header-section-number">12.1.2</span> Cross Validation (CV)</h3>
 <p><em>k-fold Cross-Validation</em> involves randomly dividing the set of observations into <span class="math inline">\(k\)</span> groups, or folds, of approximately equal size. One fold is treated as a validation set and the method is trained on the remaining <span class="math inline">\(k-1\)</span> folds. This procedure is repeated <span class="math inline">\(k\)</span> times. If <span class="math inline">\(k\)</span> is equal to <span class="math inline">\(n\)</span> we are in the previous method.</p>
 <ul>
-<li><p>1st step: split dataset (<span class="math inline">\(\cal D\)</span>) into <span class="math inline">\(k\)</span> subsets of approximatelly equal size <span class="math inline">\(C_1, \dots, C_k\)</span></p></li>
+<li><p>1st step: split dataset (<span class="math inline">\(\cal D\)</span>) into <span class="math inline">\(k\)</span> subsets of approximately equal size <span class="math inline">\(C_1, \dots, C_k\)</span></p></li>
 <li><p>2nd step: we construct a dataset <span class="math inline">\(D_i = D-C_i\)</span> used for training and test the accuracy of the classifier <span class="math inline">\(D_i\)</span> on <span class="math inline">\(C_i\)</span> subset for testing</p></li>
 </ul>
 <p>Having done this for all <span class="math inline">\(k\)</span> we estimate the accuracy of the method by averaging the accuracy over the <span class="math inline">\(k\)</span> cross-validation trials</p>
 <div class="figure">
-<img src="figures/kfold.png" alt="k-fold" />
+<img src="figures/kfold.png" alt="" />
 <p class="caption">k-fold</p>
 </div>
+</div>
+<div id="leave-one-out-cross-validation-loo-cv" class="section level3" number="12.1.3">
+<h3><span class="header-section-number">12.1.3</span> Leave-One-Out Cross-Validation (LOO-CV)</h3>
 <ul>
-<li><em>Leave-One-Out Cross-Validation</em>: This is a special case of CV. Instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated n times (the total number of observations) and the estimate for the test mean squared error is the average of the n test estimates.</li>
+<li><em>Leave-One-Out Cross-Validation</em> (LOO-CV): This is a special case of CV. Instead of creating two subsets for training and testing, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated <span class="math inline">\(n\)</span> times (the total number of observations) and the estimate for the test mean squared error is the average of the <span class="math inline">\(n\)</span> test estimates.</li>
 </ul>
 <div class="figure">
-<img src="figures/leaveone.png" alt="Leave One Out" />
+<img src="figures/leaveone.png" alt="" />
 <p class="caption">Leave One Out</p>
 </div>
 
 </div>
 </div>
-<div id="evaluation-of-classification-models" class="section level2">
+<div id="evaluation-of-classification-models" class="section level2" number="12.2">
 <h2><span class="header-section-number">12.2</span> Evaluation of Classification Models</h2>
 <p>The confusion matrix (which can be extended to multiclass problems) is a table that presents the results of a classification algorithm. The following table shows the possible outcomes for binary classification problems:</p>
 <table>
@@ -411,12 +489,12 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
 </ul>
 <p>From the confusion matrix, we can calculate:</p>
 <ul>
-<li><p><em>True positive rate</em>, or <em>recall </em> (<span class="math inline">\(TP_r = recall = r = TP/TP+FN\)</span>) is the proportion of positive cases correctly classified as belonging to the positive class.</p></li>
+<li><p><em>True positive rate</em>, or <em>recall </em> (<span class="math inline">\(TP_r = recall = TP/TP+FN\)</span>) is the proportion of positive cases correctly classified as belonging to the positive class.</p></li>
 <li><p><em>False negative rate</em> (<span class="math inline">\(FN_r=FN/TP+FN\)</span>) is the proportion of positive cases misclassified as belonging to the negative class.</p></li>
 <li><p><em>False positive rate</em> (<span class="math inline">\(FP_r=FP/FP+TN\)</span>) is the proportion of negative cases misclassified as belonging to the positive class.</p></li>
 <li><p><em>True negative rate</em> (<span class="math inline">\(TN_r=TN/FP+TN\)</span>) is the proportion of negative cases correctly classified as belonging to the negative class.</p></li>
 </ul>
-<p>There is a tradeoff between <span class="math inline">\(FP_r\)</span> and <span class="math inline">\(FN_r\)</span> as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive <span class="math inline">\(accuracy\)</span>:</p>
+<p>There is a trade-off between <span class="math inline">\(FP_r\)</span> and <span class="math inline">\(FN_r\)</span> as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive <span class="math inline">\(accuracy\)</span>:</p>
 <p><span class="math display">\[accuracy = \frac{TP + TN}{TP + TN + FP + FN}\]</span></p>
 <p>to measure performance of classifiers (or the complementary value, the <em>error rate</em> which is defined as <span class="math inline">\(1-accuracy\)</span>)</p>
 <ul>
@@ -427,20 +505,17 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
 <li><p>G-mean: <span class="math inline">\(\sqrt{PD \times Precision}\)</span></p></li>
 <li><p>G-mean2: <span class="math inline">\(\sqrt{PD \times Specificity}\)</span></p></li>
 <li><p>J coefficient, <span class="math inline">\(j-coeff = sensitivity + specificity - 1 = PD-PF\)</span></p></li>
-</ul>
-<p>(Jiang, Cubic and Ma, 2008 ESE)</p>
-<ul>
-<li>A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew’s Correlation Coefficient (<span class="math inline">\(MCC\)</span>)~:</li>
+<li><p>A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew’s Correlation Coefficient (<span class="math inline">\(MCC\)</span>)~:</p></li>
 </ul>
 <p><span class="math display">\[MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}\]</span></p>
 <p><span class="math inline">\(MCC\)</span> can also be calculated from the confusion matrix. Its range goes from -1 to +1; the closer to one the better as it indicates perfect prediction whereas a value of 0 means that classification is not better than random prediction and negative values mean that predictions are worst than random.</p>
-<div id="prediction-in-probabilistic-classifiers" class="section level3">
+<div id="prediction-in-probabilistic-classifiers" class="section level3" number="12.2.1">
 <h3><span class="header-section-number">12.2.1</span> Prediction in probabilistic classifiers</h3>
 <p>A probabilistic classifier estimates the probability of each of the posible class values given the attribute values of the instance <span class="math inline">\(P(c|{x})\)</span>. Then, given a new instance, <span class="math inline">\({x}\)</span>, the class value with the highest a posteriori probability will be assigned to that new instance (the <em>winner takes all</em> approach):</p>
 <p><span class="math inline">\(\psi({x}) = argmax_c (P(c|{x}))\)</span></p>
 </div>
 </div>
-<div id="other-metrics-used-in-software-engineering-with-classification" class="section level2">
+<div id="other-metrics-used-in-software-engineering-with-classification" class="section level2" number="12.3">
 <h2><span class="header-section-number">12.3</span> Other Metrics used in Software Engineering with Classification</h2>
 <p>In the domain of defect prediction and when two classes are considered, it is also customary to refer to the <em>probability of detection</em>, (<span class="math inline">\(pd\)</span>) which corresponds to the True Positive rate (<span class="math inline">\(TP_{rate}\)</span> or ) as a measure of the goodness of the model, and <em>probability of false alarm</em> (<span class="math inline">\(pf\)</span>) as performance measures~.</p>
 <p>The objective is to find which techniques that maximise <span class="math inline">\(pd\)</span> and minimise <span class="math inline">\(pf\)</span>. As stated by Menzies et al., the balance between these two measures depends on the project characteristics (e.g. real-time systems vs. information management systems) it is formulated as the Euclidean distance from the sweet spot <span class="math inline">\(pf=0\)</span> and <span class="math inline">\(pd=1\)</span> to a pair of <span class="math inline">\((pf,pd)\)</span>.</p>
@@ -448,20 +523,20 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
 <p>It is normalized by the maximum possible distance across the ROC square (<span class="math inline">\(\sqrt{2}, 2\)</span>), subtracted this value from 1, and expressed it as a percentage.</p>
 
 </div>
-<div id="graphical-evaluation" class="section level2">
+<div id="graphical-evaluation" class="section level2" number="12.4">
 <h2><span class="header-section-number">12.4</span> Graphical Evaluation</h2>
-<div id="receiver-operating-characteristic-roc" class="section level3">
+<div id="receiver-operating-characteristic-roc" class="section level3" number="12.4.1">
 <h3><span class="header-section-number">12.4.1</span> Receiver Operating Characteristic (ROC)</h3>
-<p>The <em>Receiver Operating Characteristic</em> (<span class="math inline">\(ROC\)</span>)<span class="citation">(Fawcett <a href="#ref-Fawcett2006">2006</a>)</span> curve which provides a graphical visualisation of the results.</p>
+<p>The <em>Receiver Operating Characteristic</em> (<span class="math inline">\(ROC\)</span>)<span class="citation">(<a href="#ref-Fawcett2006" role="doc-biblioref">Fawcett 2006</a>)</span> curve which provides a graphical visualisation of the results.</p>
 <div class="figure">
-<img src="figures/roc.png" alt="Receiver Operating Characteristic" />
+<img src="figures/roc.png" alt="" />
 <p class="caption">Receiver Operating Characteristic</p>
 </div>
 <p>The Area Under the ROC Curve (AUC) also provides a quality measure between positive and negative rates with a single value.</p>
 <p>A simple way to approximate the AUC is with the following equation:
 <span class="math inline">\(AUC=\frac{1+TP_{r}-FP_{r}}{2}\)</span></p>
 </div>
-<div id="precision-recall-curve-prc" class="section level3">
+<div id="precision-recall-curve-prc" class="section level3" number="12.4.2">
 <h3><span class="header-section-number">12.4.2</span> Precision-Recall Curve (PRC)</h3>
 <p>Similarly to ROC, another widely used evaluation technique is the Precision-Recall Curve (PRC), which depicts a trade off between precision and recall and can also be summarised into a single value as the Area Under the Precision-Recall Curve (AUPRC)~.</p>
 <p>%AUPCR is more accurate than the ROC for testing performances when dealing with imbalanced datasets as well as optimising ROC values does not necessarily optimises AUPR values, i.e., a good classifier in AUC space may not be so good in PRC space.
@@ -470,41 +545,42 @@ set. Usually 2/3 of the data points are used for training and 1/3 is used for te
 
 </div>
 </div>
-<div id="numeric-prediction-evaluation" class="section level2">
+<div id="numeric-prediction-evaluation" class="section level2" number="12.5">
 <h2><span class="header-section-number">12.5</span> Numeric Prediction Evaluation</h2>
-<p>RSME</p>
-<p>Mean Square Error = <span class="math inline">\(MSE\)</span> = <span class="math inline">\(\frac{(p_1-a_1)^2 + \ldots +(p_n-a_n)^2}{n}\)</span></p>
-<p><span class="math inline">\({MSE}=\frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2\)</span></p>
-<p><span class="math inline">\({RMSD}=\sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}\)</span></p>
-<p>Mean-absolute error <span class="math inline">\(MAE\)</span></p>
-<p><span class="math inline">\(\frac{|p_1-a_1| + \ldots +|p_n-a_n|}{n}\)</span></p>
-<p>Relative absolute error:</p>
+<p>In the case of defect prediction, it matters the difference between the predicted value and the actual value. Common performance metrics used for numeric prediction are as follows, where <span class="math inline">\(\hat{y_n}\)</span> represents the predicted value and <span class="math inline">\(y_n\)</span> the actual one.</p>
+<p>Mean Square Error (<span class="math inline">\(MSE\)</span>)</p>
+<p><span class="math inline">\(MSE = \frac{(\hat{y_1} - y_1)^2 + \ldots +(\hat{y_n} - y_n)^2}{n} = \frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2\)</span></p>
+<p>Root mean-squared error (<span class="math inline">\(RMSE\)</span>)</p>
+<p><span class="math inline">\({RMSE} = \sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}\)</span></p>
+<p>Mean Absolute Error (<span class="math inline">\(MAE\)</span>)</p>
+<p><span class="math inline">\(MAE = \frac{|\hat{y_1} - y_1| + \ldots +|\hat{y_n} - y_n|}{n} = \sqrt{\frac{\sum_{t=1}^n |\hat y_t - y|}{n}}\)</span></p>
+<p>Relative Absolute Error (<span class="math inline">\(RAE\)</span>)</p>
 <p><span class="math inline">\(RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } { \sum^N_{i=1} | \overline{\theta} - \theta_i | }\)</span></p>
-<p>Root relative-squared error:</p>
-<p><span class="math inline">\(RAE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } { \sum^N_{i=1} | \overline{\theta} - \theta_i | } }\)</span></p>
+<p>Root Relative-Squared Error (<span class="math inline">\(RRSE\)</span>)</p>
+<p><span class="math inline">\(RRSE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } { \sum^N_{i=1} | \overline{\theta} - \theta_i | } }\)</span></p>
 <p>where <span class="math inline">\(\hat{\theta}\)</span> is a mean value of <span class="math inline">\(\theta\)</span>.</p>
-<p>Relative-squared error
-<span class="math inline">\(\frac{(p_1-a_1)^2 + \ldots +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}\)</span>
-(<span class="math inline">\(\hat{a}\)</span> is the mean value over the training data)</p>
-<p>Relative Absolut Error</p>
+<p>Relative-Squared r (<span class="math inline">\(RSE\)</span>)</p>
+<p><span class="math inline">\(\frac{(p_1-a_1)^2 + \ldots +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}\)</span></p>
+<p>where (<span class="math inline">\(\hat{a}\)</span> is the mean value over the training data)</p>
+<p>Relative Absolute Error (<span class="math inline">\(RAE\)</span>)</p>
 <p>Correlation Coefficient</p>
 <p>Correlation coefficient between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\rho(X,Y) = \frac{{\bf Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}\)</span>. The sample correlation coefficient} <span class="math inline">\(r\)</span> between two samples <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_j\)</span> is vvdefined as <span class="math inline">\(r = S_{xy}/\sqrt{S_{xx}S_{yy}}\)</span></p>
 <p>Example: Is there any linear relationship between the effort estimates (<span class="math inline">\(p_i\)</span>) and actual effort (<span class="math inline">\(a_i\)</span>)?</p>
 <p><span class="math inline">\(a\|39,43,21,64,57,47,28,75,34,52\)</span></p>
 <p><span class="math inline">\(p\|65,78,52,82,92,89,73,98,56,75\)</span></p>
-<pre class="sourceCode r"><code class="sourceCode r">p&lt;-<span class="kw">c</span>(<span class="dv">39</span>,<span class="dv">43</span>,<span class="dv">21</span>,<span class="dv">64</span>,<span class="dv">57</span>,<span class="dv">47</span>,<span class="dv">28</span>,<span class="dv">75</span>,<span class="dv">34</span>,<span class="dv">52</span>)
-a&lt;-<span class="kw">c</span>(<span class="dv">65</span>,<span class="dv">78</span>,<span class="dv">52</span>,<span class="dv">82</span>,<span class="dv">92</span>,<span class="dv">89</span>,<span class="dv">73</span>,<span class="dv">98</span>,<span class="dv">56</span>,<span class="dv">75</span>)
-<span class="co">#</span>
-<span class="kw">cor</span>(p,a)</code></pre>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="evaluation-of-models.html#cb576-1" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">39</span>,<span class="dv">43</span>,<span class="dv">21</span>,<span class="dv">64</span>,<span class="dv">57</span>,<span class="dv">47</span>,<span class="dv">28</span>,<span class="dv">75</span>,<span class="dv">34</span>,<span class="dv">52</span>)</span>
+<span id="cb576-2"><a href="evaluation-of-models.html#cb576-2" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">78</span>,<span class="dv">52</span>,<span class="dv">82</span>,<span class="dv">92</span>,<span class="dv">89</span>,<span class="dv">73</span>,<span class="dv">98</span>,<span class="dv">56</span>,<span class="dv">75</span>)</span>
+<span id="cb576-3"><a href="evaluation-of-models.html#cb576-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb576-4"><a href="evaluation-of-models.html#cb576-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(p,a)</span></code></pre></div>
 <pre><code>## [1] 0.84</code></pre>
 <p><span class="math inline">\(R^2\)</span></p>
 
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-Fawcett2006">
-<p>Fawcett, Tom. 2006. “An Introduction to Roc Analysis.” <em>Pattern Recognition Letters</em> 27 (8): 861–74. <a href="https://doi.org/http://dx.doi.org/10.1016/j.patrec.2005.10.010">https://doi.org/http://dx.doi.org/10.1016/j.patrec.2005.10.010</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Fawcett2006" class="csl-entry">
+Fawcett, Tom. 2006. <span>“An Introduction to ROC Analysis.”</span> <em>Pattern Recognition Letters</em> 27 (8): 861–74. https://doi.org/<a href="http://dx.doi.org/10.1016/j.patrec.2005.10.010">http://dx.doi.org/10.1016/j.patrec.2005.10.010</a>.
 </div>
 </div>
             </section>
@@ -517,12 +593,13 @@ a&lt;-<span class="kw">c</span>(<span class="dv">65</span>,<span class="dv">78</
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -530,12 +607,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -550,7 +627,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["DASE.pdf", "DASE.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -565,8 +650,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

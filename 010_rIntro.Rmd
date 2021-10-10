@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 
 # (PART) Introduction to the R Language {.unnumbered}
 
@@ -18,14 +13,15 @@ Follow the procedures according to your operating system.
 
 -   Linux: You need to have `blas` and `gfortran` installed on your Linux, for installing the `coin` package.
 -   *Rgraphviz* requires installation from `source("http://bioconductor.org/biocLite.R")`, then `biocLite("Rgraphviz")`.
--   Uncomment the following lines for installing all missing packages (this will take some time):
+-   Run the following lines for installing all needed packages (this may take some time):
 
-```{r}
-# listofpackages <- c("arules","arulesViz", "bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape",  "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast", "urca", "glmnet", "FSelector", "pls", "emoa", "foreign" )
-# newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
-# if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
-# 
-# # install from archive
+```{r requiredPackages, eval=FALSE}
+listofpackages <- c("arules","arulesViz", "bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape",  "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast", "urca", "glmnet", "FSelector", "pls", "emoa", "foreign" )
+
+ newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
+ if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
+ 
+# # install from archive (RPG is no maintained anymore)
 # if (!is.element("rgp", installed.packages()[,1]))
 # { install.packages("https://cran.r-project.org/src/contrib/Archive/rgp/rgp_0.4-1.tar.gz", 
 #                                                     repos = NULL)
@@ -41,7 +37,6 @@ Follow the procedures according to your operating system.
 # sudo apt-get install -y libmariadb-client-lgpl-dev
 # sudo apt-get install texlive-xetex
 # sudo apt-get install r-cran-rmysql
-
 ```
 
 ## R and RStudio
@@ -117,7 +112,7 @@ vAr1
     -   sequence operator, for example: `mynums <- 0:20`
     -   arithmetic operators: + - = / \^ %/% (integer division) %% (modulus operator)
 
--   The workspace. Objects.
+-   The Workspace. Objects.
 
     -   `ls()` `objects()` `ls.str()` lists and describes the objects\
     -   `rm(x)` delete a variable. E.g., `rm(totalCost)`
@@ -268,7 +263,7 @@ assign("costs", c(50, 100, 30))
 
 ### Vector arithmetic
 
-It is done in all elements. For example:
+The operation is carried out in all the elements of the vector. For example:
 
 ```{r}
 assign("costs", c(50, 100, 30))
@@ -328,7 +323,7 @@ thevalues2 <- thevalues[selectionvec2]
 thevalues2
 
 
-### Generating regular sequenceswith  : and seq
+### Generating regular sequences with  `:` and `seq`
 
 aseqofvalues <- 1:20
 
@@ -501,30 +496,43 @@ m1
 ------------------------------------------------------------------------
 
 ## Factors
+
 - Factors are variables in R which take on a limited number of different values; such variables are often referred to as 'categorical variables' and 'enumerated type'. 
 -   Factors in R are stored as a vector of integer values with a corresponding set of character values to use when the factor is displayed.
 - The function `factor` is used to encode a vector as a factor 
 
 ```{r}
-personnel <- c("Analyst1", "ManagerL2", "Analyst1", "Analyst2",  "Boss", "ManagerL1", "ManagerL2", "Programmer1", "Programmer2", "Programmer3", "Designer1","Designer2", "OtherStaff")  # staff in a company
+personnel <- c("Analyst1", "ManagerL2", "Analyst1", "Analyst2",
+               "Boss", "ManagerL1", "ManagerL2", "Programmer1",
+               "Programmer2", "Programmer3", "Designer1","Designer2",
+               "OtherStaff")  # staff in a company
 
 personnel_factors <- factor(personnel)
 personnel_factors  #sorted alphabetically
 str(personnel_factors)
 
 personnel2 <- factor(personnel, 
-                       levels = c("Boss", "ManagerL1", "ManagerL2", "Analyst1", "Analyst2",  "Designer1","Designer2", "Programmer1", "Programmer2", "Programmer3", "OtherStaff"))  #do not duplicate the same factors
+                     levels = c("Boss", "ManagerL1", "ManagerL2", 
+                                "Analyst1", "Analyst2",  "Designer1",
+                                "Designer2", "Programmer1", "Programmer2", 
+                                "Programmer3", "OtherStaff")) 
+                                #do not duplicate the same factors
 personnel2
 str(personnel2)
 
 # a factor's levels will always be character values.
 
-levels(personnel2) <- c("B", "M1", "M2", "A1", "A2", "D1", "D2", "P1", "P2", "P3", "OS")
+levels(personnel2) <- c("B", "M1", "M2", "A1", "A2",
+                        "D1", "D2", "P1", "P2", "P3", "OS")
 personnel2
 
 personnel3 <- factor(personnel,
-                     levels = c("Boss", "ManagerL1", "ManagerL2", "Analyst1", "Analyst2",  "Designer1","Designer2", "Programmer1", "Programmer2", "Programmer3", "OtherStaff"),
-                     c("B", "M1", "M2", "A1", "A2", "D1", "D2", "P1", "P2", "P3", "OS"))
+                     levels = c("Boss", "ManagerL1", "ManagerL2",
+                                "Analyst1", "Analyst2",  "Designer1",
+                                "Designer2", "Programmer1", "Programmer2",
+                                "Programmer3", "OtherStaff"),
+                     c("B", "M1", "M2", "A1", "A2", "D1", "D2",
+                       "P1", "P2", "P3", "OS"))
 personnel3
 
 
@@ -543,8 +551,9 @@ tshirt_factor[1] < tshirt_factor[2]
 ------------------------------------------------------------------------
 
 ## Lists
+
 Lists are the R objects which contain elements of different types: numbers, strings, vectors and other lists. A list can also contain a matrix or a function as one of their elements. 
-A list is created using list() function.
+A list is created using `list()` function.
 
 Operators for subsetting lists include:
 -   '[' returns a list
@@ -630,6 +639,7 @@ str(song3)
 ------------------------------------------------------------------------
 
 ## Data frames
+
 A data frame is the data structure most often used for data analyses. A data frame is a list of equal-length vectors. Each element of the list can be thought of as a column and the length of each element of the list is the number of rows. As a result, data frames can store different classes of objects in each column (i.e. numeric, character, factor). 
 
 The `tidyverse` package provides a version of the data frame called `tibble`
@@ -706,12 +716,15 @@ mydataframeSorted2 <- mydataframe[order(mydataframe$Age, decreasing = TRUE), c(1
 mydataframeSorted2
 ```
 
-## R - Functions apply(), lapply(), sapply(), tapply(), mapply, vapply
 
-R is a functional language. 
 
-One of its main strengths lies in the use of the functions apply() (and all its variations) on lists, matrices, data frames or other data structures.
-The tidyverse package provides the `purrr` package for functional programming. The topic of functional programming lies beyond the purpose of this introduction. 
+## R Functional Functions 
+
+R is a functional language and there are some special functions provided:
+`apply()`, `lapply()`, `sapply()`, `tapply()`, `mapply()`, `vapply()`
+
+One of its main strengths lies in the use of the functions `apply()` (and all its variations) on lists, matrices, data frames or other data structures.
+The `tidyverse` package provides the `purrr` package for functional programming. The topic of functional programming lies beyond the purpose of this introduction. 
 
 Most of the commands that we use in our scripts are functions applied to data. 
 
@@ -719,11 +732,12 @@ Most of the commands that we use in our scripts are functions applied to data.
 
 An environment is a place where R stores variables that is where R binds a set of names to a set of object values. An environment is something like a bag or a list of names. Every name in an environment is unique.
 
-The top level environment R_GlobalEnv is created when we start up R and is the Global Envirnoment. Every environment has parent environment. When we define a function, a new environment is created.
+The top level environment `R_GlobalEnv` is created when we start up R and is the global environment. Every environment has parent environment. When we define a function, a new environment is created.
+
 
 ### Global variables, local variables and programming scope
 
-Global variables are those variables which exists throughout the execution of a program. Local variables are those variables which exist only within a certain part of a program like a function. The superassignment operator, \<\<-, is used to make assignments to global variables or to make assignments in the parent environment.
+Global variables are those variables which exists throughout the execution of a program. Local variables are those variables which exist only within a certain part of a program like a function. The super-assignment operator, \<\<-, is used to make assignments to global variables or to make assignments in the parent environment.
 
 ```{r}
 # variables and functions in the current environment
@@ -775,12 +789,32 @@ get('myvar_a', envir=my_env)
 
 ## Reading Data
 
+R is capable of reading most formats including CSV, MS Excel formats (xlsx, etc.) as well as other statistical packages (e.g. SAS, SPSS, etc.) and data mining tools such as ARFF (Weka's format).
+
+R also provides has two native data formats, Rdata  and Rds. These formats are used when leaving or starting an R session so that R objects can be stored or retrieved to continue in the same state). While Rdata is used to save multiple R objects, Rds is used to save a single R object. 
+
+
+```{r, eval=FALSE}
+load("data.rdata") # It is needed to be in the same directory (setwd())
+```
+
+
+To read CSV (Comma Separated Values) files in R
+
+```{r readCSV, eval=FALSE}
+# Import the data and look at the first six rows
+f <- read.csv("data.csv")
+head(f)
+```
+
+
+To read ARFF files, we can use the `foreign` library.
+
 ```{r}
 library(foreign)
 isbsg <- read.arff("datasets/effortEstimation/isbsg10teaser.arff")
 
 mydataISBSG <- isbsg[, c("FS", "N_effort")]
-
 str(mydataISBSG)
 ```
 
@@ -796,36 +830,91 @@ plot(mydataISBSG$FS, mydataISBSG$N_effort)
 
 ------------------------------------------------------------------------
 
-## Flow of Control
+## Control flow in R
 
-Ifelse:
+R provides most common control flow structures found in most languages
 
-```{r}
+`if`
+
+```{r ifExample}
+x <- 6
+if (x >= 5) {
+    "x is greater than or equals 5"
+} else {
+    "x is smaller than 5"
+}
+```
+
+
+`ifelse`
+
+```{r ifelseExample}
 library(foreign)
 kc1 <- read.arff("datasets/defectPred/D1/KC1.arff")
 kc1$Defective <- ifelse(kc1$Defective == "Y", 1, 0)
 head(kc1, 1)
 ```
 
-## Rattle
 
-There is graphical interface, Rattle, that allow us to perform some data mining tasks with R [@Williams11].
+`for` loops
 
-![Rattle: GUI for Data mining with R](./figures/rattle.png)
+```{r forExample, eval=FALSE}
+for(x in 1:5){
+  print(x)
+}
 
-## Datasets
+```
+
+
+
+## Built-in Datasets
 
 R comes with some built-in datasets ready to use
 [Description of datasets](http://www.sthda.com/english/wiki/r-built-in-data-sets)
+<http://www.sthda.com/english/wiki/r-built-in-data-sets>
 
 ```{r}
 data()  #list of datasets already available
+```
+
+Then, to load a dataset is as follows.
+
+```{r eval=FALSE}
 # load the mtcars  Motor Trend Car Road Tests
 data("mtcars")
+```
 
+And another example.
+
+```{r eval=FALSE}
 # Monthly Airline Passenger Numbers 1949-1960
 # Time series object ts() convert a vector to a time series
 data("AirPassengers")
 str(AirPassengers)
 plot(AirPassengers)
 ```
+
+
+
+## Other tools with R
+
+### Rattle
+
+There is graphical interface, Rattle, that allow us to perform some data mining tasks with R [@Williams11].
+
+![Rattle: GUI for Data mining with R](./figures/rattle.png)
+
+
+### Jamovi
+
+GUI for statistical analysis in R. It allow us to export the actual R code. 
+Its Website is: <https://www.jamovi.org/>
+
+
+![Jamovi](./figures/jamovi.png)
+
+### JASP
+
+
+There is another GUI for statistics, JASP, but it is not so easy at the moment to export the R code.
+<https://jasp-stats.org/>
