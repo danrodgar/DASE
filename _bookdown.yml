@@ -1,6 +1,6 @@
 book_filename: "DASE"
 chapter_name: "Chapter "
-
+output_dir: "docs"
 
 rmd_files: [
   "index.Rmd",
@@ -8,7 +8,6 @@ rmd_files: [
 
   "100_intro.Rmd",
   "101_rmarkdown.Rmd",
-  "102_rnpython.Rmd",
   "110_dataSources.Rmd",
   "120_dataEffortEstimation.Rmd",
 
@@ -29,7 +28,6 @@ rmd_files: [
 
   "500_advancedPreprocessingTechniques.Rmd",
   "505_featureSelectionExample.Rmd",
-  "510_advancedModelBuilding.Rmd",
 
   "600_SSL.Rmd",
 

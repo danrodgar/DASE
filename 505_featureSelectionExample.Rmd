@@ -72,11 +72,12 @@ plsFit <- train(Defective ~ .,
 
 ```
 
-To fix ```{r}
-testPred <- predict(plsFit, testing)
-postResample(testPred, testing$Defective)
-sensitivity(testPred, testing$Defective)
-confusionMatrix(testPred, testing$Defective)
+```{r}
+# To fix
+# testPred <- predict(plsFit, testing)
+# postResample(testPred, testing$Defective)
+# sensitivity(testPred, testing$Defective)
+# confusionMatrix(testPred, testing$Defective)
 ```
 
-When there are three or more classes, confusionMatrix will show the confusion matrix and a set of "one-versus-all" results. 
+When there are three or more classes, confusion matrix will show the confusion matrix and a set of "one-versus-all" results. 

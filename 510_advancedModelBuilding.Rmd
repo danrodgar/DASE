@@ -3,6 +3,7 @@
 ## Genetic Programming for Symbolic Regression
 
 This technique is inspired by Darwin's evolution theory.
+
   + 1960s by I. Rechenberg in his work "Evolution strategies“
   + 1975 Genetic Algorithms (GAs) invented by J Holland and published in his book "Adaption in Natural and Artificial Systems“
   + 1992 J. Koza has used genetic algorithm to evolve programs to perform certain tasks. He called his method "genetic programming" 
@@ -29,59 +30,61 @@ In R, we can use the "rgp" package
 ### Load Data
 
 ```{r loadData, eval = FALSE}
-library(foreign)
+# library(foreign)
 
 #read data
-telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") 
+# telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") 
  
-size_telecom1 <- telecom1$size
-effort_telecom1 <- telecom1$effort
+# size_telecom1 <- telecom1$size
+# effort_telecom1 <- telecom1$effort
 
-chinaTrain <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTrain.arff")
-china_train_size <- chinaTrain$AFP 
-china_train_effort <- chinaTrain$Effort
-chinaTest <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTest.arff")
-china_size_test <- chinaTest$AFP
-actualEffort <- chinaTest$Effort
+# chinaTrain <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTrain.arff")
+# china_train_size <- chinaTrain$AFP 
+# china_train_effort <- chinaTrain$Effort
+# chinaTest <- read.arff("./datasets/effortEstimation/china3AttSelectedAFPTest.arff")
+#china_size_test <- chinaTest$AFP
+# actualEffort <- chinaTest$Effort
 ```
 
 
 ### Genetic Programming for Symbolic Regression: China dataset.
 
 ```{r geneticProgramingExample, message=FALSE, warning=FALSE, eval = FALSE}
-library("rgp")
-options(digits = 5)
-stepsGenerations <- 100
-initialPopulation <- 100
-Steps <- c(10)
-y <- china_train_effort   #
-x <- china_train_size  # 
+# library("rgp")
+# options(digits = 5)
+# stepsGenerations <- 100
+# initialPopulation <- 100
+# Steps <- c(10)
+# y <- china_train_effort   #
+# x <- china_train_size  # 
 
-data2 <- data.frame(y, x)  # create a data frame with effort, size
+# data2 <- data.frame(y, x)  # create a data frame with effort, size
 # newFuncSet <- mathFunctionSet
 # alternatives to mathFunctionSet
 # newFuncSet <- expLogFunctionSet # sqrt", "exp", and "ln"
 # newFuncSet <- trigonometricFunctionSet
 # newFuncSet <- arithmeticFunctionSet
-newFuncSet <- functionSet("+","-","*", "/","sqrt", "log", "exp") # ,, )
+# newFuncSet <- functionSet("+","-","*", "/","sqrt", "log", "exp") # ,, )
 
-gpresult <- symbolicRegression(y ~ x, 
-                                data=data2, functionSet=newFuncSet,
-                                populationSize=initialPopulation,
-                                stopCondition=makeStepsStopCondition(stepsGenerations))
+# gpresult <- symbolicRegression(y ~ x, 
+#                                 data=data2, functionSet=newFuncSet,
+#                                populationSize=initialPopulation,
+                                
 
-bf <- gpresult$population[[which.min(sapply(gpresult$population, gpresult$fitnessFunction))]]
-wf <- gpresult$population[[which.max(sapply(gpresult$population, gpresult$fitnessFunction))]]
+# stopCondition=makeStepsStopCondition(stepsGenerations))
 
-bf1 <- gpresult$population[[which.min((gpresult$fitnessValues))]]
-plot(x,y)
-lines(x, bf(x), type = "l", col="blue", lwd=3)
-lines(x,wf(x), type = "l", col="red", lwd=2)
+# bf <- gpresult$population[[which.min(sapply(gpresult$population, gpresult$fitnessFunction))]]
+# wf <- gpresult$population[[which.max(sapply(gpresult$population, gpresult$fitnessFunction))]]
 
-x_test <- china_size_test
-estim_by_gp <- bf(x_test)
-ae_gp <- abs(actualEffort - estim_by_gp)
-mean(ae_gp)
+# bf1 <- gpresult$population[[which.min((gpresult$fitnessValues))]]
+# plot(x,y)
+# lines(x, bf(x), type = "l", col="blue", lwd=3)
+# lines(x,wf(x), type = "l", col="red", lwd=2)
+
+# x_test <- china_size_test
+# estim_by_gp <- bf(x_test)
+# ae_gp <- abs(actualEffort - estim_by_gp)
+# mean(ae_gp)
 
 ```
 
@@ -138,6 +141,7 @@ Weighted connections between nodes
   ![](figures/neuralnet2.png)
 
 There are several packages in R to work with NNs 
+
   + [neuralnet](https://cran.r-project.org/web/packages/neuralnet/index.html)
   + [nnet](https://cran.r-project.org/web/packages/nnet/index.html)
   + [RSNNS](https://cran.r-project.org/web/packages/RSNNS/index.html)
@@ -258,6 +262,7 @@ getModelInfo()$gbm$tags
 getModelInfo()$gbm$type
 ```
 
+Example
 
 ```{r}
 library(foreign)
@@ -293,8 +298,11 @@ summary(objModel)
 # find out model details
 objModel
 
+```
 
+Evaluate model
 
+```{r}
 #################################################
 # evalutate model
 #################################################

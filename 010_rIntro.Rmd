@@ -16,10 +16,10 @@ Follow the procedures according to your operating system.
 -   Run the following lines for installing all needed packages (this may take some time):
 
 ```{r requiredPackages, eval=FALSE}
-listofpackages <- c("arules","arulesViz", "bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape",  "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast", "urca", "glmnet", "FSelector", "pls", "emoa", "foreign" )
+## listofpackages <- c("arules","arulesViz", "bookdown", "ggplot2", "vioplot", "UsingR", "fpc", "reshape",  "party", "C50", "utils", "rpart", "rpart.plot", "class", "klaR", "e1071", "popbio", "boot", "dplyr", "doParallel", "gbm", "DMwR", "pROC", "neuralnet", "igraph", "RMySQL", "caret", "randomForest", "tm", "wordcloud", "xts", "lubridate", "forecast", "urca", "glmnet", "FSelector", "pls", "emoa", "foreign" )
 
- newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
- if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
+# newpackages <- listofpackages[!(listofpackages %in% installed.packages()[,"Package"])]
+# if(length(newpackages)>0) install.packages(newpackages,dependencies = TRUE)
  
 # # install from archive (RPG is no maintained anymore)
 # if (!is.element("rgp", installed.packages()[,1]))

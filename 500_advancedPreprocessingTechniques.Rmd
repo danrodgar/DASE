@@ -14,7 +14,7 @@ This technique consists in selecting the most relevant attributes. The need of a
 
 
 
-FS algorithms designed with different evaluation criteria broadly fall into two categories [21, 14, 13, 3, 1, 12, 5]:
+FS algorithms designed with different evaluation criteria broadly fall into two categories:
 
   + The *filter model* relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
 
@@ -24,8 +24,10 @@ FS algorithms designed with different evaluation criteria broadly fall into two 
 
 ## Instance Selection
 
+TBD
 
 
 ## Missing Data Imputation
 
 
+TBD

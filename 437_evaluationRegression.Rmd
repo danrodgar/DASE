@@ -22,10 +22,10 @@ $MAE = \frac{|\hat{y_1} - y_1| + \ldots  +|\hat{y_n} - y_n|}{n} = \sqrt{\frac{\s
 
 Relative Absolute Error ($RAE$)
 
-$RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | }$
+$RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i |}$
 
 
-Root Relative-Squared Error ($RRSE$)
+Root Relative-Squared Error ($RRSE$)
 
 $RRSE = \sqrt{ \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i | } }$
 

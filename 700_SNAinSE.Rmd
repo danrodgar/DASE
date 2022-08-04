@@ -67,7 +67,7 @@ summary(g);
 Plotting the graph:
 
 
-```{r}
+```{r eval = FALSE}
 layout1 <-  layout.fruchterman.reingold(g)
 plot(g, layout1)
 ```
