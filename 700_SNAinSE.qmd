@@ -7,15 +7,16 @@ In this example, we will data from the MSR14 challenge. Further information and 
 
 Similar databases can be obtained using MetricsGrimoire or other tools.
 
-In this simple example, we create a network form the users and following extracted from GitHub and stored in a MySQL database.
+In this simple example, we create a network form the users and following extracted from GitHub and stored in a MariaDB/MySQL database.
 
 We can read a file directely from MySQL dump 
 
 ```{r  eval = FALSE}	
-library(RMySQL)
+library(DBI)
+library(RMariaDB)
 
 # Connecting to MySQL
-mydb = dbConnect(MySQL(), user='msr14', password='msr14', dbname='msr14', host='localhost')
+mydb = DBI::dbConnect(RMariaDB::MariaDB(), user='msr14', password='msr14', dbname='msr14', host='localhost')
 
 # Retrieving data from MySQL
 sql <- "select user_id, follower_id from followers limit 100;"

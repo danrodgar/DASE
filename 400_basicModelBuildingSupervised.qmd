@@ -33,12 +33,12 @@ We will show the use of different classification techniques in the problem of de
 
 ## Classification Trees
 
-There are several packages for inducing classification trees, for example with the [party package](https://cran.r-project.org/web/packages/party/index.html) (recursive partitioning):
+There are several packages for inducing classification trees, for example with the [partykit package](https://cran.r-project.org/web/packages/partykit/index.html) (recursive partitioning):
 
 
 ```{r warning=FALSE, message=FALSE}
 library(foreign) # To load arff file
-library(party) # Build a decision tree
+library(partykit) # Build a decision tree
 library(rsample)
 library(yardstick)
 

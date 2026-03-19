@@ -51,13 +51,13 @@ Follow the procedures according to your operating system.
 
 -   Getting help in R
 
-    -   [RStudio cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
-    -   [Base R cheat sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
-    -   [Advanced R cheat sheet](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf)
-    -   [Data Visualization cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
-    -   [R Markdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+    -   [RStudio cheat sheet](https://posit.co/resources/cheatsheets/)
+    -   [Base R cheat sheet](https://posit.co/resources/cheatsheets/)
+    -   [Advanced R cheat sheet](https://posit.co/resources/cheatsheets/)
+    -   [Data Visualization cheat sheet](https://posit.co/resources/cheatsheets/)
+    -   [R Markdown cheatsheet](https://posit.co/resources/cheatsheets/)
     -   [R Markdown Basics] (<http://rmarkdown.rstudio.com/authoring_basics.html>)
-    -   [Python with R and Reticulate Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/reticulate.pdf)
+    -   [Python with R and Reticulate Cheatsheet](https://posit.co/resources/cheatsheets/)
     -   [tidymodels](https://rstudio.github.io/cheatsheets/tidymodels.pdf)
     -   [All cheatsheets and translations](https://rstudio.com/resources/cheatsheets/)
     -   `help("    ")` command  
