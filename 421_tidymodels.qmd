@@ -1,6 +1,5 @@
 ---
 title: "tidymodels"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -9,7 +8,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Tidymodels
 
-The replacement for the `caret` package from the tidyverse point of view. 
+The modern modeling framework in the tidyverse ecosystem. This chapter presents
+`tidymodels` as the primary approach for data preprocessing, training, tuning,
+and evaluation.
 
 
 ### References 

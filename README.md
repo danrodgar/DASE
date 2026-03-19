@@ -12,6 +12,12 @@ This project uses Quarto book rendering from `.qmd` chapters.
 - Live preview: `quarto preview .`
 - Output folder: `docs/`
 
+## Release policy
+
+- Day-to-day commits should focus on source files (`.qmd`, configs, assets) and avoid generated `docs/` churn.
+- Update `docs/` only for major versions intended for `dase.github.io` publication.
+- For a major release, run `quarto render .` and commit the resulting `docs/` changes in a dedicated release commit.
+
 **Acknowledgments**
 
 Projects:

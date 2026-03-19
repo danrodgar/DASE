@@ -196,8 +196,8 @@ table(truth = jm1.test$Defective, estimate = ldaPred)
 
 We can observe that we are training our model using `Defective ~ .` as a formula were `Defective` is the class variable separed by `~` and the ´.´ means the rest of the variables. Also, we are using a filter for the training data to (preProc) to center and scale. 
 
-Also, as stated in the documentation about the `train` method :
-> http://topepo.github.io/caret/training.html
+For modern workflows, see the `tidymodels` modeling and tuning guides:
+> https://www.tidymodels.org/
 
 ```{r warning=FALSE, eval=FALSE}
 # Tidymodels equivalent for repeated CV (example template)
@@ -233,7 +233,8 @@ The parameter `tuneLength` allow us to specify the number values per parameter t
 ``` 
 
 
-Finally to predict new cases, `caret` will use the best classfier obtained for prediction.
+Finally, predict new cases using the best tuned model from your `tidymodels`
+workflow.
 
 ```{r warning=FALSE, eval=FALSE}
 # Example after fitting tuned workflow:
