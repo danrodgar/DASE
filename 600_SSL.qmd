@@ -1,0 +1,64 @@
+
+# Further Classification Models 
+
+
+## Multilabel classification
+
+Some datasets, for example, reviews of applications and mobile applications repositories such as App Store or Google play contain reviews that can have several labels at the same time (e.g. bugs, feature requests, etc.)
+
+
+## Semi-supervised Learning
+
+Self-train a model on semi-supervised data.
+
+The legacy examples in this chapter used `DMwR2::SelfTrain`, which is no longer
+actively maintained. A standard modern alternative in R workflows is to combine
+`tidymodels` with a pseudo-labeling loop.
+
+```{r ssl, message=FALSE, warning=FALSE, eval = FALSE}
+library(tidymodels)
+
+## Small example with the Iris classification data set
+set.seed(123)
+data(iris)
+
+## Split into train / test
+idx <- sample(seq_len(nrow(iris)), 100)
+tr <- iris[idx, ]
+ts <- iris[-idx, ]
+
+## Hide labels for a large subset of the training data
+tr_ssl <- tr
+nas <- sample(seq_len(nrow(tr_ssl)), 70)
+tr_ssl$Species[nas] <- NA
+
+## Start from labeled rows only
+labeled <- tr_ssl |> dplyr::filter(!is.na(Species))
+unlabeled <- tr_ssl |> dplyr::filter(is.na(Species))
+
+## Base learner
+wf <- workflow() |>
+      add_recipe(recipe(Species ~ ., data = labeled)) |>
+      add_model(decision_tree() |> set_engine("rpart") |> set_mode("classification"))
+
+## Pseudo-labeling loop (single pass for teaching clarity)
+fit0 <- fit(wf, data = labeled)
+probs <- predict(fit0, unlabeled, type = "prob")
+preds <- predict(fit0, unlabeled, type = "class")
+
+## Keep only high-confidence pseudo-labels
+conf <- apply(as.matrix(probs), 1, max)
+selected <- conf >= 0.9
+
+pseudo <- unlabeled[selected, ]
+pseudo$Species <- preds$.pred_class[selected]
+
+augmented <- dplyr::bind_rows(labeled, pseudo)
+fit_ssl <- fit(wf, data = augmented)
+
+## Evaluate on held-out test set
+pred_ssl <- predict(fit_ssl, ts, type = "class")
+yardstick::conf_mat_vec(ts$Species, pred_ssl$.pred_class)
+```
+
+

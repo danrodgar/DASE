@@ -22,3 +22,12 @@
 # ignore all html files except:
 # !**/mathjax_header.html
 
+
+/.quarto/
+**/*.quarto_ipynb
+
+# Quarto / knitr local render artifacts
+_book/
+_freeze/
+DASE.Rmd
+*.knit.md

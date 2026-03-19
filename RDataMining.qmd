@@ -32,15 +32,15 @@ Popular packages ():
 
   + nnet Feed-forward Neural Networks and Multinomial Log-Linear Models
 
-  + randomForest Breiman and Cutler's random forests for classification and regression
+    + ranger Fast implementation of random forests for classification and regression
 
-  + caret package (short for Classification And REgression Training) is a set of functions that attempt to streamline the process for creating predictive models
+    + tidymodels A modern ecosystem for modeling workflows, tuning and evaluation
   
   + kernlab Kernel-based Machine Learning Lab
 
   + glmnet Lasso and elastic-net regularized generalized linear models
 
-  + ROCR Visualizing the performance of scoring classifiers
+    + yardstick Metrics and diagnostic summaries for model evaluation
 
   + gbm Generalized Boosted Regression Models
 
@@ -50,7 +50,7 @@ Popular packages ():
 
   + tree Classification and regression trees
 
-  + klaR Classification and visualization
+    + discrim Classification models integrated with tidymodels
 
   + ipred Improved Predictors
   

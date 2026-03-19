@@ -62,7 +62,7 @@ Types of noise data:
 There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist. 
 
 ```{r message=FALSE, warning=FALSE}
-library(DMwR2)
+library(dbscan)
 library(foreign)
 
 kc1 <- read.arff("./datasets/defectPred/D1/KC1.arff")
@@ -72,7 +72,7 @@ The LOF algorithm (`lofactor`), given a data set it produces a vector of local o
 
 ```{r message=FALSE, warning=FALSE}
 kc1num <- kc1[,1:21]
-outlier.scores <- lofactor(kc1num, k=5)
+outlier.scores <- dbscan::lof(kc1num, minPts=5)
 plot(density(na.omit(outlier.scores)))
 outliers <- order(outlier.scores, decreasing=T)[1:5]
 print(outliers)
@@ -212,8 +212,12 @@ chisq.test(kc1$DESIGN_COMPLEXITY,kc1$CYCLOMATIC_COMPLEXITY)
 $z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)}$
 
 ```{r message=FALSE, warning=FALSE}
-library(caret)
-preObj <- preProcess(kc1[, -22], method=c("center", "scale"))
+library(recipes)
+
+rec_norm <- recipe(Defective ~ ., data = kc1) |>
+  step_normalize(all_numeric_predictors())
+
+prep(rec_norm) |> juice()
 ```
 
 
@@ -262,11 +266,10 @@ Describe the dataframe:
 str(kc1)
 ```
 
-`tbl_df` creates a “local data frame” as a wrapper for better printing
+`as_tibble()` creates a local tibble for better printing and modern dplyr workflows.
 
 ```{r}
-kc1_tbl <- tbl_df(kc1) #deprecated
-kc1_tbl <- tibble(kc1)
+kc1_tbl <- tibble::as_tibble(kc1)
 ```
 
 
@@ -341,7 +344,14 @@ kc1_tbl %>%
 # Create a table grouped by Defective, and then summarise each group by taking the mean of loc
 kc1_tbl %>%
     group_by(Defective) %>%
-    summarise_each(funs(mean, min, max), BRANCH_COUNT, LOC_TOTAL)
+    summarise(
+      branch_count_mean = mean(BRANCH_COUNT, na.rm = TRUE),
+      branch_count_min = min(BRANCH_COUNT, na.rm = TRUE),
+      branch_count_max = max(BRANCH_COUNT, na.rm = TRUE),
+      loc_total_mean = mean(LOC_TOTAL, na.rm = TRUE),
+      loc_total_min = min(LOC_TOTAL, na.rm = TRUE),
+      loc_total_max = max(LOC_TOTAL, na.rm = TRUE)
+    )
 ```
 
 

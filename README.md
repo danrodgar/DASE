@@ -4,6 +4,14 @@ Course Data Analysis in Software Engineering
 - Course in <https://github.com/danrodgar/DASE>.
 - Html at <http://danrodgar.github.io/DASE/>.
 
+## Build and preview
+
+This project uses Quarto book rendering from `.qmd` chapters.
+
+- Build: `quarto render .`
+- Live preview: `quarto preview .`
+- Output folder: `docs/`
+
 **Acknowledgments**
 
 Projects:

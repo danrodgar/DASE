@@ -39,16 +39,17 @@ There are several packages for inducing classification trees, for example with t
 ```{r warning=FALSE, message=FALSE}
 library(foreign) # To load arff file
 library(party) # Build a decision tree
-library(caret) 
+library(rsample)
+library(yardstick)
 
 jm1 <- read.arff("./datasets/defectPred/D1/JM1.arff")
 str(jm1)
 
 # Stratified partition (training and test sets)
 set.seed(1234)
-inTrain <- createDataPartition(y=jm1$Defective,p=.60,list=FALSE)
-jm1.train <- jm1[inTrain,]
-jm1.test <- jm1[-inTrain,]
+split <- initial_split(jm1, prop = 0.60, strata = Defective)
+jm1.train <- training(split)
+jm1.test <- testing(split)
 
 jm1.formula <- jm1$Defective ~ . # formula approach: defect as dependent variable and the rest as independent variables
 jm1.ctree <- ctree(jm1.formula, data = jm1.train)
@@ -147,11 +148,10 @@ Probabilistic graphical model assigning a probability to each possible outcome $
 Using the `klaR` package with `caret`:
 
 ```{r warning=FALSE}
-library(caret)
 library(klaR)
 model <- NaiveBayes(Defective ~ ., data = jm1.train)
 predictions <- predict(model, jm1.test[,-22])
-confusionMatrix(predictions$class, jm1.test$Defective)
+table(truth = jm1.test$Defective, estimate = predictions$class)
 ```
 
 
@@ -187,8 +187,11 @@ A comprehensice comparison of
 One classical approach to classification is Linear Discriminant Analysis (LDA), a generalization of Fisher's linear discriminant, as a method used to find a linear combination of features to separate two or more classes.
 
 ```{r warning=FALSE}
-ldaModel <- train (Defective ~ ., data=jm1.train, method="lda", preProc=c("center","scale"))
-ldaModel
+library(MASS)
+
+ldaModel <- MASS::lda(Defective ~ ., data = jm1.train)
+ldaPred <- predict(ldaModel, jm1.test)$class
+table(truth = jm1.test$Defective, estimate = ldaPred)
 ```
 
 We can observe that we are training our model using `Defective ~ .` as a formula were `Defective` is the class variable separed by `~` and the ´.´ means the rest of the variables. Also, we are using a filter for the training data to (preProc) to center and scale. 
@@ -196,54 +199,50 @@ We can observe that we are training our model using `Defective ~ .` as a formula
 Also, as stated in the documentation about the `train` method :
 > http://topepo.github.io/caret/training.html
 
-```{r warning=FALSE}
-ctrl <- trainControl(method = "repeatedcv",repeats=3)
-ldaModel <- train (Defective ~ ., data=jm1.train, method="lda", trControl=ctrl, preProc=c("center","scale"))
-
-ldaModel
+```{r warning=FALSE, eval=FALSE}
+# Tidymodels equivalent for repeated CV (example template)
+# library(tidymodels)
+# folds <- vfold_cv(jm1.train, v = 10, repeats = 3, strata = Defective)
+# wf <- workflow() |>
+#   add_recipe(recipe(Defective ~ ., data = jm1.train) |>
+#                step_normalize(all_numeric_predictors())) |>
+#   add_model(discrim_linear() |> set_engine("MASS"))
+# fit_resamples(wf, folds, metrics = metric_set(accuracy, roc_auc))
 ```
 
 Instead of accuracy we can activate other metrics using `summaryFunction=twoClassSummary` such as `ROC`, `sensitivity` and `specificity`. To do so, we also need to speficy `classProbs=TRUE`.
 
-```{r warning=FALSE}
-ctrl <- trainControl(method = "repeatedcv",repeats=3, classProbs=TRUE, summaryFunction=twoClassSummary)
-ldaModel3xcv10 <- train (Defective ~ ., data=jm1.train, method="lda", trControl=ctrl, preProc=c("center","scale"))
-
-ldaModel3xcv10
+```{r warning=FALSE, eval=FALSE}
+# In tidymodels, use metric_set(roc_auc, sensitivity, specificity)
+# together with fit_resamples() on stratified v-fold splits.
 ```
 
 
 Most methods have parameters that need to be optimised and that is one of the
 
-```{r warning=FALSE, message=FALSE}
-plsFit3x10cv <- train (Defective ~ ., data=jm1.train, method="pls", trControl=trainControl(classProbs=TRUE), metric="ROC", preProc=c("center","scale"))
-
-plsFit3x10cv
-
-plot(plsFit3x10cv)
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+# PLS classification can be done with tidymodels using
+# pls(engine = "mixOmics") within a workflow.
 ```
 
 
 The parameter `tuneLength` allow us to specify the number values per parameter to consider.
 
-```{r warning=FALSE}
-plsFit3x10cv <- train (Defective ~ ., data=jm1.train, method="pls", trControl=ctrl, metric="ROC", tuneLength=5, preProc=c("center","scale"))
-
-plsFit3x10cv
-
-plot(plsFit3x10cv)
+```{r warning=FALSE, eval=FALSE}
+# Tune model hyper-parameters with tune_grid() and select_best().
 ``` 
 
 
 Finally to predict new cases, `caret` will use the best classfier obtained for prediction.
 
-```{r warning=FALSE}
-plsProbs <- predict(plsFit3x10cv, newdata = jm1.test, type = "prob")
+```{r warning=FALSE, eval=FALSE}
+# Example after fitting tuned workflow:
+# plsProbs <- predict(pls_fit, new_data = jm1.test, type = "prob")
 ```
 
-```{r warning=FALSE}
-plsClasses <- predict(plsFit3x10cv, newdata = jm1.test, type = "raw")
-confusionMatrix(data=plsClasses,jm1.test$Defective)
+```{r warning=FALSE, eval=FALSE}
+# plsClasses <- predict(pls_fit, new_data = jm1.test, type = "class")
+# conf_mat(bind_cols(jm1.test, plsClasses), truth = Defective, estimate = .pred_class)
 ```
 
 ### Predicting the number of defects (numerical class)
@@ -264,27 +263,35 @@ jdt$criticalBugs <- NULL
 jdt$highPriorityBugs <- NULL
 jdt$X <- NULL
 
-# Caret
-library(caret)
+library(tidymodels)
 
 # Split data into training and test datasets
 set.seed(1)
-inTrain <- createDataPartition(y=jdt$bugs,p=.8,list=FALSE)
-jdt.train <- jdt[inTrain,]
-jdt.test <- jdt[-inTrain,]
+split_jdt <- initial_split(jdt, prop = 0.8)
+jdt.train <- training(split_jdt)
+jdt.test <- testing(split_jdt)
 ```
 
 ```{r warning=FALSE}
-ctrl <- trainControl(method = "repeatedcv",repeats=3)
-glmModel <- train (bugs ~ ., data=jdt.train, method="glm", trControl=ctrl, preProc=c("center","scale"))
-glmModel
+glm_wf <- workflow() |>
+	add_recipe(recipe(bugs ~ ., data = jdt.train) |>
+							 step_normalize(all_numeric_predictors())) |>
+	add_model(linear_reg() |> set_engine("lm"))
+
+glm_fit <- fit(glm_wf, data = jdt.train)
+glm_fit
 ```
 
 
 Others such as Elasticnet:
 
 ```{r warning=FALSE}
-glmnetModel <- train (bugs ~ ., data=jdt.train, method="glmnet", trControl=ctrl, preProc=c("center","scale"))
+glmnet_wf <- workflow() |>
+	add_recipe(recipe(bugs ~ ., data = jdt.train) |>
+							 step_normalize(all_numeric_predictors())) |>
+	add_model(linear_reg(penalty = 0.01, mixture = 0.5) |> set_engine("glmnet"))
+
+glmnetModel <- fit(glmnet_wf, data = jdt.train)
 glmnetModel
 ```
 
@@ -304,9 +311,6 @@ $logit(X) = c_{0} + c_{1}X$
 ```{r warning=FALSE}
 jdt <- read.csv("./datasets/defectPred/BPD/single-version-ck-oo-EclipseJDTCore.csv", sep=";")
 
-# Caret
-library(caret)
-
 # Convert the response variable into a boolean variable (0/1)
 jdt$bugs[jdt$bugs>=1]<-1
 
@@ -315,9 +319,9 @@ bugs <- jdt$bugs
 
 # Split data into training and test datasets
 jdt2 = data.frame(cbo, bugs)
-inTrain <- createDataPartition(y=jdt2$bugs,p=.8,list=FALSE)
-jdtTrain <- jdt2[inTrain,]
-jdtTest <- jdt2[-inTrain,]
+split_jdt2 <- initial_split(jdt2, prop = 0.8)
+jdtTrain <- training(split_jdt2)
+jdtTest <- testing(split_jdt2)
 ```
 
 BLR models fault-proneness are as follows $fp(X) = \frac{e^{logit()}}{1 + e^{logit(X)}}$
@@ -368,11 +372,13 @@ logi.hist.plot(jdt2$cbo,jdt2$bugs,boxp=FALSE,type="hist",col="gray")
 
 
 
-## The caret package
+## Modeling Frameworks in R
 
-There are hundreds of packages to perform classification task in R, but many of those can be used throught the 'caret' package which helps with many of the data mining process task as described next. 
+Historically, many examples in this course used `caret`. The modern standard is
+to use `tidymodels`, which offers a modular and consistent workflow across
+preprocessing, modeling, tuning and evaluation.
 
-The caret package[http://topepo.github.io/caret/](http://topepo.github.io/caret/) provides a unified interface for modeling and prediction with around 150 different models with tools for:
+`tidymodels` provides tools for:
 
  + data splitting
     
@@ -385,9 +391,9 @@ The caret package[http://topepo.github.io/caret/](http://topepo.github.io/caret/
  + variable importance estimation, etc.
 
 
-Website: [http://caret.r-forge.r-project.org](http://caret.r-forge.r-project.org)
+Website: [https://www.tidymodels.org/](https://www.tidymodels.org/)
 
-JSS Paper: [www.jstatsoft.org/v28/i05/paper](www.jstatsoft.org/v28/i05/paper)
+Reference: [https://www.tmwr.org/](https://www.tmwr.org/)
 
 Book: [Applied Predictive Modeling](http://AppliedPredictiveModeling.com/) 
 

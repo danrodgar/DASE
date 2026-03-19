@@ -164,53 +164,45 @@ Use any classifier now:
   - Analise the results
 
 ```{r tmCaret, message=FALSE}
-library(caret)
-library(randomForest)
+library(tidymodels)
+library(ranger)
 
+set.seed(42)
+split <- initial_split(dtmdf, prop = 0.75, strata = class)
+training <- training(split)
+testing <- testing(split)
 
-inTraining <- createDataPartition(dtmdf$class, p = .75, list = FALSE)
-training <- dtmdf[ inTraining,]
-testing  <- dtmdf[-inTraining,]
+rf_spec <- rand_forest(trees = 400, min_n = 5) |>
+  set_mode("classification") |>
+  set_engine("ranger", importance = "impurity")
 
-fitControl <- trainControl(## 5-fold CV
-                           method = "repeatedcv",
-                           number = 5,
-                           ## repeated ten times
-                           repeats = 5)
+wf <- workflow() |>
+  add_formula(class ~ .) |>
+  add_model(rf_spec)
 
+rf_fit <- fit(wf, data = training)
 
-gbmFit1 <- train(class ~ ., data = training,
-                 method = "gbm",
-                 trControl = fitControl,
-                 ## This last option is actually one
-                 ## for gbm() that passes through
-                 verbose = FALSE)
+pred_cls <- predict(rf_fit, testing, type = "class")
+pred_prb <- predict(rf_fit, testing, type = "prob")
 
-gbmFit1
+head(pred_prb)
 
-# trellis.par.set(caretTheme())
-# plot(gbmFit1)
-# 
-# trellis.par.set(caretTheme())
-# plot(gbmFit1, metric = "Kappa")
-
-head(predict(gbmFit1, testing, type = "prob"))
-
-conf_mat <- confusionMatrix(testing$class, predict(gbmFit1, testing))
-conf_mat
+eval_tbl <- bind_cols(testing, pred_cls)
+conf_tbl <- conf_mat(eval_tbl, truth = class, estimate = .pred_class)
+conf_tbl
 ```
 
 We may compute manually all derived variables from the Confusion Matrix. See Section -- with the description of the Confusion Matrix
 
 ```{r confmat, message=FALSE}
-# str(conf_mat)
-TruePositive <- conf_mat$table[1,1]
+cm <- as.matrix(conf_tbl$table)
+TruePositive <- cm[1,1]
 TruePositive
-FalsePositive <- conf_mat$table[1,2]
+FalsePositive <- cm[1,2]
 FalsePositive
-FalseNegative <- conf_mat$table[2,1]
+FalseNegative <- cm[2,1]
 FalseNegative
-TrueNegative <- conf_mat$table[2,2]
+TrueNegative <- cm[2,2]
 TrueNegative
 
 # Sum columns in the confusion matrix

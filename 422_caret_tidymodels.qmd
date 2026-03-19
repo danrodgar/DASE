@@ -1,6 +1,5 @@
 ---
-title: "caret_tidymodels"
-output: html_document
+title: "caret vs tidymodels"
 ---
 
 ```{r setup, include=FALSE}
@@ -49,13 +48,10 @@ Apart from interesting real world applications of bike sharing systems, the char
 ###  Load libraries
 
 ```{r libraries, message=FALSE, collapse=TRUE}
-library(tidymodels) 
-library(caret)
-library(lubridate) 
-library(tidyverse) 
-library(moments) 
-library(corrr) 
-library(randomForest)
+library(tidymodels)
+library(tidyverse)
+library(lubridate)
+library(data.table)
 ```
 
 
@@ -93,7 +89,6 @@ bike$yr <-bike$yr + 2011
 names(bike)[names(bike) == 'dteday'] <- 'date'
 colnames(bike)[colnames(bike) == 'yr'] <- 'year'
 
-library(data.table)
 setnames(bike, "mnth", "month")
 
 nms <- c("date", "season", "year", "month", "hour", "holiday", "weekday", "workingday", "weather", "temp", "atemp", "humidity", "windspeed", "casual", "registered", "total")

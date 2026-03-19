@@ -1,0 +1,50 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Data Analysis in Software Engineering using R"
+  author:
+    - "Daniel Rodriguez"
+    - "Javier Dolado"
+  description: "DASE Data Analysis in Software Engineering"
+  site-url: "https://danrodgar.github.io/DASE/"
+  repo-url: "https://github.com/danrodgar/DASE"
+  chapters:
+    - index.qmd
+    - 010_rIntro.qmd
+    - 100_intro.qmd
+    - 101_rmarkdown.qmd
+    - 110_dataSources.qmd
+    - 120_dataEffortEstimation.qmd
+    - 200_exploratoryDataAnalysis.qmd
+    - 220_classicalHypothesisTesting.qmd
+    - 300_basicPreprocessing.qmd
+    - 400_basicModelBuildingSupervised.qmd
+    - 417_regression.qmd
+    - 420_basicModelBuildingUnsupervised.qmd
+    - 430_evaluation.qmd
+    - 435_evaluationClassifiers.qmd
+    - 436_evaluationGraphical.qmd
+    - 437_evaluationRegression.qmd
+    - 440_evaluationInSoftEng.qmd
+    - 500_advancedPreprocessingTechniques.qmd
+    - 505_featureSelectionExample.qmd
+    - 600_SSL.qmd
+    - 700_SNAinSE.qmd
+    - 800_textMiningSE.qmd
+    - 900_timeSeries.qmd
+    - 999_references.qmd
+
+format:
+  html:
+    theme: cosmo
+    css:
+      - style.css
+      - toc.css
+    toc: true
+    number-sections: true
+
+execute:
+  enabled: false
+  freeze: auto
