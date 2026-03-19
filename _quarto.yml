@@ -15,21 +15,29 @@ book:
     - 010_rIntro.qmd
     - 100_intro.qmd
     - 101_rmarkdown.qmd
+    - 102_rnpython.qmd
+    - 108_rpackages.qmd
     - 110_dataSources.qmd
     - 120_dataEffortEstimation.qmd
     - 200_exploratoryDataAnalysis.qmd
+    - 202_tidyverse.qmd
+    - 203_ggplot.qmd
     - 220_classicalHypothesisTesting.qmd
     - 300_basicPreprocessing.qmd
     - 400_basicModelBuildingSupervised.qmd
     - 417_regression.qmd
     - 420_basicModelBuildingUnsupervised.qmd
+    - 421_tidymodels.qmd
+    - 422_caret_tidymodels.qmd
     - 430_evaluation.qmd
     - 435_evaluationClassifiers.qmd
     - 436_evaluationGraphical.qmd
     - 437_evaluationRegression.qmd
+    - 439_evaluationUnsupervised.qmd
     - 440_evaluationInSoftEng.qmd
     - 500_advancedPreprocessingTechniques.qmd
     - 505_featureSelectionExample.qmd
+    - 510_advancedModelBuilding.qmd
     - 600_SSL.qmd
     - 700_SNAinSE.qmd
     - 800_textMiningSE.qmd

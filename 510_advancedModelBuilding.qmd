@@ -146,7 +146,9 @@ There are several packages in R to work with NNs
   + [nnet](https://cran.r-project.org/web/packages/nnet/index.html)
   + [RSNNS](https://cran.r-project.org/web/packages/RSNNS/index.html)
 
-TO BE FIXED!!!: The following is an example with the neuralnet package (TO DO, denormalize!).  Neural nets need scaling of variables to work properly.
+The following example uses the `neuralnet` package. For real projects, keep
+track of scaling parameters and apply an inverse transform to predictions when
+you need values on the original effort scale.
     
 ```{r NeuralNetExample, message=FALSE, warning=FALSE}
 library(foreign)
@@ -217,7 +219,7 @@ SVM
 
 ## Ensembles
 
-Ensembles or meta-learners combine multiple models to obtain better predictions i.e., this technique consists in combining single classifiers (sometimes are also called weak classifiers). 
+Ensembles or meta-learners combine multiple models to obtain better predictions, i.e., this technique consists of combining single classifiers (sometimes called weak classifiers).
 
 A problem with ensembles is that their models are difficult to interpret (they behave as blackboxes) in comparison to
 decision trees or rules which provide an explanation of their

@@ -11,7 +11,7 @@ The assignment consists of two parts
 
 ### Part A. Build a regression model for predicting "effort"
 
-The assignment will consist of creating a R Markdown document that must run some of the R scripts given in class. Each student must select a dataset from the Promise repository or other source of software engineering data (the folder datasets in the R project). The student will have to analyze the dataset and extract some conclusions about the data and about the model proposed. The basic model required is the linear regression, but the student is free to add additional predictive models.
+The assignment will consist of creating a R Markdown document that must run some of the R scripts given in class. Each student must select a dataset from the Promise repository or other source of software engineering data (the folder datasets in the R project). The student will have to analyze the dataset and extract some conclusions about the data and about the model proposed. The basic model required is linear regression, but the student is free to add additional predictive models.
 
 The steps that you have to follow in order to complete the assignment are:
 

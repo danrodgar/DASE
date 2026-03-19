@@ -29,7 +29,7 @@ Missing data is typically classified into:
   * MCAR (Missing Completely at Random) or MAR (Missing At Random) where there is no reason for those missing values and we can assume that the distribution could follow the attribute's distribution.
   * MNAR (Missing Not At Random)  where there is a pattern for those missing values and it may may be advisable to check the data gathering process to try to understand why such information is missing. 
 
-_Imputation_ consists in replacing missing values for estimates of those missing values. Many algorithms do cannot handle missing values and therefore, imputation methods are needed. We can use simple approaches such as the replacing the missing values with the mean or mode of the attribute. More elaborated approaches include:
+_Imputation_ consists of replacing missing values with estimates. Many algorithms cannot handle missing values directly; therefore, imputation methods are needed. We can use simple approaches such as replacing missing values with the mean or mode of the attribute. More elaborated approaches include:
 
   * EM (Expectation-Maximisation)
   * Distance-based
@@ -222,18 +222,55 @@ prep(rec_norm) |> juice()
 
 
 ### Z-score normalization
-TBD
+Z-score normalization rescales each value by subtracting the mean and dividing
+by the standard deviation. It is useful when models assume centered predictors
+with comparable scales.
+
+```{r message=FALSE, warning=FALSE}
+kc1_num <- dplyr::select(kc1, where(is.numeric))
+kc1_scaled <- scale(kc1_num)
+summary(kc1_scaled[, 1:min(5, ncol(kc1_scaled))])
+```
 
 ## Transformations
 
-### Linear Transformations and  Quadratic Trans formations
-TBD
+### Linear and Quadratic Transformations
+
+Transformations can reduce skewness, stabilize variance, or expose nonlinear
+patterns for models that rely on linear assumptions.
+
+```{r message=FALSE, warning=FALSE}
+if ("LOC_TOTAL" %in% names(kc1)) {
+  loc_linear <- kc1$LOC_TOTAL
+  loc_quadratic <- kc1$LOC_TOTAL^2
+  summary(data.frame(loc_linear, loc_quadratic))
+}
+```
 
 ### Box-cox transformation 
-TBD
+Box-Cox is often used for strictly positive variables. It can improve
+normality-like behavior and model fit for some regression techniques.
 
-### Nominal to Binary tranformations
-TBD
+```{r message=FALSE, warning=FALSE}
+if ("LOC_TOTAL" %in% names(kc1)) {
+  loc_pos <- kc1$LOC_TOTAL + 1
+  lambda_grid <- seq(-2, 2, by = 0.25)
+  ll <- sapply(lambda_grid, function(l) MASS::boxcox(loc_pos ~ 1, lambda = l, plotit = FALSE)$y)
+  lambda_grid[which.max(ll)]
+}
+```
+
+### Nominal to Binary Transformations
+
+Categorical predictors are commonly converted into binary indicators before
+training some models.
+
+```{r message=FALSE, warning=FALSE}
+if ("Defective" %in% names(kc1)) {
+  dummy_tbl <- model.matrix(~ Defective - 1, data = kc1)
+  head(dummy_tbl)
+}
+```
 
 
 

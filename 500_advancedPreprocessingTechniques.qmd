@@ -4,7 +4,7 @@
 
 # Feature Selection
 
-This technique consists in selecting the most relevant attributes. The need of applying FS includes the following points:
+This technique consists of selecting the most relevant attributes. The need for applying FS includes the following points:
 
   + A reduced volume of data allows different data mining or searching techniques to be applied.
 
@@ -24,10 +24,34 @@ FS algorithms designed with different evaluation criteria broadly fall into two 
 
 ## Instance Selection
 
-TBD
+Instance selection aims to reduce dataset size while preserving predictive
+performance. In software engineering datasets, this is useful when duplicated
+or near-duplicated modules inflate training time and bias model behavior.
+
+Typical strategies include:
+
+- distance-based prototype selection for nearest-neighbor methods
+- noise filtering before model training
+- uncertainty-based sampling in iterative workflows
+
+In practice, evaluate instance selection with repeated resampling and compare
+both performance and model stability against a no-selection baseline.
 
 
 ## Missing Data Imputation
 
 
-TBD
+Missing data imputation should be treated as part of the training pipeline, not
+as a one-off preprocessing script. This avoids data leakage and improves
+reproducibility.
+
+Recommended workflow:
+
+- analyze missingness patterns first (MCAR, MAR, MNAR assumptions)
+- choose imputation strategy by variable type and modeling objective
+- fit imputation using only training folds
+- validate impact on downstream metrics
+
+Common options in modern R workflows include median/mode imputation through
+`recipes`, nearest-neighbor imputation, and model-based methods for richer
+datasets.

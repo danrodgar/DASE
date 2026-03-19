@@ -145,7 +145,7 @@ Probabilistic graphical model assigning a probability to each possible outcome $
 
 
 
-Using the `klaR` package with `caret`:
+Using the `klaR` package:
 
 ```{r warning=FALSE}
 library(klaR)
@@ -170,7 +170,7 @@ head(predict(n1,jm1.test, type = c("raw")),3)
 ```
 
 
-There are other variants such as TAN and KDB that do not assume the independece condition allowin us more complex structures.
+There are other variants such as TAN and KDB that do not assume the independence condition allowing us more complex structures.
 
 
 ![Naive Bayes](./figures/classifier_TAN.png)
@@ -179,7 +179,7 @@ There are other variants such as TAN and KDB that do not assume the independece 
 ![Naive Bayes](./figures/classifier_KDB.png)
 
 
-A comprehensice comparison of 
+A comprehensive comparison of 
 
 
 ## Linear Discriminant Analysis (LDA)
@@ -194,7 +194,7 @@ ldaPred <- predict(ldaModel, jm1.test)$class
 table(truth = jm1.test$Defective, estimate = ldaPred)
 ```
 
-We can observe that we are training our model using `Defective ~ .` as a formula were `Defective` is the class variable separed by `~` and the ´.´ means the rest of the variables. Also, we are using a filter for the training data to (preProc) to center and scale. 
+We can observe that we are training our model using `Defective ~ .` as a formula were `Defective` is the class variable separated by `~` and the ´.´ means the rest of the variables. Also, we are using a filter for the training data to (preProc) to center and scale. 
 
 For modern workflows, see the `tidymodels` modeling and tuning guides:
 > https://www.tidymodels.org/

@@ -9,7 +9,7 @@ Similar databases can be obtained using MetricsGrimoire or other tools.
 
 In this simple example, we create a network form the users and following extracted from GitHub and stored in a MariaDB/MySQL database.
 
-We can read a file directely from MySQL dump 
+We can read a file directly from MySQL dump 
 
 ```{r  eval = FALSE}	
 library(DBI)
@@ -101,7 +101,16 @@ head(metrics)
 
 
 
-To fix and to do: Explain metrics and better graphs
+The metrics above can be interpreted as follows:
+
+- `degree`: local connectivity of each node
+- `betweenness`: how frequently a node lies on shortest paths
+- `closeness`: how quickly a node can reach other nodes
+- `eig`: influence based on connections to influential nodes
+- `cor`: core-periphery position in the network
+
+For better graph readability, filter to the largest connected component or top
+nodes by degree before plotting labels.
 
 ```{r eval = FALSE}
 library(ggplot2)

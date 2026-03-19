@@ -53,9 +53,12 @@ to create the matrix.
 ## Example of classifying bugs from Bugzilla 
 
 
-Bugzilla is Issue Tracking System that allow us to follow the evolution of a project.
+Bugzilla is an issue-tracking system that allows us to follow the evolution of
+a software project.
 
-The following example shows how to work with entries from Bugzilla. It is assumed that the data has been extracted and we have the records in a flat file (this can be done using Web crawlers or directly using the SQL database).
+The following example shows how to work with Bugzilla entries. We assume the
+data has already been extracted into a flat file (for example via SQL export or
+web crawling).
 
 
 ```{r readFileCompendiumARFF, message=FALSE, warning=FALSE}
