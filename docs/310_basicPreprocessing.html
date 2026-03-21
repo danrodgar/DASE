@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="DASE Data Analysis in Software Engineering">
+
+<title>11&nbsp; Preprocessing – Data Analysis in Software Engineering using R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./320_advancedPreprocessingTechniques.html" rel="next">
+<link href="./230_exploratoryDataAnalysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ca4b39786b312f69619f2788bc8e85cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="toc.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./310_basicPreprocessing.html">Part III - Preprocessing</a></li><li class="breadcrumb-item"><a href="./310_basicPreprocessing.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analysis in Software Engineering using R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/danrodgar/DASE" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I - R Ecosystem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110_rIntro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130_rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./140_rnpython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./150_rpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./160_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./170_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The <code>ggplot2</code> package</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II - Data Sources and EDA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_dataSources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./220_dataEffortEstimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./230_exploratoryDataAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III - Preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_basicPreprocessing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./330_featureSelectionExample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Feature Selection Example</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV - Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_basicModelBuildingSupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Supervised Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./420_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./430_basicModelBuildingUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Unsupervised or Descriptive modeling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V - Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./520_evaluationClassifiers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./530_evaluationGraphical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Graphical Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./540_evaluationRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./550_evaluationUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./560_classicalHypothesisTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Classical Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./570_evaluationInSoftEng.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Measures of Evaluation in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./580_advancedModelBuilding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Advanced Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./590_SSL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VI - Specialized Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_SNAinSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Social Network Analysis in SE</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_textMiningSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./630_timeSeries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Time Series</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VII - References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./990_references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data"><span class="header-section-number">11.1</span> Data</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values"><span class="header-section-number">11.2</span> Missing values</a></li>
+  <li><a href="#noise" id="toc-noise" class="nav-link" data-scroll-target="#noise"><span class="header-section-number">11.3</span> Noise</a></li>
+  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">11.4</span> Outliers</a></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection"><span class="header-section-number">11.5</span> Feature selection</a>
+  <ul class="collapse">
+  <li><a href="#fselector-package-in-r" id="toc-fselector-package-in-r" class="nav-link" data-scroll-target="#fselector-package-in-r"><span class="header-section-number">11.5.1</span> FSelector package in R</a></li>
+  </ul></li>
+  <li><a href="#instance-selection" id="toc-instance-selection" class="nav-link" data-scroll-target="#instance-selection"><span class="header-section-number">11.6</span> Instance selection</a></li>
+  <li><a href="#discretization" id="toc-discretization" class="nav-link" data-scroll-target="#discretization"><span class="header-section-number">11.7</span> Discretization</a></li>
+  <li><a href="#correlation-coefficient-and-covariance-for-numeric-data" id="toc-correlation-coefficient-and-covariance-for-numeric-data" class="nav-link" data-scroll-target="#correlation-coefficient-and-covariance-for-numeric-data"><span class="header-section-number">11.8</span> Correlation Coefficient and Covariance for Numeric Data</a></li>
+  <li><a href="#normalization" id="toc-normalization" class="nav-link" data-scroll-target="#normalization"><span class="header-section-number">11.9</span> Normalization</a>
+  <ul class="collapse">
+  <li><a href="#min-max-normalization" id="toc-min-max-normalization" class="nav-link" data-scroll-target="#min-max-normalization"><span class="header-section-number">11.9.1</span> Min-Max Normalization</a></li>
+  <li><a href="#z-score-normalization" id="toc-z-score-normalization" class="nav-link" data-scroll-target="#z-score-normalization"><span class="header-section-number">11.9.2</span> Z-score normalization</a></li>
+  </ul></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations"><span class="header-section-number">11.10</span> Transformations</a>
+  <ul class="collapse">
+  <li><a href="#linear-and-quadratic-transformations" id="toc-linear-and-quadratic-transformations" class="nav-link" data-scroll-target="#linear-and-quadratic-transformations"><span class="header-section-number">11.10.1</span> Linear and Quadratic Transformations</a></li>
+  <li><a href="#box-cox-transformation" id="toc-box-cox-transformation" class="nav-link" data-scroll-target="#box-cox-transformation"><span class="header-section-number">11.10.2</span> Box-cox transformation</a></li>
+  <li><a href="#nominal-to-binary-transformations" id="toc-nominal-to-binary-transformations" class="nav-link" data-scroll-target="#nominal-to-binary-transformations"><span class="header-section-number">11.10.3</span> Nominal to Binary Transformations</a></li>
+  </ul></li>
+  <li><a href="#preprocessing-in-r" id="toc-preprocessing-in-r" class="nav-link" data-scroll-target="#preprocessing-in-r"><span class="header-section-number">11.11</span> Preprocessing in R</a>
+  <ul class="collapse">
+  <li><a href="#the-dplyr-package" id="toc-the-dplyr-package" class="nav-link" data-scroll-target="#the-dplyr-package"><span class="header-section-number">11.11.1</span> The <code>dplyr</code> package</a></li>
+  </ul></li>
+  <li><a href="#missing-but-critical-in-preprocessing-leakage-safe-workflows" id="toc-missing-but-critical-in-preprocessing-leakage-safe-workflows" class="nav-link" data-scroll-target="#missing-but-critical-in-preprocessing-leakage-safe-workflows"><span class="header-section-number">11.12</span> Missing but critical in preprocessing: leakage-safe workflows</a>
+  <ul class="collapse">
+  <li><a href="#group-aware-and-time-aware-splitting" id="toc-group-aware-and-time-aware-splitting" class="nav-link" data-scroll-target="#group-aware-and-time-aware-splitting"><span class="header-section-number">11.12.1</span> Group-aware and time-aware splitting</a></li>
+  <li><a href="#concrete-leakage-examples-to-avoid" id="toc-concrete-leakage-examples-to-avoid" class="nav-link" data-scroll-target="#concrete-leakage-examples-to-avoid"><span class="header-section-number">11.12.2</span> Concrete leakage examples to avoid</a></li>
+  </ul></li>
+  <li><a href="#class-imbalance-handling" id="toc-class-imbalance-handling" class="nav-link" data-scroll-target="#class-imbalance-handling"><span class="header-section-number">11.13</span> Class imbalance handling</a></li>
+  <li><a href="#preprocessing-checklist" id="toc-preprocessing-checklist" class="nav-link" data-scroll-target="#preprocessing-checklist"><span class="header-section-number">11.14</span> Preprocessing checklist</a></li>
+  <li><a href="#end-to-end-workflow-preprocess-to-deploy" id="toc-end-to-end-workflow-preprocess-to-deploy" class="nav-link" data-scroll-target="#end-to-end-workflow-preprocess-to-deploy"><span class="header-section-number">11.15</span> End-to-End Workflow (Preprocess to Deploy)</a></li>
+  <li><a href="#other-libraries-and-tricks" id="toc-other-libraries-and-tricks" class="nav-link" data-scroll-target="#other-libraries-and-tricks"><span class="header-section-number">11.16</span> Other libraries and tricks</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./310_basicPreprocessing.html">Part III - Preprocessing</a></li><li class="breadcrumb-item"><a href="./310_basicPreprocessing.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Following the data mining process, we describe what is meant by preprocessing, classical supervised models, unsupervised models and evaluation in the context of software engineering with examples</p>
+<p>This task is probably the hardest and where most of effort is spend in the data mining process. It is quite typical to transform the data, for example, finding inconsistencies, normalising, imputing missing values, transforming input data, merging variables, etc.</p>
+<p>Typically, pre-processing consist of the following tasks (subprocesses):</p>
+<ul>
+<li>Data cleaning (consistency, noise detection, outliers)</li>
+<li>Data integration</li>
+<li>Data transformation (normalisation, discretisation) and derivation of new attributes from existing ones (e.g., population density from population and area)</li>
+<li>Missing data imputation</li>
+<li>Data reduction (feature selection and instance selection)</li>
+</ul>
+<section id="data" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="data"><span class="header-section-number">11.1</span> Data</h2>
+<p><em>Consistent</em> data are semantically correct based on real-world knowledge of the problem, i.e., no constraints are violated and data can be used for inducing models and analysis. For example, LoC or effort is constrained to non-negative values. We can also consider multiple attributes to be consistent among them, and even across datasets (e.g., same metrics but collected by different tools).</p>
+</section>
+<section id="missing-values" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="missing-values"><span class="header-section-number">11.2</span> Missing values</h2>
+<p><em>Missing values</em> will have a negative effect when analysing the data or learning models. The results can be biased when compared with the models induced from the complete data, the results can be harder to analyse, it may be needed to discard records with missing values depending on the algorithm and this can be an important problems with small datasets such as the effort estimation ones.</p>
+<p>Missing data is typically classified into: * MCAR (Missing Completely at Random) or MAR (Missing At Random) where there is no reason for those missing values and we can assume that the distribution could follow the attribute’s distribution. * MNAR (Missing Not At Random) where there is a pattern for those missing values and it may be advisable to check the data-gathering process to try to understand why such information is missing.</p>
+<p><em>Imputation</em> consists of replacing missing values with estimates. Many algorithms cannot handle missing values directly; therefore, imputation methods are needed. We can use simple approaches such as replacing missing values with the mean or mode of the attribute. More elaborate approaches include:</p>
+<ul>
+<li>EM (Expectation-Maximisation)</li>
+<li>Distance-based
+<ul>
+<li><span class="math inline">\(k\)</span>-NN (<span class="math inline">\(k\)</span>-Nearest Neighbours)</li>
+<li>Clustering</li>
+</ul></li>
+</ul>
+<p>In R, a missing value is represented with <code>NA</code> and the analyst must decide what to do with missing data. The simplest approach is to leave out instances (ignore missing -IM-) with with missing data. This functionality is supported by many base functions through the <code>na.rm</code> option.</p>
+<p>The <code>mice</code> R package. MICE (Multivariate Imputation via Chained Equations) assumes that data are missing at random. Other packages include <code>Amelia</code>, <code>missForest</code>, <code>Hmisc</code> and <code>mi</code>.</p>
+</section>
+<section id="noise" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="noise"><span class="header-section-number">11.3</span> Noise</h2>
+<p>Imperfections in real-world data can negatively influence induced machine learning models. Approaches to deal with noisy data include: * Robust learners capable of handling noisy data (e.g., C4.5 through pruning strategies) * Data polishing methods which aim to correct noisy instances prior training * Noise filters which are used to identify and eliminate noisy instances from the training data.</p>
+<p>Types of noise data: * Class Noise (aka label noise). + There can be contradictory cases (all attributes have the same value except the class) + Misclassifications. The class attribute is not labeled with the true label (golden truth) * Attribute Noise. Values of attributes that are noise, missing or unknown.</p>
+</section>
+<section id="outliers" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="outliers"><span class="header-section-number">11.4</span> Outliers</h2>
+<p>There is a large amount of literature related to outlier detection, and furthermore several definitions of outlier exist.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>unified <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./datasets/defectPred/unified/Unified-file.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>kc1 <span class="ot">&lt;-</span> unified[, <span class="fu">c</span>(<span class="st">"McCC"</span>, <span class="st">"CLOC"</span>, <span class="st">"PDA"</span>, <span class="st">"PUA"</span>, <span class="st">"LLOC"</span>, <span class="st">"LOC"</span>, <span class="st">"bug"</span>)]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>kc1<span class="sc">$</span>Defective <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(kc1<span class="sc">$</span>bug <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"Y"</span>, <span class="st">"N"</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>kc1<span class="sc">$</span>bug <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The LOF algorithm (<code>lofactor</code>), given a data set it produces a vector of local outlier factors for each case.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kc1num <span class="ot">&lt;-</span> kc1[, <span class="fu">sapply</span>(kc1, is.numeric)]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>outlier.scores <span class="ot">&lt;-</span> dbscan<span class="sc">::</span><span class="fu">lof</span>(kc1num, <span class="at">minPts=</span><span class="dv">5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">na.omit</span>(outlier.scores)))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>outliers <span class="ot">&lt;-</span> <span class="fu">order</span>(outlier.scores, <span class="at">decreasing=</span>T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(outliers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Another simple method of Hiridoglou and Berthelot for positive observations.</p>
+</section>
+<section id="feature-selection" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">11.5</span> Feature selection</h2>
+<p>Feature Selection (FS) aims at identifying the most relevant attributes from a dataset. It is important in different ways:</p>
+<ul>
+<li><p>A reduced volume of data allows different data mining or searching techniques to be applied.</p></li>
+<li><p>Irrelevant and redundant attributes can generate less accurate and more complex models. Furthermore, data mining algorithms can be executed faster.</p></li>
+<li><p>It avoids the collection of data for those irrelevant and redundant attributes in the future.</p></li>
+</ul>
+<p>The problem of FS received a thorough treatment in pattern recognition and machine learning. Most of the FS algorithms tackle the task as a <em>search</em> problem, where each state in the search specifies a distinct subset of the possible attributes <span class="citation" data-cites="BL97">(<a href="990_references.html#ref-BL97" role="doc-biblioref">Blum and Langley 1997</a>)</span>. The search procedure is combined with a criterion to evaluate the merit of each candidate subset of attributes. There are a multiple possible combinations between each procedure search and each attribute measure <span class="citation" data-cites="LY05">(<a href="990_references.html#ref-LY05" role="doc-biblioref">Liu and Yu 2005</a>)</span>.</p>
+<p>There are two major approaches in FS from the method’s output point of view:</p>
+<ul>
+<li><p><em>Feature subset selection</em> (FSS)</p></li>
+<li><p><em>Feature ranking</em> in which attributes are ranked as a list of features which are ordered according to evaluation measures (a subset of features is often selected from the top of the ranking list).</p></li>
+</ul>
+<p>FFS algorithms designed with different evaluation criteria broadly fall into two categories:</p>
+<ul>
+<li><p>The <em>filter</em> model relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.</p></li>
+<li><p>The <em>wrapper</em> model requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model <span class="citation" data-cites="KJ97">Langley (<a href="990_references.html#ref-Lan94" role="doc-biblioref">1994</a>)</span>.</p></li>
+</ul>
+<p>Feature subset algorithms search through candidate feature subsets guide by a certain evaluation measure <span class="citation" data-cites="LM98">(<a href="990_references.html#ref-LM98" role="doc-biblioref">Liu and Motoda 1998</a>)</span> which captures the goodness of each subset. An optimal (or near optimal) subset is selected when the search stops.</p>
+<p>Some existing evaluation measures that have been shown effective in removing both irrelevant and redundant features include the consistency measure <span class="citation" data-cites="DLM00">(<a href="990_references.html#ref-DLM00" role="doc-biblioref">Dash et al. 2000</a>)</span>, the correlation measure <span class="citation" data-cites="Hal99">(<a href="990_references.html#ref-Hal99" role="doc-biblioref">Hall 1999</a>)</span> and the estimated accuracy of a learning algorithm <span class="citation" data-cites="KJ97">(<a href="990_references.html#ref-KJ97" role="doc-biblioref">Kohavi and John 1997</a>)</span>.</p>
+<ul>
+<li><p><em>Consistency</em> measure attempts to find a minimum number of features that separate classes as consistently as the full set of features can. An inconsistency is defined as to instances having the same feature values but different class labels.</p></li>
+<li><p><em>Correlation</em> measure evaluates the goodness of feature subsets based on the hypothesis that good feature subsets contain features highly correlated to the class, yet uncorrelated to each other.</p></li>
+<li><p><em>Wrapper-based</em> attribute selection uses the target learning algorithm to estimate the worth of attribute subsets. The feature subset selection algorithm conducts a search for a good subset using the induction algorithm itself as part of the evaluation function.</p></li>
+</ul>
+<p>Langley <span class="citation" data-cites="Lan94">(<a href="990_references.html#ref-Lan94" role="doc-biblioref">1994</a>)</span> notes that feature selection algorithms that search through the space of feature subsets must address four main issues: (i) the starting point of the search, (ii) the organization of the search, (iii) the evaluation of feature subsets and (iv) the criterion used to terminate the search. Different algorithms address these issues differently.</p>
+<p>It is impractical to look at all possible feature subsets, even with a small number of attributes. Feature selection algorithms usually proceed greedily and can be classified into those that add features to an initially empty set (<em>forward selection</em>) and those that remove features from an initially complete set (<em>backward elimination</em>). Hybrid approaches both add and remove features as the algorithm progresses. Forward selection is much faster than backward elimination and therefore scales better to large datasets. A wide range of search strategies can be used: best-first, branch-and-bound, simulated annealing, genetic algorithms (see Kohavi and John <span class="citation" data-cites="KJ97">(<a href="990_references.html#ref-KJ97" role="doc-biblioref">1997</a>)</span> for a review).</p>
+<section id="fselector-package-in-r" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="fselector-package-in-r"><span class="header-section-number">11.5.1</span> FSelector package in R</h3>
+<p>The <code>FSelector</code> package in R implements several classic feature-selection algorithms inspired by Weka. For new projects, prefer actively maintained alternatives such as <code>FSelectorRcpp</code>, <code>Boruta</code>, or recipe-based selectors in <code>tidymodels</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FSelector)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>unified <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./datasets/defectPred/unified/Unified-file.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cm1 <span class="ot">&lt;-</span> unified[, <span class="fu">c</span>(<span class="st">"McCC"</span>, <span class="st">"CLOC"</span>, <span class="st">"PDA"</span>, <span class="st">"PUA"</span>, <span class="st">"LLOC"</span>, <span class="st">"LOC"</span>, <span class="st">"bug"</span>)]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>cm1<span class="sc">$</span>Defective <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(cm1<span class="sc">$</span>bug <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"Y"</span>, <span class="st">"N"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>cm1<span class="sc">$</span>bug <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>cm1RFWeigths <span class="ot">&lt;-</span> <span class="fu">random.forest.importance</span>(Defective <span class="sc">~</span> ., cm1)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cutoff.biggest.diff</span>(cm1RFWeigths)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using the Information Gain measure as ranking:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cm1GRWeights <span class="ot">&lt;-</span> <span class="fu">gain.ratio</span>(Defective <span class="sc">~</span> ., cm1)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cm1GRWeights</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cutoff.biggest.diff</span>(cm1GRWeights)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># After assigning weights, we can select the statistically significant ones</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>cm1X2Weights <span class="ot">&lt;-</span> <span class="fu">chi.squared</span>(Defective <span class="sc">~</span> ., cm1)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cutoff.biggest.diff</span>(cm1X2Weights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using CFS attribute selection</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FSelector)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>unified <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./datasets/defectPred/unified/Unified-file.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cm1 <span class="ot">&lt;-</span> unified[, <span class="fu">c</span>(<span class="st">"McCC"</span>, <span class="st">"CLOC"</span>, <span class="st">"PDA"</span>, <span class="st">"PUA"</span>, <span class="st">"LLOC"</span>, <span class="st">"LOC"</span>, <span class="st">"bug"</span>)]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>cm1<span class="sc">$</span>Defective <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(cm1<span class="sc">$</span>bug <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"Y"</span>, <span class="st">"N"</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>cm1<span class="sc">$</span>bug <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">cfs</span>(Defective <span class="sc">~</span> ., cm1)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">as.simple.formula</span>(result, <span class="st">"Defective"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>f</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Other packages for feature selection in R include <code>FSelectorRcpp</code>, which re-implements <code>FSelector</code> methods without Weka dependencies.</p>
+<p>Another popular package is <code>Boruta</code>, which is based on selection based on Random Forest.</p>
+</section>
+</section>
+<section id="instance-selection" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="instance-selection"><span class="header-section-number">11.6</span> Instance selection</h2>
+<p>Removal of samples (complementary to the removal of attributes) in order to scale down the dataset prior to learning a model so that there is (almost) no performance loss.</p>
+<p>There are two types of processes:</p>
+<ul>
+<li><p><em>Prototype Selection</em> (PS) <span class="citation" data-cites="GDCH12">(<a href="990_references.html#ref-GDCH12" role="doc-biblioref">Garcia et al. 2012</a>)</span> when the subset is used with a distance based method (kNN)</p></li>
+<li><p><em>Training Set Selection</em> (TSS) <span class="citation" data-cites="CanoHL07">(<a href="990_references.html#ref-CanoHL07" role="doc-biblioref">Cano et al. 2007</a>)</span> in which an actual model is learned.</p></li>
+</ul>
+<p>It is also a search problem as with <em>feature selection</em>. Garcia et al. <span class="citation" data-cites="GDCH12">(<a href="990_references.html#ref-GDCH12" role="doc-biblioref">2012</a>)</span> provide a comprehensive overview of the topic.</p>
+</section>
+<section id="discretization" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="discretization"><span class="header-section-number">11.7</span> Discretization</h2>
+<p>This process transforms continuous attributes into discrete ones, by associating categorical values to intervals and thus transforming quantitative data into qualitative data.</p>
+</section>
+<section id="correlation-coefficient-and-covariance-for-numeric-data" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="correlation-coefficient-and-covariance-for-numeric-data"><span class="header-section-number">11.8</span> Correlation Coefficient and Covariance for Numeric Data</h2>
+<p>Two random variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are called independent if the probability distribution of one variable is not affected by the presence of another.</p>
+<p><span class="math inline">\(\tilde{\chi}^2=\frac{1}{d}\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(kc1<span class="sc">$</span>CLOC, kc1<span class="sc">$</span>LOC, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(kc1<span class="sc">$</span>McCC, kc1<span class="sc">$</span>LLOC, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="normalization" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="normalization"><span class="header-section-number">11.9</span> Normalization</h2>
+<section id="min-max-normalization" class="level3" data-number="11.9.1">
+<h3 data-number="11.9.1" class="anchored" data-anchor-id="min-max-normalization"><span class="header-section-number">11.9.1</span> Min-Max Normalization</h3>
+<p><span class="math inline">\(z_i=\frac{x_i-\min(x)}{\max(x)-\min(x)}\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rec_norm <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Defective <span class="sc">~</span> ., <span class="at">data =</span> kc1) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">prep</span>(rec_norm) <span class="sc">|&gt;</span> <span class="fu">juice</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="z-score-normalization" class="level3" data-number="11.9.2">
+<h3 data-number="11.9.2" class="anchored" data-anchor-id="z-score-normalization"><span class="header-section-number">11.9.2</span> Z-score normalization</h3>
+<p>Z-score normalization rescales each value by subtracting the mean and dividing by the standard deviation. It is useful when models assume centered predictors with comparable scales.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kc1_num <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(kc1, <span class="fu">where</span>(is.numeric))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>kc1_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(kc1_num)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(kc1_scaled[, <span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">5</span>, <span class="fu">ncol</span>(kc1_scaled))])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="transformations" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="transformations"><span class="header-section-number">11.10</span> Transformations</h2>
+<section id="linear-and-quadratic-transformations" class="level3" data-number="11.10.1">
+<h3 data-number="11.10.1" class="anchored" data-anchor-id="linear-and-quadratic-transformations"><span class="header-section-number">11.10.1</span> Linear and Quadratic Transformations</h3>
+<p>Transformations can reduce skewness, stabilize variance, or expose nonlinear patterns for models that rely on linear assumptions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"LOC_TOTAL"</span> <span class="sc">%in%</span> <span class="fu">names</span>(kc1)) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  loc_linear <span class="ot">&lt;-</span> kc1<span class="sc">$</span>LOC_TOTAL</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  loc_quadratic <span class="ot">&lt;-</span> kc1<span class="sc">$</span>LOC_TOTAL<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(<span class="fu">data.frame</span>(loc_linear, loc_quadratic))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="box-cox-transformation" class="level3" data-number="11.10.2">
+<h3 data-number="11.10.2" class="anchored" data-anchor-id="box-cox-transformation"><span class="header-section-number">11.10.2</span> Box-cox transformation</h3>
+<p>Box-Cox is often used for strictly positive variables. It can improve normality-like behavior and model fit for some regression techniques.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"LOC_TOTAL"</span> <span class="sc">%in%</span> <span class="fu">names</span>(kc1)) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  loc_pos <span class="ot">&lt;-</span> kc1<span class="sc">$</span>LOC_TOTAL <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  lambda_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="at">by =</span> <span class="fl">0.25</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  ll <span class="ot">&lt;-</span> <span class="fu">sapply</span>(lambda_grid, <span class="cf">function</span>(l) MASS<span class="sc">::</span><span class="fu">boxcox</span>(loc_pos <span class="sc">~</span> <span class="dv">1</span>, <span class="at">lambda =</span> l, <span class="at">plotit =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>y)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  lambda_grid[<span class="fu">which.max</span>(ll)]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="nominal-to-binary-transformations" class="level3" data-number="11.10.3">
+<h3 data-number="11.10.3" class="anchored" data-anchor-id="nominal-to-binary-transformations"><span class="header-section-number">11.10.3</span> Nominal to Binary Transformations</h3>
+<p>Categorical predictors are commonly converted into binary indicators before training some models.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"Defective"</span> <span class="sc">%in%</span> <span class="fu">names</span>(kc1)) {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dummy_tbl <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> Defective <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> kc1)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(dummy_tbl)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="preprocessing-in-r" class="level2" data-number="11.11">
+<h2 data-number="11.11" class="anchored" data-anchor-id="preprocessing-in-r"><span class="header-section-number">11.11</span> Preprocessing in R</h2>
+<section id="the-dplyr-package" class="level3" data-number="11.11.1">
+<h3 data-number="11.11.1" class="anchored" data-anchor-id="the-dplyr-package"><span class="header-section-number">11.11.1</span> The <code>dplyr</code> package</h3>
+<p>The <em><a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a></em> package created by Hadley Wickham. Some functions are similar to SQL syntax. key functions in dplyr include:</p>
+<ul>
+<li>select: select columns from a dataframe</li>
+<li>filter: select rows from a dataframe</li>
+<li>summarize: allows us to do summary stats based upon the grouped variable</li>
+<li>group_by: group by a factor variable</li>
+<li>arrange: order the dataset</li>
+<li>joins: as in sql left join</li>
+</ul>
+<p>Tutorial: <a href="https://github.com/justmarkham/dplyr-tutorial">https://github.com/justmarkham/dplyr-tutorial</a></p>
+<p>Examples</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Describe the dataframe:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kc1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>as_tibble()</code> creates a local tibble for better printing and modern dplyr workflows.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>(kc1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Filter:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter rows: use comma or &amp; to represent AND condition</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(kc1_tbl, Defective <span class="sc">==</span> <span class="st">"Y"</span> <span class="sc">&amp;</span> CLOC <span class="sc">!=</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Another operator is <code>%in%</code>.</p>
+<p>Select:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(kc1_tbl, <span class="fu">contains</span>(<span class="st">"LOC"</span>), Defective)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, <code>kc1_tbl</code> contains(“LOC”), Defective</p>
+<p>Filter and Select together:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nesting method</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="fu">select</span>(kc1_tbl, <span class="fu">contains</span>(<span class="st">"LOC"</span>), Defective), Defective <span class="sc">==</span> <span class="st">"Y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is easier using the chaining method:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># chaining method</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"LOC"</span>), Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Defective <span class="sc">==</span> <span class="st">"Y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Arrange ascending</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(LOC, Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(LOC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Arrange descending:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(LOC, Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(LOC))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Mutate:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(Defective <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CLOC, LLOC, LOC, Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">loc_density =</span> LOC <span class="sc">/</span> <span class="fu">pmax</span>(CLOC, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>summarise</code>: Reduce variables to values</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table grouped by Defective, and then summarise each group by taking the mean of loc</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_loc =</span> <span class="fu">mean</span>(LOC, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table grouped by Defective, and then summarise each group by taking the mean of loc</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">mccc_mean =</span> <span class="fu">mean</span>(McCC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">mccc_min =</span> <span class="fu">min</span>(McCC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">mccc_max =</span> <span class="fu">max</span>(McCC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">loc_mean =</span> <span class="fu">mean</span>(LOC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">loc_min =</span> <span class="fu">min</span>(LOC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">loc_max =</span> <span class="fu">max</span>(LOC, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It seems than the number of <em>Defective</em> modules is larger than the <em>Non-Defective</em> ones. We can count them with:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># n() or tally</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Defective) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tally</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It seems that it’s an imbalanced dataset…</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># randomly sample a fixed number of rows, without replacement</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">2</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># randomly sample a fraction of rows, with replacement</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>kc1_tbl <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>(<span class="fl">0.05</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Better formatting adapted to the screen width</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(kc1_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="missing-but-critical-in-preprocessing-leakage-safe-workflows" class="level2" data-number="11.12">
+<h2 data-number="11.12" class="anchored" data-anchor-id="missing-but-critical-in-preprocessing-leakage-safe-workflows"><span class="header-section-number">11.12</span> Missing but critical in preprocessing: leakage-safe workflows</h2>
+<p>A common mistake is to normalize, impute, or select features on the <strong>full dataset</strong> before splitting into train/test. This leaks information from test to train and usually inflates performance.</p>
+<p>Recommended order:</p>
+<ol type="1">
+<li>Split data first</li>
+<li>Fit preprocessing only on training data</li>
+<li>Apply the learned preprocessing to validation/test data</li>
+<li>Train and evaluate model</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(kc1_tbl, <span class="at">prop =</span> <span class="fl">0.75</span>, <span class="at">strata =</span> Defective)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>train_tbl <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>test_tbl <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>rec_safe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Defective <span class="sc">~</span> ., <span class="at">data =</span> train_tbl) <span class="sc">|&gt;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_impute_median</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>prep_rec <span class="ot">&lt;-</span> <span class="fu">prep</span>(rec_safe)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>train_processed <span class="ot">&lt;-</span> <span class="fu">bake</span>(prep_rec, <span class="at">new_data =</span> train_tbl)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>test_processed <span class="ot">&lt;-</span> <span class="fu">bake</span>(prep_rec, <span class="at">new_data =</span> test_tbl)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train_processed)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(test_processed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="group-aware-and-time-aware-splitting" class="level3" data-number="11.12.1">
+<h3 data-number="11.12.1" class="anchored" data-anchor-id="group-aware-and-time-aware-splitting"><span class="header-section-number">11.12.1</span> Group-aware and time-aware splitting</h3>
+<p>Random splits can still leak information when related rows belong to the same project, release, or time period. Prefer:</p>
+<ul>
+<li><strong>group-aware splits</strong>: keep all rows of a project/release in one side</li>
+<li><strong>time-aware splits</strong>: train on older observations, test on newer observations</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group-aware split idea (project_id must exist)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># rsample::group_initial_split(data_tbl, group = project_id)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># time-aware split idea (timestamp must exist and be sorted)</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data_tbl &lt;- data_tbl |&gt; dplyr::arrange(timestamp)</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># cutoff &lt;- floor(0.8 * nrow(data_tbl))</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># train_tbl &lt;- data_tbl[1:cutoff, ]</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># test_tbl  &lt;- data_tbl[(cutoff + 1):nrow(data_tbl), ]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="concrete-leakage-examples-to-avoid" class="level3" data-number="11.12.2">
+<h3 data-number="11.12.2" class="anchored" data-anchor-id="concrete-leakage-examples-to-avoid"><span class="header-section-number">11.12.2</span> Concrete leakage examples to avoid</h3>
+<p>Typical leakage patterns in SE datasets:</p>
+<ol type="1">
+<li>Using post-release defect counts as predictors of the same release.</li>
+<li>Computing normalization/imputation on full data before split.</li>
+<li>Duplicated modules across train and test due to merges or snapshots.</li>
+<li>Features derived from future information (for example, final churn).</li>
+</ol>
+</section>
+</section>
+<section id="class-imbalance-handling" class="level2" data-number="11.13">
+<h2 data-number="11.13" class="anchored" data-anchor-id="class-imbalance-handling"><span class="header-section-number">11.13</span> Class imbalance handling</h2>
+<p>Defect datasets are often imbalanced, so accuracy alone can be misleading.</p>
+<p>Useful practices:</p>
+<ul>
+<li>report precision, recall, F1, and PR-AUC (not only accuracy)</li>
+<li>use stratified sampling in train/test splits</li>
+<li>try rebalancing methods on training data only</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"themis"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  rec_bal <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Defective <span class="sc">~</span> ., <span class="at">data =</span> train_tbl) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    themis<span class="sc">::</span><span class="fu">step_smote</span>(Defective)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  rec_bal <span class="sc">|&gt;</span> <span class="fu">prep</span>() <span class="sc">|&gt;</span> <span class="fu">juice</span>() <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">count</span>(Defective)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Package 'themis' not installed; skipping SMOTE example."</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="preprocessing-checklist" class="level2" data-number="11.14">
+<h2 data-number="11.14" class="anchored" data-anchor-id="preprocessing-checklist"><span class="header-section-number">11.14</span> Preprocessing checklist</h2>
+<p>Before modeling, verify:</p>
+<ol type="1">
+<li>No leakage from test folds into preprocessing</li>
+<li>Missing-value strategy documented and reproducible</li>
+<li>Outlier policy documented (keep/cap/remove)</li>
+<li>Categorical encoding strategy defined</li>
+<li>Class imbalance strategy defined (if classification)</li>
+<li>Temporal split considered when timestamps are available</li>
+<li>Pipeline saved so the same transformations can be reused in deployment</li>
+</ol>
+</section>
+<section id="end-to-end-workflow-preprocess-to-deploy" class="level2" data-number="11.15">
+<h2 data-number="11.15" class="anchored" data-anchor-id="end-to-end-workflow-preprocess-to-deploy"><span class="header-section-number">11.15</span> End-to-End Workflow (Preprocess to Deploy)</h2>
+<p>The following flow summarizes a leakage-safe and reproducible workflow for software engineering prediction tasks.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Raw SE Data&lt;br/&gt;commits issues metrics tests] --&gt; B[Data Quality Checks&lt;br/&gt;missing duplicates impossible values]
+  B --&gt; C[Train/Test Split&lt;br/&gt;stratified or temporal]
+  C --&gt; D[Fit Preprocessing on Train Only&lt;br/&gt;impute encode normalize select]
+  D --&gt; E[Transform Train]
+  D --&gt; F[Transform Test]
+  E --&gt; G[Train Model]
+  G --&gt; H[Cross-Validation on Train]
+  H --&gt; I[Final Evaluation on Test&lt;br/&gt;precision recall F1 PR-AUC]
+  I --&gt; J[Persist Pipeline + Model]
+  J --&gt; K[Deployment]
+  K --&gt; L[Monitoring&lt;br/&gt;drift performance alerts]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Key principle: any operation that learns parameters from data (imputation, normalization, feature selection, balancing) must be fit using training data only.</p>
+</section>
+<section id="other-libraries-and-tricks" class="level2" data-number="11.16">
+<h2 data-number="11.16" class="anchored" data-anchor-id="other-libraries-and-tricks"><span class="header-section-number">11.16</span> Other libraries and tricks</h2>
+<p>The <code>lubridate</code> package contains a number of functions facilitating the conversion of text to POSIX dates. As an example, consider the following code. We may use this, for example, with time series.</p>
+<p>For example <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"15/02/2013"</span>, <span class="st">"15 Feb 13"</span>, <span class="st">"It happened on 15 02 '13"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(dates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-BL97" class="csl-entry" role="listitem">
+Blum, A. L., and P. Langley. 1997. <span>“Selection of Relevant Features and Examples in Machine Learning.”</span> <em>Artificial Intelligence</em> 97 (1-2): 245–71.
+</div>
+<div id="ref-CanoHL07" class="csl-entry" role="listitem">
+Cano, José Ramón, Francisco Herrera, and Manuel Lozano. 2007. <span>“Evolutionary Stratified Training Set Selection for Extracting Classification Rules with Trade Off Precision-Interpretability.”</span> <em>Data &amp; Knowledge Engineering</em> 60 (1): 90–108. <a href="https://doi.org/10.1016/j.datak.2006.01.008">https://doi.org/10.1016/j.datak.2006.01.008</a>.
+</div>
+<div id="ref-DLM00" class="csl-entry" role="listitem">
+Dash, M., H. Liu, and H. Motoda. 2000. <span>“Consistency Based Feature Selection.”</span> <em>Pacific-Asia Conf. On Knowledge Discovery and Data Mining</em>, 98–109.
+</div>
+<div id="ref-GDCH12" class="csl-entry" role="listitem">
+Garcia, S., J. Derrac, J. Cano, and F. Herrera. 2012. <span>“Prototype Selection for Nearest Neighbor Classification: Taxonomy and Empirical Study.”</span> <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> 34 (3): 417–35. <a href="https://doi.org/10.1109/TPAMI.2011.142">https://doi.org/10.1109/TPAMI.2011.142</a>.
+</div>
+<div id="ref-Hal99" class="csl-entry" role="listitem">
+Hall, M. A. 1999. <span>“Correlation-Based Feature Selection for Machine Learning.”</span> PhD thesis, University of Waikato, Department of Computer Science.
+</div>
+<div id="ref-KJ97" class="csl-entry" role="listitem">
+Kohavi, R., and G. H. John. 1997. <span>“Wrappers for Feature Subset Selection.”</span> <em>Artificial Intelligence</em> 1-2: 273–324.
+</div>
+<div id="ref-Lan94" class="csl-entry" role="listitem">
+Langley, P. 1994. <span>“Selection of Relevant Features in Machine Learning.”</span> <em>Procs. Of the AAAI Fall Symposium on Relevance</em>, 140–44.
+</div>
+<div id="ref-LM98" class="csl-entry" role="listitem">
+Liu, H., and H. Motoda. 1998. <em>Feature Selection for Knowlegde Discovery and Data Mining</em>. Kluwer Academic Publishers.
+</div>
+<div id="ref-LY05" class="csl-entry" role="listitem">
+Liu, H., and L. Yu. 2005. <span>“Toward Integrating Feature Selection Algorithms for Classification and Clustering.”</span> <em>IEEE Trans. On Knowledge and Data Eng.</em> 17 (3): 1–12.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/danrodgar\.github\.io\/DASE\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./230_exploratoryDataAnalysis.html" class="pagination-link" aria-label="Exploratory Data Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./320_advancedPreprocessingTechniques.html" class="pagination-link" aria-label="Advanced Preprocessing Techniques">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

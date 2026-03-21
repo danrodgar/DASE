@@ -1,0 +1,113 @@
+
+# Advanced Preprocessing Techniques
+
+This chapter complements basic preprocessing with techniques that are often
+required in realistic software engineering datasets.
+
+## Feature Selection
+
+This technique consists of selecting the most relevant attributes. The need for applying FS includes the following points:
+
+  + A reduced volume of data allows different data mining or searching techniques to be applied.
+
+  + Irrelevant and redundant attributes can generate less accurate and more complex models. Furthermore, data mining algorithms can be executed faster.
+
+  + It is possible to avoid the collection of data for those irrelevant and redundant attributes in the future.
+
+
+
+FS algorithms designed with different evaluation criteria broadly fall into two categories:
+
+  + The *filter model* relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.
+
+  + The *wrapper model* requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model [11, 12].
+
+
+
+## Instance Selection
+
+Instance selection aims to reduce dataset size while preserving predictive
+performance. In software engineering datasets, this is useful when duplicated
+or near-duplicated modules inflate training time and bias model behavior.
+
+Typical strategies include:
+
+- distance-based prototype selection for nearest-neighbor methods
+- noise filtering before model training
+- uncertainty-based sampling in iterative workflows
+
+In practice, evaluate instance selection with repeated resampling and compare
+both performance and model stability against a no-selection baseline.
+
+
+## Missing Data Imputation
+
+
+Missing data imputation should be treated as part of the training pipeline, not
+as a one-off preprocessing script. This avoids data leakage and improves
+reproducibility.
+
+Recommended workflow:
+
+- analyze missingness patterns first (MCAR, MAR, MNAR assumptions)
+- choose imputation strategy by variable type and modeling objective
+- fit imputation using only training folds
+- validate impact on downstream metrics
+
+Common options in modern R workflows include median/mode imputation through
+`recipes`, nearest-neighbor imputation, and model-based methods for richer
+datasets.
+
+
+## Encoding and transformation pipelines
+
+Advanced workflows usually include mixed variable types and skewed numeric
+distributions. A practical recipe often combines:
+
+- dummy encoding for categorical variables
+- variance filtering for unstable predictors
+- normalization for distance/regularized models
+- optional log/Yeo-Johnson transforms for skewed features
+
+```{r message=FALSE, warning=FALSE}
+library(tidymodels)
+
+df <- read.csv("./datasets/defectPred/unified/Unified-file.csv", stringsAsFactors = FALSE)
+df <- df[, c("McCC", "CLOC", "PDA", "PUA", "LLOC", "LOC", "bug")]
+df$Defective <- factor(ifelse(df$bug > 0, "Y", "N"))
+df$bug <- NULL
+
+rec_adv <- recipe(Defective ~ ., data = df) |>
+  step_zv(all_predictors()) |>
+  step_nzv(all_predictors()) |>
+  step_YeoJohnson(all_numeric_predictors()) |>
+  step_normalize(all_numeric_predictors())
+
+rec_adv |> prep() |> juice() |> dplyr::glimpse()
+```
+
+
+## Temporal splits and concept drift
+
+For SE prediction tasks, data distributions can change across releases
+(concept drift). Prefer temporal evaluation when date/order information is
+available.
+
+```{r message=FALSE, warning=FALSE}
+set.seed(10)
+n <- nrow(df)
+cutoff <- floor(0.7 * n)
+
+train_time <- df[1:cutoff, ]
+test_time <- df[(cutoff + 1):n, ]
+
+summary(train_time$LOC)
+summary(test_time$LOC)
+```
+
+
+## Deployment consistency
+
+A frequent production issue is mismatch between training-time preprocessing and
+inference-time preprocessing. Persist preprocessing objects (recipes, lookup
+tables, selected features) and reuse them unchanged in deployment.

@@ -1,0 +1,192 @@
+
+# Further Classification Models 
+
+## Learning Objectives and Evaluation Lens
+
+- **Objective**: handle classification settings that go beyond single-label fully supervised learning.
+- **Data context**: multilabel corpora and partially labeled datasets.
+- **Validation**: strict separation of labeled/unlabeled/test data with leakage controls.
+- **Primary metrics**: macro/micro F1 for multilabel tasks; confusion-based metrics for SSL classification.
+- **Common pitfalls**: pseudo-label confirmation bias, class imbalance, and distribution mismatch.
+
+
+## Multilabel classification
+
+Some datasets, for example reviews of applications and mobile application
+repositories such as the App Store or Google Play, contain reviews that can
+have several labels at the same time (e.g., bugs, feature requests, UI issues).
+Similarly, a software issue may belong to multiple components or concern
+multiple quality attributes simultaneously.
+
+In **multilabel classification**, each instance can be assigned to more than
+one class. Common approaches are:
+
+- **Binary Relevance (BR)**: train one independent binary classifier per label.
+  Simple but ignores label co-occurrence.
+- **Classifier Chains (CC)**: extend BR by passing previous predictions as
+  features to the next classifier, capturing label dependencies.
+- **Label Powerset (LP)**: treat each unique label combination as a single
+  class; exact but combinatorially expensive.
+
+In R, the `mldr` package provides data structures and learners for multilabel
+classification. For a tidy workflow, `mlr3` with its multilabel task type is an
+alternative. Evaluation uses **Hamming loss** (fraction of wrong label
+assignments), **macro/micro F1**, and **subset accuracy** (all labels correct).
+
+```{r eval=FALSE}
+# Sketch with mldr
+# library(mldr)
+# mldr_dataset <- mldr_from_dataframe(df, labelIndices = label_col_indices)
+# summary(mldr_dataset)
+```
+
+
+## Ordinal Classification
+
+Many SE outcomes are not nominal but **ordinal**: defect severity
+(low < medium < high < critical), code review priority, or technical debt
+level. Standard classifiers treat classes as exchangeable and ignore the
+ordering, which can inflate nominal error rates on practically small mistakes.
+
+Approaches:
+- **Ordinal regression** (proportional-odds model): extends logistic regression
+  with monotonicity constraints across thresholds.
+- **Threshold decomposition**: convert the ordinal problem into a series of
+  binary problems using cumulative link models.
+- **Cost-sensitive learning**: assign asymmetric misclassification costs that
+  reflect the ordinal distance.
+
+In R, the `ordinal` package implements cumulative link (mixed) models.
+
+```{r eval=FALSE}
+# library(ordinal)
+# m <- clm(severity ~ loc + complexity, data = train_df)
+# predict(m, newdata = test_df)
+```
+
+
+## Weak and Distant Supervision
+
+In SE datasets, labels are often derived from heuristics rather than manual
+annotation — for example, a file is labelled "defective" if a commit message
+contains the word *fix* or *bug* (SZZ approach), or a commit is labelled as
+a "feature addition" based on keyword matching. These automatically generated,
+imperfect labels are called **weak labels** or **distant labels**.
+
+**Consequences:**
+- Label noise can substantially degrade model performance.
+- Models may learn to predict the labelling heuristic rather than the
+  underlying concept.
+- Standard evaluation metrics are optimistic if the test set uses the same
+  noisy labels as training.
+
+**Mitigations:**
+- Use a small set of carefully hand-labelled instances to validate label
+  quality.
+- Apply label-noise-robust learning algorithms (e.g., learning with noisy
+  labels via bootstrapping or noise-tolerant loss functions).
+- Report sensitivity analyses showing performance variation under different
+  label-cleaning thresholds.
+
+
+## Active Learning
+
+**Active learning** addresses the situation where unlabeled data is abundant
+but labeling is expensive (requiring expert code review, manual bug
+classification, or security audit). The learner iteratively queries an
+*oracle* (typically a human expert) for the labels of the most informative
+instances.
+
+Common query strategies:
+- **Uncertainty sampling**: query the instance on which the current model is
+  least confident.
+- **Query by committee**: train a committee of models; query the instance with
+  the highest disagreement.
+- **Expected model change**: query the instance that would most change the model.
+
+In SE, active learning has been applied to defect labeling, code review
+prioritization, and test-case selection. The key advantage is that fewer
+expert-labeled examples are needed to reach a target accuracy.
+
+```{r eval=FALSE}
+# Active learning loop sketch (uncertainty sampling)
+# 1. Start with small labeled set L, large unlabeled pool U
+# 2. Train classifier on L
+# 3. Compute prediction entropy on U
+# 4. Select top-k most uncertain instances → send to oracle
+# 5. Add newly labeled instances to L, remove from U
+# 6. Repeat until budget exhausted
+```
+
+
+## Semi-supervised Learning
+
+Self-train a model on semi-supervised data.
+
+### Practical caveats
+
+Semi-supervised learning can improve performance when unlabeled data matches
+the same distribution as labeled data, but it can also amplify errors.
+
+Key risks and guardrails:
+
+1. **Confirmation bias**: wrong pseudo-labels can reinforce themselves.
+      : Use confidence thresholds and add pseudo-labels gradually.
+2. **Distribution mismatch**: unlabeled pool may differ from labeled data.
+      : Monitor drift and evaluate on a clean held-out set.
+3. **Overconfidence**: probabilities may be poorly calibrated.
+      : Prefer calibrated models or conservative thresholds.
+4. **Leakage**: test data must never be used in pseudo-label loops.
+      : Keep strict train/validation/test separation.
+
+The legacy examples in this chapter used `DMwR2::SelfTrain`, which is no longer
+actively maintained. A standard modern alternative in R workflows is to combine
+`tidymodels` with a pseudo-labeling loop.
+
+```{r ssl, message=FALSE, warning=FALSE, eval = FALSE}
+library(tidymodels)
+
+## Small example with the Iris classification data set
+set.seed(123)
+data(iris)
+
+## Split into train / test
+idx <- sample(seq_len(nrow(iris)), 100)
+tr <- iris[idx, ]
+ts <- iris[-idx, ]
+
+## Hide labels for a large subset of the training data
+tr_ssl <- tr
+nas <- sample(seq_len(nrow(tr_ssl)), 70)
+tr_ssl$Species[nas] <- NA
+
+## Start from labeled rows only
+labeled <- tr_ssl |> dplyr::filter(!is.na(Species))
+unlabeled <- tr_ssl |> dplyr::filter(is.na(Species))
+
+## Base learner
+wf <- workflow() |>
+      add_recipe(recipe(Species ~ ., data = labeled)) |>
+      add_model(decision_tree() |> set_engine("rpart") |> set_mode("classification"))
+
+## Pseudo-labeling loop (single pass for teaching clarity)
+fit0 <- fit(wf, data = labeled)
+probs <- predict(fit0, unlabeled, type = "prob")
+preds <- predict(fit0, unlabeled, type = "class")
+
+## Keep only high-confidence pseudo-labels
+conf <- apply(as.matrix(probs), 1, max)
+selected <- conf >= 0.9
+
+pseudo <- unlabeled[selected, ]
+pseudo$Species <- preds$.pred_class[selected]
+
+augmented <- dplyr::bind_rows(labeled, pseudo)
+fit_ssl <- fit(wf, data = augmented)
+
+## Evaluate on held-out test set
+pred_ssl <- predict(fit_ssl, ts, type = "class")
+yardstick::conf_mat_vec(ts$Species, pred_ssl$.pred_class)
+```
+
+

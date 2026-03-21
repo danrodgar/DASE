@@ -1,0 +1,135 @@
+
+# Unsupervised or Descriptive modeling
+
+## Learning Objectives and Evaluation Lens
+
+- **Objective**: discover structure and patterns without using target labels in training.
+- **Data context**: unlabeled software metrics or discretized transactional views.
+- **Validation**: parameter sensitivity analysis and internal quality metrics.
+- **Primary metrics**: silhouette/compactness for clustering; support/confidence/lift for rules.
+- **Common pitfalls**: unstable clusters, arbitrary parameter choices, and over-interpretation of patterns.
+
+From the descriptive (unsupervised) point of view, patterns are found to predict future behaviour or estimate. This includes association rules, clustering, or tree clustering which aim at grouping together objects (e.g., animals) into successively larger clusters, using some measure of similarity or distance. The dataset will be as the previous table without the $C$ class attribute.
+
+| Att~1~|     | Att~n~ |
+|-------|-----| -------|
+| a~11~ | ... | a~1n~  |
+| a~21~ | ... | a~2n~  |
+| ...   | ... | ...    |
+| a~m1~ | ... | a~mn~  |
+
+
+## Unsupervised modeling checklist
+
+Because there is no explicit target label during training, results should be
+interpreted carefully. A good workflow includes:
+
+1. Scale/transform numeric features before distance-based methods.
+2. Remove constant or near-constant attributes.
+3. Explore multiple values of cluster parameters (for example, $k$, `eps`, `MinPts`).
+4. Report internal quality measures (silhouette, compactness/separation).
+5. Validate usefulness externally when possible (for example, defect rate by cluster).
+
+
+## Clustering
+
+```{r warning=FALSE, message=FALSE}
+library(fpc)
+
+kc1 <- read.csv("./datasets/defectPred/unified/Unified-file.csv", stringsAsFactors = FALSE)
+kc1 <- kc1[, c("McCC", "CLOC", "PDA", "PUA", "LLOC", "LOC", "bug")]
+kc1$Defective <- factor(ifelse(kc1$bug > 0, "Y", "N"))
+kc1$bug <- NULL
+
+# Split into training and test datasets
+set.seed(1)
+ind <- sample(2, nrow(kc1), replace = TRUE, prob = c(0.7, 0.3))
+kc1.train <- kc1[ind==1, ]
+kc1.test <- kc1[ind==2, ]
+
+# No class
+kc1.train$Defective <- NULL
+
+# Scale before DBSCAN: raw metric values (LOC, CLOC, …) can span thousands,
+# making eps = 0.42 on unscaled data effectively connect every point.
+# Drop constant (zero-variance) columns before scaling to avoid NaN from 0/0.
+nzv_mask <- apply(kc1.train, 2, var, na.rm = TRUE) > 0
+kc1.train.scaled <- as.data.frame(scale(kc1.train[, nzv_mask]))
+ds <- dbscan(kc1.train.scaled, eps = 0.5, MinPts = 5)
+
+kc1.kmeans <- kmeans(kc1.train, 2)
+
+```
+
+### Cluster quality and interpretation
+
+```{r warning=FALSE, message=FALSE}
+library(reshape, quietly=TRUE)
+
+train_full <- kc1[ind == 1, ]
+train_nomiss <- na.omit(train_full)
+train_x <- train_nomiss[, setdiff(names(train_nomiss), "Defective")]
+train_scaled <- sapply(train_x, rescaler, "range")
+km_local <- kmeans(train_scaled, 3)
+
+if (requireNamespace("cluster", quietly = TRUE)) {
+  sil <- cluster::silhouette(km_local$cluster, dist(train_scaled))
+  summary(sil)
+} else {
+  message("Package 'cluster' is not installed; skipping silhouette summary.")
+}
+
+# External interpretation (not used for training): defect prevalence by cluster
+km_tbl <- cbind(train_nomiss, cluster = factor(km_local$cluster))
+prop.table(table(km_tbl$cluster, km_tbl$Defective), margin = 1)
+```
+
+### k-Means
+
+```{r warning=FALSE, message=FALSE}
+library(reshape, quietly=TRUE)
+library(graphics)
+# rescaler(x, "range") maps each column to [0,1]; 3 clusters is more
+# tractable on a metrics dataset than 10.
+kc1kmeans <- kmeans(sapply(na.omit(kc1.train), rescaler, "range"), 3)
+#plot(kc1kmeans, col = kc1kmeans$cluster)
+#points(kc1kmeans$centers, col = 1:3, pch = 8)
+```
+
+## Association rules
+```{r warning=FALSE, message=FALSE}
+library(arules)
+
+# x <- as.numeric(kc1$LOC_TOTAL)
+# str(x)
+# summary(x)
+# hist(x, breaks=30, main="LoC Total")
+# xDisc <- discretize(x, categories=5)
+# table(xDisc)
+
+num_cols <- names(kc1)[sapply(kc1, is.numeric)]
+for (col in num_cols) {
+  kc1[[col]] <- discretize(kc1[[col]], method = "interval", breaks = 5)
+}
+
+rules <- apriori(kc1,
+   parameter = list(minlen=3, supp=0.05, conf=0.35),
+   appearance = list(rhs=c("Defective=Y"),
+   default="lhs"),
+   control = list(verbose=F))
+
+#rules <- apriori(kc1,
+ #   parameter = list(minlen=2, supp=0.05, conf=0.3),
+ #   appearance = list(rhs=c("Defective=Y", "Defective=N"),
+ #   default="lhs"))
+  
+inspect(rules)
+
+if (requireNamespace("arulesViz", quietly = TRUE)) {
+  library(arulesViz)
+  plot(rules)
+} else {
+  message("Package 'arulesViz' is not installed; skipping association-rule visualization.")
+}
+```
+

@@ -1,2 +1,0 @@
-`r if (knitr:::is_latex_output()) {'# (PART) Bibliography {-}'} else {'# References {-}'}`
-

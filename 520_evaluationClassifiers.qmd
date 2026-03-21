@@ -1,0 +1,180 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Evaluation of Classification Models
+
+## Learning Objectives and Evaluation Lens
+
+- **Objective**: evaluate classifier quality under realistic software quality constraints.
+- **Primary metrics**: precision, recall, F1, ROC-AUC, PR-AUC, and MCC.
+- **Imbalanced data focus**: prioritize PR-AUC, recall/precision trade-offs, and MCC.
+- **Common pitfalls**: accuracy-only reporting, arbitrary thresholds, and uncalibrated probabilities.
+
+The confusion matrix (which can be extended to multiclass problems) is a table that presents the results of a classification algorithm. The following table shows the possible outcomes for binary classification problems:
+
+
+|            |$Act Pos$ | $Act Neg$ |
+|------------|----------|-----------|
+| $Pred Pos$ |   $TP$   | $FP$      |
+| $Pred Neg$ |   $FN$   | $TN$      |
+
+
+where *True Positives* ($TP$) and *True Negatives* ($TN$) are respectively the number of positive and negative instances correctly classified, *False Positives* ($FP$) is the number of negative instances misclassified as positive (also called Type I errors), and *False Negatives* ($FN$) is the number of positive instances misclassified as negative (Type II errors).
+
++ [Confusion Matrix in Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix)
+
+From the confusion matrix, we can calculate:
+
+   + *True positive rate*, or *recall * ($TP_r = recall = TP/TP+FN$) is the proportion of positive cases correctly classified as belonging to the positive class.
+   
+   + *False negative rate* ($FN_r=FN/TP+FN$) is the proportion of positive cases misclassified as belonging to the negative class.
+   
+   + *False positive rate* ($FP_r=FP/FP+TN$) is the proportion of negative cases misclassified as belonging to the positive class.
+   
+   + *True negative rate* ($TN_r=TN/FP+TN$) is the proportion of negative cases correctly classified as belonging to the negative class.
+
+
+There is a trade-off between $FP_r$ and $FN_r$ as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive $accuracy$:
+
+$$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$$
+
+to measure performance of classifiers (or the complementary value, the _error rate_ which is defined as $1-accuracy$)
+
++ Precision, fraction of relevant instances among the retrieved instances, $$\frac{TP}{TP+FP}$$
+
++ Recall$ ($sensitivity$ probability of detection, $PD$) is the fraction of relevant instances that have been retrieved over total relevant instances, $\frac{TP}{TP+FN}$
+
++ _f-measure_ is the harmonic mean of precision and recall, 
+$2 \cdot \frac{precision \cdot recall}{precision + recall}$
+
++ G-mean: $\sqrt{PD \times Precision}$
+
++ G-mean2: $\sqrt{PD \times Specificity}$
+
++ J coefficient, $j-coeff = sensitivity + specificity - 1 = PD-PF$
+
++ A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew's Correlation Coefficient ($MCC$)~\cite{Matthews1975Comparison}: 
+
+$$MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
+
+$MCC$ can also be calculated from the confusion matrix. Its range goes from -1 to +1; the closer to one the better as it indicates perfect prediction whereas a value of 0 means that classification is not better than random prediction and negative values mean that predictions are worst than random.
+
+
+
+
+### Prediction in probabilistic classifiers
+
+A probabilistic classifier estimates the probability of each possible class value given the attribute values of the instance $P(c|{x})$. Then, given a new instance, ${x}$, the class value with the highest a posteriori probability will be assigned to that new instance (the *winner takes all* approach):
+
+$\psi({x}) = argmax_c (P(c|{x}))$
+
+### Calibration and Brier Score
+
+For many SE decisions (e.g., test prioritization by risk), probability quality
+matters as much as ranking quality.
+
+- **Discrimination**: how well the model separates classes (ROC-AUC, PR-AUC)
+- **Calibration**: whether predicted probabilities match observed frequencies
+
+The **Brier score** for binary classification is:
+
+$$
+	ext{Brier} = \frac{1}{n}\sum_{i=1}^{n}(\hat{p}_i - y_i)^2
+$$
+
+where $\hat{p}_i$ is the predicted probability for the positive class and
+$y_i \in \{0,1\}$ is the observed label.
+
+```{r eval=FALSE}
+# y_true: 0/1 labels, p_hat: predicted probabilities for positive class
+brier <- mean((p_hat - y_true)^2)
+brier
+
+# simple calibration table by probability bins
+bins <- cut(p_hat, breaks = seq(0, 1, by = 0.1), include.lowest = TRUE)
+aggregate(cbind(pred = p_hat, obs = y_true) ~ bins, FUN = mean)
+```
+
+### Cost-Sensitive Threshold Selection
+
+Default threshold 0.5 may be suboptimal when false negatives and false
+positives have different engineering costs.
+
+If $C_{FN}$ and $C_{FP}$ are unit costs for false negatives and false
+positives, a practical objective is to minimize expected cost:
+
+$$
+	ext{Cost}(t) = C_{FN} \cdot FN(t) + C_{FP} \cdot FP(t)
+$$
+
+```{r eval=FALSE}
+# choose threshold by minimum expected cost on validation data
+ths <- seq(0.05, 0.95, by = 0.05)
+cost_fn <- 5  # example: missing a defect is 5x costlier
+cost_fp <- 1
+
+cost_tbl <- sapply(ths, function(t) {
+  pred <- ifelse(p_hat >= t, 1, 0)
+  fn <- sum(pred == 0 & y_true == 1)
+  fp <- sum(pred == 1 & y_true == 0)
+  cost_fn * fn + cost_fp * fp
+})
+
+best_t <- ths[which.min(cost_tbl)]
+best_t
+```
+
+## Important topics often missing
+
+- **Threshold tuning**: default 0.5 is rarely optimal for defect prediction.
+- **Cost-sensitive evaluation**: false negatives and false positives have different engineering costs.
+- **Calibration**: verify that predicted probabilities match observed frequencies.
+- **Per-release/per-project reporting**: aggregate metrics can hide unstable behavior across contexts.
+
+## Agreement Between Human Raters
+
+When classification labels are created by people (for example, issue triage,
+review tagging, or defect categorization), agreement between annotators should
+be reported before model training.
+
+- **Cohen's kappa**: agreement between two raters, corrected for chance.
+- **Fleiss' kappa**: agreement among more than two raters.
+- **Krippendorff's alpha**: flexible agreement metric for different data types.
+- **Kendall's tau**: useful for agreement in **ranked/ordinal** judgments, not
+  the usual first choice for nominal class labels.
+
+Practical recommendation:
+
+1. Report raw agreement percentage and one chance-corrected coefficient.
+2. Use weighted kappa (or ordinal-specific metrics) for ordered categories.
+3. Reconcile low-agreement labels before using them as training targets.
+
+Simple R examples:
+
+```{r eval=FALSE}
+# Two raters (nominal classes)
+irr::kappa2(data.frame(rater1, rater2))
+
+# Multiple raters
+irr::kappam.fleiss(ratings_matrix)
+
+# Ordinal/ranking agreement
+cor(rater1_rank, rater2_rank, method = "kendall")
+```
+
+
+## Other Metrics used in Software Engineering with Classification
+
+
+In the domain of defect prediction and when two classes are considered, it is also customary to refer to the *probability of detection*, ($pd$) which corresponds to the True Positive rate ($TP_{rate}$ or \emph{Sensitivity}) as a measure of the goodness of the model, and *probability of false alarm* ($pf$) as performance measures~\cite{Menzies07}. 
+
+The objective is to find which techniques that maximise $pd$ and minimise $pf$. As stated by Menzies et al., the balance between these two measures depends on the project characteristics (e.g. real-time systems vs. information management systems) it is formulated as the Euclidean distance from the sweet spot $pf=0$ and $pd=1$ to a pair of $(pf,pd)$. 
+
+$$balance=1-\frac{\sqrt{(0-pf^2)+(1-pd^2)}}{\sqrt{2}}$$
+
+It is normalized by the maximum possible distance across the ROC square ($\sqrt{2}, 2$), subtracted this value from 1, and expressed it as a percentage.
+
+
+ 

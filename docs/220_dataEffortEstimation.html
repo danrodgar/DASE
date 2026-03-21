@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="DASE Data Analysis in Software Engineering">
+
+<title>9&nbsp; Effort Estimation Data in Software Engineering – Data Analysis in Software Engineering using R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./230_exploratoryDataAnalysis.html" rel="next">
+<link href="./210_dataSources.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ca4b39786b312f69619f2788bc8e85cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="toc.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./210_dataSources.html">Part II - Data Sources and EDA</a></li><li class="breadcrumb-item"><a href="./220_dataEffortEstimation.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analysis in Software Engineering using R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/danrodgar/DASE" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I - R Ecosystem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110_rIntro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130_rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./140_rnpython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./150_rpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./160_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./170_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The <code>ggplot2</code> package</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II - Data Sources and EDA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_dataSources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./220_dataEffortEstimation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./230_exploratoryDataAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III - Preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_basicPreprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./330_featureSelectionExample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Feature Selection Example</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV - Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_basicModelBuildingSupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Supervised Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./420_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./430_basicModelBuildingUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Unsupervised or Descriptive modeling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V - Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./520_evaluationClassifiers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./530_evaluationGraphical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Graphical Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./540_evaluationRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./550_evaluationUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./560_classicalHypothesisTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Classical Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./570_evaluationInSoftEng.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Measures of Evaluation in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./580_advancedModelBuilding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Advanced Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./590_SSL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VI - Specialized Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_SNAinSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Social Network Analysis in SE</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_textMiningSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./630_timeSeries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Time Series</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VII - References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./990_references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-missing-in-many-effort-datasets" id="toc-what-is-missing-in-many-effort-datasets" class="nav-link active" data-scroll-target="#what-is-missing-in-many-effort-datasets"><span class="header-section-number">9.1</span> What Is Missing in Many Effort Datasets</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./210_dataSources.html">Part II - Data Sources and EDA</a></li><li class="breadcrumb-item"><a href="./220_dataEffortEstimation.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>It is worth highlighting the case of software effort estimation datasets with their peculiarities. First, most effort estimation datasets used in the literature are scattered through research papers with the exception of a few kept in the PROMISE repository. Mair et al <span class="citation" data-cites="MairSJ05">(<a href="990_references.html#ref-MairSJ05" role="doc-biblioref">2005</a>)</span> also have analysed available datasets in the field of cost estimation identifying 65 different datasets in 50 papers.</p>
+<p>Second, their size is very small with the exception of ISBSG repository discussed previously which a small sample is available through PROMISE and the China dataset with 499 instances.</p>
+<p>Third, some can be quite old in a context and time that is not applicable to current development environments. The authors noted that the oldest datasets (COCOMO, Desharnais, Kemerer and Albrecht and Gaffney) tend to be the most studied ones and a subset of the most relevant ones. Also, from the artificial intelligence or data mining point of view effort estimation has been mainly tackled with different types of regression techniques and more recently with techniques which are also typically considered under the umbrella of data mining techniques. However, as the number of examples per dataset is increasing, other machine learning techniques are also being studied (e.g.: Dejaeger et al <span class="citation" data-cites="Dejaeger_TSE12_EffEst">(<a href="990_references.html#ref-Dejaeger_TSE12_EffEst" role="doc-biblioref">2012</a>)</span> report on a comparison of several machine learning techniques to effort estimation with only 5 out the 9 used datasets publicly available). From the data mining point of view, the small number of instances hinders the application of machine learning techniques.</p>
+<p>However, software effort and cost estimation still remain one of the main challenges in software engineering and have attracted a great deal of interest by many researchers <span class="citation" data-cites="Jorgensen07">(<a href="990_references.html#ref-Jorgensen07" role="doc-biblioref">2007</a>)</span>. For example, there are continuous analyses of whether software development follows economies or diseconomies of scale (see <span class="citation" data-cites="Dolado01_CostEst">Kitchenham (<a href="990_references.html#ref-Kitchenham2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>Next Table @ref(tab:effEstimation) (following Mair et al <span class="citation" data-cites="MairSJ05">(<a href="990_references.html#ref-MairSJ05" role="doc-biblioref">2005</a>)</span> ) shows the most open cost/effort datasets available in the literature with their main reference.</p>
+<table class="caption-top table">
+<caption>(#tab:effEstimation) Effort Estimation Dataset from articles</caption>
+<colgroup>
+<col style="width: 56%">
+<col style="width: 21%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reference</th>
+<th style="text-align: right;">Instances</th>
+<th style="text-align: right;">Attributes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abran and Robillard <span class="citation" data-cites="Abran_TSE96_FP">(<a href="990_references.html#ref-Abran_TSE96_FP" role="doc-biblioref">1996</a>)</span></td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr class="even">
+<td>Albrecht-Gaffney <span class="citation" data-cites="AlbrechtG83">(<a href="990_references.html#ref-AlbrechtG83" role="doc-biblioref">1983</a>)</span></td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td>Bailey and Basili <span class="citation" data-cites="Bailey81">(<a href="990_references.html#ref-Bailey81" role="doc-biblioref">1981</a>)</span></td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td>Belady and Lehman <span class="citation" data-cites="Belady79">(<a href="990_references.html#ref-Belady79" role="doc-biblioref">1979</a>)</span></td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td>Boehm (aka COCOMO Dataset) <span class="citation" data-cites="Boehm81">(<a href="990_references.html#ref-Boehm81" role="doc-biblioref">1981</a>)</span></td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="even">
+<td>China dataset<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+<td style="text-align: right;">499</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td>Desharnais <span class="citation" data-cites="Desharnais88">(<a href="990_references.html#ref-Desharnais88" role="doc-biblioref">1988</a>)</span></td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td>Dolado <span class="citation" data-cites="Dolado97">(<a href="990_references.html#ref-Dolado97" role="doc-biblioref">1997</a>)</span></td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td>Hastings and Sajeev <span class="citation" data-cites="Hastings01">(<a href="990_references.html#ref-Hastings01" role="doc-biblioref">2001</a>)</span></td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td>Heiat and Heiat <span class="citation" data-cites="Heiat97">(<a href="990_references.html#ref-Heiat97" role="doc-biblioref">Heiat and Heiat 1997</a>)</span></td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td>Jeffery and Stathis <span class="citation" data-cites="Jeffery_ESE96">(<a href="990_references.html#ref-Jeffery_ESE96" role="doc-biblioref">1996</a>)</span></td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td>Jorgensen <span class="citation" data-cites="Jorgensen04">(<a href="990_references.html#ref-Jorgensen04" role="doc-biblioref">2004</a>)</span></td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td>Jorgensen et al. <span class="citation" data-cites="Jorgensen2003">(<a href="990_references.html#ref-Jorgensen2003" role="doc-biblioref">2003</a>)</span></td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td>Kemerer <span class="citation" data-cites="Kemerer87">(<a href="990_references.html#ref-Kemerer87" role="doc-biblioref">1987</a>)</span></td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td>Kitchenham (Mermaid 2) <span class="citation" data-cites="Kitchenham2002">(<a href="990_references.html#ref-Kitchenham2002" role="doc-biblioref">2002</a>)</span></td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td>Kitchenham et al.&nbsp;(CSC) <span class="citation" data-cites="Kitchenham02_CSC">(<a href="990_references.html#ref-Kitchenham02_CSC" role="doc-biblioref">2002</a>)</span></td>
+<td style="text-align: right;">145</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td>Kitchenham and Taylor (ICL) <span class="citation" data-cites="Kitchenham85">(<a href="990_references.html#ref-Kitchenham85" role="doc-biblioref">1985</a>)</span></td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td>Kitchenham and Taylor (BT System X) <span class="citation" data-cites="Kitchenham85">(<a href="990_references.html#ref-Kitchenham85" role="doc-biblioref">1985</a>)</span></td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>Kitchenham and Taylor (BT Software Houses) <span class="citation" data-cites="Kitchenham85">(<a href="990_references.html#ref-Kitchenham85" role="doc-biblioref">1985</a>)</span></td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td>Li et al.(USP05) <span class="citation" data-cites="LiRAR07">(<a href="990_references.html#ref-LiRAR07" role="doc-biblioref">2007</a>)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></td>
+<td style="text-align: right;">202</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td>Mišić and Tevsić <span class="citation" data-cites="Misic19981">(<a href="990_references.html#ref-Misic19981" role="doc-biblioref">1998</a>)</span></td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td>Maxwell (Dev Effort) <span class="citation" data-cites="Maxwell02">(<a href="990_references.html#ref-Maxwell02" role="doc-biblioref">2002</a>)</span></td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="odd">
+<td>Maxwell (Maintenance Eff) <span class="citation" data-cites="Maxwell02">(<a href="990_references.html#ref-Maxwell02" role="doc-biblioref">2002</a>)</span></td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td>Miyazaki et al. <span class="citation" data-cites="Miyazaki94">(<a href="990_references.html#ref-Miyazaki94" role="doc-biblioref">1994</a>)</span></td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td>Moser et al. <span class="citation" data-cites="Moser1999">(<a href="990_references.html#ref-Moser1999" role="doc-biblioref">1999</a>)</span></td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td>Shepperd and Cartwright <span class="citation" data-cites="Shepperd_TSE01">(<a href="990_references.html#ref-Shepperd_TSE01" role="doc-biblioref">Shepperd and Cartwright 2001</a>)</span></td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td>Shepperd and Schofield (Telecom 1) <span class="citation" data-cites="Shepperd97_Analogy">(<a href="990_references.html#ref-Shepperd97_Analogy" role="doc-biblioref">1997</a>)</span></td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td>Schofield (real-time 1) <span class="citation" data-cites="Schofield98PhD">Shepperd and Schofield (<a href="990_references.html#ref-Shepperd97_Analogy" role="doc-biblioref">1997</a>)</span></td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td>Schofield (Mermaid) <span class="citation" data-cites="Schofield98PhD">(<a href="990_references.html#ref-Schofield98PhD" role="doc-biblioref">1998</a>)</span></td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td>Schofield (Finnish) <span class="citation" data-cites="Schofield98PhD">(<a href="990_references.html#ref-Schofield98PhD" role="doc-biblioref">1998</a>)</span></td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="odd">
+<td>Schofield (Hughes) <span class="citation" data-cites="Schofield98PhD">(<a href="990_references.html#ref-Schofield98PhD" role="doc-biblioref">1998</a>)</span></td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td>Woodfield et al. <span class="citation" data-cites="Woodfield81">(<a href="990_references.html#ref-Woodfield81" role="doc-biblioref">1981</a>)</span></td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
+<section id="what-is-missing-in-many-effort-datasets" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="what-is-missing-in-many-effort-datasets"><span class="header-section-number">9.1</span> What Is Missing in Many Effort Datasets</h2>
+<p>Beyond the number of projects, modern effort-estimation studies should report:</p>
+<ul>
+<li><strong>Context variables</strong>: development process, team size, domain, and technology stack.</li>
+<li><strong>Temporal information</strong>: project start/end period and release cadence.</li>
+<li><strong>Effort measurement protocol</strong>: person-hours vs person-days, inclusion/exclusion rules.</li>
+<li><strong>Feature definitions</strong>: exact meaning and units of each predictor.</li>
+<li><strong>Currency normalization</strong> (for cost): inflation year and conversion policy.</li>
+<li><strong>Handling of outliers</strong>: whether extreme projects were removed or transformed.</li>
+<li><strong>External validity notes</strong>: why results may or may not transfer to current agile/DevOps contexts.</li>
+</ul>
+<p>Without this metadata, models are difficult to compare and often hard to reuse in practice.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Abran_TSE96_FP" class="csl-entry" role="listitem">
+Abran, A., and P. N. Robillard. 1996. <span>“Function Points Analysis: An Empirical Study of Its Measurement Processes.”</span> <em>Software Engineering, IEEE Transactions on</em> 22 (12): 895–910. <a href="https://doi.org/10.1109/32.553638">https://doi.org/10.1109/32.553638</a>.
+</div>
+<div id="ref-AlbrechtG83" class="csl-entry" role="listitem">
+Albrecht, A. J., and Jr. Gaffney J. E. 1983. <span>“Software Function, Source Lines of Code, and Development Effort Prediction: A Software Science Validation.”</span> <em>IEEE Transactions on Software Engineering</em> 9 (6): 639–48. <a href="https://doi.org/10.1109/TSE.1983.235271">https://doi.org/10.1109/TSE.1983.235271</a>.
+</div>
+<div id="ref-Bailey81" class="csl-entry" role="listitem">
+Bailey, John W., and Victor R. Basili. 1981. <span>“A Meta-Model for Software Development Resource Expenditures.”</span> <em>Proceedings of the 5th International Conference on Software Engineering (ICSE’81)</em> (Piscataway, NJ, USA), ICSE’81, 107–16. <a href="http://dl.acm.org/citation.cfm?id=800078.802522">http://dl.acm.org/citation.cfm?id=800078.802522</a>.
+</div>
+<div id="ref-Banker1994" class="csl-entry" role="listitem">
+Banker, Rajiv D, Hsihui Chang, and Chris F Kemerer. 1994. <span>“Evidence on Economies of Scale in Software Development.”</span> <em>Information and Software Technology</em> 36 (5): 275–82. <a href="https://doi.org/10.1016/0950-5849(94)90083-3">https://doi.org/10.1016/0950-5849(94)90083-3</a>.
+</div>
+<div id="ref-Belady79" class="csl-entry" role="listitem">
+Belady, L. A., and M. M. Lehman. 1979. <em>Research Directions in Software Technology</em>. MIT Press.
+</div>
+<div id="ref-Boehm81" class="csl-entry" role="listitem">
+Boehm, Barry W. 1981. <em>Software Engineering Economics</em>. 1st ed. Prentice Hall PTR.
+</div>
+<div id="ref-Dejaeger_TSE12_EffEst" class="csl-entry" role="listitem">
+Dejaeger, K., W. Verbeke, D. Martens, and B. Baesens. 2012. <span>“Data Mining Techniques for Software Effort Estimation: A Comparative Study.”</span> <em>Software Engineering, IEEE Transactions on</em> 38 (2): 375–97. <a href="https://doi.org/10.1109/TSE.2011.55">https://doi.org/10.1109/TSE.2011.55</a>.
+</div>
+<div id="ref-Desharnais88" class="csl-entry" role="listitem">
+Desharnais, J. M. 1988. <span>“Analyse Statistique de La Productivite Des Projects de Development En Informatique a Partir de La Technique Des Points de Fonction.”</span> MSc Thesis, Univ. du Quebec a Montreal.
+</div>
+<div id="ref-Dolado01_CostEst" class="csl-entry" role="listitem">
+Dolado, J. J. 2001. <span>“On the Problem of the Software Cost Function.”</span> <em>Information and Software Technology</em> 43 (1): 61–72. <a href="https://doi.org/10.1016/S0950-5849(00)00137-3">https://doi.org/10.1016/S0950-5849(00)00137-3</a>.
+</div>
+<div id="ref-Dolado97" class="csl-entry" role="listitem">
+Dolado, J. J. 1997. <span>“A Study of the Relationships Among Albrecht and Mark II Function Points, Lines of Code 4GL and Effort.”</span> <em>Journal of Systems and Software</em> 37 (2): 161–73. <a href="https://doi.org/10.1016/S0164-1212(96)00111-2">https://doi.org/10.1016/S0164-1212(96)00111-2</a>.
+</div>
+<div id="ref-Hastings01" class="csl-entry" role="listitem">
+Hastings, T. E., and A. S. M. Sajeev. 2001. <span>“A Vector-Based Approach to Software Size Measurement and Effort Estimation.”</span> <em>IEEE Transactions on Software Engineering</em> 27 (4): 337–50. <a href="https://doi.org/10.1109/32.917523">https://doi.org/10.1109/32.917523</a>.
+</div>
+<div id="ref-Heiat97" class="csl-entry" role="listitem">
+Heiat, Abbas, and Nafisseh Heiat. 1997. <span>“A Model for Estimating Efforts Required for Developing Small-Scale Business Applications.”</span> <em>Journal of Systems and Software</em> 39 (1): 7–14. <a href="https://doi.org/10.1016/S0164-1212(96)00159-8">https://doi.org/10.1016/S0164-1212(96)00159-8</a>.
+</div>
+<div id="ref-Jeffery_ESE96" class="csl-entry" role="listitem">
+Jeffery, Ross, and John Stathis. 1996. <span>“Function Point Sizing: Structure, Validity and Applicability.”</span> <em>Empirical Software Engineering</em> 1: 11–30. <a href="http://dx.doi.org/10.1007/BF00125809">http://dx.doi.org/10.1007/BF00125809</a>.
+</div>
+<div id="ref-Jorgensen04" class="csl-entry" role="listitem">
+Jorgensen, M. 2004. <span>“Realism in Assessment of Effort Estimation Uncertainty: It Matters How You Ask.”</span> <em>IEEE Transactions on Software Engineering</em> 30 (4): 209–17. <a href="https://doi.org/10.1109/TSE.2004.1274041">https://doi.org/10.1109/TSE.2004.1274041</a>.
+</div>
+<div id="ref-Jorgensen2003" class="csl-entry" role="listitem">
+Jørgensen, Magne, Ulf Indahl, and Dag Sjøberg. 2003. <span>“Software Effort Estimation by Analogy and ’Regression Toward Themean’.”</span> <em>Journal of Systems and Software</em> 68 (3): 253–62. <a href="https://doi.org/10.1016/S0164-1212(03)00066-9">https://doi.org/10.1016/S0164-1212(03)00066-9</a>.
+</div>
+<div id="ref-Jorgensen07" class="csl-entry" role="listitem">
+Jørgensen, M., and M. Shepperd. 2007. <span>“A Systematic Review of Software Development Cost Estimation Studies.”</span> <em>IEEE Transactions on Software Engineering</em> 33 (1): 33–53. <a href="https://doi.org/10.1109/TSE.2007.256943">https://doi.org/10.1109/TSE.2007.256943</a>.
+</div>
+<div id="ref-Kemerer87" class="csl-entry" role="listitem">
+Kemerer, Chris F. 1987. <span>“An Empirical Validation of Software Cost Estimation Models.”</span> <em>Communications of the ACM</em> (New York, NY, USA) 30 (5): 416–29. <a href="https://doi.org/10.1145/22899.22906">https://doi.org/10.1145/22899.22906</a>.
+</div>
+<div id="ref-Kitchenham2002" class="csl-entry" role="listitem">
+Kitchenham, Barbara A. 2002. <span>“The Question of Scale Economies in Software — Why Cannot Researchers Agree?”</span> <em>Information and Software Technology</em> 44 (1): 13–24. <a href="https://doi.org/10.1016/S0950-5849(01)00204-X">https://doi.org/10.1016/S0950-5849(01)00204-X</a>.
+</div>
+<div id="ref-Kitchenham85" class="csl-entry" role="listitem">
+Kitchenham, Barbara A., and N. R. Taylor. 1985. <span>“Software Project Development Cost Estimation.”</span> <em>Journal of Systems and Software</em> 5 (4): 267–78. <a href="https://doi.org/10.1016/0164-1212(85)90026-3">https://doi.org/10.1016/0164-1212(85)90026-3</a>.
+</div>
+<div id="ref-Kitchenham02_CSC" class="csl-entry" role="listitem">
+Kitchenham, Barbara, Shari Lawrence Pfleeger, Beth McColl, and Suzanne Eagan. 2002. <span>“An Empirical Study of Maintenance and Development Estimation Accuracy.”</span> <em>Journal of Systems and Software</em> 64 (1): 57–77. <a href="https://doi.org/10.1016/S0164-1212(02)00021-3">https://doi.org/10.1016/S0164-1212(02)00021-3</a>.
+</div>
+<div id="ref-LiRAR07" class="csl-entry" role="listitem">
+Li, Jingzhou, Guenther Ruhe, Ahmed Al-Emran, and Michael M. Richter. 2007. <span>“A Flexible Method for Software Effort Estimation by Analogy.”</span> <em>Empirical Software Engineering</em> 12 (1): 65–106. <a href="https://doi.org/10.1007/s10664-006-7552-4">https://doi.org/10.1007/s10664-006-7552-4</a>.
+</div>
+<div id="ref-MairSJ05" class="csl-entry" role="listitem">
+Mair, Carolyn, Martin Shepperd, and Magne Jørgensen. 2005. <span>“An Analysis of Data Sets Used to Train and Validate Cost Prediction Systems.”</span> <em>SIGSOFT Software Engineering Notes</em> (New York, NY, USA) 30 (4): 1–6. <a href="https://doi.org/10.1145/1082983.1083166">https://doi.org/10.1145/1082983.1083166</a>.
+</div>
+<div id="ref-Maxwell02" class="csl-entry" role="listitem">
+Maxwell, Katrina. 2002. <em>Applied Statistics for Software Managers</em>. Prentice Hall.
+</div>
+<div id="ref-Misic19981" class="csl-entry" role="listitem">
+Mišić, Vojislav B, and Dejan N Tevsić. 1998. <span>“Estimation of Effort and Complexity: An Object-Oriented Case Study.”</span> <em>Journal of Systems and Software</em> 41 (2): 133–43. <a href="https://doi.org/10.1016/S0164-1212(97)10014-0">https://doi.org/10.1016/S0164-1212(97)10014-0</a>.
+</div>
+<div id="ref-Miyazaki94" class="csl-entry" role="listitem">
+Miyazaki, Y., M. Terakado, K. Ozaki, and H. Nozaki. 1994. <span>“Robust Regression for Developing Software Estimation Models.”</span> <em>Journal of Systems and Software</em> 27 (1): 3–16. <a href="https://doi.org/10.1016/0164-1212(94)90110-4">https://doi.org/10.1016/0164-1212(94)90110-4</a>.
+</div>
+<div id="ref-Moser1999" class="csl-entry" role="listitem">
+Moser, Simon, Brian Henderson-Sellers, and Vojislav B Mišić. 1999. <span>“Cost Estimation Based on Business Models.”</span> <em>Journal of Systems and Software</em> 49 (1): 33–42. <a href="https://doi.org/10.1016/S0164-1212(99)00064-3">https://doi.org/10.1016/S0164-1212(99)00064-3</a>.
+</div>
+<div id="ref-Schofield98PhD" class="csl-entry" role="listitem">
+Schofield, C. 1998. <span>“An Empirical Investigation into Software Effort Estimation by Analogy.”</span> PhD thesis, Bournemouth University.
+</div>
+<div id="ref-Shepperd_TSE01" class="csl-entry" role="listitem">
+Shepperd, M., and M. Cartwright. 2001. <span>“Predicting with Sparse Data.”</span> <em>Software Engineering, IEEE Transactions on</em> 27 (11): 987–98. <a href="https://doi.org/10.1109/32.965339">https://doi.org/10.1109/32.965339</a>.
+</div>
+<div id="ref-Shepperd97_Analogy" class="csl-entry" role="listitem">
+Shepperd, M., and C. Schofield. 1997. <span>“Estimating Software Project Effort Using Analogies.”</span> <em>IEEE Transactions on Software Engineering</em> 23 (11): 736–43. <a href="https://doi.org/10.1109/32.637387">https://doi.org/10.1109/32.637387</a>.
+</div>
+<div id="ref-Woodfield81" class="csl-entry" role="listitem">
+Woodfield, S. N., V. Y. Shen, and H. E. Dunsmore. 1981. <span>“A Study of Several Metrics for Programming Effort.”</span> <em>Journal of Systems and Software</em> 2 (2): 97–103. <a href="https://doi.org/10.1016/0164-1212(81)90029-7">https://doi.org/10.1016/0164-1212(81)90029-7</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Donated through PROMISE.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Only a subset of the data in the paper, the complete dataset is donated through PROMISE<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/danrodgar\.github\.io\/DASE\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./210_dataSources.html" class="pagination-link" aria-label="Data Sources in Software Engineering">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./230_exploratoryDataAnalysis.html" class="pagination-link" aria-label="Exploratory Data Analysis">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

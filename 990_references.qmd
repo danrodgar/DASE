@@ -1,0 +1,18 @@
+---
+title: "References"
+nocite: "@*"
+---
+
+<style>
+/* References page only: hide chapter numbering for this entry. */
+.quarto-page-breadcrumbs .chapter-number,
+.quarto-title .chapter-number,
+.sidebar-item-text.sidebar-link.active .chapter-number,
+.nav-page-text .chapter-number {
+	display: none;
+}
+</style>
+
+::: {#refs}
+:::
+

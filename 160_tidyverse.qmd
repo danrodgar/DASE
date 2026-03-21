@@ -1,0 +1,128 @@
+
+# The Tidyverse approach to Data Analysis
+
+The `tidyverse` is a set of packages promoted by Posit with the purpose of standardizing the processes in data science
+
+<https://www.tidyverse.org/>
+
+[Tidyverse design principles](https://principles.tidyverse.org/)
+
+
+## Packages included
+
+-   `readr`
+-   `tibble`
+-   `dplyr` for data manipulation
+-   `tidyr` for "tidy"ing data
+-   `forcats`
+-   `ggplot2` for plotting data
+-   `purrr`
+-   `stringr`
+-   and the Pipe operator `%>%`
+
+### The Pipe operator in packages magrittr and dplyr
+
+The pipe `%>%` operator was first introduced in the `magrittr` package and became central to the tidyverse. It passes the left-hand side as the first argument to the right-hand side function, allowing readable left-to-right chains.
+
+Since **R 4.1 (2021)**, base R ships its own native pipe `|>` which covers most common use cases without loading any package:
+
+```r
+# magrittr pipe (requires magrittr or dplyr)
+mtcars %>% filter(cyl > 4) %>% summary()
+
+# native pipe (base R >= 4.1, no package needed)
+mtcars |> subset(cyl > 4) |> summary()
+```
+
+Both operators are functionally equivalent for the examples in this book. The native `|>` is preferred in new code; `%>%` remains common in older scripts and has extra features (`%T>%`, `%<>%`) for advanced use.
+
+It comes in handy when applying a sequence of functions to data frames.
+
+```{r, echo=FALSE}
+library(magrittr)
+print("Compute the square root of the elements of a vector")
+x <- 0:5
+x
+sqrt(x)
+
+"  Using the pipe %>% ..." %>% print()
+x %>% sqrt()
+
+x %>% summary()
+summary(x)
+library(dplyr)
+mtcars %>% select(mpg, cyl, hp)
+mtcars %>% select(mpg, cyl, hp) %>% filter(cyl > 4) %>% summary()
+
+mtcars_2 <- mtcars %>% select(mpg, cyl, hp) %>% filter(cyl > 4) %>% head()
+mtcars_2
+
+
+```
+
+## dplyr
+
+dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
+
+    mutate() adds new variables that are functions of existing variables
+    select() picks variables based on their names.
+    filter() picks cases based on their values.
+    summarise() reduces multiple values down to a single summary.
+    arrange() changes the ordering of the rows.
+    group_by() which allows you to perform any operation “by group”.
+
+### Examples
+
+`glimpse`
+
+```{r}
+glimpse(mtcars)
+```
+
+`select` is used for subsetting variables
+
+```{r}
+select(mtcars,mpg)
+
+select(mtcars, mpg:disp,-cyl) # mpg to disp, except cyl
+
+```
+
+`mutate` adds new columns to a dataset
+
+`filter` selects cases based on the values of the rows
+
+```{r}
+mtcars %>% filter(hp>100)
+```
+
+Group_by is used to group data by one or more columns. Usually
+
+```{r}
+mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg))
+```
+
+arrange is used to sort cases in ascending or descending order.
+
+```{r}
+mtcars %>% filter(hp>100) %>% group_by(cyl) %>% summarize(avg_mpg=mean(mpg)) %>% arrange(desc(cyl))
+```
+
+## Tibble
+
+`Tibbles` are a modern take on dataframes. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors)." <https://tibble.tidyverse.org/>
+
+## Tidymodels
+
+The modern modeling framework in the tidyverse ecosystem. This chapter presents
+`tidymodels` as the primary approach for data preprocessing, training, tuning,
+and evaluation.
+
+[The tidymodels Package](https://www.tidymodels.org/)
+
+### Criticisms to this approach
+
+-   <https://towardsdatascience.com/a-thousand-gadgets-my-thoughts-on-the-r-tidyverse-2441d8504433>
+-   <https://github.com/matloff/TidyverseSkeptic/blob/master/READMEFull.md>
+-   <https://www.r-bloggers.com/2019/12/why-i-dont-use-the-tidyverse/>
+-   Jared P. Lander, R for Everyone. Advanced Analytics and Graphics, 2nd ed., Addison-Wesley, 2017

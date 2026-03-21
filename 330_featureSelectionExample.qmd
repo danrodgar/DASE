@@ -1,0 +1,107 @@
+# Feature Selection Example
+
+This section presents a modern feature-selection workflow using `tidymodels`.
+The goal is to keep the process explicit and reproducible:
+
+- split data into training and test subsets
+- define feature filters in a `recipe`
+- fit a model through a `workflow`
+- inspect variable importance
+
+```{r setup_fs, message=FALSE, warning=FALSE}
+library(tidymodels)
+
+has_vip <- requireNamespace("vip", quietly = TRUE)
+
+set.seed(10)
+kc1 <- read.csv("./datasets/defectPred/unified/Unified-file.csv", stringsAsFactors = FALSE)
+kc1 <- kc1[, c("McCC", "CLOC", "PDA", "PUA", "LLOC", "LOC", "bug")]
+kc1$Defective <- factor(ifelse(kc1$bug > 0, "Y", "N"))
+kc1$bug <- NULL
+
+split <- initial_split(kc1, prop = 0.75, strata = Defective)
+training <- training(split)
+testing <- testing(split)
+```
+
+## Feature filtering with recipes
+
+`recipes` supports common feature-selection and cleaning steps:
+
+- `step_zv()` removes zero-variance predictors
+- `step_nzv()` removes near-zero-variance predictors
+- `step_corr()` removes highly correlated numeric predictors
+
+```{r fs_recipe, message=FALSE, warning=FALSE}
+rec <- recipe(Defective ~ ., data = training) |>
+  step_zv(all_predictors()) |>
+  step_nzv(all_predictors()) |>
+  step_corr(all_numeric_predictors(), threshold = 0.90)
+
+rec_prep <- prep(rec)
+juice(rec_prep) |> dplyr::glimpse()
+```
+
+## Leakage pitfalls in feature selection
+
+Feature selection must be fit on training data only. Common mistakes:
+
+- selecting features on the full dataset before splitting
+- ranking features using labels from future releases
+- including attributes that are proxies of the target (post-release fields)
+
+In this chapter, feature filters are defined in the recipe and learned from
+`training` only, then applied to `testing` through the fitted workflow.
+
+## Train a model after feature filtering
+
+```{r fs_model, message=FALSE, warning=FALSE}
+rf_spec <- rand_forest(trees = 500, min_n = 5) |>
+  set_mode("classification") |>
+  set_engine("ranger", importance = "impurity")
+
+wf <- workflow() |>
+  add_recipe(rec) |>
+  add_model(rf_spec)
+
+rf_fit <- fit(wf, data = training)
+rf_fit
+```
+
+## Evaluate on the test set
+
+```{r fs_eval, message=FALSE, warning=FALSE}
+pred_cls <- predict(rf_fit, testing, type = "class")
+pred_prb <- predict(rf_fit, testing, type = "prob")
+
+eval_tbl <- bind_cols(testing, pred_cls, pred_prb)
+
+metrics(eval_tbl, truth = Defective, estimate = .pred_class)
+conf_mat(eval_tbl, truth = Defective, estimate = .pred_class)
+```
+
+## Variable importance
+
+```{r fs_importance, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+if (has_vip) {
+  rf_fit |>
+    extract_fit_parsnip() |>
+    vip::vip(num_features = 15)
+} else {
+  message("Package 'vip' is not installed; skipping variable-importance plot.")
+}
+```
+
+## Feature Selection Packages and Further Reading
+
+For this chapter, the most useful package families are:
+
+| Package | Typical Use in Feature Selection |
+|---------|----------------------------------|
+| [recipes](https://recipes.tidymodels.org/) | Filtering and preprocessing (`step_zv`, `step_nzv`, `step_corr`) |
+| [Boruta](https://cran.r-project.org/package=Boruta) | All-relevant feature selection using random forests |
+| [FSelectorRcpp](https://cran.r-project.org/package=FSelectorRcpp) | Information-gain and entropy-based ranking |
+| [vip](https://koalaverse.github.io/vip/) | Variable-importance visualization for fitted models |
+| [ranger](https://cran.r-project.org/package=ranger) | Fast tree-based models with built-in importance scores |
+
+To keep this chapter concise, we focus on the `recipes` + `ranger` workflow. See @sec-popular-packages for a broader package map and @sec-rpackages for package-management guidance.

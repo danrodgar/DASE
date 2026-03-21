@@ -1,0 +1,433 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Text Mining Software Engineering Data 
+
+In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons,  etc.  Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple's AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.
+
+A well-known package for _text mining_ is `tm` [@FeinererH15,@FeinererHM08]. Another popular package is `wordcloud`. 
+
+```{r setup, message=FALSE, include=FALSE, warning=FALSE}
+has_tm <- requireNamespace("tm", quietly = TRUE)
+has_wordcloud <- requireNamespace("wordcloud", quietly = TRUE)
+has_tidymodels <- requireNamespace("tidymodels", quietly = TRUE)
+has_ranger <- requireNamespace("ranger", quietly = TRUE)
+
+if (!has_tm) {
+  message("Package 'tm' is not installed; text-mining execution chunks will be skipped.")
+}
+```
+
+## Terminology 
+
+  The workflow that we follow for analyzing a set of text documents are: 
+
+  1. Importing data. A _Corpus_ is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The `tm` provides several corpus constructors: `DirSource`, `VectorSource`, or `DataframeSource` (`getSources()`). 
+  
+  There are several parameters that control the creation of a _Corpus_.
+  ((The parameter readerControl of the corpus constructor has to be a list with the named components reader and language))  
+
+  2. Preprocessing: in this step we may remove common words, punctuation and we may perform other operations. We may do this operations after creating the DocumentTermMatrix.
+  
+  3. Inspecting and exploring data: Individual documents can be accessed via [[
+
+  4. Transformations: Transformations are done via the `tm_map()` function. 
+    + `tm_map(_____, stripWhitespace)`  
+    + `tm_map(_____, content_transformer(tolower))`
+    + `tm_map(_____, removeWords, stopwords("english"))`
+    + `tm_map(_____, stemDocument)`
+  5. Creating `Term-Document` Matrices: TermDocumentMatrix and DocumentTermMatrix
+    + A document term matrix is a matrix with documents as the rows and terms as the columns. Each cell of the matrix contains the count of the frequency of words. We use DocumentTermMatrix()
+to create the matrix.
+    + `inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3"))))`.   It displays detailed information on a corpus or a term-document matrix.
+
+  6. Relationships between terms.
+    + `findFreqTerms(_____, anumber)`
+    + `findAssocs(Mydtm, "aterm", anumbercorrelation)`
+    + A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining. 
+
+  7. Clustering and Classification
+  
+    
+
+
+## Example of classifying bugs from Bugzilla 
+
+
+Bugzilla is an issue-tracking system that allows us to follow the evolution of
+a software project.
+
+The following example shows how to work with Bugzilla entries. We assume the
+data has already been extracted into a flat file (for example via SQL export or
+web crawling).
+
+
+```{r readFileCompendiumARFF, message=FALSE, warning=FALSE}
+library(foreign)
+# path_name <- file.path("C:", "datasets", "textMining")
+# path_name
+# dir(path_name)
+
+#Import data
+options(stringsAsFactors = FALSE)
+d <- read.arff("./datasets/textMining/reviewsBugs.arff" )
+str(d) #print out information about d
+
+head(d,2) # the first two rows of d. 
+# fifth entry
+d$revContent[5]
+d$revBug[5]
+```
+
+Creating a Document-Term Matrix (DTM)
+
+```{r Create DTM, message=FALSE, warning=FALSE, include=FALSE, eval=has_tm}
+library(tm)
+
+# creation of a data frame
+ds <- DataframeSource(data.frame(doc_id=row.names(d),
+                                 text=d$revContent))
+
+# Corpus is the command that creates the corpus
+dsc <- Corpus(ds)
+str(dsc)
+
+# weighting=TfIdf weighting is Tf*Idf. See documentation 'tm'.Term frequency*inverse term frequency
+# minWordLength=WL the minimum word length is WL
+# minDocFreq=ND each word must appear at least in ND docs
+
+# Other options of DTM
+# These are not really needed, if preprocessing has been carried out:
+# stemming=TRUE stemming is applied
+# stopwords=TRUE stopwords are eliminated
+# removeNumbers=TRUE numbers are eliminated
+
+dtm <- DocumentTermMatrix(dsc, control = list(weighting = weightTfIdf, minDocFreq=3, stopwords = TRUE, removeNumbers = TRUE))
+
+dim(dtm)
+inspect(dtm [1:5,1:10]) # view 5 first docs, 10 terms
+
+# dtm.70=removeSparseTerms(dtm,sparse=0.7)
+# dtm.70 # or dim(dtm.70)
+# note that the term-document matrix needs to be transformed (casted)
+# to a matrix form in the following barplot command
+```
+
+Now, we can explore things such as "which words are associated with "feature"?"
+
+```{r, eval=has_tm}
+# which words are associated with "bug"?
+findAssocs(dtm, 'bug', .3) # minimum correlation of 0.3. Change accordingly. 
+```
+
+And find frequent terms.
+
+```{r frequentTerms, message=FALSE, eval=has_tm}
+findFreqTerms(dtm, 15) #terms that appear 15 or more times, in this case
+```
+
+
+
+
+Remove some terms 
+```{r, eval=has_tm}
+sparseparam <- 0.90 # will make the matrix 90% empty space, maximum. Change this, as you like.
+dtm_sprs <- removeSparseTerms(dtm,sparse=sparseparam)
+inspect(dtm_sprs)
+maintitle <-paste0("Most frequent terms (sparseness=" ,sparseparam , "  )")
+barplot(as.matrix(dtm_sprs),xlab="terms",ylab="number of occurrences", main=maintitle)
+
+# organize terms by their frequency 
+
+freq_dtm_sprs <- colSums(as.matrix(dtm_sprs))
+length(freq_dtm_sprs)
+sorted_freq_dtm_sprs <- sort(freq_dtm_sprs, decreasing = TRUE)
+sorted_freq_dtm_sprs
+```
+
+Create a data frame that will be the input to the classifier.
+Last column will be the label. 
+
+As data frame:
+
+```{r message=FALSE,results='hide', eval=has_tm}
+#dtmdf <- as.data.frame(dtm.90)
+#dtmdf <- as.data.frame(inspect(dtm_sprs))
+dtmdf <- as.data.frame(as.matrix(dtm_sprs))
+# rownames(dtm)<- 1:nrow(dtm)
+
+class <- d$revBug
+dtmdf <- cbind(dtmdf,class)
+head(dtmdf, 3)
+```
+
+Use any classifier now:
+  - split the dataframe into training and testing
+  - Build the classification model using the training subset
+  - apply the model to the testing subset and obtain the Confusion Matrix
+  - Analise the results
+
+```{r tmCaret, message=FALSE, eval=has_tm && has_tidymodels && has_ranger}
+library(tidymodels)
+library(ranger)
+
+set.seed(42)
+split <- initial_split(dtmdf, prop = 0.75, strata = class)
+training <- training(split)
+testing <- testing(split)
+
+rf_spec <- rand_forest(trees = 400, min_n = 5) |>
+  set_mode("classification") |>
+  set_engine("ranger", importance = "impurity")
+
+wf <- workflow() |>
+  add_formula(class ~ .) |>
+  add_model(rf_spec)
+
+rf_fit <- fit(wf, data = training)
+
+pred_cls <- predict(rf_fit, testing, type = "class")
+pred_prb <- predict(rf_fit, testing, type = "prob")
+
+head(pred_prb)
+
+eval_tbl <- bind_cols(testing, pred_cls)
+conf_tbl <- conf_mat(eval_tbl, truth = class, estimate = .pred_class)
+conf_tbl
+```
+
+We may compute manually all derived variables from the Confusion Matrix. See Section -- with the description of the Confusion Matrix
+
+```{r confmat, message=FALSE, eval=has_tm && has_tidymodels && has_ranger}
+cm <- as.matrix(conf_tbl$table)
+TruePositive <- cm[1,1]
+TruePositive
+FalsePositive <- cm[1,2]
+FalsePositive
+FalseNegative <- cm[2,1]
+FalseNegative
+TrueNegative <- cm[2,2]
+TrueNegative
+
+# Sum columns in the confusion matrix
+ConditionPositive <- TruePositive + FalseNegative
+ConditionNegative <- FalsePositive + TrueNegative
+TotalPopulation <- ConditionPositive + ConditionNegative
+TotalPopulation
+
+#Sum rows in the confusion matrix
+PredictedPositive <- TruePositive + FalsePositive
+PredictedNegative <- FalseNegative + TrueNegative
+# Total Predicted must be equal to the total population
+PredictedPositive+PredictedNegative
+
+SensitivityRecall_TPR <- TruePositive / ConditionPositive
+SensitivityRecall_TPR
+
+Specificity_TNR_SPC <- TrueNegative / ConditionNegative
+Specificity_TNR_SPC
+
+Precision_PPV <- TruePositive / PredictedPositive
+Precision_PPV 
+
+NegativePredictedValue_NPV <- TrueNegative / PredictedNegative
+NegativePredictedValue_NPV
+
+Prevalence <- ConditionPositive / TotalPopulation
+Prevalence
+
+Accuracy_ACC <- (TruePositive + TrueNegative) / TotalPopulation
+Accuracy_ACC
+
+FalseDiscoveryRate_FDR <- FalsePositive / PredictedPositive
+FalseDiscoveryRate_FDR
+
+FalseOmisionRate_FOR <- FalseNegative / PredictedNegative 
+FalseOmisionRate_FOR
+
+FallOut_FPR <- FalsePositive / ConditionNegative
+FallOut_FPR
+
+MissRate_FNR <- FalseNegative / ConditionPositive
+MissRate_FNR 
+
+```
+
+And finally, a word cloud as an example that appears everywhere these days.
+
+```{r WordCloud, message=FALSE, eval=has_tm && has_wordcloud}
+library(wordcloud)
+
+# calculate the frequency of words and sort in descending order.
+wordFreqs=sort(colSums(as.matrix(dtm_sprs)),decreasing=TRUE)
+
+wordcloud(words=names(wordFreqs),freq=wordFreqs)
+```
+
+
+## Beyond Bag-of-Words: Embeddings and Pretrained Models
+
+The TF-IDF bag-of-words representation loses word order and treats all terms
+as independent. Two families of representations address this limitation.
+
+### Word and Sentence Embeddings
+
+**Word embeddings** map each token to a dense vector in a continuous space such
+that semantically similar words are close. *word2vec* [@Mikolov2013Word2Vec] and
+*fastText* learn these vectors from unlabeled corpora. Sentence and paragraph
+embeddings (doc2vec, Sentence-BERT) produce a single fixed-length vector per
+document.
+
+For SE tasks, embeddings pre-trained on code corpora (Stack Overflow, GitHub
+commit messages) outperform embeddings trained on general text because SE
+vocabulary is highly domain-specific.
+
+In R, the `text` package provides an interface to Hugging Face Sentence
+Transformers for computing contextual embeddings, and `fastTextR` wraps
+Facebook's fastText library.
+
+```{r eval=FALSE}
+# fastText embeddings for commit messages (sketch)
+# library(fastTextR)
+# model <- ft_load("path/to/cc.en.300.bin")  # pretrained fastText vectors
+# vecs  <- ft_word_vectors(model, tokens)
+# Use mean pooling across tokens to get one vector per document
+```
+
+### Pretrained Code Models
+
+Large pretrained models of source code represent the current state of practice
+for SE text mining tasks such as bug report classification, code summarization,
+clone detection, and vulnerability detection. Key models:
+
+- **CodeBERT** [@Feng2020CodeBERT] — a bimodal model pretrained on code and
+  natural language pairs from GitHub (Python, Java, JavaScript, PHP, Ruby, Go).
+  Fine-tunable for classification, summarization, and code search.
+- **CodeT5** [@Wang2021CodeT5] — encoder-decoder architecture supporting
+  generation tasks (code completion, bug fix, doc generation).
+- **UniXcoder** — unifies understanding and generation in a single model.
+
+These models are accessed via the Hugging Face `transformers` Python library;
+they can be called from R via the `reticulate` package or used as REST APIs.
+For a comprehensive survey of machine learning approaches to source code
+analysis, see Allamanis et al. [@Allamanis2018Survey].
+
+
+## Common SE Text Classification Tasks
+
+### Duplicate Bug Report Detection
+
+Large projects accumulate thousands of bug reports, and reporters often
+re-submit issues already in the tracker. Automatically detecting **duplicate
+bug reports** saves triager effort and prevents redundant fix work.
+
+This is a retrieval/classification task: given a new report, rank existing
+reports by similarity. Runeson et al. applied TF-IDF plus a SVM and showed that
+textual similarity is a strong signal [@Runeson2007DupBug]. More recent
+approaches use BERT-based cosine similarity for better precision on short titles.
+
+### Flaky Tests
+
+A **flaky test** is one that passes or fails non-deterministically for the same
+code change. Flakiness undermines the reliability of CI pipelines: it causes
+developers to ignore test failures (alert fatigue) and inflates apparent defect
+rates in commit-level studies.
+
+Sources of flakiness include concurrency issues, test-order dependencies,
+time/date dependencies, network access, and external resource dependency. Luo
+et al. conducted the first large-scale empirical study of flaky tests in open
+source projects, identifying categories and their relative frequency
+[@Luo2014Flaky]. Detecting flaky tests using ML approaches involves mining test
+execution histories and training classifiers on pass/fail sequences, test
+duration variance, and error message embeddings.
+
+
+## Evaluating Large Language Models for SE Tasks {#sec-llm-evaluation}
+
+Large Language Models (LLMs) such as GPT-4, CodeLlama, and DeepSeek-Coder are
+increasingly applied to SE tasks: code completion, bug fixing, test generation,
+code review, and requirement summarization. Evaluating these models requires
+careful metric selection because standard accuracy measures are often
+insufficient for open-ended generation tasks.
+
+### Automated Text-Generation Metrics
+
+| Metric | Description | Typical SE use |
+|---|---|---|
+| **BLEU** [@Papineni2002BLEU] | n-gram precision between generated and reference text; fast and reproducible | Code summarization, commit message generation |
+| **ROUGE-L** [@Lin2004ROUGE] | Longest Common Subsequence recall; recall-oriented | Summarization, documentation generation |
+| **BERTScore** [@Zhang2020BERTScore] | Semantic similarity via contextual BERT embeddings; captures paraphrases | Any generation task where wording varies |
+| **CodeBLEU** [@Ren2020CodeBLEU] | Extends BLEU with syntactic (AST) and semantic (data-flow) matching; code-aware | Code generation, code translation |
+
+**Limitations of reference-based metrics.** All of the above compare model
+output to a single (or small number of) human-written reference. For code
+generation, many semantically correct programs look very different from the
+reference, causing these metrics to underestimate model quality.
+
+### Functional Correctness: pass@k
+
+The **pass@k** metric addresses the reference-mismatch problem by measuring
+*functional correctness*: generate $k$ candidate solutions, run the existing
+test suite, and report the fraction of tasks for which at least one of the $k$
+candidates passes all tests.
+
+$$pass@k = \mathbb{E}_{\text{tasks}}\left[1 - \frac{\binom{n-c}{k}}{\binom{n}{k}}\right]$$
+
+where $n$ samples are generated and $c$ pass. Chen et al. introduced this
+estimator and the **HumanEval** benchmark (164 hand-written function-level
+Python problems with unit tests) to evaluate the Codex model [@Chen2021Codex].
+**MBPP** (Mostly Basic Programming Problems) [@Austin2021MBPP] extends coverage
+to ~1,000 diverse Python tasks.
+
+```{r eval=FALSE}
+# pass@k is computed outside R, typically in Python:
+# from human_eval.evaluation import evaluate_functional_correctness
+# results = evaluate_functional_correctness("samples.jsonl")
+# print(results["pass@1"], results["pass@10"])
+```
+
+### Repository-Level Evaluation: SWE-bench
+
+HumanEval and MBPP test isolated, standalone functions. **SWE-bench**
+[@Jimenez2024SWEbench] raises the bar to *repository-level* evaluation: given a
+real GitHub issue description and the repository at the time the issue was
+filed, can the model produce a patch that passes the project's existing test
+suite? This setting tests end-to-end engineering judgment — reasoning about
+multi-file codebases, understanding library APIs, and generating correct diffs.
+
+SWE-bench (and its filtered variant SWE-bench Verified) has become the standard
+benchmark for evaluating LLM-based software engineering agents.
+
+### Key Pitfalls in LLM Evaluation
+
+**Benchmark contamination.** LLMs trained on large code corpora may have seen
+HumanEval or MBPP problems during training, making pass@k scores optimistic.
+Contamination can be tested by probing the model with perturbed problem
+statements.
+
+**Sampling non-determinism.** Results depend on temperature and sampling
+parameters. Always fix the random seed, report temperature and top-p, and run
+multiple trials to estimate variance in pass@k.
+
+**Human evaluation.** Automated metrics correlate only moderately with human
+judgments of code quality, clarity, and correctness. For research claims, a
+human study on a stratified sample of outputs is strongly recommended.
+
+**Calibration.** LLMs can be confidently wrong. Reporting Expected Calibration
+Error (ECE) alongside accuracy reveals whether the model's expressed confidence
+tracks its actual error rate.
+
+### Reporting Checklist for LLM-Based SE Studies
+
+1. Model name, version/checkpoint, and access date (models change silently)
+2. Prompt template(s) — exact text, not a paraphrase
+3. Temperature, top-p, max tokens, and random seed
+4. Metric(s) with confidence intervals or repeated-run variance
+5. Benchmark version and contamination check (if applicable)
+6. Baseline comparisons: non-LLM, smaller LLM, and prior SOTA
+7. Human evaluation on a sample if claims go beyond automated metrics
+
+

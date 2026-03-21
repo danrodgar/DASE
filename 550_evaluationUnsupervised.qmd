@@ -1,0 +1,205 @@
+# Evaluation of Unsupervised Models
+
+## Learning Objectives and Evaluation Lens
+
+- **Objective**: evaluate whether unsupervised structure is both statistically coherent and practically useful.
+- **Primary metrics**: silhouette, CH index, purity, ARI.
+- **Interpretation rule**: internal quality and external usefulness should both be considered.
+- **Common pitfalls**: selecting $k$ once without sensitivity analysis and over-interpreting unstable clusters.
+
+In unsupervised learning we do not train against target labels, so evaluation
+must focus on cluster structure quality and business usefulness.
+
+In software engineering, a common use case is grouping modules/components by
+their static metrics (size, complexity, coupling) to identify *risk profiles*
+for testing and quality assurance.
+
+## Example: Clustering Software Modules (UnifiedBugDataset)
+
+We use `Unified-file.csv` from UnifiedBugDataset 1.2 (2019), which merges
+multiple defect datasets (PROMISE, Eclipse, Bug Prediction Dataset,
+Bugcatchers, GitHub bug datasets). Compared to using only NASA subsets (e.g.,
+KC1/JM1), this is a broader and more up-to-date benchmark.
+
+Even though clustering is unsupervised, the dataset includes a `bug` field that
+we use *after* clustering as an external validation signal.
+
+```{r setup_unsup_eval, message=FALSE, warning=FALSE, include=FALSE}
+has_cluster <- requireNamespace("cluster", quietly = TRUE)
+
+if (!has_cluster) {
+	message("Package 'cluster' is not installed; silhouette metric will be skipped.")
+}
+
+set.seed(2026)
+```
+
+```{r load_data_unsup_eval, message=FALSE, warning=FALSE}
+unified <- read.csv("./datasets/defectPred/unified/Unified-file.csv", stringsAsFactors = FALSE)
+
+# External validation label (binary): defective if bug count > 0.
+truth <- factor(ifelse(unified$bug > 0, "buggy", "clean"), levels = c("clean", "buggy"))
+
+# Use numeric software metrics only, excluding identifiers and bug label.
+drop_cols <- c("ID", "Name", "LongName", "Parent", "bug")
+X <- unified[, setdiff(names(unified), drop_cols)]
+X <- X[, sapply(X, is.numeric), drop = FALSE]
+
+# Remove incomplete rows and keep labels aligned.
+ok <- complete.cases(X)
+X <- X[ok, , drop = FALSE]
+truth <- truth[ok]
+
+# Remove degenerate columns that break scaling/kmeans.
+var_ok <- vapply(X, function(col) {
+	v <- var(col, na.rm = TRUE)
+	is.finite(v) && v > 0
+}, logical(1))
+X <- X[, var_ok, drop = FALSE]
+
+# Silhouette requires pairwise distances (O(n^2)); cap sample size for speed.
+max_n <- 2500
+if (nrow(X) > max_n) {
+	idx <- sample(seq_len(nrow(X)), size = max_n)
+	X <- X[idx, , drop = FALSE]
+	truth <- truth[idx]
+}
+
+# Scale metrics to avoid size-dominated clusters.
+X_scaled <- scale(X)
+X_scaled <- X_scaled[, colSums(is.finite(X_scaled)) == nrow(X_scaled), drop = FALSE]
+
+dim(X_scaled)
+```
+
+## Internal Evaluation Metrics
+
+Internal metrics evaluate cluster compactness and separation without labels.
+
+- Total within-cluster sum of squares (`tot.withinss`): lower is better
+- Average silhouette width: higher is better
+- Calinski-Harabasz index: higher is better
+
+```{r internal_metrics_functions}
+calinski_harabasz <- function(x, clusters) {
+	x <- as.matrix(x)
+	clusters <- as.factor(clusters)
+	n <- nrow(x)
+	k <- nlevels(clusters)
+
+	overall_center <- colMeans(x)
+
+	# Within-cluster sum of squares
+	wss <- 0
+	# Between-cluster sum of squares
+	bss <- 0
+
+	for (cl in levels(clusters)) {
+		idx <- which(clusters == cl)
+		xk <- x[idx, , drop = FALSE]
+		nk <- nrow(xk)
+		ck <- colMeans(xk)
+
+		wss <- wss + sum((xk - matrix(ck, nrow = nk, ncol = ncol(xk), byrow = TRUE))^2)
+		bss <- bss + nk * sum((ck - overall_center)^2)
+	}
+
+	(bss / (k - 1)) / (wss / (n - k))
+}
+
+avg_silhouette <- function(x, clusters) {
+	if (!has_cluster) return(NA_real_)
+	sil <- cluster::silhouette(as.integer(as.factor(clusters)), dist(x))
+	mean(sil[, "sil_width"])
+}
+```
+
+```{r compare_k_values, message=FALSE, warning=FALSE}
+ks <- 2:6
+
+internal_tbl <- lapply(ks, function(k) {
+	km <- kmeans(X_scaled, centers = k, nstart = 25)
+	data.frame(
+		k = k,
+		total_withinss = km$tot.withinss,
+		avg_silhouette = avg_silhouette(X_scaled, km$cluster),
+		calinski_harabasz = calinski_harabasz(X_scaled, km$cluster)
+	)
+})
+
+internal_tbl <- do.call(rbind, internal_tbl)
+internal_tbl
+```
+
+## External Evaluation (Using Defect Labels Only for Assessment)
+
+External metrics compare clusters with known classes. This does not make the
+training supervised; it only checks whether clusters align with practical
+categories of interest.
+
+- Purity: proportion of modules assigned to the majority class in each cluster
+- Adjusted Rand Index (ARI): agreement corrected for chance
+
+```{r external_metrics_functions}
+purity_score <- function(truth, pred) {
+	tab <- table(truth, pred)
+	sum(apply(tab, 2, max)) / sum(tab)
+}
+
+adjusted_rand_index <- function(truth, pred) {
+	tab <- table(truth, pred)
+	n <- sum(tab)
+
+	a <- rowSums(tab)
+	b <- colSums(tab)
+
+	sum_choose <- sum(choose(tab, 2))
+	expected <- (sum(choose(a, 2)) * sum(choose(b, 2))) / choose(n, 2)
+	max_index <- 0.5 * (sum(choose(a, 2)) + sum(choose(b, 2)))
+
+	denom <- max_index - expected
+	if (denom == 0) return(0)
+
+	(sum_choose - expected) / denom
+}
+```
+
+```{r external_metrics_example, message=FALSE, warning=FALSE}
+# Choose k by best silhouette when available, otherwise k=2 as baseline.
+if (all(is.na(internal_tbl$avg_silhouette))) {
+	k_best <- 2
+} else {
+	k_best <- internal_tbl$k[which.max(internal_tbl$avg_silhouette)]
+}
+
+km_best <- kmeans(X_scaled, centers = k_best, nstart = 25)
+
+external_tbl <- data.frame(
+	k = k_best,
+	purity = purity_score(truth, km_best$cluster),
+	adjusted_rand_index = adjusted_rand_index(truth, km_best$cluster)
+)
+
+external_tbl
+```
+
+## SE Interpretation of the Result
+
+In this context, useful unsupervised evaluation means:
+
+- Clusters are internally coherent (higher silhouette / CH, lower WSS)
+- Clusters have interpretable engineering meaning
+	- for example, one cluster might contain high complexity and size metrics,
+		indicating modules requiring stronger testing effort
+- If external validation is available, non-trivial purity/ARI suggests that
+	structural metric groups are related to defect proneness
+
+This evaluation approach supports practical decisions such as risk-based test
+prioritization, review allocation, and focused refactoring.
+
+## Important topics often missing
+
+- cluster stability under resampling (same data, different seeds)
+- sensitivity to feature scaling choices
+- sensitivity to parameter choices ($k$, `eps`, `MinPts`)
+- actionable interpretation quality (can teams act on cluster descriptions?)

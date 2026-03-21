@@ -1,0 +1,373 @@
+
+# Regression {#regression}
+
+## Learning Objectives and Evaluation Lens
+
+- **Objective**: model and interpret numeric software engineering outcomes (for example, effort).
+- **Data context**: project/module predictors with a continuous response variable.
+- **Validation**: train/test split (prefer temporal split when available) and diagnostic checks.
+- **Primary metrics**: MAE, RMSE, and $R^2$.
+- **Common pitfalls**: extrapolation beyond observed ranges, nonlinearity, heteroscedasticity, and leakage in preprocessing.
+
+## Validation strategy for SE regression
+
+For effort/time prediction, random splits are often optimistic when records are
+project-correlated or time-ordered.
+
+- prefer temporal splits (train on older projects/releases)
+- use group-aware splits when many rows come from the same project
+- avoid tuning and reporting on the same folds
+
+```{r eval=FALSE}
+# Temporal split sketch
+# telecom1 <- telecom1 |> dplyr::arrange(project_end_date)
+# split_idx <- floor(0.8 * nrow(telecom1))
+# train <- telecom1[1:split_idx, ]
+# test  <- telecom1[(split_idx + 1):nrow(telecom1), ]
+```
+
+### Nested resampling (regression)
+
+Nested resampling gives less biased performance estimates for tuned models.
+
+```{r eval=FALSE}
+# outer <- rsample::vfold_cv(train, v = 5)
+# for each outer split:
+#   inner <- rsample::vfold_cv(training(outer_split), v = 5)
+#   tune model on inner folds
+#   refit best model on training(outer_split)
+#   score on testing(outer_split)
+```
+
+## Linear Regression modeling
+
+  - _Linear Regression_ is one of the oldest and most known predictive methods. As its name says, the idea is to try to fit a linear equation between a dependent variable and an independent, or explanatory, variable. The idea is that the independent variable $x$ is something the experimenter controls and the dependent variable $y$ is something that the experimenter measures. The line is used to predict the value of $y$ for a known value of $x$. The variable $x$ is the predictor variable and $y$ the response variable.
+  
+  - _Multiple linear regression_ uses 2 or more independent variables for building a model. See  <https://www.wikipedia.org/wiki/Linear_regression>.
+  
+  - First proposed many years ago but still very useful for software engineering tasks such as effort estimation and defect-count modeling.
+  
+  - The equation takes the form $\hat{y}=b_0+b_1 * x$
+  - The method used to choose the values $b_0$ and $b_1$ is to minimize the sum of the squares of the residual errors.
+
+### Regression: Software Effort Example
+
+The example below uses the `Telecom1` software effort dataset.
+
+```{r warning=FALSE, message=FALSE}
+telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",", header=TRUE, stringsAsFactors=FALSE, dec = ".")
+
+par(mfrow=c(1,2))
+hist(telecom1$size, col="blue", breaks=12, main="Project size")
+hist(telecom1$effort, col="blue", breaks=12, main="Project effort")
+
+plot(telecom1$size, telecom1$effort, pch=1, col="blue", cex=0.8,
+  xlab="Size", ylab="Effort")
+lm1 <- lm(effort ~ size, data = telecom1)
+abline(lm1, col="red", lwd=3)
+
+plot(telecom1$size, lm1$residuals, col="blue", pch=1, cex=0.8,
+  xlab="Size", ylab="Residuals")
+abline(c(0,0), col="red", lwd=2)
+qqnorm(lm1$residuals)
+qqline(lm1$residuals)
+```
+
+### Simple Linear Regression
+
+- Given two variables $Y$ (response) and $X$ (predictor), the assumption is that there is an approximate ($\approx$) *linear* relation between those variables. 
+- The mathematical model of the observed data is described as (for the case of simple linear regression):
+$$ Y \approx \beta_0 + \beta_1 X$$
+
+- the parameter $\beta_0$ is named the *intercept* and $\beta_1$ is the  *slope*
+- Each observation can be modeled as
+
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i;
+\epsilon_i \sim N(0,\sigma^2)$$ 
+- $\epsilon_i$ is the *error*
+- This means that the variable $y$ is normally distributed:
+$$ y_i \sim N( \beta_0 + \beta_1 x_i, \sigma^2) $$
+
+
+- The *predictions* or *estimations* of this model are obtained by a linear equation of the form $\hat{Y}=\hat{\beta_0} + \hat{\beta}_1X$, that is, each new prediction is computed with
+$$\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i $$.
+- The actual parameters $\beta_0$ and $\beta_1$ are unknown
+- The parameters $\hat{\beta}_0$ and $\hat{\beta}_1$ of the linear equation can be estimated with different methods. 
+
+### Least Squares
+
+- One of the most used methods for computing $\hat{\beta}_0$ and $\hat{\beta}_1$ is the criterion of "least squares" minimization. 
+- The data is composed of $n$ pairs of observations $(x_i, y_i)$
+- Given an observation $y_i$ and its corresponding estimation $\hat{y_i})$ the *residual* $e_i$ is defined as $$e_i= y_i - \hat{y_i}$$
+- the Residual Sum of Squares is defined as $$RSS=e_1^2+\dots + e_i^2+\dots+e_n^2$$
+- the Least Squares Approach minimizes the RSS
+- as a result of that minimization, it can be obtained, by means of calculus, the estimation of $\hat{\beta}_0$ and $\hat{\beta}_1$ as $$\hat{\beta}_1=\frac{\sum_{i=1}^{n}{(x_i-\bar{x})(y_i-\bar{y})}}{\sum_{i=1}^{n}(x_i-\bar{x})^2}$$ and $$\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x} $$ where $\bar{y}$ and $\bar{x}$ are the sample means.
+- the variance $\sigma^2$ is estimated by 
+$$\hat\sigma^2 = {RSS}/{(n-2)}$$ where n is the number of observations 
+- The *Residual Standard Error* is defined as $$RSE = \sqrt{{RSS}/{(n-2)}}$$
+- The equation $$ Y = \beta_0 + \beta_1 X + \epsilon$$ defines the linear model, i.e., the *population regression line*
+- The *least squares line* is $\hat{Y}=\hat{\beta_0} + \hat{\beta}_1X$
+- *Confidence intervals* are computed using the *standard errors* of the intercept and the slope.
+- The $95\%$ confidence interval for the slope is computed as $$[\hat{\beta}_1 - 2 \cdot SE(\hat{\beta}_1), \hat{\beta}_1+SE(\hat{\beta}_1)]$$ 
+- where $$ SE(\hat{\beta}_1) = \sqrt{\frac{\sigma^2}{\sum_{i=1}^{n}(x_i-\bar{x})^2}}$$
+
+### Linear regression in R
+
+The following are the basic commands in R:
+
+- The basic function is `lm()`, that returns an object with the model. 
+- Other commands: `summary` prints out information about the regression, `coef` gives the coefficients for the linear model, `fitted` gives the predictd value of $y$ for each value of $x$, `residuals` contains the differences between observed and fitted values. 
+- [`predict`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.lm.html) will generate predicted values of the response for the values of the explanatory variable. 
+  
+  
+## Linear Regression Diagnostics
+
+  - Several plots help to evaluate the suitability of the linear regression 
+    + *Residuals vs fitted*: The residuals should be randomly distributed around the horizontal line representing a residual error of zero; that is, there should not be a distinct trend in the distribution of points. 
+    + *Standard Q-Q plot*: residual errors are normally distributed
+    + *Square root of the standardized residuals vs the fitted values*: there should be no obvious trend. This plot is similar to the residuals versus fitted values plot, but it uses the square root of the standardized residuals. 
+    + *Leverage*: measures the importance of each point in determining the regression result. Smaller values means that removing the observation has little effect on the regression result. 
+
+
+### Simulation example
+
+#### Simulate a dataset
+```{r}
+set.seed(3456)
+# equation is  y = -6.6 + 0.13 x +e
+# range x 100,400
+a <- -6.6
+b <- 0.13
+num_obs <- 60
+xmin <- 100
+xmax <- 400
+x <- sample(seq(from=xmin, to = xmax, by =1), size= num_obs, replace=FALSE)
+
+sderror <- 9 # sigma for the error term in the model
+e <- rnorm(num_obs, 0, sderror) 
+
+y <- a + b * x + e
+
+
+newlm <- lm(y~x)
+summary(newlm)
+
+cfa1 <- coef(newlm)[1]
+cfb2 <- coef(newlm)[2]
+plot(x,y, xlab="x axis", ylab= "y axis", xlim = c(xmin, xmax), ylim = c(0,60), sub = "Line in black is the actual model")
+title(main = paste("Line in blue is the Regression Line for ", num_obs, " points."))
+
+abline(a = cfa1, b = cfb2, col= "blue", lwd=3)
+abline(a = a, b = b, col= "black", lwd=1) #original line
+
+```
+
+
+##### Subset a set of points from the same sample
+```{r}
+
+# sample from  the same  x     to compare least squares lines 
+# change the denominator in newsample to see how the least square lines changes accordingly. 
+newsample <- as.integer(num_obs/8) # number of pairs x,y
+
+idxs_x1 <- sample(1:num_obs, size = newsample, replace = FALSE) #sample indexes
+x1 <- x[idxs_x1]
+e1 <- e[idxs_x1]
+y1 <- a + b * x1 + e1
+xy_obs <- data.frame(x1, y1)
+names(xy_obs) <- c("x_obs", "y_obs")
+
+newlm1 <- lm(y1~x1)
+summary(newlm1)
+
+cfa21 <- coef(newlm1)[1]
+cfb22 <- coef(newlm1)[2]
+
+plot(x1,y1, xlab="x axis", ylab= "y axis", xlim = c(xmin, xmax), ylim = c(0,60))
+title(main = paste("New line in red with ", newsample, " points in sample"))
+
+abline(a = a, b = b, col= "black", lwd=1)  # True line
+abline(a = cfa1, b = cfb2, col= "blue", lwd=1)  #sample
+abline(a = cfa21, b = cfb22, col= "red", lwd=2) #new line
+```
+
+
+##### Compute a confidence interval on the original sample regression line
+
+```{r}
+
+newx <- seq(xmin, xmax)
+ypredicted <- predict(newlm, newdata=data.frame(x=newx), interval= "confidence", level= 0.90, se = TRUE)
+
+plot(x,y, xlab="x axis", ylab= "y axis", xlim = c(xmin, xmax), ylim = c(0,60))
+# points(x1, fitted(newlm1))
+abline(newlm)
+
+lines(newx,ypredicted$fit[,2],col="red",lty=2)
+lines(newx,ypredicted$fit[,3],col="red",lty=2)
+
+# Plot the residuals or errors
+ypredicted_x <- predict(newlm, newdata=data.frame(x=x))
+plot(x,y, xlab="x axis", ylab= "y axis", xlim = c(xmin, xmax), ylim = c(0,60), sub = "", pch=19, cex=0.75)
+title(main = paste("Residuals or errors", num_obs, " points."))
+abline(newlm)
+segments(x, y, x, ypredicted_x)
+
+```
+
+##### Take another sample from the model and explore
+```{r}
+# equation is  y = -6.6 + 0.13 x +e
+# range x 100,400
+num_obs <- 35
+xmin <- 100
+xmax <- 400
+x3 <- sample(seq(from=xmin, to = xmax, by =1), size= num_obs, replace=FALSE)
+sderror <- 14 # sigma for the error term in the model
+e3 <- rnorm(num_obs, 0, sderror) 
+
+y3 <- a + b * x3 + e3
+
+newlm3 <- lm(y3~x3)
+summary(newlm3)
+
+cfa31 <- coef(newlm3)[1]
+cfb32 <- coef(newlm3)[2]
+plot(x3,y3, xlab="x axis", ylab= "y axis", xlim = c(xmin, xmax), ylim = c(0,60))
+title(main = paste("Line in red is the Regression Line for ", num_obs, " points."))
+abline(a = cfa31, b = cfb32, col= "red", lwd=3)
+abline(a = a, b = b, col= "black", lwd=2) #original line
+abline(a = cfa1, b = cfb2, col= "blue", lwd=1) #first sample
+
+# confidence intervals for the new sample
+
+newx <- seq(xmin, xmax)
+ypredicted <- predict(newlm3, newdata=data.frame(x3=newx), interval= "confidence", level= 0.90, se = TRUE)
+
+lines(newx,ypredicted$fit[,2],col="red",lty=2, lwd=2)
+lines(newx,ypredicted$fit[,3],col="red",lty=2, lwd=2)
+
+```
+
+
+### Diagnostics fro assessing the regression line
+
+#### Residual Standard Error
+- It gives us an idea of the typical or average error of the model. It is the estimated standard deviation of the residuals.
+
+#### $R^2$ statistic
+- This is the proportion of variability in the data that is explained by the model. Best values are those close to 1.
+
+
+## Multiple Linear Regression
+
+### Partial Least Squares
+- If several predictors are highly correlated, the least squares approach has high variability. 
+- PLS finds linear combinations of the predictors, that are called *components* or *latent* variables. 
+
+
+
+## Linear regression in Software Effort estimation
+
+Fitting a linear model to log-log
+  - the predictive power equation is $y= e^{b_0}*x^{b_1}$, ignoring the bias corrections. Note: depending how the error term behaves we could try another general linear model (GLM) or other model that does not rely on the normality of the residuals (quantile regression, etc.)
+  - First, we are fitting the model to the whole dataset. But it is not the right way to do it, because of overfitting.
+
+
+```{r warning=FALSE, message=FALSE}
+library(foreign)
+china <- read.arff("./datasets/effortEstimation/china.arff")
+china_size <- china$AFP
+summary(china_size)
+china_effort <- china$Effort
+summary(china_effort)
+par(mfrow=c(1,2))
+hist(china_size, col="blue", xlab="Adjusted Function Points", main="Distribution of AFP")
+hist(china_effort, col="blue",xlab="Effort", main="Distribution of Effort")
+boxplot(china_size)
+boxplot(china_effort)
+qqnorm(china_size)
+qqline(china_size)
+qqnorm(china_effort)
+qqline(china_effort)
+```
+  
+Applying the `log` function (it computes natural logarithms, base $e$)
+
+```{r, echo=FALSE}
+par(mfrow=c(1,2))
+logchina_size = log(china_size)
+hist(logchina_size, col="blue", xlab="log Adjusted Function Points", main="Distribution of log AFP")
+logchina_effort = log(china_effort)
+hist(logchina_effort, col="blue",xlab="Effort", main="Distribution of log Effort")
+qqnorm(logchina_size)
+qqnorm(logchina_effort)
+```
+  
+  
+  
+```{r}
+linmodel_logchina <- lm(logchina_effort ~ logchina_size)
+par(mfrow=c(1,1))
+plot(logchina_size, logchina_effort)
+abline(linmodel_logchina, lwd=3, col=3)
+par(mfrow=c(1,2))
+plot(linmodel_logchina, ask = FALSE)
+linmodel_logchina
+```
+
+
+
+## Exercise: Build a Regression Model for Effort Estimation {#sec-exercise-regression}
+
+This exercise asks you to build a complete linear regression pipeline — from loading a dataset to evaluating predictions on held-out data — and document the process in a reproducible R Markdown / Quarto document.
+
+### Part A — Required
+
+1. **Create a new project and document.** Open RStudio (or Positron/VS Code) and start a new `.qmd` or `.Rmd` file.
+
+2. **Choose a dataset.** Go to `datasets/effortEstimation/` and pick one ARFF or CSV file (e.g., `boehm.arff`, `albrecht.arff`, `miyazaki94.arff`). The file must contain at least a `size` column and an `effort` column.
+
+3. **Load the data.**
+```{r ex-load, eval=FALSE}
+library(foreign)
+path <- file.path(getwd(), "datasets/effortEstimation/albrecht.arff")
+df   <- read.arff(path)
+```
+
+4. **Explore the data.** Report summary statistics and visualise the `size`–`effort` relationship. Check for outliers and missing values.
+
+5. **Assess normality.** Plot histograms and Q-Q plots. Use the Shapiro-Wilk test if needed. Transform variables (e.g., `log`) if the distributions are heavily skewed.
+
+6. **Check correlation.** Compute the Pearson / Spearman correlation between `size` (or `log(size)`) and `effort` (or `log(effort)`).
+
+7. **Split into train and test sets.**
+```{r ex-split, eval=FALSE}
+set.seed(42)
+n      <- nrow(df)
+idx    <- sample(seq_len(n), size = floor(0.8 * n))
+train  <- df[ idx, ]
+test   <- df[-idx, ]
+write.csv(train, "train.csv", row.names = FALSE)
+write.csv(test,  "test.csv",  row.names = FALSE)
+```
+
+8. **Build the linear model** on the training data and plot the fitted line.
+
+9. **Evaluate on the test set.** Compute MAE, MdAE, and Pred(25) on back-transformed predictions (see @sec-eval-regression). Avoid MMRE as the primary metric — it is biased toward underestimating models because overestimates and underestimates of the same magnitude receive different penalties [@Shepperd2012]. MdMRE is acceptable as a supplementary measure.
+
+10. **Write conclusions.** Discuss model fit, residuals, and whether the assumptions of linear regression hold for this dataset.
+
+### Part B — Optional Extensions
+
+- Apply an additional model (e.g., random forest via `ranger`, or regularised regression via `glmnet`) and compare evaluation metrics.
+- Apply a stratified data split to ensure both splits cover the full range of project sizes.
+- Report confidence intervals for key coefficients.
+- Wrap the data and analysis in a small R package (see @sec-rpackages).
+
+## Further Information
+
+- [The New Statistics with R (Andy Hector)](https://global.oup.com/academic/product/the-new-statistics-with-r-9780198729051)
+- [An Introduction to R (R Core Team)](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
+- [Practical Data Science with R (Nina Zumel, John Mount)](https://www.manning.com/books/practical-data-science-with-r)
+- [An Introduction to Statistical Learning with Applications in R (ISLR)](https://www.statlearning.com/)

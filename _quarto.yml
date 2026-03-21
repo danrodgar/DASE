@@ -2,6 +2,19 @@ project:
   type: book
   output-dir: docs
 
+bibliography:
+  - ./references/dataSources.bib
+  - ./references/RandStatistics.bib
+  - ./references/RPackages.bib
+  - ./references/referencesFS.bib
+  - ./references/referencesIS.bib
+  - ./references/evaluation.bib
+  - ./references/machinelearning.bib
+  - ./references/effortEstimation.bib
+  - ./references/DefectPrediction.bib
+  - ./references/SEmetrics.bib
+link-citations: true
+
 book:
   title: "Data Analysis in Software Engineering using R"
   author:
@@ -12,37 +25,51 @@ book:
   repo-url: "https://github.com/danrodgar/DASE"
   chapters:
     - index.qmd
-    - 010_rIntro.qmd
-    - 100_intro.qmd
-    - 101_rmarkdown.qmd
-    - 102_rnpython.qmd
-    - 108_rpackages.qmd
-    - 110_dataSources.qmd
-    - 120_dataEffortEstimation.qmd
-    - 200_exploratoryDataAnalysis.qmd
-    - 202_tidyverse.qmd
-    - 203_ggplot.qmd
-    - 220_classicalHypothesisTesting.qmd
-    - 300_basicPreprocessing.qmd
-    - 400_basicModelBuildingSupervised.qmd
-    - 417_regression.qmd
-    - 420_basicModelBuildingUnsupervised.qmd
-    - 421_tidymodels.qmd
-    - 422_caret_tidymodels.qmd
-    - 430_evaluation.qmd
-    - 435_evaluationClassifiers.qmd
-    - 436_evaluationGraphical.qmd
-    - 437_evaluationRegression.qmd
-    - 439_evaluationUnsupervised.qmd
-    - 440_evaluationInSoftEng.qmd
-    - 500_advancedPreprocessingTechniques.qmd
-    - 505_featureSelectionExample.qmd
-    - 510_advancedModelBuilding.qmd
-    - 600_SSL.qmd
-    - 700_SNAinSE.qmd
-    - 800_textMiningSE.qmd
-    - 900_timeSeries.qmd
-    - 999_references.qmd
+    - part: "Part I - R Ecosystem"
+      chapters:
+        - 110_rIntro.qmd
+        - 120_intro.qmd
+        - 130_rmarkdown.qmd
+        - 140_rnpython.qmd
+        - 150_rpackages.qmd
+        - 160_tidyverse.qmd
+        - 170_ggplot.qmd
+    - part: "Part II - Data Sources and EDA"
+      chapters:
+        - 210_dataSources.qmd
+        - 220_dataEffortEstimation.qmd
+        - 230_exploratoryDataAnalysis.qmd
+    - part: "Part III - Preprocessing"
+      chapters:
+        - 310_basicPreprocessing.qmd
+        - 320_advancedPreprocessingTechniques.qmd
+        - 330_featureSelectionExample.qmd
+    - part: "Part IV - Modeling"
+      chapters:
+        - 410_basicModelBuildingSupervised.qmd
+        - 420_regression.qmd
+        - 430_basicModelBuildingUnsupervised.qmd
+    - part: "Part V - Evaluation"
+      chapters:
+        - 510_evaluation.qmd
+        - 520_evaluationClassifiers.qmd
+        - 530_evaluationGraphical.qmd
+        - 540_evaluationRegression.qmd
+        - 550_evaluationUnsupervised.qmd
+        - 560_classicalHypothesisTesting.qmd
+        - 570_evaluationInSoftEng.qmd
+        - 580_advancedModelBuilding.qmd
+        - 590_SSL.qmd
+    - part: "Part VI - Specialized Topics"
+      chapters:
+        - 610_SNAinSE.qmd
+        - 620_textMiningSE.qmd
+        - 630_timeSeries.qmd
+    - part: "Part VII - References"
+      chapters:
+        - 990_references.qmd
+  appendices:
+    - A01_ISBSGPreprocessing.qmd
 
 format:
   html:
@@ -54,5 +81,5 @@ format:
     number-sections: true
 
 execute:
-  enabled: false
+  enabled: true
   freeze: auto

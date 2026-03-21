@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="DASE Data Analysis in Software Engineering">
+
+<title>27&nbsp; Text Mining Software Engineering Data – Data Analysis in Software Engineering using R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./630_timeSeries.html" rel="next">
+<link href="./610_SNAinSE.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ca4b39786b312f69619f2788bc8e85cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="toc.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./610_SNAinSE.html">Part VI - Specialized Topics</a></li><li class="breadcrumb-item"><a href="./620_textMiningSE.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analysis in Software Engineering using R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/danrodgar/DASE" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I - R Ecosystem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110_rIntro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130_rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./140_rnpython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./150_rpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./160_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./170_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The <code>ggplot2</code> package</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II - Data Sources and EDA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_dataSources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./220_dataEffortEstimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./230_exploratoryDataAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III - Preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_basicPreprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./330_featureSelectionExample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Feature Selection Example</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV - Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_basicModelBuildingSupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Supervised Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./420_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./430_basicModelBuildingUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Unsupervised or Descriptive modeling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V - Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./520_evaluationClassifiers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./530_evaluationGraphical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Graphical Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./540_evaluationRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./550_evaluationUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./560_classicalHypothesisTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Classical Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./570_evaluationInSoftEng.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Measures of Evaluation in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./580_advancedModelBuilding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Advanced Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./590_SSL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VI - Specialized Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_SNAinSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Social Network Analysis in SE</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_textMiningSE.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./630_timeSeries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Time Series</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VII - References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./990_references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A01_ISBSGPreprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: Preprocessing the ISBSG Repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#terminology" id="toc-terminology" class="nav-link active" data-scroll-target="#terminology"><span class="header-section-number">27.1</span> Terminology</a></li>
+  <li><a href="#example-of-classifying-bugs-from-bugzilla" id="toc-example-of-classifying-bugs-from-bugzilla" class="nav-link" data-scroll-target="#example-of-classifying-bugs-from-bugzilla"><span class="header-section-number">27.2</span> Example of classifying bugs from Bugzilla</a></li>
+  <li><a href="#beyond-bag-of-words-embeddings-and-pretrained-models" id="toc-beyond-bag-of-words-embeddings-and-pretrained-models" class="nav-link" data-scroll-target="#beyond-bag-of-words-embeddings-and-pretrained-models"><span class="header-section-number">27.3</span> Beyond Bag-of-Words: Embeddings and Pretrained Models</a>
+  <ul class="collapse">
+  <li><a href="#word-and-sentence-embeddings" id="toc-word-and-sentence-embeddings" class="nav-link" data-scroll-target="#word-and-sentence-embeddings"><span class="header-section-number">27.3.1</span> Word and Sentence Embeddings</a></li>
+  <li><a href="#pretrained-code-models" id="toc-pretrained-code-models" class="nav-link" data-scroll-target="#pretrained-code-models"><span class="header-section-number">27.3.2</span> Pretrained Code Models</a></li>
+  </ul></li>
+  <li><a href="#common-se-text-classification-tasks" id="toc-common-se-text-classification-tasks" class="nav-link" data-scroll-target="#common-se-text-classification-tasks"><span class="header-section-number">27.4</span> Common SE Text Classification Tasks</a>
+  <ul class="collapse">
+  <li><a href="#duplicate-bug-report-detection" id="toc-duplicate-bug-report-detection" class="nav-link" data-scroll-target="#duplicate-bug-report-detection"><span class="header-section-number">27.4.1</span> Duplicate Bug Report Detection</a></li>
+  <li><a href="#flaky-tests" id="toc-flaky-tests" class="nav-link" data-scroll-target="#flaky-tests"><span class="header-section-number">27.4.2</span> Flaky Tests</a></li>
+  </ul></li>
+  <li><a href="#sec-llm-evaluation" id="toc-sec-llm-evaluation" class="nav-link" data-scroll-target="#sec-llm-evaluation"><span class="header-section-number">27.5</span> Evaluating Large Language Models for SE Tasks</a>
+  <ul class="collapse">
+  <li><a href="#automated-text-generation-metrics" id="toc-automated-text-generation-metrics" class="nav-link" data-scroll-target="#automated-text-generation-metrics"><span class="header-section-number">27.5.1</span> Automated Text-Generation Metrics</a></li>
+  <li><a href="#functional-correctness-passk" id="toc-functional-correctness-passk" class="nav-link" data-scroll-target="#functional-correctness-passk"><span class="header-section-number">27.5.2</span> Functional Correctness: pass@k</a></li>
+  <li><a href="#repository-level-evaluation-swe-bench" id="toc-repository-level-evaluation-swe-bench" class="nav-link" data-scroll-target="#repository-level-evaluation-swe-bench"><span class="header-section-number">27.5.3</span> Repository-Level Evaluation: SWE-bench</a></li>
+  <li><a href="#key-pitfalls-in-llm-evaluation" id="toc-key-pitfalls-in-llm-evaluation" class="nav-link" data-scroll-target="#key-pitfalls-in-llm-evaluation"><span class="header-section-number">27.5.4</span> Key Pitfalls in LLM Evaluation</a></li>
+  <li><a href="#reporting-checklist-for-llm-based-se-studies" id="toc-reporting-checklist-for-llm-based-se-studies" class="nav-link" data-scroll-target="#reporting-checklist-for-llm-based-se-studies"><span class="header-section-number">27.5.5</span> Reporting Checklist for LLM-Based SE Studies</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./610_SNAinSE.html">Part VI - Specialized Topics</a></li><li class="breadcrumb-item"><a href="./620_textMiningSE.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In software engineering, there is a lot of information in plain text such as requirements, bug reports, mails, reviews from applicatons, etc. Typically that information can be extracted from Software Configuration Management Systems (SCM), Bug Tracking Systems (BTS) such as Bugzilla or application stores such as Google Play or Apple’s AppStore, etc. can be mined to extract relevant information. Here we briefly explain the text mining process and how this can be done with R.</p>
+<p>A well-known package for <em>text mining</em> is <code>tm</code> <span class="citation" data-cites="FeinererH15">Feinerer et al. (<a href="990_references.html#ref-FeinererHM08" role="doc-biblioref">2008</a>)</span>. Another popular package is <code>wordcloud</code>.</p>
+<section id="terminology" class="level2" data-number="27.1">
+<h2 data-number="27.1" class="anchored" data-anchor-id="terminology"><span class="header-section-number">27.1</span> Terminology</h2>
+<p>The workflow that we follow for analyzing a set of text documents are:</p>
+<ol type="1">
+<li>Importing data. A <em>Corpus</em> is a collection of text documents, implemented as VCorpus (corpora are R object held in memory). The <code>tm</code> provides several corpus constructors: <code>DirSource</code>, <code>VectorSource</code>, or <code>DataframeSource</code> (<code>getSources()</code>).</li>
+</ol>
+<p>There are several parameters that control the creation of a <em>Corpus</em>. ((The parameter readerControl of the corpus constructor has to be a list with the named components reader and language))</p>
+<ol start="2" type="1">
+<li><p>Preprocessing: in this step we may remove common words, punctuation and we may perform other operations. We may do this operations after creating the DocumentTermMatrix.</p></li>
+<li><p>Inspecting and exploring data: Individual documents can be accessed via [[</p></li>
+<li><p>Transformations: Transformations are done via the <code>tm_map()</code> function. + <code>tm_map(_____, stripWhitespace)</code><br>
++ <code>tm_map(_____, content_transformer(tolower))</code> + <code>tm_map(_____, removeWords, stopwords("english"))</code> + <code>tm_map(_____, stemDocument)</code></p></li>
+<li><p>Creating <code>Term-Document</code> Matrices: TermDocumentMatrix and DocumentTermMatrix + A document term matrix is a matrix with documents as the rows and terms as the columns. Each cell of the matrix contains the count of the frequency of words. We use DocumentTermMatrix() to create the matrix. + <code>inspect(DocumentTermMatrix( newsreuters, list(dictionary = c("term1", "term2", "term3"))))</code>. It displays detailed information on a corpus or a term-document matrix.</p></li>
+<li><p>Relationships between terms. + <code>findFreqTerms(_____, anumber)</code> + <code>findAssocs(Mydtm, "aterm", anumbercorrelation)</code> + A dictionary is a (multi-)set of strings. It is often used to denote relevant terms in text mining.</p></li>
+<li><p>Clustering and Classification</p></li>
+</ol>
+</section>
+<section id="example-of-classifying-bugs-from-bugzilla" class="level2" data-number="27.2">
+<h2 data-number="27.2" class="anchored" data-anchor-id="example-of-classifying-bugs-from-bugzilla"><span class="header-section-number">27.2</span> Example of classifying bugs from Bugzilla</h2>
+<p>Bugzilla is an issue-tracking system that allows us to follow the evolution of a software project.</p>
+<p>The following example shows how to work with Bugzilla entries. We assume the data has already been extracted into a flat file (for example via SQL export or web crawling).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># path_name &lt;- file.path("C:", "datasets", "textMining")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># path_name</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dir(path_name)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Import data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.arff</span>(<span class="st">"./datasets/textMining/reviewsBugs.arff"</span> )</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d) <span class="co">#print out information about d</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   789 obs. of  2 variables:
+ $ revContent: chr  "Can't see traffic colors now With latest updates I can't see the traffic green/red/yellow - I have to pull over"| __truncated__ "Google Map I like it so far, it has not steered me wrong." "Could be 100X better Google should start listening to customers then they'd actually build a proper product." "I like that! Easily more helpful than the map app that comes with your phone." ...
+ $ revBug    : Factor w/ 2 levels "N","Y": 2 1 1 1 1 1 2 1 2 1 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d,<span class="dv">2</span>) <span class="co"># the first two rows of d. </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                                                                                                                  revContent
+1 Can't see traffic colors now With latest updates I can't see the traffic green/red/yellow - I have to pull over and zoom in the map so that one road fills the entire screen. Traffic checks are (were) the only reason I use google maps!
+2                                                                                                                                                                                  Google Map I like it so far, it has not steered me wrong.
+  revBug
+1      Y
+2      N</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fifth entry</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>revContent[<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Just deleted No I don't want to sign in or sign up for anything stop asking"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>revBug[<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] N
+Levels: N Y</code></pre>
+</div>
+</div>
+<p>Creating a Document-Term Matrix (DTM)</p>
+<p>Now, we can explore things such as “which words are associated with”feature”?”</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which words are associated with "bug"?</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">findAssocs</span>(dtm, <span class="st">'bug'</span>, .<span class="dv">3</span>) <span class="co"># minimum correlation of 0.3. Change accordingly. </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>And find frequent terms.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">findFreqTerms</span>(dtm, <span class="dv">15</span>) <span class="co">#terms that appear 15 or more times, in this case</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Remove some terms</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sparseparam <span class="ot">&lt;-</span> <span class="fl">0.90</span> <span class="co"># will make the matrix 90% empty space, maximum. Change this, as you like.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dtm_sprs <span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(dtm,<span class="at">sparse=</span>sparseparam)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(dtm_sprs)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>maintitle <span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">"Most frequent terms (sparseness="</span> ,sparseparam , <span class="st">"  )"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">as.matrix</span>(dtm_sprs),<span class="at">xlab=</span><span class="st">"terms"</span>,<span class="at">ylab=</span><span class="st">"number of occurrences"</span>, <span class="at">main=</span>maintitle)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># organize terms by their frequency </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>freq_dtm_sprs <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">as.matrix</span>(dtm_sprs))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(freq_dtm_sprs)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>sorted_freq_dtm_sprs <span class="ot">&lt;-</span> <span class="fu">sort</span>(freq_dtm_sprs, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>sorted_freq_dtm_sprs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Create a data frame that will be the input to the classifier. Last column will be the label.</p>
+<p>As data frame:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dtmdf &lt;- as.data.frame(dtm.90)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dtmdf &lt;- as.data.frame(inspect(dtm_sprs))</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>dtmdf <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.matrix</span>(dtm_sprs))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rownames(dtm)&lt;- 1:nrow(dtm)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>class <span class="ot">&lt;-</span> d<span class="sc">$</span>revBug</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>dtmdf <span class="ot">&lt;-</span> <span class="fu">cbind</span>(dtmdf,class)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dtmdf, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use any classifier now: - split the dataframe into training and testing - Build the classification model using the training subset - apply the model to the testing subset and obtain the Confusion Matrix - Analise the results</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(dtmdf, <span class="at">prop =</span> <span class="fl">0.75</span>, <span class="at">strata =</span> class)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>training <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>testing <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>rf_spec <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">400</span>, <span class="at">min_n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">importance =</span> <span class="st">"impurity"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(class <span class="sc">~</span> .) <span class="sc">|&gt;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_spec)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(wf, <span class="at">data =</span> training)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>pred_cls <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_fit, testing, <span class="at">type =</span> <span class="st">"class"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>pred_prb <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_fit, testing, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pred_prb)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>eval_tbl <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(testing, pred_cls)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>conf_tbl <span class="ot">&lt;-</span> <span class="fu">conf_mat</span>(eval_tbl, <span class="at">truth =</span> class, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>conf_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We may compute manually all derived variables from the Confusion Matrix. See Section – with the description of the Confusion Matrix</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cm <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(conf_tbl<span class="sc">$</span>table)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>TruePositive <span class="ot">&lt;-</span> cm[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>TruePositive</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>FalsePositive <span class="ot">&lt;-</span> cm[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>FalsePositive</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>FalseNegative <span class="ot">&lt;-</span> cm[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>FalseNegative</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>TrueNegative <span class="ot">&lt;-</span> cm[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>TrueNegative</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum columns in the confusion matrix</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>ConditionPositive <span class="ot">&lt;-</span> TruePositive <span class="sc">+</span> FalseNegative</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ConditionNegative <span class="ot">&lt;-</span> FalsePositive <span class="sc">+</span> TrueNegative</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>TotalPopulation <span class="ot">&lt;-</span> ConditionPositive <span class="sc">+</span> ConditionNegative</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>TotalPopulation</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Sum rows in the confusion matrix</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>PredictedPositive <span class="ot">&lt;-</span> TruePositive <span class="sc">+</span> FalsePositive</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>PredictedNegative <span class="ot">&lt;-</span> FalseNegative <span class="sc">+</span> TrueNegative</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Total Predicted must be equal to the total population</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>PredictedPositive<span class="sc">+</span>PredictedNegative</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>SensitivityRecall_TPR <span class="ot">&lt;-</span> TruePositive <span class="sc">/</span> ConditionPositive</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>SensitivityRecall_TPR</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>Specificity_TNR_SPC <span class="ot">&lt;-</span> TrueNegative <span class="sc">/</span> ConditionNegative</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>Specificity_TNR_SPC</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>Precision_PPV <span class="ot">&lt;-</span> TruePositive <span class="sc">/</span> PredictedPositive</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>Precision_PPV </span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>NegativePredictedValue_NPV <span class="ot">&lt;-</span> TrueNegative <span class="sc">/</span> PredictedNegative</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>NegativePredictedValue_NPV</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>Prevalence <span class="ot">&lt;-</span> ConditionPositive <span class="sc">/</span> TotalPopulation</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>Prevalence</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>Accuracy_ACC <span class="ot">&lt;-</span> (TruePositive <span class="sc">+</span> TrueNegative) <span class="sc">/</span> TotalPopulation</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>Accuracy_ACC</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>FalseDiscoveryRate_FDR <span class="ot">&lt;-</span> FalsePositive <span class="sc">/</span> PredictedPositive</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>FalseDiscoveryRate_FDR</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>FalseOmisionRate_FOR <span class="ot">&lt;-</span> FalseNegative <span class="sc">/</span> PredictedNegative </span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>FalseOmisionRate_FOR</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>FallOut_FPR <span class="ot">&lt;-</span> FalsePositive <span class="sc">/</span> ConditionNegative</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>FallOut_FPR</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>MissRate_FNR <span class="ot">&lt;-</span> FalseNegative <span class="sc">/</span> ConditionPositive</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>MissRate_FNR </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>And finally, a word cloud as an example that appears everywhere these days.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the frequency of words and sort in descending order.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>wordFreqs<span class="ot">=</span><span class="fu">sort</span>(<span class="fu">colSums</span>(<span class="fu">as.matrix</span>(dtm_sprs)),<span class="at">decreasing=</span><span class="cn">TRUE</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words=</span><span class="fu">names</span>(wordFreqs),<span class="at">freq=</span>wordFreqs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="beyond-bag-of-words-embeddings-and-pretrained-models" class="level2" data-number="27.3">
+<h2 data-number="27.3" class="anchored" data-anchor-id="beyond-bag-of-words-embeddings-and-pretrained-models"><span class="header-section-number">27.3</span> Beyond Bag-of-Words: Embeddings and Pretrained Models</h2>
+<p>The TF-IDF bag-of-words representation loses word order and treats all terms as independent. Two families of representations address this limitation.</p>
+<section id="word-and-sentence-embeddings" class="level3" data-number="27.3.1">
+<h3 data-number="27.3.1" class="anchored" data-anchor-id="word-and-sentence-embeddings"><span class="header-section-number">27.3.1</span> Word and Sentence Embeddings</h3>
+<p><strong>Word embeddings</strong> map each token to a dense vector in a continuous space such that semantically similar words are close. <em>word2vec</em> <span class="citation" data-cites="Mikolov2013Word2Vec">(<a href="990_references.html#ref-Mikolov2013Word2Vec" role="doc-biblioref">Mikolov et al. 2013</a>)</span> and <em>fastText</em> learn these vectors from unlabeled corpora. Sentence and paragraph embeddings (doc2vec, Sentence-BERT) produce a single fixed-length vector per document.</p>
+<p>For SE tasks, embeddings pre-trained on code corpora (Stack Overflow, GitHub commit messages) outperform embeddings trained on general text because SE vocabulary is highly domain-specific.</p>
+<p>In R, the <code>text</code> package provides an interface to Hugging Face Sentence Transformers for computing contextual embeddings, and <code>fastTextR</code> wraps Facebook’s fastText library.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fastText embeddings for commit messages (sketch)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(fastTextR)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model &lt;- ft_load("path/to/cc.en.300.bin")  # pretrained fastText vectors</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vecs  &lt;- ft_word_vectors(model, tokens)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use mean pooling across tokens to get one vector per document</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pretrained-code-models" class="level3" data-number="27.3.2">
+<h3 data-number="27.3.2" class="anchored" data-anchor-id="pretrained-code-models"><span class="header-section-number">27.3.2</span> Pretrained Code Models</h3>
+<p>Large pretrained models of source code represent the current state of practice for SE text mining tasks such as bug report classification, code summarization, clone detection, and vulnerability detection. Key models:</p>
+<ul>
+<li><strong>CodeBERT</strong> <span class="citation" data-cites="Feng2020CodeBERT">(<a href="990_references.html#ref-Feng2020CodeBERT" role="doc-biblioref">Feng et al. 2020</a>)</span> — a bimodal model pretrained on code and natural language pairs from GitHub (Python, Java, JavaScript, PHP, Ruby, Go). Fine-tunable for classification, summarization, and code search.</li>
+<li><strong>CodeT5</strong> <span class="citation" data-cites="Wang2021CodeT5">(<a href="990_references.html#ref-Wang2021CodeT5" role="doc-biblioref">Wang et al. 2021</a>)</span> — encoder-decoder architecture supporting generation tasks (code completion, bug fix, doc generation).</li>
+<li><strong>UniXcoder</strong> — unifies understanding and generation in a single model.</li>
+</ul>
+<p>These models are accessed via the Hugging Face <code>transformers</code> Python library; they can be called from R via the <code>reticulate</code> package or used as REST APIs. For a comprehensive survey of machine learning approaches to source code analysis, see Allamanis et al. <span class="citation" data-cites="Allamanis2018Survey">(<a href="990_references.html#ref-Allamanis2018Survey" role="doc-biblioref">Allamanis et al. 2018</a>)</span>.</p>
+</section>
+</section>
+<section id="common-se-text-classification-tasks" class="level2" data-number="27.4">
+<h2 data-number="27.4" class="anchored" data-anchor-id="common-se-text-classification-tasks"><span class="header-section-number">27.4</span> Common SE Text Classification Tasks</h2>
+<section id="duplicate-bug-report-detection" class="level3" data-number="27.4.1">
+<h3 data-number="27.4.1" class="anchored" data-anchor-id="duplicate-bug-report-detection"><span class="header-section-number">27.4.1</span> Duplicate Bug Report Detection</h3>
+<p>Large projects accumulate thousands of bug reports, and reporters often re-submit issues already in the tracker. Automatically detecting <strong>duplicate bug reports</strong> saves triager effort and prevents redundant fix work.</p>
+<p>This is a retrieval/classification task: given a new report, rank existing reports by similarity. Runeson et al.&nbsp;applied TF-IDF plus a SVM and showed that textual similarity is a strong signal <span class="citation" data-cites="Runeson2007DupBug">(<a href="990_references.html#ref-Runeson2007DupBug" role="doc-biblioref">Runeson et al. 2007</a>)</span>. More recent approaches use BERT-based cosine similarity for better precision on short titles.</p>
+</section>
+<section id="flaky-tests" class="level3" data-number="27.4.2">
+<h3 data-number="27.4.2" class="anchored" data-anchor-id="flaky-tests"><span class="header-section-number">27.4.2</span> Flaky Tests</h3>
+<p>A <strong>flaky test</strong> is one that passes or fails non-deterministically for the same code change. Flakiness undermines the reliability of CI pipelines: it causes developers to ignore test failures (alert fatigue) and inflates apparent defect rates in commit-level studies.</p>
+<p>Sources of flakiness include concurrency issues, test-order dependencies, time/date dependencies, network access, and external resource dependency. Luo et al.&nbsp;conducted the first large-scale empirical study of flaky tests in open source projects, identifying categories and their relative frequency <span class="citation" data-cites="Luo2014Flaky">(<a href="990_references.html#ref-Luo2014Flaky" role="doc-biblioref">Luo et al. 2014</a>)</span>. Detecting flaky tests using ML approaches involves mining test execution histories and training classifiers on pass/fail sequences, test duration variance, and error message embeddings.</p>
+</section>
+</section>
+<section id="sec-llm-evaluation" class="level2" data-number="27.5">
+<h2 data-number="27.5" class="anchored" data-anchor-id="sec-llm-evaluation"><span class="header-section-number">27.5</span> Evaluating Large Language Models for SE Tasks</h2>
+<p>Large Language Models (LLMs) such as GPT-4, CodeLlama, and DeepSeek-Coder are increasingly applied to SE tasks: code completion, bug fixing, test generation, code review, and requirement summarization. Evaluating these models requires careful metric selection because standard accuracy measures are often insufficient for open-ended generation tasks.</p>
+<section id="automated-text-generation-metrics" class="level3" data-number="27.5.1">
+<h3 data-number="27.5.1" class="anchored" data-anchor-id="automated-text-generation-metrics"><span class="header-section-number">27.5.1</span> Automated Text-Generation Metrics</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Description</th>
+<th>Typical SE use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BLEU</strong> <span class="citation" data-cites="Papineni2002BLEU">(<a href="990_references.html#ref-Papineni2002BLEU" role="doc-biblioref">Papineni et al. 2002</a>)</span></td>
+<td>n-gram precision between generated and reference text; fast and reproducible</td>
+<td>Code summarization, commit message generation</td>
+</tr>
+<tr class="even">
+<td><strong>ROUGE-L</strong> <span class="citation" data-cites="Lin2004ROUGE">(<a href="990_references.html#ref-Lin2004ROUGE" role="doc-biblioref">Lin 2004</a>)</span></td>
+<td>Longest Common Subsequence recall; recall-oriented</td>
+<td>Summarization, documentation generation</td>
+</tr>
+<tr class="odd">
+<td><strong>BERTScore</strong> <span class="citation" data-cites="Zhang2020BERTScore">(<a href="990_references.html#ref-Zhang2020BERTScore" role="doc-biblioref">Zhang et al. 2020</a>)</span></td>
+<td>Semantic similarity via contextual BERT embeddings; captures paraphrases</td>
+<td>Any generation task where wording varies</td>
+</tr>
+<tr class="even">
+<td><strong>CodeBLEU</strong> <span class="citation" data-cites="Ren2020CodeBLEU">(<a href="990_references.html#ref-Ren2020CodeBLEU" role="doc-biblioref">Ren et al. 2020</a>)</span></td>
+<td>Extends BLEU with syntactic (AST) and semantic (data-flow) matching; code-aware</td>
+<td>Code generation, code translation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Limitations of reference-based metrics.</strong> All of the above compare model output to a single (or small number of) human-written reference. For code generation, many semantically correct programs look very different from the reference, causing these metrics to underestimate model quality.</p>
+</section>
+<section id="functional-correctness-passk" class="level3" data-number="27.5.2">
+<h3 data-number="27.5.2" class="anchored" data-anchor-id="functional-correctness-passk"><span class="header-section-number">27.5.2</span> Functional Correctness: pass@k</h3>
+<p>The <strong>pass@k</strong> metric addresses the reference-mismatch problem by measuring <em>functional correctness</em>: generate <span class="math inline">\(k\)</span> candidate solutions, run the existing test suite, and report the fraction of tasks for which at least one of the <span class="math inline">\(k\)</span> candidates passes all tests.</p>
+<p><span class="math display">\[pass@k = \mathbb{E}_{\text{tasks}}\left[1 - \frac{\binom{n-c}{k}}{\binom{n}{k}}\right]\]</span></p>
+<p>where <span class="math inline">\(n\)</span> samples are generated and <span class="math inline">\(c\)</span> pass. Chen et al.&nbsp;introduced this estimator and the <strong>HumanEval</strong> benchmark (164 hand-written function-level Python problems with unit tests) to evaluate the Codex model <span class="citation" data-cites="Chen2021Codex">(<a href="990_references.html#ref-Chen2021Codex" role="doc-biblioref">Chen et al. 2021</a>)</span>. <strong>MBPP</strong> (Mostly Basic Programming Problems) <span class="citation" data-cites="Austin2021MBPP">(<a href="990_references.html#ref-Austin2021MBPP" role="doc-biblioref">Austin et al. 2021</a>)</span> extends coverage to ~1,000 diverse Python tasks.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass@k is computed outside R, typically in Python:</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from human_eval.evaluation import evaluate_functional_correctness</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># results = evaluate_functional_correctness("samples.jsonl")</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print(results["pass@1"], results["pass@10"])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="repository-level-evaluation-swe-bench" class="level3" data-number="27.5.3">
+<h3 data-number="27.5.3" class="anchored" data-anchor-id="repository-level-evaluation-swe-bench"><span class="header-section-number">27.5.3</span> Repository-Level Evaluation: SWE-bench</h3>
+<p>HumanEval and MBPP test isolated, standalone functions. <strong>SWE-bench</strong> <span class="citation" data-cites="Jimenez2024SWEbench">(<a href="990_references.html#ref-Jimenez2024SWEbench" role="doc-biblioref">Jimenez et al. 2024</a>)</span> raises the bar to <em>repository-level</em> evaluation: given a real GitHub issue description and the repository at the time the issue was filed, can the model produce a patch that passes the project’s existing test suite? This setting tests end-to-end engineering judgment — reasoning about multi-file codebases, understanding library APIs, and generating correct diffs.</p>
+<p>SWE-bench (and its filtered variant SWE-bench Verified) has become the standard benchmark for evaluating LLM-based software engineering agents.</p>
+</section>
+<section id="key-pitfalls-in-llm-evaluation" class="level3" data-number="27.5.4">
+<h3 data-number="27.5.4" class="anchored" data-anchor-id="key-pitfalls-in-llm-evaluation"><span class="header-section-number">27.5.4</span> Key Pitfalls in LLM Evaluation</h3>
+<p><strong>Benchmark contamination.</strong> LLMs trained on large code corpora may have seen HumanEval or MBPP problems during training, making pass@k scores optimistic. Contamination can be tested by probing the model with perturbed problem statements.</p>
+<p><strong>Sampling non-determinism.</strong> Results depend on temperature and sampling parameters. Always fix the random seed, report temperature and top-p, and run multiple trials to estimate variance in pass@k.</p>
+<p><strong>Human evaluation.</strong> Automated metrics correlate only moderately with human judgments of code quality, clarity, and correctness. For research claims, a human study on a stratified sample of outputs is strongly recommended.</p>
+<p><strong>Calibration.</strong> LLMs can be confidently wrong. Reporting Expected Calibration Error (ECE) alongside accuracy reveals whether the model’s expressed confidence tracks its actual error rate.</p>
+</section>
+<section id="reporting-checklist-for-llm-based-se-studies" class="level3" data-number="27.5.5">
+<h3 data-number="27.5.5" class="anchored" data-anchor-id="reporting-checklist-for-llm-based-se-studies"><span class="header-section-number">27.5.5</span> Reporting Checklist for LLM-Based SE Studies</h3>
+<ol type="1">
+<li>Model name, version/checkpoint, and access date (models change silently)</li>
+<li>Prompt template(s) — exact text, not a paraphrase</li>
+<li>Temperature, top-p, max tokens, and random seed</li>
+<li>Metric(s) with confidence intervals or repeated-run variance</li>
+<li>Benchmark version and contamination check (if applicable)</li>
+<li>Baseline comparisons: non-LLM, smaller LLM, and prior SOTA</li>
+<li>Human evaluation on a sample if claims go beyond automated metrics</li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Allamanis2018Survey" class="csl-entry" role="listitem">
+Allamanis, Miltiadis, Earl T. Barr, Premkumar Devanbu, and Charles Sutton. 2018. <span>“A Survey of Machine Learning for Big Code and Naturalness.”</span> <em>ACM Computing Surveys</em> 51 (4): 81:1–37. <a href="https://doi.org/10.1145/3212695">https://doi.org/10.1145/3212695</a>.
+</div>
+<div id="ref-Austin2021MBPP" class="csl-entry" role="listitem">
+Austin, Jacob, Augustus Odena, Maxwell Nye, et al. 2021. <span>“Program Synthesis with Large Language Models.”</span> <em>arXiv Preprint arXiv:2108.07732</em>.
+</div>
+<div id="ref-Chen2021Codex" class="csl-entry" role="listitem">
+Chen, Mark, Jerry Tworek, Heewoo Jun, et al. 2021. <span>“Evaluating Large Language Models Trained on Code.”</span> <em>arXiv Preprint arXiv:2107.03374</em>.
+</div>
+<div id="ref-FeinererH15" class="csl-entry" role="listitem">
+Feinerer, Ingo, and Kurt Hornik. 2015. <em>Tm: Text Mining Package</em>. <a href="http://CRAN.R-project.org/package=tm">http://CRAN.R-project.org/package=tm</a>.
+</div>
+<div id="ref-FeinererHM08" class="csl-entry" role="listitem">
+Feinerer, Ingo, Kurt Hornik, and David Meyer. 2008. <span>“Text Mining Infrastructure in r.”</span> <em>Journal of Statistical Software</em> 25 (5): 1–54. <a href="http://www.jstatsoft.org/v25/i05/">http://www.jstatsoft.org/v25/i05/</a>.
+</div>
+<div id="ref-Feng2020CodeBERT" class="csl-entry" role="listitem">
+Feng, Zhangyin, Daya Guo, Duyu Tang, et al. 2020. <span>“<span>CodeBERT</span>: A Pre-Trained Model for Programming and Natural Languages.”</span> <em>Findings of the Association for Computational Linguistics: EMNLP 2020</em>, 1536–47. <a href="https://doi.org/10.18653/v1/2020.findings-emnlp.139">https://doi.org/10.18653/v1/2020.findings-emnlp.139</a>.
+</div>
+<div id="ref-Jimenez2024SWEbench" class="csl-entry" role="listitem">
+Jimenez, Carlos E., John Yang, Alexander Wettig, et al. 2024. <span>“<span>SWE</span>-Bench: Can Language Models Resolve Real-World <span>GitHub</span> Issues?”</span> <em>Proceedings of the International Conference on Learning Representations (ICLR 2024)</em>.
+</div>
+<div id="ref-Lin2004ROUGE" class="csl-entry" role="listitem">
+Lin, Chin-Yew. 2004. <span>“<span>ROUGE</span>: A Package for Automatic Evaluation of Summaries.”</span> <em>Text Summarization Branches Out: Proceedings of the ACL-04 Workshop</em>, 74–81.
+</div>
+<div id="ref-Luo2014Flaky" class="csl-entry" role="listitem">
+Luo, Qingzhou, Farah Hariri, Lamyaa Eloussi, and Darko Marinov. 2014. <span>“An Empirical Analysis of Flaky Tests.”</span> <em>Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (FSE)</em>, 643–53. <a href="https://doi.org/10.1145/2635868.2635920">https://doi.org/10.1145/2635868.2635920</a>.
+</div>
+<div id="ref-Mikolov2013Word2Vec" class="csl-entry" role="listitem">
+Mikolov, Tomas, Ilya Sutskever, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013. <span>“Distributed Representations of Words and Phrases and Their Compositionality.”</span> <em>Advances in Neural Information Processing Systems (NeurIPS)</em> 26.
+</div>
+<div id="ref-Papineni2002BLEU" class="csl-entry" role="listitem">
+Papineni, Kishore, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2002. <span>“<span>BLEU</span>: A Method for Automatic Evaluation of Machine Translation.”</span> <em>Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics (ACL)</em>, 311–18. <a href="https://doi.org/10.3115/1073083.1073135">https://doi.org/10.3115/1073083.1073135</a>.
+</div>
+<div id="ref-Ren2020CodeBLEU" class="csl-entry" role="listitem">
+Ren, Shuo, Daya Guo, Shuai Lu, et al. 2020. <span>“<span>CodeBLEU</span>: A Method for Automatic Evaluation of Code Synthesis.”</span> <em>arXiv Preprint arXiv:2009.10297</em>.
+</div>
+<div id="ref-Runeson2007DupBug" class="csl-entry" role="listitem">
+Runeson, Per, Magnus Alexandersson, and Oskar Nyholm. 2007. <span>“Detection of Duplicate Defect Reports Using Natural Language Processing.”</span> <em>Proceedings of the 29th International Conference on Software Engineering (ICSE)</em>, 499–510. <a href="https://doi.org/10.1109/ICSE.2007.32">https://doi.org/10.1109/ICSE.2007.32</a>.
+</div>
+<div id="ref-Wang2021CodeT5" class="csl-entry" role="listitem">
+Wang, Yue, Weishi Wang, Shafiq Joty, and Steven C. H. Hoi. 2021. <span>“<span>CodeT5</span>: Identifier-Aware Unified Pre-Trained Encoder-Decoder Models for Code Understanding and Generation.”</span> <em>Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)</em>, 8696–708. <a href="https://doi.org/10.18653/v1/2021.emnlp-main.685">https://doi.org/10.18653/v1/2021.emnlp-main.685</a>.
+</div>
+<div id="ref-Zhang2020BERTScore" class="csl-entry" role="listitem">
+Zhang, Tianyi, Varsha Kishore, Felix Wu, Kilian Q. Weinberger, and Yoav Artzi. 2020. <span>“<span>BERTScore</span>: Evaluating Text Generation with <span>BERT</span>.”</span> <em>Proceedings of the International Conference on Learning Representations (ICLR 2020)</em>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/danrodgar\.github\.io\/DASE\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./610_SNAinSE.html" class="pagination-link" aria-label="Social Network Analysis in SE">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Social Network Analysis in SE</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./630_timeSeries.html" class="pagination-link" aria-label="Time Series">
+        <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Time Series</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

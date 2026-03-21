@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="DASE Data Analysis in Software Engineering">
+
+<title>29&nbsp; References – Data Analysis in Software Engineering using R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./630_timeSeries.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ca4b39786b312f69619f2788bc8e85cd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="toc.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./990_references.html">Part VII - References</a></li><li class="breadcrumb-item"><a href="./990_references.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Analysis in Software Engineering using R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/danrodgar/DASE" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I - R Ecosystem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110_rIntro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130_rmarkdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./140_rnpython.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./150_rpackages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./160_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./170_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The <code>ggplot2</code> package</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II - Data Sources and EDA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_dataSources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./220_dataEffortEstimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./230_exploratoryDataAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exploratory Data Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III - Preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_basicPreprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./330_featureSelectionExample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Feature Selection Example</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV - Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_basicModelBuildingSupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Supervised Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./420_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./430_basicModelBuildingUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Unsupervised or Descriptive modeling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part V - Evaluation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./520_evaluationClassifiers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./530_evaluationGraphical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Graphical Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./540_evaluationRegression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./550_evaluationUnsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./560_classicalHypothesisTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Classical Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./570_evaluationInSoftEng.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Measures of Evaluation in Software Engineering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./580_advancedModelBuilding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Advanced Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./590_SSL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VI - Specialized Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_SNAinSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Social Network Analysis in SE</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_textMiningSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Text Mining Software Engineering Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./630_timeSeries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Time Series</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part VII - References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./990_references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./990_references.html">Part VII - References</a></li><li class="breadcrumb-item"><a href="./990_references.html"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+/* References page only: hide chapter numbering for this entry. */
+.quarto-page-breadcrumbs .chapter-number,
+.quarto-title .chapter-number,
+.sidebar-item-text.sidebar-link.active .chapter-number,
+.nav-page-text .chapter-number {
+    display: none;
+}
+</style>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Abran_TSE96_FP" class="csl-entry" role="listitem">
+Abran, A., and P. N. Robillard. 1996. <span>“Function Points Analysis:
+An Empirical Study of Its Measurement Processes.”</span> <em>Software
+Engineering, IEEE Transactions on</em> 22 (12): 895–910. <a href="https://doi.org/10.1109/32.553638">https://doi.org/10.1109/32.553638</a>.
+</div>
+<div id="ref-Afzal2012IJSEKE" class="csl-entry" role="listitem">
+Afzal, Wasif, Richard Torkar, and Robert Feldt. 2012. <span>“Resampling
+Methods in Software Quality Classification.”</span> <em>International
+Journal of Software Engineering and Knowledge Engineering</em> 22:
+203–23.
+</div>
+<div id="ref-Aguilar-RuizRRT01" class="csl-entry" role="listitem">
+Aguilar-Ruiz, Jesés S., Isabel Ramos, José C. Riquelme, and Miguel Toro.
+2001. <span>“An Evolutionary Approach to Estimating Software Development
+Projects.”</span> <em>Information and Software Technology</em> 43 (14):
+875–82. https://doi.org/<a href="http://dx.doi.org/10.1016/S0950-5849(01)00193-8">http://dx.doi.org/10.1016/S0950-5849(01)00193-8</a>.
+</div>
+<div id="ref-Aguilar-RuizRR02" class="csl-entry" role="listitem">
+Aguilar-Ruiz, Jesús S., José Cristóbal Riquelme, and Isabel Ramos. 2002.
+<span>“Natural Evolutionary Coding: An Application to Estimating
+Software Development Projects.”</span> <em>Proceedings of the 2002
+Conference on Genetic and Evolutionary Computation (GECCO ’02)</em> (New
+York, USA), 1–8.
+</div>
+<div id="ref-AKA91" class="csl-entry" role="listitem">
+Aha, D. W., D. Kibler, and M. K. Albert. 1991. <span>“Instance-Based
+Learning Algorithms.”</span> <em>Machine Learning</em> 6: 37–66.
+</div>
+<div id="ref-AlbrechtG83" class="csl-entry" role="listitem">
+Albrecht, A. J., and Jr. Gaffney J. E. 1983. <span>“Software Function,
+Source Lines of Code, and Development Effort Prediction: A Software
+Science Validation.”</span> <em>IEEE Transactions on Software
+Engineering</em> 9 (6): 639–48. <a href="https://doi.org/10.1109/TSE.1983.235271">https://doi.org/10.1109/TSE.1983.235271</a>.
+</div>
+<div id="ref-Alcala11" class="csl-entry" role="listitem">
+Alcalá-Fdez, J., A. Fernandez, J. Luengo, S. Garcáa J. Derrac, L.
+Sánchez, and F. Herrera. 2011. <span>“<span>KEEL</span> Data-Mining
+Software Tool: Data Set Repository, Integration of Algorithms and
+Experimental Analysis Framework.”</span> <em>Journal of Multiple-Valued
+Logic and Soft Computing</em> 17 (2-3): 255–87.
+</div>
+<div id="ref-Alcala09" class="csl-entry" role="listitem">
+Alcalá-Fdez, J., L. Sánchez, S. García, et al. 2009.
+<span>“<span>KEEL</span>: A Software Tool to Assess Evolutionary
+Algorithms to Data Mining Problems.”</span> <em>Soft Computing</em> 13
+(3): 307–18.
+</div>
+<div id="ref-AliBHP10" class="csl-entry" role="listitem">
+Ali, Shaukat, Lionel C. Briand, Hadi Hemmati, and Rajwinder Kaur
+Panesar-Walawege. 2010. <span>“A Systematic Review of the Application
+and Empirical Investigation of Search-Based Test-Case
+Generation.”</span> <em>IEEE Transactions on Software Engineering</em>
+(Los Alamitos, CA, USA) 36 (6): 742–62. https://doi.org/<a href="http://dx.doi.org/10.1109/TSE.2009.52">http://dx.doi.org/10.1109/TSE.2009.52</a>.
+</div>
+<div id="ref-R-rmarkdown" class="csl-entry" role="listitem">
+Allaire, JJ, Joe Cheng, Yihui Xie, et al. 2016. <em>Rmarkdown: Dynamic
+Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+</div>
+<div id="ref-Alves2010" class="csl-entry" role="listitem">
+Alves, T. L., C.Ypma, and J. Visser. 2010. <span>“Deriving Metric
+Thresholds from Benchmark Data.”</span> <em>IEEE International
+Conference on Software Maintenance (ICSM’2010)</em>, 1–10. <a href="https://doi.org/10.1109/ICSM.2010.5609747">https://doi.org/10.1109/ICSM.2010.5609747</a>.
+</div>
+<div id="ref-Arisholm10" class="csl-entry" role="listitem">
+Arisholm, Erik, Lionel C. Briand, and Eivind B. Johannessen. 2010.
+<span>“A Systematic and Comprehensive Investigation of Methods to Build
+and Evaluate Fault Prediction Models.”</span> <em>Journal of Systems and
+Software</em> (New York, NY, USA) 83 (1): 2–17. https://doi.org/<a href="http://dx.doi.org/10.1016/j.jss.2009.06.055">http://dx.doi.org/10.1016/j.jss.2009.06.055</a>.
+</div>
+<div id="ref-BagnallRSW01" class="csl-entry" role="listitem">
+Bagnall, A. J., V. J. Rayward-Smith, and I. M. Whittley. 2001.
+<span>“The Next Release Problem.”</span> <em>Information and Software
+Technology</em> 43 (14): 883–90. https://doi.org/<a href="http://dx.doi.org/10.1016/S0950-5849(01)00194-X">http://dx.doi.org/10.1016/S0950-5849(01)00194-X</a>.
+</div>
+<div id="ref-Bailey81" class="csl-entry" role="listitem">
+Bailey, John W., and Victor R. Basili. 1981. <span>“A Meta-Model for
+Software Development Resource Expenditures.”</span> <em>Proceedings of
+the 5th International Conference on Software Engineering (ICSE’81)</em>
+(Piscataway, NJ, USA), ICSE’81, 107–16. <a href="http://dl.acm.org/citation.cfm?id=800078.802522">http://dl.acm.org/citation.cfm?id=800078.802522</a>.
+</div>
+<div id="ref-Banker1994" class="csl-entry" role="listitem">
+Banker, Rajiv D, Hsihui Chang, and Chris F Kemerer. 1994.
+<span>“Evidence on Economies of Scale in Software Development.”</span>
+<em>Information and Software Technology</em> 36 (5): 275–82. <a href="https://doi.org/10.1016/0950-5849(94)90083-3">https://doi.org/10.1016/0950-5849(94)90083-3</a>.
+</div>
+<div id="ref-BansiyaD02" class="csl-entry" role="listitem">
+Bansiya, J., and C. G. Davis. 2002. <span>“A Hierarchical Model for
+Object-Oriented Design Quality Assessment.”</span> <em>IEEE Transactions
+on Software Engineering</em> 28 (1): 4–17. <a href="https://doi.org/10.1109/32.979986">https://doi.org/10.1109/32.979986</a>.
+</div>
+<div id="ref-Belady79" class="csl-entry" role="listitem">
+Belady, L. A., and M. M. Lehman. 1979. <em>Research Directions in
+Software Technology</em>. MIT Press.
+</div>
+<div id="ref-Benlarbi2000" class="csl-entry" role="listitem">
+Benlarbi, S., K. El Emam, N. Goel, and S. Rai. 2000. <span>“Thresholds
+for Object-Oriented Measures.”</span> <em>Proceedings 11th International
+Symposium on Software Reliability Engineering (ISSRE 2000)</em>, 24–38.
+<a href="https://doi.org/10.1109/ISSRE.2000.885858">https://doi.org/10.1109/ISSRE.2000.885858</a>.
+</div>
+<div id="ref-BL97" class="csl-entry" role="listitem">
+Blum, A. L., and P. Langley. 1997. <span>“Selection of Relevant Features
+and Examples in Machine Learning.”</span> <em>Artificial
+Intelligence</em> 97 (1-2): 245–71.
+</div>
+<div id="ref-Boehm81" class="csl-entry" role="listitem">
+Boehm, Barry W. 1981. <em>Software Engineering Economics</em>. 1st ed.
+Prentice Hall PTR.
+</div>
+<div id="ref-BMO07" class="csl-entry" role="listitem">
+Boetticher, G., T. Menzies, and T. Ostrand. 2007. <em>PROMISE Repository
+of Empirical Software Engineering Data</em>. West Virginia University,
+Department of Computer Science. <a href="http://promisedata.org/ repository">http://promisedata.org/
+repository</a>.
+</div>
+<div id="ref-Bowes2015" class="csl-entry" role="listitem">
+Bowes, David, Tracy Hall, and Jean Petrić. 2015. <span>“Different
+Classifiers Find Different Defects Although with Different Level of
+Consistency.”</span> <em>Proceedings of the 11th International
+Conference on Predictive Models and Data Analytics in Software
+Engineering (PROMISE’15</em> (New York, NY, USA), PROMISE’15, 3:1–10. <a href="https://doi.org/10.1145/2810146.2810149">https://doi.org/10.1145/2810146.2810149</a>.
+</div>
+<div id="ref-Breiman96" class="csl-entry" role="listitem">
+Breiman, Leo. 1996. <span>“Bagging Predictors.”</span> <em>Machine
+Learning</em> 24: 123–40. <a href="https://doi.org/10.1007/BF00058655">https://doi.org/10.1007/BF00058655</a>.
+</div>
+<div id="ref-Breiman1984" class="csl-entry" role="listitem">
+Breiman, Leo, Jerome H. Friedman, Richard A. Olshen, and Charles J.
+Stone. 1984. <em>Classification and Regression Trees</em>. Wadsworth
+International Group.
+</div>
+<div id="ref-Caglayan09" class="csl-entry" role="listitem">
+Caglayan, Bora, Ayse Bener, and Stefan Koch. 2009. <span>“Merits of
+Using Repository Metrics in Defect Prediction for Open Source
+Projects.”</span> <em>Proceedings of the 2009 ICSE Workshop on Emerging
+Trends in Free/Libre/Open Source Software Research and Development</em>
+(Washington, DC, USA), FLOSS’09, 31–36. <a href="https://doi.org/10.1109/FLOSS.2009.5071357">https://doi.org/10.1109/FLOSS.2009.5071357</a>.
+</div>
+<div id="ref-Canfora2013" class="csl-entry" role="listitem">
+Canfora, G., A. De Lucia, M. Di Penta, R. Oliveto, A. Panichella, and S.
+Panichella. 2013. <span>“Multi-Objective Cross-Project Defect
+Prediction.”</span> <em>IEEE Sixth International Conference on Software
+Testing, Verification and Validation</em>, 252–61. <a href="https://doi.org/10.1109/ICST.2013.38">https://doi.org/10.1109/ICST.2013.38</a>.
+</div>
+<div id="ref-CanoHL07" class="csl-entry" role="listitem">
+Cano, José Ramón, Francisco Herrera, and Manuel Lozano. 2007.
+<span>“Evolutionary Stratified Training Set Selection for Extracting
+Classification Rules with Trade Off Precision-Interpretability.”</span>
+<em>Data &amp; Knowledge Engineering</em> 60 (1): 90–108. <a href="https://doi.org/10.1016/j.datak.2006.01.008">https://doi.org/10.1016/j.datak.2006.01.008</a>.
+</div>
+<div id="ref-Catal2011" class="csl-entry" role="listitem">
+Catal, Cagatay. 2011. <span>“Software Fault Prediction: A Literature
+Review and Current Trends.”</span> <em>Expert Systems with
+Applications</em> 38 (4): 4626–36. <a href="https://doi.org/10.1016/j.eswa.2010.10.024">https://doi.org/10.1016/j.eswa.2010.10.024</a>.
+</div>
+<div id="ref-Catal_WIRED12" class="csl-entry" role="listitem">
+Catal, Cagatay. 2012. <span>“Software Mining and Fault
+Prediction.”</span> <em>Wiley Interdisciplinary Reviews: Data Mining and
+Knowledge Discovery</em> 2 (5): 420–26. <a href="https://doi.org/10.1002/widm.1067">https://doi.org/10.1002/widm.1067</a>.
+</div>
+<div id="ref-CC2009" class="csl-entry" role="listitem">
+Catal, Cagatay, and Banu Diri. 2009. <span>“A Systematic Review of
+Software Fault Prediction Studies.”</span> <em>Expert Systems with
+Applications</em> 36 (4): 7346–54. <a href="https://doi.org/10.1016/j.eswa.2008.10.027">https://doi.org/10.1016/j.eswa.2008.10.027</a>.
+</div>
+<div id="ref-CBHK2002" class="csl-entry" role="listitem">
+Chawla, N. V., K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer. 2002.
+<span>“<span>SMOTE</span>: Synthetic Minority over-Sampling
+TEchnique.”</span> <em>Journal of Artificial Intelligence Research</em>
+16: 321–57.
+</div>
+<div id="ref-CLHB2003" class="csl-entry" role="listitem">
+Chawla, N. V., A. Lazarevic, L. O. Hall, and K. W. Bowyer. 2003.
+<span>“SMOTEBoost: Improving Prediction of the Minority Class in
+Boosting.”</span> <em>7th European Conference on Principles and Practice
+of Knowledge Discovery in Databases(<span>PKDD 2003</span>)</em>,
+107–19.
+</div>
+<div id="ref-ChawlaBHK02" class="csl-entry" role="listitem">
+Chawla, Nitesh V., Kevin W. Bowyer, Lawrence O. Hall, and W. Philip
+Kegelmeyer. 2002. <span>“SMOTE: Synthetic Minority over-Sampling
+Technique.”</span> <em>J. Artif. Intell. Res. (JAIR)</em> 16: 321–57.
+</div>
+<div id="ref-Chen07DMTools" class="csl-entry" role="listitem">
+Chen, Xiaojun, Yunming Ye, Graham Williams, and Xiaofei Xu. 2007.
+<span>“A Survey of Open Source Data Mining Systems.”</span> In
+<em>Emerging Technologies in Knowledge Discovery and Data Mining</em>,
+edited by Takashi Washio, Zhi-Hua Zhou, JoshuaZhexue Huang, et al., vol.
+4819. Lecture Notes in Computer Science. Springer Berlin Heidelberg.
+</div>
+<div id="ref-CHPB05" class="csl-entry" role="listitem">
+Chen, Z., T. Menzies, D. Port, and D. Boehm. 2005. <span>“Finding the
+Right Data for Software Cost Modeling.”</span> <em>IEEE Software</em> 22
+(6): 38–46. <a href="https://doi.org/10.1109/MS.2005.151">https://doi.org/10.1109/MS.2005.151</a>.
+</div>
+<div id="ref-Chidamber1994" class="csl-entry" role="listitem">
+Chidamber, S. R., and C. F. Kemerer. 1994. <span>“A Metrics Suite for
+Object Oriented Design.”</span> <em>IEEE Transactions on Software
+Engineering</em> 20 (6): 476–93. <a href="https://doi.org/10.1109/32.295895">https://doi.org/10.1109/32.295895</a>.
+</div>
+<div id="ref-clauset07" class="csl-entry" role="listitem">
+Clauset, Aaron, Cosma Rohilla Shalizi, and M. E. J. Newman. 2007.
+<em>Power-Law Distributions in Empirical Data</em>. <a href="http://www.citebase.org/abstract?id=oai:arXiv.org:0706.1062">http://www.citebase.org/abstract?id=oai:arXiv.org:0706.1062</a>.
+</div>
+<div id="ref-5928349" class="csl-entry" role="listitem">
+Concas, G., M. Marchesi, A. Murgia, R. Tonelli, and I. Turnu. 2011.
+<span>“On the Distribution of Bugs in the Eclipse System.”</span>
+<em>IEEE Transactions on Software Engineering</em> 37 (6): 872–77. <a href="https://doi.org/10.1109/TSE.2011.54">https://doi.org/10.1109/TSE.2011.54</a>.
+</div>
+<div id="ref-DAmb2010a" class="csl-entry" role="listitem">
+D’Ambros, Marco, Michele Lanza, and Romain Robbes. 2010. <span>“An
+Extensive Comparison of Bug Prediction Approaches.”</span>
+<em>Proceedings of the 7th IEEE Working Conference on Mining Software
+Repositories (MSR07)</em>, 31–41.
+</div>
+<div id="ref-ALR11" class="csl-entry" role="listitem">
+D’Ambros, Marco, Michele Lanza, and Romain Robbes. 2011.
+<span>“Evaluating Defect Prediction Approaches: A Benchmark and an
+Extensive Comparison.”</span> <em>Empirical Software Engineering</em>,
+1–47. <a href="https://doi.org/10.1007/s10664-011-9173-9">https://doi.org/10.1007/s10664-011-9173-9</a>.
+</div>
+<div id="ref-DL97" class="csl-entry" role="listitem">
+Dash, M., and H. Liu. 1997. <span>“Feature Selection for
+Classification.”</span> <em>Intelligent Data Analisys</em> 1 (3):
+131–56.
+</div>
+<div id="ref-DLM00" class="csl-entry" role="listitem">
+Dash, M., H. Liu, and H. Motoda. 2000. <span>“Consistency Based Feature
+Selection.”</span> <em>Pacific-Asia Conf. On Knowledge Discovery and
+Data Mining</em>, 98–109.
+</div>
+<div id="ref-Dean08" class="csl-entry" role="listitem">
+Dean, Jeffrey, and Sanjay Ghemawat. 2008. <span>“MapReduce: Simplified
+Data Processing on Large Clusters.”</span> <em>Commun. ACM</em> (New
+York, NY, USA) 51 (1): 107–13. <a href="https://doi.org/10.1145/1327452.1327492">https://doi.org/10.1145/1327452.1327492</a>.
+</div>
+<div id="ref-Dejaeger_TSE12_EffEst" class="csl-entry" role="listitem">
+Dejaeger, K., W. Verbeke, D. Martens, and B. Baesens. 2012. <span>“Data
+Mining Techniques for Software Effort Estimation: A Comparative
+Study.”</span> <em>Software Engineering, IEEE Transactions on</em> 38
+(2): 375–97. <a href="https://doi.org/10.1109/TSE.2011.55">https://doi.org/10.1109/TSE.2011.55</a>.
+</div>
+<div id="ref-Demsar2006" class="csl-entry" role="listitem">
+Demšar, Janez. 2006. <span>“Statistical Comparisons of Classifiers over
+Multiple Data Sets.”</span> <em>Journal of Machine Learning
+Research</em> 7 (December): 1–30. <a href="http://dl.acm.org/citation.cfm?id=1248547.1248548">http://dl.acm.org/citation.cfm?id=1248547.1248548</a>.
+</div>
+<div id="ref-DHR2017" class="csl-entry" role="listitem">
+Deocadez, Roger, Rachel Harrison, and Daniel Rodriguez. 2017.
+<span>“Preliminary Study on Applying Semi-Supervised Learning to App
+Store Analysis.”</span> <em>Proceedings of the 21st International
+Conference on Evaluation and Assessment in Software Engineering
+(EASE’17)</em> (New York, NY, USA), EASE’17, 320–23. <a href="https://doi.org/10.1145/3084226.3084285">https://doi.org/10.1145/3084226.3084285</a>.
+</div>
+<div id="ref-Desharnais88" class="csl-entry" role="listitem">
+Desharnais, J. M. 1988. <span>“Analyse Statistique de La Productivite
+Des Projects de Development En Informatique a Partir de La Technique Des
+Points de Fonction.”</span> MSc Thesis, Univ. du Quebec a Montreal.
+</div>
+<div id="ref-Doa92" class="csl-entry" role="listitem">
+Doak, J. 1992. <em>An Evaluation of Feature Selection Methods and Their
+Application to Computer Security</em>. CSE-92-18. University of
+California, Department of Computer Science.
+</div>
+<div id="ref-Dolado01_CostEst" class="csl-entry" role="listitem">
+Dolado, J. J. 2001. <span>“On the Problem of the Software Cost
+Function.”</span> <em>Information and Software Technology</em> 43 (1):
+61–72. <a href="https://doi.org/10.1016/S0950-5849(00)00137-3">https://doi.org/10.1016/S0950-5849(00)00137-3</a>.
+</div>
+<div id="ref-Dolado97" class="csl-entry" role="listitem">
+Dolado, J. J. 1997. <span>“A Study of the Relationships Among Albrecht
+and Mark II Function Points, Lines of Code 4GL and Effort.”</span>
+<em>Journal of Systems and Software</em> 37 (2): 161–73. <a href="https://doi.org/10.1016/S0164-1212(96)00111-2">https://doi.org/10.1016/S0164-1212(96)00111-2</a>.
+</div>
+<div id="ref-DOLADO2016" class="csl-entry" role="listitem">
+Dolado, José Javier, Daniel Rodriguez, Mark Harman, William B. Langdon,
+and Federica Sarro. 2016. <span>“Evaluation of Estimation Models Using
+the Minimum Interval of Equivalence.”</span> <em>Applied Soft
+Computing</em> 49: 956–67. https://doi.org/<a href="http://dx.doi.org/10.1016/j.asoc.2016.03.026">http://dx.doi.org/10.1016/j.asoc.2016.03.026</a>.
+</div>
+<div id="ref-EBSE" class="csl-entry" role="listitem">
+EBSE. 2010. <em>Template for a Systematic Literature Review
+Protocol</em>. <a href="http://www.dur.ac.uk/ebse/resources/templates/SLRTemplate.pdf">http://www.dur.ac.uk/ebse/resources/templates/SLRTemplate.pdf</a>.
+</div>
+<div id="ref-Elish08" class="csl-entry" role="listitem">
+Elish, Karim O., and Mahmoud O. Elish. 2008. <span>“Predicting
+Defect-Prone Software Modules Using Support Vector Machines.”</span>
+<em>Journal of Systems and Software</em> 81 (5): 649–60. <a href="https://doi.org/10.1016/j.jss.2007.07.040">https://doi.org/10.1016/j.jss.2007.07.040</a>.
+</div>
+<div id="ref-Fawcett2006" class="csl-entry" role="listitem">
+Fawcett, Tom. 2006. <span>“An Introduction to ROC Analysis.”</span>
+<em>Pattern Recognition Letters</em> 27 (8): 861–74. https://doi.org/<a href="http://dx.doi.org/10.1016/j.patrec.2005.10.010">http://dx.doi.org/10.1016/j.patrec.2005.10.010</a>.
+</div>
+<div id="ref-FayyadPS1996" class="csl-entry" role="listitem">
+Fayyad, Usama, Gregory Piatetsky-Shapiro, and Padhraic Smyth. 1996.
+<span>“The KDD Process for Extracting Useful Knowledge from Volumes of
+Data.”</span> <em>Commun. ACM</em> (New York, NY, USA) 39 (11): 27–34.
+<a href="https://doi.org/10.1145/240455.240464">https://doi.org/10.1145/240455.240464</a>.
+</div>
+<div id="ref-FeinererH15" class="csl-entry" role="listitem">
+Feinerer, Ingo, and Kurt Hornik. 2015. <em>Tm: Text Mining Package</em>.
+<a href="http://CRAN.R-project.org/package=tm">http://CRAN.R-project.org/package=tm</a>.
+</div>
+<div id="ref-FeinererHM08" class="csl-entry" role="listitem">
+Feinerer, Ingo, Kurt Hornik, and David Meyer. 2008. <span>“Text Mining
+Infrastructure in r.”</span> <em>Journal of Statistical Software</em> 25
+(5): 1–54. <a href="http://www.jstatsoft.org/v25/i05/">http://www.jstatsoft.org/v25/i05/</a>.
+</div>
+<div id="ref-FGH11" class="csl-entry" role="listitem">
+Fernández, Alberto, Salvador García, and Francisco Herrera. 2011.
+<span>“Addressing the Classification with Imbalanced Data: Open Problems
+and New Challenges on Class Distribution.”</span> <em>6th International
+Conference on Hybrid Artificial Intelligence Systems (HAIS)</em>, 1–10.
+</div>
+<div id="ref-FernandezCBA14" class="csl-entry" role="listitem">
+Fernández-Delgado, Manuel, Eva Cernadas, Senén Barro, and Dinani Amorim.
+2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World
+Classification Problems?”</span> <em>Journal of Machine Learning
+Research</em> 15: 3133–81. <a href="http://jmlr.org/papers/v15/delgado14a.html">http://jmlr.org/papers/v15/delgado14a.html</a>.
+</div>
+<div id="ref-FinkelsteinHMRZ09" class="csl-entry" role="listitem">
+Finkelstein, Anthony, Mark Harman, S. Afshin Mansouri, Jian Ren, and
+Yuanyuan Zhang. 2009. <span>“A Search Based Approach to Fairness
+Analysis in Requirement Assignments to Aid Negotiation, Mediation and
+Decision Making.”</span> <em>Requirements Engineering Journal (RE’08
+Special Issue)</em> 14 (4): 231–45. https://doi.org/<a href="http://dx.doi.org/10.1007/s00766-009-0075-y">http://dx.doi.org/10.1007/s00766-009-0075-y</a>.
+</div>
+<div id="ref-FlachHR11" class="csl-entry" role="listitem">
+Flach, Peter A., José Hernández-Orallo, and Cèsar Ferri Ramirez. 2011.
+<span>“A Coherent Interpretation of AUC as a Measure of Aggregated
+Classification Performance.”</span> <em>Proceedings of the 28th
+International Conference on Machine Learning (ICML’11)</em> (Bellevue,
+Washington, USA), 657–64.
+</div>
+<div id="ref-freund1999short" class="csl-entry" role="listitem">
+Freund, Yoav, Robert Schapire, and Naoki Abe. 1999. <span>“A Short
+Introduction to Boosting.”</span> <em>Journal-Japanese Society For
+Artificial Intelligence</em> 14 (771-780): 1612.
+</div>
+<div id="ref-GDCH12" class="csl-entry" role="listitem">
+Garcia, S., J. Derrac, J. Cano, and F. Herrera. 2012. <span>“Prototype
+Selection for Nearest Neighbor Classification: Taxonomy and Empirical
+Study.”</span> <em>IEEE Transactions on Pattern Analysis and Machine
+Intelligence</em> 34 (3): 417–35. <a href="https://doi.org/10.1109/TPAMI.2011.142">https://doi.org/10.1109/TPAMI.2011.142</a>.
+</div>
+<div id="ref-GarciaLH2015" class="csl-entry" role="listitem">
+García, Salvador, Julián Luengo, and Francisco Herrera. 2015. <em>Data
+Preprocessing in Data Mining</em>. Springer. <a href="https://doi.org/10.1007/978-3-319-10247-4">https://doi.org/10.1007/978-3-319-10247-4</a>.
+</div>
+<div id="ref-GR12" class="csl-entry" role="listitem">
+González-Barahona, Jesús, and Gregorio Robles. 2012. <span>“On the
+Reproducibility of Empirical Software Engineering Studies Based on Data
+Retrieved from Development Repositories.”</span> <em>Empirical Software
+Engineering</em> 17: 75–89. <a href="http://dx.doi.org/10.1007/s10664-011-9181-9">http://dx.doi.org/10.1007/s10664-011-9181-9</a>.
+</div>
+<div id="ref-Gray2011" class="csl-entry" role="listitem">
+Gray, D., D. Bowes, N. Davey, Y. Sun, and B. Christianson. 2011.
+<span>“The Misuse of the NASA Metrics Data Program Data Sets for
+Automated Software Defect Prediction.”</span> <em>15th Annual Conference
+on Evaluation Assessment in Software Engineering (EASE 2011)</em>,
+96–103. <a href="https://doi.org/10.1049/ic.2011.0012">https://doi.org/10.1049/ic.2011.0012</a>.
+</div>
+<div id="ref-GE03" class="csl-entry" role="listitem">
+Guyon, I., and A. Elisseeff. 2003. <span>“An Introduction to Variable
+and Feature Selection.”</span> <em>Journal of Machine Learning
+Research</em> 3: 1157–82.
+</div>
+<div id="ref-Hal99" class="csl-entry" role="listitem">
+Hall, M. A. 1999. <span>“Correlation-Based Feature Selection for Machine
+Learning.”</span> PhD thesis, University of Waikato, Department of
+Computer Science.
+</div>
+<div id="ref-HallBBGC2012" class="csl-entry" role="listitem">
+Hall, T., S. Beecham, D. Bowes, D. Gray, and S. Counsell. 2012. <span>“A
+Systematic Literature Review on Fault Prediction Performance in Software
+Engineering.”</span> <em>IEEE Transactions on Software Engineering</em>
+38 (6): 1276–304. <a href="https://doi.org/10.1109/TSE.2011.103">https://doi.org/10.1109/TSE.2011.103</a>.
+</div>
+<div id="ref-HBBGC11" class="csl-entry" role="listitem">
+Hall, Tracy, Sarah Beecham, David Bowes, David Gray, and Steve Counsell.
+2011. <span>“A Systematic Literature Review on Fault Prediction
+Performance in Software Engineering.”</span> <em>Transactions on
+Software Engineering</em>.
+</div>
+<div id="ref-Halstead77" class="csl-entry" role="listitem">
+Halstead, M. H. 1977. <em>Elements of Software Science</em>. Elsevier
+Computer Science Library. Operating and Programming Systems Series; 2.
+Elsevier.
+</div>
+<div id="ref-Hand09" class="csl-entry" role="listitem">
+Hand, David J. 2009. <span>“Measuring Classifier Performance: A Coherent
+Alternative to the Area Under the ROC Curve.”</span> <em>Machine
+Learning</em> (Hingham, MA, USA) 77 (1): 103–23. <a href="https://doi.org/10.1007/s10994-009-5119-5">https://doi.org/10.1007/s10994-009-5119-5</a>.
+</div>
+<div id="ref-Harman2010" class="csl-entry" role="listitem">
+Harman, Mark. 2010. <span>“The Relationship Between Search Based
+Software Engineering and Predictive Modeling.”</span> <em>Proceedings of
+the 6th International Conference on Predictive Models in Software
+Engineering</em> (New York, NY, USA), PROMISE ’10, 1:1–13.
+https://doi.org/<a href="http://doi.acm.org/10.1145/1868328.1868330">http://doi.acm.org/10.1145/1868328.1868330</a>.
+</div>
+<div id="ref-Harman2001" class="csl-entry" role="listitem">
+Harman, Mark, and Bryan F. Jones. 2001. <span>“Search-Based Software
+Engineering.”</span> <em>Information and Software Technology</em> 43
+(14): 833–39.
+</div>
+<div id="ref-HarmanC04" class="csl-entry" role="listitem">
+Harman, M., and J. Clark. 2004. <span>“Metrics Are Fitness Functions
+Too.”</span> <em>Proceedings. 10th International Symposium on Software
+Metrics 2004</em>, 58–69. <a href="https://doi.org/10.1109/METRIC.2004.1357891">https://doi.org/10.1109/METRIC.2004.1357891</a>.
+</div>
+<div id="ref-Hastings01" class="csl-entry" role="listitem">
+Hastings, T. E., and A. S. M. Sajeev. 2001. <span>“A Vector-Based
+Approach to Software Size Measurement and Effort Estimation.”</span>
+<em>IEEE Transactions on Software Engineering</em> 27 (4): 337–50. <a href="https://doi.org/10.1109/32.917523">https://doi.org/10.1109/32.917523</a>.
+</div>
+<div id="ref-He_KDE09_Imbalance" class="csl-entry" role="listitem">
+He, Haibo, and E. A. Garcia. 2009. <span>“Learning from Imbalanced
+Data.”</span> <em>IEEE Transactions on Knowledge and Data
+Engineering</em> 21 (9): 1263–84. <a href="https://doi.org/10.1109/TKDE.2008.239">https://doi.org/10.1109/TKDE.2008.239</a>.
+</div>
+<div id="ref-Heiat97" class="csl-entry" role="listitem">
+Heiat, Abbas, and Nafisseh Heiat. 1997. <span>“A Model for Estimating
+Efforts Required for Developing Small-Scale Business
+Applications.”</span> <em>Journal of Systems and Software</em> 39 (1):
+7–14. <a href="https://doi.org/10.1016/S0164-1212(96)00159-8">https://doi.org/10.1016/S0164-1212(96)00159-8</a>.
+</div>
+<div id="ref-herraiz2009flossmetrics" class="csl-entry" role="listitem">
+Herraiz, Israel, Daniel Izquierdo-Cortazar, Francisco Rivas-Hernandez,
+et al. 2009. <span>“<span>FLOSSMetrics</span>: Free / Libre / Open
+Source Software Metrics.”</span> <em>Proceedings of the 13th European
+Conference on Software Maintenance and Reengineering (CSMR)</em>
+(Kaiserlauten, Germany).
+</div>
+<div id="ref-HRH_WETSOM12" class="csl-entry" role="listitem">
+Herraiz, Israel, Daniel Rodriguez, and Rachel Harrison. 2012. <span>“On
+the Statistical Distribution of Object-Oriented System
+Properties.”</span> <em>3rd International Workshop on Emerging Trends in
+Software Metrics (WETSoM 2012)</em>.
+</div>
+<div id="ref-HCGJ11" class="csl-entry" role="listitem">
+<span class="nocase">Herrera, Francisco, Cristóbal J. Carmona del Jesus,
+Pedro González, and María José del Jesus</span>. 2011. <span>“An
+Overview on Subgroup Discovery: Foundations and Applications.”</span>
+<em>Knowledge and Information Systems</em> 29: 495–525.
+</div>
+<div id="ref-Hoekstra2014" class="csl-entry" role="listitem">
+Hoekstra, Rink, Richard D. Morey, Jeffrey N. Rouder, and Eric-Jan
+Wagenmakers. 2014. <span>“Robust Misinterpretation of Confidence
+Intervals.”</span> <em>Psychonomic Bulletin <span>&amp;</span>
+Review</em> 21 (5): 1157–64. <a href="https://doi.org/10.3758/s13423-013-0572-3">https://doi.org/10.3758/s13423-013-0572-3</a>.
+</div>
+<div id="ref-Hosseini2017" class="csl-entry" role="listitem">
+Hosseini, Seyedrebvar, Burak Turhan, and Mika Mantyla. 2017. <span>“A
+Benchmark Study on the Effectiveness of Search-Based Data Selection and
+Feature Selection for Cross Project Defect Prediction.”</span>
+<em>Information and Software Technology</em>, –. https://doi.org/<a href="https://doi.org/10.1016/j.infsof.2017.06.004">https://doi.org/10.1016/j.infsof.2017.06.004</a>.
+</div>
+<div id="ref-HCC06" class="csl-entry" role="listitem">
+Howison, James, Megan Conklin, and Kevin Crowston. 2006.
+<span>“<span>FLOSSmole</span>: A Collaborative Repository for
+<span>FLOSS</span> Research Data and Analyses.”</span> <em>International
+Journal of Information Technology and Web Engineering</em> 1 (3). <a href="https://doi.org/10.4018/jitwe.2006070102">https://doi.org/10.4018/jitwe.2006070102</a>.
+</div>
+<div id="ref-HuangNPGBT2011" class="csl-entry" role="listitem">
+Huang, LiGuo, V. Ng, I. Persing, Ruili Geng, Xu Bai, and Jeff Tian.
+2011. <span>“<span>AutoODC</span>: Automated Generation of Orthogonal
+Defect Classifications.”</span> <em>26th IEEE/ACM International
+Conference on Automated Software Engineering (ASE’2011)</em>, November,
+412–15. <a href="https://doi.org/10.1109/ASE.2011.6100086">https://doi.org/10.1109/ASE.2011.6100086</a>.
+</div>
+<div id="ref-Ibarguren2017" class="csl-entry" role="listitem">
+Ibarguren, Igor, J. M. Pérez, Javier Muguerza, Daniel Rodriguez, and
+Rachel Harrison. 2017. <span>“The Consolidated Tree Construction
+Algorithm in Imbalanced Defect Prediction Datasets.”</span>
+<em>Evolutionary Methods and Machine Learning in SE, Testing and SE
+Repositories. Proceedings of the 2017 IEEE Congress on Evolutionary
+Computation (CEC2017)</em>, 96–103.
+</div>
+<div id="ref-japkowicz2011evaluating" class="csl-entry" role="listitem">
+Japkowicz, N., and M. Shah. 2011. <em>Evaluating Learning Algorithms: A
+Classification Perspective</em>. Evaluating Learning Algorithms: A
+Classification Perspective. Cambridge University Press.
+</div>
+<div id="ref-Jeffery_ESE96" class="csl-entry" role="listitem">
+Jeffery, Ross, and John Stathis. 1996. <span>“Function Point Sizing:
+Structure, Validity and Applicability.”</span> <em>Empirical Software
+Engineering</em> 1: 11–30. <a href="http://dx.doi.org/10.1007/BF00125809">http://dx.doi.org/10.1007/BF00125809</a>.
+</div>
+<div id="ref-Jiang2008" class="csl-entry" role="listitem">
+Jiang, Yue, Bojan Cukic, and Yan Ma. 2008. <span>“Techniques for
+Evaluating Fault Prediction Models.”</span> <em>Empirical Software
+Engineering</em> 13 (5): 561–95. <a href="https://doi.org/10.1007/s10664-008-9079-3">https://doi.org/10.1007/s10664-008-9079-3</a>.
+</div>
+<div id="ref-Jorgensen04" class="csl-entry" role="listitem">
+Jorgensen, M. 2004. <span>“Realism in Assessment of Effort Estimation
+Uncertainty: It Matters How You Ask.”</span> <em>IEEE Transactions on
+Software Engineering</em> 30 (4): 209–17. <a href="https://doi.org/10.1109/TSE.2004.1274041">https://doi.org/10.1109/TSE.2004.1274041</a>.
+</div>
+<div id="ref-Jorgensen2003" class="csl-entry" role="listitem">
+Jørgensen, Magne, Ulf Indahl, and Dag Sjøberg. 2003. <span>“Software
+Effort Estimation by Analogy and ’Regression Toward Themean’.”</span>
+<em>Journal of Systems and Software</em> 68 (3): 253–62. <a href="https://doi.org/10.1016/S0164-1212(03)00066-9">https://doi.org/10.1016/S0164-1212(03)00066-9</a>.
+</div>
+<div id="ref-Jorgensen07" class="csl-entry" role="listitem">
+Jørgensen, M., and M. Shepperd. 2007. <span>“A Systematic Review of
+Software Development Cost Estimation Studies.”</span> <em>IEEE
+Transactions on Software Engineering</em> 33 (1): 33–53. <a href="https://doi.org/10.1109/TSE.2007.256943">https://doi.org/10.1109/TSE.2007.256943</a>.
+</div>
+<div id="ref-JureczkoS10" class="csl-entry" role="listitem">
+Jureczko, Marian, and Diomidis Spinellis. 2010. <span>“Using
+Object-Oriented Design Metrics to Predict Software Defects.”</span>
+<em>Models and Methodology of System Dependability. Proceedings of
+<span>RELCOMEX</span> 2010 Fifth International Conference on
+Dependability of Computer Systems <span>DepCoS</span></em>
+(Wroc<span>ł</span>aw, Poland), Monographs of system dependability,
+69–81. <a href="http://www.dmst.aueb.gr/dds/pubs/conf/2010-DepCoS-RELCOMEX-ckjm-defects/html/JS10.html">http://www.dmst.aueb.gr/dds/pubs/conf/2010-DepCoS-RELCOMEX-ckjm-defects/html/JS10.html</a>.
+</div>
+<div id="ref-YasutakaEtAl:07" class="csl-entry" role="listitem">
+Kamei, Y., A. Monden, S. Matsumoto, T. Kakimoto, and K. Matsumoto. 2007.
+<span>“The Effects of over and Under Sampling on Fault–Prone Module
+Detection.”</span> <em>Empirical Software Engineering and Measurement
+(ESEM)</em>, 196–204.
+</div>
+<div id="ref-KL2006" class="csl-entry" role="listitem">
+Kavšek, Branko, and Nada Lavrač. 2006. <span>“<span>APRIORI-SD</span>:
+Adapting Association Rule Learning to Subgroup Discovery.”</span>
+<em>Applied Artificial Intelligence</em> 20 (7): 543–83. <a href="https://doi.org/10.1080/08839510600779688">https://doi.org/10.1080/08839510600779688</a>.
+</div>
+<div id="ref-Kaymak_EAAI2012_AUK" class="csl-entry" role="listitem">
+Kaymak, Uzay, Arie Ben-David, and Rob Potharst. 2012. <span>“The AUK: A
+Simple Alternative to the AUC.”</span> <em>Engineering Applications of
+Artificial Intelligence</em> 25 (5): 1082–89. <a href="https://doi.org/10.1016/j.engappai.2012.02.012">https://doi.org/10.1016/j.engappai.2012.02.012</a>.
+</div>
+<div id="ref-KeivanlooMSR12" class="csl-entry" role="listitem">
+Keivanloo, I., C. Forbes, A. Hmood, et al. 2012. <span>“A Linked Data
+Platform for Mining Software Repositories.”</span> <em>Mining Software
+Repositories (MSR), 2012 9th IEEE Working Conference on</em>, 32–35. <a href="https://doi.org/10.1109/MSR.2012.6224296">https://doi.org/10.1109/MSR.2012.6224296</a>.
+</div>
+<div id="ref-Keivanloo2011_SECOLD" class="csl-entry" role="listitem">
+Keivanloo, Iman, Christopher Forbes, Juergen Rilling, and Philippe
+Charland. 2011. <span>“Towards Sharing Source Code Facts Using Linked
+Data.”</span> <em>Proceedings of the 3rd International Workshop on
+Search-Driven Development: Users, Infrastructure, Tools, and
+Evaluation</em> (New York, NY, USA), SUITE ’11, 25–28. <a href="https://doi.org/10.1145/1985429.1985436">https://doi.org/10.1145/1985429.1985436</a>.
+</div>
+<div id="ref-Kemerer87" class="csl-entry" role="listitem">
+Kemerer, Chris F. 1987. <span>“An Empirical Validation of Software Cost
+Estimation Models.”</span> <em>Communications of the ACM</em> (New York,
+NY, USA) 30 (5): 416–29. <a href="https://doi.org/10.1145/22899.22906">https://doi.org/10.1145/22899.22906</a>.
+</div>
+<div id="ref-Khoshgoftaar97" class="csl-entry" role="listitem">
+Khoshgoftaar, T. M., E. Allen, J. Hudepohl, and S. Aud. 1997.
+<span>“Application of Neural Networks to Software Quality Modeling of a
+Very Large Telecommunications System.”</span> <em>IEEE Transactions on
+Neural Networks</em> 8 (4): 902–9.
+</div>
+<div id="ref-KhoshgoftaarEtAl:05" class="csl-entry" role="listitem">
+Khoshgoftaar, T. M., N. Seliya, and K. Gao. 2005. <span>“Assessment of a
+New Three-Group Software Quality Classification Technique: An Empirical
+Case Study.”</span> <em>Empirical Software Engineering</em> 10 (2):
+183–218.
+</div>
+<div id="ref-Khoshgoftaar09" class="csl-entry" role="listitem">
+Khoshgoftaar, T. M., and J. Van Hulse. 2009. <span>“Empirical Case
+Studies in Attribute Noise Detection.”</span> <em>Systems, Man, and
+Cybernetics, Part C: Applications and Reviews, IEEE Transactions on</em>
+39 (4): 379–88. <a href="https://doi.org/10.1109/TSMCC.2009.2013815">https://doi.org/10.1109/TSMCC.2009.2013815</a>.
+</div>
+<div id="ref-KhoshgoftaarGN12" class="csl-entry" role="listitem">
+Khoshgoftaar, Taghi M., Kehan Gao, and Amri Napolitano. 2012a. <span>“An
+Empirical Study of Feature Ranking Techniques for Software Quality
+Prediction.”</span> <em>International Journal of Software Engineering
+and Knowledge Engineering</em> 22 (2): 161–83.
+</div>
+<div id="ref-KhoshgoftaarGKN12" class="csl-entry" role="listitem">
+Khoshgoftaar, Taghi M., Kehan Gao, and Amri Napolitano. 2012b.
+<span>“Exploring an Iterative Feature Selection Technique for Highly
+Imbalanced Data Sets.”</span> <em>IEEE 13th International Conference on
+Information Reuse and Integration (IRI’2012)</em>, 101–8. <a href="https://doi.org/10.1109/IRI.2012.6302997">https://doi.org/10.1109/IRI.2012.6302997</a>.
+</div>
+<div id="ref-Khoshgoftaar03" class="csl-entry" role="listitem">
+Khoshgoftaar, Taghi M., and Naeem Seliya. 2003. <span>“Analogy-Based
+Practical Classification Rules for Software Quality Estimation.”</span>
+<em>Empirical Software Engineering</em> (Hingham, MA, USA) 8 (4):
+325–50. https://doi.org/<a href="http://dx.doi.org/10.1023/A:1025316301168">http://dx.doi.org/10.1023/A:1025316301168</a>.
+</div>
+<div id="ref-Khoshgoftaar2004" class="csl-entry" role="listitem">
+Khoshgoftaar, Taghi M., and Naeem Seliya. 2004. <span>“Comparative
+Assessment of Software Quality Classification Techniques: An Empirical
+Case Study.”</span> <em>Empirical Software Engineering</em> (Hingham,
+MA, USA) 9 (3): 229–57. <a href="https://doi.org/10.1023/B:EMSE.0000027781.18360.9b">https://doi.org/10.1023/B:EMSE.0000027781.18360.9b</a>.
+</div>
+<div id="ref-02Kho" class="csl-entry" role="listitem">
+Khoshgoftaar, T., E. Allen, and J. Deng. 2002. <span>“Using Regression
+Trees to Classify Fault-Prone Software Modules.”</span> <em>IEEE
+Transactions on Reliability</em>.
+</div>
+<div id="ref-KS02" class="csl-entry" role="listitem">
+Kirsopp, C., and M. Shepperd. 2002. <span>“Case and Feature Subset
+Selection in Case-Based Software Project Effort Prediction.”</span>
+<em>22nd International Conference on Knowledge-Based Systems and Applied
+Artificial Intelligence (SGAI’02)</em>.
+</div>
+<div id="ref-677185" class="csl-entry" role="listitem">
+Kitchenham, B. 1998. <span>“A Procedure for Analyzing Unbalanced
+Datasets.”</span> <em>IEEE Transactions on Software Engineering</em> 24
+(4): 278–301. <a href="https://doi.org/10.1109/32.677185">https://doi.org/10.1109/32.677185</a>.
+</div>
+<div id="ref-springerlink:10.1007/s10664-008-9061-0" class="csl-entry" role="listitem">
+Kitchenham, Barbara. 2008. <span>“The Role of Replications in Empirical
+Software Engineering: A Word of Warning.”</span> <em>Empirical Software
+Engineering</em> 13 (2): 219–21.
+</div>
+<div id="ref-Kitchenham2002" class="csl-entry" role="listitem">
+Kitchenham, Barbara A. 2002. <span>“The Question of Scale Economies in
+Software — Why Cannot Researchers Agree?”</span> <em>Information and
+Software Technology</em> 44 (1): 13–24. <a href="https://doi.org/10.1016/S0950-5849(01)00204-X">https://doi.org/10.1016/S0950-5849(01)00204-X</a>.
+</div>
+<div id="ref-Kitchenham07" class="csl-entry" role="listitem">
+Kitchenham, Barbara A., and S. Charters. 2007. <em>Guidelines for
+Performing Systematic Literature Reviews in Software Engineering</em>.
+Technical Report EBSE-2007-01. Keele University.
+</div>
+<div id="ref-Kitchenham04" class="csl-entry" role="listitem">
+Kitchenham, Barbara A., Tore Dyba, and Magne Jørgensen. 2004.
+<span>“Evidence-Based Software Engineering.”</span> <em>Proceedings of
+the 26th International Conference on Software Engineering (ICSE’04)</em>
+(Washington, DC, USA), 273–81.
+</div>
+<div id="ref-Kitchenham97" class="csl-entry" role="listitem">
+Kitchenham, Barbara Ann. 1997. <span>“Evaluating Software Engineering
+Methods and Tools, Part 7: Planning Feature Analysis Evaluation.”</span>
+<em>SIGSOFT Software Engineering Notes</em> (New York, NY, USA) 22 (4):
+21–24. <a href="https://doi.org/10.1145/263244.263251">https://doi.org/10.1145/263244.263251</a>.
+</div>
+<div id="ref-Kitchenham85" class="csl-entry" role="listitem">
+Kitchenham, Barbara A., and N. R. Taylor. 1985. <span>“Software Project
+Development Cost Estimation.”</span> <em>Journal of Systems and
+Software</em> 5 (4): 267–78. <a href="https://doi.org/10.1016/0164-1212(85)90026-3">https://doi.org/10.1016/0164-1212(85)90026-3</a>.
+</div>
+<div id="ref-Kitchenham02_CSC" class="csl-entry" role="listitem">
+Kitchenham, Barbara, Shari Lawrence Pfleeger, Beth McColl, and Suzanne
+Eagan. 2002a. <span>“An Empirical Study of Maintenance and Development
+Estimation Accuracy.”</span> <em>Journal of Systems and Software</em> 64
+(1): 57–77. <a href="https://doi.org/10.1016/S0164-1212(02)00021-3">https://doi.org/10.1016/S0164-1212(02)00021-3</a>.
+</div>
+<div id="ref-Kitchenham02_maintenance" class="csl-entry" role="listitem">
+Kitchenham, Barbara, Shari Lawrence Pfleeger, Beth McColl, and Suzanne
+Eagan. 2002b. <span>“An Empirical Study of Maintenance and Development
+Estimation Accuracy.”</span> <em>Journal of Systems and Software</em> 64
+(1): 57–77. <a href="https://doi.org/10.1016/S0164-1212(02)00021-3">https://doi.org/10.1016/S0164-1212(02)00021-3</a>.
+</div>
+<div id="ref-Klosgen96" class="csl-entry" role="listitem">
+Klösgen, Willi. 1996. <em>Explora: A Multipattern and Multistrategy
+Discovery Assistant</em>. American Association for Artificial
+Intelligence.
+</div>
+<div id="ref-KKPJ10" class="csl-entry" role="listitem">
+Knutson, Charles D., Jonathan L. Krein, Lutz Prechelt, and Natalia
+Juristo. 2010. <span>“Report from the 1st International Workshop on
+Replication in Empirical Software Engineering Research (RESER
+2010).”</span> <em>SIGSOFT Software Engineering Notes</em> (New York,
+NY, USA) 35: 42–44. https://doi.org/<a href="http://doi.acm.org/10.1145/1838687.1838698">http://doi.acm.org/10.1145/1838687.1838698</a>.
+</div>
+<div id="ref-KJ95" class="csl-entry" role="listitem">
+Kohavi, R., and G. H. John. 1995. <span>“Automatic Parameter Selection
+by Minimizing Estimated Error.”</span> <em>12th Int. Conf. On Machine
+Learning</em> (San Francisco), 304–12.
+</div>
+<div id="ref-KJ97" class="csl-entry" role="listitem">
+Kohavi, R., and G. H. John. 1997. <span>“Wrappers for Feature Subset
+Selection.”</span> <em>Artificial Intelligence</em> 1-2: 273–324.
+</div>
+<div id="ref-KrishnanSLG2011" class="csl-entry" role="listitem">
+Krishnan, Sandeep, Chris Strasburg, Robyn R. Lutz, and Katerina
+Goševa-Popstojanova. 2011. <span>“Are Change Metrics Good Predictors for
+an Evolving Software Product Line?”</span> <em>Proceedings of the 7th
+International Conference on Predictive Models in Software Engineering
+(Promise’11)</em> (New York, NY, USA), Promise’11, 7:1–10. <a href="https://doi.org/10.1145/2020390.2020397">https://doi.org/10.1145/2020390.2020397</a>.
+</div>
+<div id="ref-kuhnJ2013" class="csl-entry" role="listitem">
+Kuhn, Max, and Kjell Johnson. 2013. <em>Applied Predictive
+Modeling</em>. Springer-Verlag. <a href="https://doi.org/10.1007/978-1-4614-6849-3">https://doi.org/10.1007/978-1-4614-6849-3</a>.
+</div>
+<div id="ref-Langdon2016" class="csl-entry" role="listitem">
+Langdon, William B., Javier Dolado, Federica Sarro, and Mark Harman.
+2016. <span>“Exact Mean Absolute Error of Baseline Predictor,
+MARP0.”</span> <em>Information and Software Technology</em> (USA) 73
+(C): 16–18. <a href="https://doi.org/10.1016/j.infsof.2016.01.003">https://doi.org/10.1016/j.infsof.2016.01.003</a>.
+</div>
+<div id="ref-Lan94" class="csl-entry" role="listitem">
+Langley, P. 1994. <span>“Selection of Relevant Features in Machine
+Learning.”</span> <em>Procs. Of the AAAI Fall Symposium on
+Relevance</em>, 140–44.
+</div>
+<div id="ref-Lavrac04" class="csl-entry" role="listitem">
+Lavrač, Nada, Branko Kavšek, Peter Flach, and Ljupčo Todorovski. 2004.
+<span>“Subgroup Discovery with <span>CN2-SD</span>.”</span> <em>The
+Journal of Machine Learning Research</em> (Cambridge, MA, USA) 5:
+153–88.
+</div>
+<div id="ref-LBMP08" class="csl-entry" role="listitem">
+Lessmann, S., B. Baesens, C. Mues, and S. Pietsch. 2008.
+<span>“Benchmarking Classification Models for Software Defect
+Prediction: A Proposed Framework and Novel Findings.”</span> <em>IEEE
+Transactions on Software Engineering</em> 34 (4): 485–96. <a href="https://doi.org/10.1109/TSE.2008.35">https://doi.org/10.1109/TSE.2008.35</a>.
+</div>
+<div id="ref-LiR06" class="csl-entry" role="listitem">
+Li, Jingzhou, and Guenther Ruhe. 2006. <span>“A Comparative Study of
+Attribute Weighting Heuristics for Effort Estimation by Analogy.”</span>
+<em>Proceedings of the 2006 ACM/IEEE International Symposium on
+Empirical Software Engineering</em> (New York, NY, USA), ISESE ’06,
+66–74. <a href="https://doi.org/10.1145/1159733.1159746">https://doi.org/10.1145/1159733.1159746</a>.
+</div>
+<div id="ref-Li:2008:MDA:1370788.1370803" class="csl-entry" role="listitem">
+Li, Jingzhou, and Guenther Ruhe. 2008. <span>“Multi-Criteria Decision
+Analysis for Customization of Estimation by Analogy Method
+AQUA+.”</span> <em>Proceedings of the 4th International Workshop on
+Predictor Models in Software Engineering (PROMISE)</em> (New York, NY,
+USA), PROMISE ’08, 55–62.
+</div>
+<div id="ref-LiRAR07" class="csl-entry" role="listitem">
+Li, Jingzhou, Guenther Ruhe, Ahmed Al-Emran, and Michael M. Richter.
+2007. <span>“A Flexible Method for Software Effort Estimation by
+Analogy.”</span> <em>Empirical Software Engineering</em> 12 (1): 65–106.
+<a href="https://doi.org/10.1007/s10664-006-7552-4">https://doi.org/10.1007/s10664-006-7552-4</a>.
+</div>
+<div id="ref-Li2012" class="csl-entry" role="listitem">
+Li, Ming, Hongyu Zhang, Rongxin Wu, and Zhi-Hua Zhou. 2012.
+<span>“Sample-Based Software Defect Prediction with Active and
+Semi-Supervised Learning.”</span> <em>Automated Software
+Engineering</em> 19 (2): 201–30. <a href="https://doi.org/10.1007/s10515-011-0092-1">https://doi.org/10.1007/s10515-011-0092-1</a>.
+</div>
+<div id="ref-Liebchen11_PhD" class="csl-entry" role="listitem">
+Liebchen, G. 2011. <span>“Data Cleaning Techniques for Software
+Engineering Data Sets.”</span> PhD Dissertation, Dept. of Information
+Systems; Computing, Brunel University.
+</div>
+<div id="ref-Lincke2008" class="csl-entry" role="listitem">
+Lincke, Rüdiger, Jonas Lundberg, and Welf Löwe. 2008. <span>“Comparing
+Software Metrics Tools.”</span> <em>Proceedings of the 2008
+International Symposium on Software Testing and Analysis (ISSTA’08)</em>
+(New York, NY, USA), ISSTA’08, 131–42. <a href="https://doi.org/10.1145/1390630.1390648">https://doi.org/10.1145/1390630.1390648</a>.
+</div>
+<div id="ref-LBNRB09" class="csl-entry" role="listitem">
+Linstead, Erik, Sushil Bajracharya, Trung Ngo, Paul Rigor, Cristina
+Lopes, and Pierre Baldi. 2009. <span>“Sourcerer: Mining and Searching
+Internet-Scale Software Repositories.”</span> <em>Data Mining and
+Knowledge Discovery</em> 18: 300–336. <a href="https://doi.org/10.1007/s10618-008-0118-x">https://doi.org/10.1007/s10618-008-0118-x</a>.
+</div>
+<div id="ref-LM98" class="csl-entry" role="listitem">
+Liu, H., and H. Motoda. 1998. <em>Feature Selection for Knowlegde
+Discovery and Data Mining</em>. Kluwer Academic Publishers.
+</div>
+<div id="ref-LY05" class="csl-entry" role="listitem">
+Liu, H., and L. Yu. 2005. <span>“Toward Integrating Feature Selection
+Algorithms for Classification and Clustering.”</span> <em>IEEE Trans. On
+Knowledge and Data Eng.</em> 17 (3): 1–12.
+</div>
+<div id="ref-LWHS91" class="csl-entry" role="listitem">
+Lokan, C., T. Wright, P. Hill, and M. Stringer. 2001.
+<span>“Organizational Benchmarking Using the ISBSG Data
+Repository.”</span> <em>IEEE Software</em> 18 (5): 26–32. <a href="https://doi.org/10.1109/52.951491">https://doi.org/10.1109/52.951491</a>.
+</div>
+<div id="ref-Lopes+Bajracharya+Ossher+Baldi:2010" class="csl-entry" role="listitem">
+Lopes, C., S. Bajracharya, J. Ossher, and P. Baldi. 2010.
+<em><span>UCI</span> Source Code Data Sets</em>. University of
+California, Irvine, Bren School of Information; Computer Sciences. <a href="http://www.ics.uci.edu/$\sim$lopes/datasets/">http://www.ics.uci.edu/$\sim$lopes/datasets/</a>.
+</div>
+<div id="ref-LuCC2012" class="csl-entry" role="listitem">
+Lu, H., B. Cukic, and M. Culp. 2012. <span>“Software Defect Prediction
+Using Semi-Supervised Learning with Dimension Reduction.”</span>
+<em>27th IEEE/ACM International Conference on Automated Software
+Engineering (ASE’12)</em>, 314–17. <a href="https://doi.org/10.1145/2351676.2351734">https://doi.org/10.1145/2351676.2351734</a>.
+</div>
+<div id="ref-Madeyski2015" class="csl-entry" role="listitem">
+Madeyski, Lech, and Marian Jureczko. 2015. <span>“Which Process Metrics
+Can Significantly Improve Defect Prediction Models? An Empirical
+Study.”</span> <em>Software Quality Journal</em> 23 (3): 393–422. <a href="https://doi.org/10.1007/s11219-014-9241-7">https://doi.org/10.1007/s11219-014-9241-7</a>.
+</div>
+<div id="ref-MairSJ05" class="csl-entry" role="listitem">
+Mair, Carolyn, Martin Shepperd, and Magne Jørgensen. 2005. <span>“An
+Analysis of Data Sets Used to Train and Validate Cost Prediction
+Systems.”</span> <em>SIGSOFT Software Engineering Notes</em> (New York,
+NY, USA) 30 (4): 1–6. <a href="https://doi.org/10.1145/1082983.1083166">https://doi.org/10.1145/1082983.1083166</a>.
+</div>
+<div id="ref-Martinez2016" class="csl-entry" role="listitem">
+Martı́nez-Ballesteros, M., A. Troncoso, F. Martı́nez-Álvarez, and J. C.
+Riquelme. 2016. <span>“Improving a Multi-Objective Evolutionary
+Algorithm to Discover Quantitative Association Rules.”</span> <em>Knowl.
+Inf. Syst.</em> (New York, NY, USA) 49 (2): 481–509. <a href="https://doi.org/10.1007/s10115-015-0911-y">https://doi.org/10.1007/s10115-015-0911-y</a>.
+</div>
+<div id="ref-Matson" class="csl-entry" role="listitem">
+Matson, J. E., B. E. Barrett, and J. M. Mellichamp. 1994.
+<span>“Software Development Cost Estimation Using Function
+Points.”</span> <em>Software Engineering, IEEE Transactions on</em> 20
+(4): 275–87. <a href="https://doi.org/10.1109/32.277575">https://doi.org/10.1109/32.277575</a>.
+</div>
+<div id="ref-Maxwell02" class="csl-entry" role="listitem">
+Maxwell, Katrina. 2002. <em>Applied Statistics for Software
+Managers</em>. Prentice Hall.
+</div>
+<div id="ref-mccabe76" class="csl-entry" role="listitem">
+McCabe, T. J. 1976. <span>“A Complexity Measure.”</span> <em>IEEE
+Transactions on Software Engineering</em> 2 (4): 308–20.
+</div>
+<div id="ref-Mende2010" class="csl-entry" role="listitem">
+Mende, Thilo. 2010. <span>“Replication of Defect Prediction Studies:
+Problems, Pitfalls and Recommendations.”</span> <em>Proceedings of the
+6th International Conference on Predictive Models in Software
+Engineering</em> (New York, NY, USA), PROMISE’10, 5:1–10. <a href="https://doi.org/10.1145/1868328.1868336">https://doi.org/10.1145/1868328.1868336</a>.
+</div>
+<div id="ref-Mende09" class="csl-entry" role="listitem">
+Mende, Thilo, and Rainer Koschke. 2009. <span>“Revisiting the Evaluation
+of Defect Prediction Models.”</span> <em>Proceedings of the 5th
+International Conference on Predictor Models in Software Engineering
+(PROMISE’09)</em> (New York, NY, USA), 1–10. https://doi.org/<a href="http://doi.acm.org/10.1145/1540438.1540448">http://doi.acm.org/10.1145/1540438.1540448</a>.
+</div>
+<div id="ref-Mende10" class="csl-entry" role="listitem">
+Mende, Thilo, and Rainer Koschke. 2010. <span>“Effort-Aware Defect
+Prediction Models.”</span> <em>Proceedings of the 2010 14th European
+Conference on Software Maintenance and Reengineering (CSMR’10)</em>
+(Washington, DC, USA), CSMR’10, 107–16. <a href="https://doi.org/10.1109/CSMR.2010.18">https://doi.org/10.1109/CSMR.2010.18</a>.
+</div>
+<div id="ref-MendesMDG08" class="csl-entry" role="listitem">
+Mendes, Emilia, Sergio Di Martino, Filomena Ferrucci, and Carmine
+Gravino. 2008. <span>“Cross-Company Vs. Single-Company Web Effort Models
+Using the Tukutuku Database: An Extended Study.”</span> <em>Journal of
+Systems and Software</em> 81 (5): 673–90. <a href="https://doi.org/10.1016/j.jss.2007.07.044">https://doi.org/10.1016/j.jss.2007.07.044</a>.
+</div>
+<div id="ref-Menzies11ASE" class="csl-entry" role="listitem">
+Menzies, T., A. Butcher, A. Marcus, T. Zimmermann, and D. Cok. 2011.
+<span>“Local Vs. Global Models for Effort Estimation and Defect
+Prediction.”</span> <em>Automated Software Engineering (ASE), 2011 26th
+IEEE/ACM International Conference on</em>, 343–51. <a href="https://doi.org/10.1109/ASE.2011.6100072">https://doi.org/10.1109/ASE.2011.6100072</a>.
+</div>
+<div id="ref-Menzies07" class="csl-entry" role="listitem">
+Menzies, T., J. Greenwald, and A. Frank. 2007. <span>“Data Mining Static
+Code Attributes to Learn Defect Predictors.”</span> <em>IEEE
+Transactions on Software Engineering</em>.
+</div>
+<div id="ref-promise12" class="csl-entry" role="listitem">
+Menzies, Tim, Bora Caglayan, Ekrem Kocaguneli, Joe Krall, Fayola Peters,
+and Burak Turhan. 2012. <em>The PROMISE Repository of Empirical Software
+Engineering Data</em>. <a href="http://promisedata.googlecode.com">http://promisedata.googlecode.com</a>.
+</div>
+<div id="ref-Menzies07b" class="csl-entry" role="listitem">
+Menzies, Tim, Alex Dekhtyar, Justin Distefano, and Jeremy Greenwald.
+2007. <span>“Problems with Precision: A Response to Comments on Data
+Mining Static Code Attributes to Learn Defect Predictors.”</span>
+<em>IEEE Transactions on Software Engineering</em> (Los Alamitos, CA,
+USA) 33 (9): 637–40. https://doi.org/<a href="http://doi.ieeecomputersociety.org/10.1109/TSE.2007.70721">http://doi.ieeecomputersociety.org/10.1109/TSE.2007.70721</a>.
+</div>
+<div id="ref-Mikut11_DMReview" class="csl-entry" role="listitem">
+Mikut, Ralf, and Markus Reischl. 2011. <span>“Data Mining Tools.”</span>
+<em>Wiley Interdisciplinary Reviews: Data Mining and Knowledge
+Discovery</em> 1 (5): 431–43. <a href="https://doi.org/10.1002/widm.24">https://doi.org/10.1002/widm.24</a>.
+</div>
+<div id="ref-Misic19981" class="csl-entry" role="listitem">
+Mišić, Vojislav B, and Dejan N Tevsić. 1998. <span>“Estimation of Effort
+and Complexity: An Object-Oriented Case Study.”</span> <em>Journal of
+Systems and Software</em> 41 (2): 133–43. <a href="https://doi.org/10.1016/S0164-1212(97)10014-0">https://doi.org/10.1016/S0164-1212(97)10014-0</a>.
+</div>
+<div id="ref-Mit97" class="csl-entry" role="listitem">
+Mitchell, T. 1997. <em>Machine Learning</em>. McGraw Hill.
+</div>
+<div id="ref-Miyazaki94" class="csl-entry" role="listitem">
+Miyazaki, Y., M. Terakado, K. Ozaki, and H. Nozaki. 1994. <span>“Robust
+Regression for Developing Software Estimation Models.”</span>
+<em>Journal of Systems and Software</em> 27 (1): 3–16. <a href="https://doi.org/10.1016/0164-1212(94)90110-4">https://doi.org/10.1016/0164-1212(94)90110-4</a>.
+</div>
+<div id="ref-mockus2002" class="csl-entry" role="listitem">
+Mockus, Audris, Roy T. Fielding, and James D. Herbsleb. 2002. <span>“Two
+Case Studies of <span>O</span>pen <span>S</span>ource Software
+Development: <span>A</span>pache and <span>M</span>ozilla.”</span>
+<em>ACM Transactions on Software Engineering and Methodology</em> 11
+(3): 309–46.
+</div>
+<div id="ref-Morasca2016" class="csl-entry" role="listitem">
+Morasca, Sandro, and Luigi Lavazza. 2016. <span>“Slope-Based
+Fault-Proneness Thresholds for Software Engineering Measures.”</span>
+<em>Proceedings of the 20th International Conference on Evaluation and
+Assessment in Software Engineering</em> (New York, NY, USA), EASE ’16,
+12:1–10. <a href="https://doi.org/10.1145/2915970.2915997">https://doi.org/10.1145/2915970.2915997</a>.
+</div>
+<div id="ref-MoserPS2008" class="csl-entry" role="listitem">
+Moser, R., W. Pedrycz, and G. Succi. 2008. <span>“A Comparative Analysis
+of the Efficiency of Change Metrics and Static Code Attributes for
+Defect Prediction.”</span> <em>2008 ACM/IEEE 30th International
+Conference on Software Engineering</em>, May, 181–90. <a href="https://doi.org/10.1145/1368088.1368114">https://doi.org/10.1145/1368088.1368114</a>.
+</div>
+<div id="ref-Moser1999" class="csl-entry" role="listitem">
+Moser, Simon, Brian Henderson-Sellers, and Vojislav B Mišić. 1999.
+<span>“Cost Estimation Based on Business Models.”</span> <em>Journal of
+Systems and Software</em> 49 (1): 33–42. <a href="https://doi.org/10.1016/S0164-1212(99)00064-3">https://doi.org/10.1016/S0164-1212(99)00064-3</a>.
+</div>
+<div id="ref-MyrtveitTSE05" class="csl-entry" role="listitem">
+Myrtveit, I., E. Stensrud, and M. Shepperd. 2005. <span>“Reliability and
+Validity in Comparative Studies of Software Prediction Models.”</span>
+<em>IEEE Transactions on Software Engineering</em> 31 (5): 380–91. <a href="https://doi.org/10.1109/TSE.2005.58">https://doi.org/10.1109/TSE.2005.58</a>.
+</div>
+<div id="ref-NZZH10" class="csl-entry" role="listitem">
+Nagappan, Nachiappan, Andreas Zeller, Thomas Zimmermann, Kim Herzig, and
+Brendan Murphy. 2010. <span>“Change Bursts as Defect Predictors.”</span>
+<em>Proceedings of the 21st IEEE International Symposium on Software
+Reliability Engineering (ISSRE 2012)</em> (San Jose, California, USA).
+</div>
+<div id="ref-NZZH12" class="csl-entry" role="listitem">
+Nagappan, Nachiappan, Andreas Zeller, Thomas Zimmermann, Kim Herzig, and
+Brendan Murphy. 2012. <span>“Change Bursts as Defect Predictors.”</span>
+<em>21st IEEE International Symposium on Software Reliability
+Engineering (ISSRE 2012)</em> (San Jose, California, USA).
+</div>
+<div id="ref-NZ10" class="csl-entry" role="listitem">
+Nussbaum, L., and S. Zacchiroli. 2010. <span>“The Ultimate Debian
+Database: Consolidating Bazaar Metadata for Quality Assurance and Data
+Mining.”</span> <em>7th IEEE Working Conference on Mining Software
+Repositories (MSR 2010)</em>, May, 52–61. <a href="https://doi.org/10.1109/MSR.2010.5463277">https://doi.org/10.1109/MSR.2010.5463277</a>.
+</div>
+<div id="ref-ohloh12" class="csl-entry" role="listitem">
+Ohloh. n.d. <em>Ohloh</em>. <a href="http://www.ohloh.net/">http://www.ohloh.net/</a>.
+</div>
+<div id="ref-Panichella2014" class="csl-entry" role="listitem">
+Panichella, A., R. Oliveto, and A. De Lucia. 2014. <span>“Cross-Project
+Defect Prediction Models: L’union Fait La Force.”</span> <em>2014
+Software Evolution Week - IEEE Conference on Software Maintenance,
+Reengineering, and Reverse Engineering (CSMR-WCRE)</em>, February,
+164–73. <a href="https://doi.org/10.1109/CSMR-WCRE.2014.6747166">https://doi.org/10.1109/CSMR-WCRE.2014.6747166</a>.
+</div>
+<div id="ref-Perini_TSE12" class="csl-entry" role="listitem">
+Perini, A., A. Susi, and P. Avesani. 2012. <span>“A Machine Learning
+Approach to Software Requirements Prioritization.”</span> <em>IEEE
+Transactions on Software Engineering</em> Preprint (–): –. <a href="https://doi.org/10.1109/TSE.2012.52">https://doi.org/10.1109/TSE.2012.52</a>.
+</div>
+<div id="ref-Qui93" class="csl-entry" role="listitem">
+Quinlan, J. R. 1993. <em>C4.5: Programs for Machine Learning</em>.
+Morgan Kaufmann.
+</div>
+<div id="ref-R-base" class="csl-entry" role="listitem">
+R Core Team. 2016. <em>R: A Language and Environment for Statistical
+Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-Raiha10" class="csl-entry" role="listitem">
+Räihä, Outi. 2010. <span>“A Survey on Search-Based Software
+Design.”</span> <em>Computer Science Review</em> 4 (4): 203–49.
+https://doi.org/<a href="http://dx.doi.org/10.1016/j.cosrev.2010.06.001">http://dx.doi.org/10.1016/j.cosrev.2010.06.001</a>.
+</div>
+<div id="ref-Rakotomalala05" class="csl-entry" role="listitem">
+Rakotomalala, Ricco. 2005. <span>“TANAGRA : Un Logiciel Gratuit Pour
+l’enseignement Et La Recherche.”</span> <em>Actes de EGC’2005,
+RNTI-e-3</em> 2: 697–702.
+</div>
+<div id="ref-Ratzinger07_Refactoring" class="csl-entry" role="listitem">
+Ratzinger, J., T. Sigmund, P. Vorburger, and H. Gall. 2007.
+<span>“Mining Software Evolution to Predict Refactoring.”</span>
+<em>Empirical Software Engineering and Measurement, 2007. ESEM 2007.
+First International Symposium on</em>, 354–63. <a href="https://doi.org/10.1109/ESEM.2007.9">https://doi.org/10.1109/ESEM.2007.9</a>.
+</div>
+<div id="ref-RaudysJ91" class="csl-entry" role="listitem">
+Raudys, S. J., and A. K. Jain. 1991. <span>“Small Sample Size Effects in
+Statistical Pattern Recognition: Recommendations for
+Practitioners.”</span> <em>IEEE Transactions on Pattern Analysis and
+Machine Intelligence</em> 13 (3): 252–64. <a href="https://doi.org/10.1109/34.75512">https://doi.org/10.1109/34.75512</a>.
+</div>
+<div id="ref-RGIH09" class="csl-entry" role="listitem">
+Robles, Gregorio, Jesus M. Gonzalez-Barahona, Daniel Izquierdo-Cortazar,
+and Israel Herraiz. 2009. <span>“Tools for the Study of the Usual Data
+Sources Found in Libre Software Projects.”</span> <em>International
+Journal of Open Source Software and Processes</em> 1 (1): 24–45.
+</div>
+<div id="ref-RRCA07" class="csl-entry" role="listitem">
+Rodriguez, D., R. Ruiz, J. Cuadrado, and J. Aguilar-Ruiz. 2007.
+<span>“Detecting Fault Modules Applying Feature Selection to
+Classifiers.”</span> <em>IEEE International Conference on Information
+Reuse and Integration (IRI 2007)</em>, 667–72. <a href="https://doi.org/10.1109/IRI.2007.4296696">https://doi.org/10.1109/IRI.2007.4296696</a>.
+</div>
+<div id="ref-Rodriguez2012" class="csl-entry" role="listitem">
+Rodriguez, D., R. Ruiz, J. C. Riquelme, and J. S. Aguilar-Ruiz. 2012.
+<span>“Searching for Rules to Detect Defective Modules: A Subgroup
+Discovery Approach.”</span> <em>Information Sciences</em> 191: 14–30. <a href="https://doi.org/10.1016/j.ins.2011.01.039">https://doi.org/10.1016/j.ins.2011.01.039</a>.
+</div>
+<div id="ref-RodriguezEtAl12" class="csl-entry" role="listitem">
+Rodríguez, D., M. A. Sicilia, E. García, and R. Harrison. 2012.
+<span>“Empirical Findings on Team Size and Productivity in Software
+Development.”</span> <em>Journal of Systems and Software</em> 85 (3):
+562–70. <a href="https://doi.org/10.1016/j.jss.2011.09.009">https://doi.org/10.1016/j.jss.2011.09.009</a>.
+</div>
+<div id="ref-Schofield98PhD" class="csl-entry" role="listitem">
+Schofield, C. 1998. <span>“An Empirical Investigation into Software
+Effort Estimation by Analogy.”</span> PhD thesis, Bournemouth
+University.
+</div>
+<div id="ref-SeiffertEtAl07" class="csl-entry" role="listitem">
+Seiffert, C., T. M. Khoshgoftaar, J. Van Hulse, and A. Folleco. 2007.
+<span>“An Empirical Study of the Classification Performance of Learners
+on Imbalanced and Noisy Software Quality Data.”</span> <em>2007 IEEE
+International Conference on Information Reuse and Integration, IEEE
+IRI-2007</em>, 651–58.
+</div>
+<div id="ref-Shang:2010:ERS:1858996.1859050" class="csl-entry" role="listitem">
+Shang, Weiyi, Bram Adams, and Ahmed E. Hassan. 2010. <span>“An
+Experience Report on Scaling Tools for Mining Software Repositories
+Using MapReduce.”</span> <em>Proceedings of the IEEE/ACM International
+Conference on Automated Software Engineering</em> (New York, NY, USA),
+ASE ’10, 275–84. <a href="https://doi.org/10.1145/1858996.1859050">https://doi.org/10.1145/1858996.1859050</a>.
+</div>
+<div id="ref-Shang2012" class="csl-entry" role="listitem">
+Shang, Weiyi, Bram Adams, and Ahmed E. Hassan. 2012. <span>“Using
+<span>PIG</span> as a Data Preparation Language for Large-Scale Mining
+Software Repositories Studies: An Experience Report.”</span> <em>Journal
+of Systems and Software</em> 85 (10): 2195–204. <a href="https://doi.org/10.1016/j.jss.2011.07.034">https://doi.org/10.1016/j.jss.2011.07.034</a>.
+</div>
+<div id="ref-Shatnawi2010" class="csl-entry" role="listitem">
+Shatnawi, Raed, Wei Li, James Swain, and Tim Newman. 2010.
+<span>“Finding Software Metrics Threshold Values Using ROC
+Curves.”</span> <em>Journal of Software Maintenance and Evolution:
+Research and Practice</em> 22 (1): 1–16. <a href="https://doi.org/10.1002/smr.404">https://doi.org/10.1002/smr.404</a>.
+</div>
+<div id="ref-shearer00crisp" class="csl-entry" role="listitem">
+Shearer, Colin. 2000. <span>“The CRISP-DM Model: The New Blueprint for
+Data Mining.”</span> <em>Journal of Data Warehousing</em> 5 (4).
+</div>
+<div id="ref-Shepperd2012" class="csl-entry" role="listitem">
+Shepperd, Martin, and Steve MacDonell. 2012. <span>“Evaluating
+Prediction Systems in Software Project Estimation.”</span>
+<em>Information and Software Technology</em>, –. <a href="https://doi.org/10.1016/j.infsof.2011.12.008">https://doi.org/10.1016/j.infsof.2011.12.008</a>.
+</div>
+<div id="ref-Shepperd_TSE01" class="csl-entry" role="listitem">
+Shepperd, M., and M. Cartwright. 2001. <span>“Predicting with Sparse
+Data.”</span> <em>Software Engineering, IEEE Transactions on</em> 27
+(11): 987–98. <a href="https://doi.org/10.1109/32.965339">https://doi.org/10.1109/32.965339</a>.
+</div>
+<div id="ref-SK01" class="csl-entry" role="listitem">
+Shepperd, M., and G. Kadoda. 2001. <span>“Comparing Software Prediction
+Techniques Using Simulation.”</span> <em>IEEE Transactions on Software
+Engineering</em> 27 (11): 1014–22. <a href="https://doi.org/10.1109/32.965341">https://doi.org/10.1109/32.965341</a>.
+</div>
+<div id="ref-Shepperd97_Analogy" class="csl-entry" role="listitem">
+Shepperd, M., and C. Schofield. 1997. <span>“Estimating Software Project
+Effort Using Analogies.”</span> <em>IEEE Transactions on Software
+Engineering</em> 23 (11): 736–43. <a href="https://doi.org/10.1109/32.637387">https://doi.org/10.1109/32.637387</a>.
+</div>
+<div id="ref-Shepperd2013" class="csl-entry" role="listitem">
+Shepperd, M., Qinbao Song, Zhongbin Sun, and C. Mair. 2013. <span>“Data
+Quality: Some Comments on the NASA Software Defect Datasets.”</span>
+<em>IEEE Transactions on Software Engineering</em> 39 (9): 1208–15. <a href="https://doi.org/10.1109/TSE.2013.11">https://doi.org/10.1109/TSE.2013.11</a>.
+</div>
+<div id="ref-Shippey2016Esem" class="csl-entry" role="listitem">
+Shippey, Thomas, Tracy Hall, Steve Counsell, and David Bowes. 2016.
+<span>“So You Need More Method Level Datasets for Your Software Defect
+Prediction? Voila!”</span> <em>10th ACM/IEEE International Symposium on
+Empirical Software Engineering and Measurement (ESEM’16)</em> (New York,
+NY, USA), ESEM’16, 12:1–6. <a href="https://doi.org/10.1145/2961111.2962620">https://doi.org/10.1145/2961111.2962620</a>.
+</div>
+<div id="ref-SinghEDtAl2010" class="csl-entry" role="listitem">
+Singh, Yogesh, Arvinder Kaur, and Ruchika Malhotra. 2010.
+<span>“Empirical Validation of Object-Oriented Metrics for Predicting
+Fault Proneness Models.”</span> <em>Software Quality Journal</em> 18:
+3–35. <a href="http://dx.doi.org/10.1007/s11219-009-9079-6">http://dx.doi.org/10.1007/s11219-009-9079-6</a>.
+</div>
+<div id="ref-SongTSE96" class="csl-entry" role="listitem">
+Song, Q., M. Shepperd, M. Cartwright, and C. Mair. 2006. <span>“Software
+Defect Association Mining and Defect Correction Effort
+Prediction.”</span> <em>IEEE Transactions on Software Engineering</em>
+32 (2): 69–82. <a href="https://doi.org/10.1109/TSE.2006.1599417">https://doi.org/10.1109/TSE.2006.1599417</a>.
+</div>
+<div id="ref-QualitasCorpus2010" class="csl-entry" role="listitem">
+Tempero, Ewan, Craig Anslow, Jens Dietrich, et al. 2010. <span>“Qualitas
+Corpus: A Curated Collection of Java Code for Empirical Studies.”</span>
+<em>2010 Asia Pacific Software Engineering Conference (APSEC2010)</em>,
+December.
+</div>
+<div id="ref-Thai-Nghe11" class="csl-entry" role="listitem">
+Thai-Nghe, Nguyen, Z. Gantner, and L. Schmidt-Thieme. 2011. <span>“A New
+Evaluation Measure for Learning from Imbalanced Data.”</span> <em>The
+2011 International Joint Conference on Neural Networks (IJCNN’11)</em>,
+537–42. <a href="https://doi.org/10.1109/IJCNN.2011.6033267">https://doi.org/10.1109/IJCNN.2011.6033267</a>.
+</div>
+<div id="ref-Torgo2010" class="csl-entry" role="listitem">
+Torgo, Luis. 2010. <em>Data Mining with r: Learning with Case
+Studies</em>. 1st Edt. Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-ugarte2015probability" class="csl-entry" role="listitem">
+Ugarte, M. D., A. F. Militino, and A. T. Arnholt. 2015. <em>Probability
+and Statistics with r, Second Edition</em>. Taylor &amp; Francis. <a href="https://books.google.es/books?id=4aB0pwAACAAJ">https://books.google.es/books?id=4aB0pwAACAAJ</a>.
+</div>
+<div id="ref-VanAntwerpM2008" class="csl-entry" role="listitem">
+Van Antwerp, M., and G. Madey. 2008. <em>Advances in the SourceForge
+Research Data Archive (SRDA)</em>. Milan, Italy.
+</div>
+<div id="ref-VanHulseEtAl:2007" class="csl-entry" role="listitem">
+Van Hulse, J., T. M. Khoshgoftaar, and A. Napolitano. 2007.
+<span>“Experimental Perspectives on Learning from Imbalanced
+Data.”</span> <em>Proceedings of the 24th International Conference on
+Machine Learning (ICML07)</em> (New York, USA).
+</div>
+<div id="ref-Vandecruys2008" class="csl-entry" role="listitem">
+Vandecruys, Olivier, David Martens, Bart Baesens, Christophe Mues, Manu
+De Backer, and Raf Haesen. 2008. <span>“Mining Software Repositories for
+Comprehensible Software Fault Prediction Models.”</span> <em>Journal of
+Systems and Software</em> 81 (5): 823–39. <a href="https://doi.org/DOI: 10.1016/j.jss.2007.07.034">https://doi.org/DOI:
+10.1016/j.jss.2007.07.034</a>.
+</div>
+<div id="ref-Vasa2010" class="csl-entry" role="listitem">
+Vasa, Rajesh. 2010. <span>“Growth and Change Dynamics in Open Source
+Software Systems.”</span> PhD thesis, Faculty of Information;
+Communication Technologies Swinburne University of Technology Melbourne,
+Australia. <a href="http://hdl.handle.net/1959.3/95058">http://hdl.handle.net/1959.3/95058</a>.
+</div>
+<div id="ref-Helix10a" class="csl-entry" role="listitem">
+Vasa, Rajesh, Markus Lumpe, and and Allan Jones. 2010. <em>Helix -
+Software Evolution Data Set</em>. <a href="http://http://www.ict.swin.edu.au/research/projects/helix" class="uri">Http://http://www.ict.swin.edu.au/research/projects/helix</a>.
+<a href="http://www.ict.swin.edu.au/research/projects/helix">http://www.ict.swin.edu.au/research/projects/helix</a>.
+</div>
+<div id="ref-WangKWN12" class="csl-entry" role="listitem">
+Wang, Huanjing, Taghi M. Khoshgoftaar, Randall Wald, and Amri
+Napolitano. 2012. <span>“A Comparative Study on the Stability of
+Software Metric Selection Techniques.”</span> <em>11th International
+Conference on Machine Learning and Applications, ICMLA</em>, 301–7.
+</div>
+<div id="ref-Weimer09" class="csl-entry" role="listitem">
+Weimer, Westley, ThanhVu Nguyen, Claire Le Goues, and Stephanie Forrest.
+2009. <span>“Automatically Finding Patches Using Genetic
+Programming.”</span> <em>Proceedings of the 31st International
+Conference on Software Engineering(ICSE’09)</em> (Washington, DC, USA),
+ICSE’09, 364–74. <a href="https://doi.org/10.1109/ICSE.2009.5070536">https://doi.org/10.1109/ICSE.2009.5070536</a>.
+</div>
+<div id="ref-Wen12_SLREffEst" class="csl-entry" role="listitem">
+Wen, Jianfeng, Shixian Li, Zhiyong Lin, Yong Hu, and Changqin Huang.
+2012. <span>“Systematic Literature Review of Machine Learning Based
+Software Development Effort Estimation Models.”</span> <em>Information
+and Software Technology</em> 54 (1): 41–59. <a href="https://doi.org/10.1016/j.infsof.2011.09.002">https://doi.org/10.1016/j.infsof.2011.09.002</a>.
+</div>
+<div id="ref-Williams09" class="csl-entry" role="listitem">
+Williams, G. 2009. <span>“Rattle: A Data Mining GUI for r.”</span>
+<em>The R Journal</em> 2 (2): 45–55.
+</div>
+<div id="ref-Williams11" class="csl-entry" role="listitem">
+Williams, Graham J. 2011. <em>Data Mining with <span>Rattle</span> and
+<span>R</span>: The Art of Excavating Data for Knowledge Discovery</em>.
+Use r! Springer. <a href="http://www.springer.com/gp/book/9781441998897">http://www.springer.com/gp/book/9781441998897</a>.
+</div>
+<div id="ref-WF05" class="csl-entry" role="listitem">
+Witten, I. H., and E. Frank. 2005. <em>Data Mining: Practical Machine
+Learning Tools and Techniques</em>. 2nd ed. Morgan Kaufmann.
+</div>
+<div id="ref-WFH11" class="csl-entry" role="listitem">
+Witten, I. H., E. Frank, and M. A. Hall. 2011. <em>Data Mining:
+Practical Machine Learning Tools and Techniques</em>. 3rd Edition.
+Morgan Kaufmann.
+</div>
+<div id="ref-Wohlin2000ESE" class="csl-entry" role="listitem">
+Wohlin, Claes, Per Runeson, Martin Höst, Magnus C. Ohlsson, Bjöorn
+Regnell, and Anders Wesslén. 2000. <em>Experimentation in Software
+Engineering: An Introduction</em>. Kluwer Academic Publishers.
+</div>
+<div id="ref-Woodfield81" class="csl-entry" role="listitem">
+Woodfield, S. N., V. Y. Shen, and H. E. Dunsmore. 1981. <span>“A Study
+of Several Metrics for Programming Effort.”</span> <em>Journal of
+Systems and Software</em> 2 (2): 97–103. <a href="https://doi.org/10.1016/0164-1212(81)90029-7">https://doi.org/10.1016/0164-1212(81)90029-7</a>.
+</div>
+<div id="ref-Wrobel97" class="csl-entry" role="listitem">
+Wrobel, Stefan. 1997. <span>“An Algorithm for Multi-Relational Discovery
+of Subgroups.”</span> <em>Proceedings of the 1st European Symposium on
+Principles of Data Mining</em>, 78–87.
+</div>
+<div id="ref-Wrobel01" class="csl-entry" role="listitem">
+Wrobel, Stefan. 2001. <em>Relational Data Mining</em>. Edited by Saso
+Dzeroski and Nada Lavrac̆. Springer.
+</div>
+<div id="ref-xie2015" class="csl-entry" role="listitem">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and
+Knitr</em>. 2nd ed. Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
+</div>
+<div id="ref-R-bookdown" class="csl-entry" role="listitem">
+Xie, Yihui. 2016a. <em>Bookdown: Authoring Books with r Markdown</em>.
+<a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
+</div>
+<div id="ref-R-knitr" class="csl-entry" role="listitem">
+Xie, Yihui. 2016b. <em>Knitr: A General-Purpose Package for Dynamic
+Report Generation in r</em>. <a href="https://CRAN.R-project.org/package=knitr">https://CRAN.R-project.org/package=knitr</a>.
+</div>
+<div id="ref-YL04b" class="csl-entry" role="listitem">
+Yu, L., and H. Liu. 2004a. <span>“Efficient Feature Selection via
+Analysis of Relevance and Redundancy.”</span> <em>Journal of Machine
+Learning Research</em> 5: 1205–24.
+</div>
+<div id="ref-LY04" class="csl-entry" role="listitem">
+Yu, L., and H. Liu. 2004b. <span>“Redundancy Based Feature Selection for
+Microarry Data.”</span> <em>10th ACM SIGKDD Int. Conf. On Knowledge
+Discovery and Data Mining</em>.
+</div>
+<div id="ref-Zhang2009" class="csl-entry" role="listitem">
+Zhang, H. 2009. <span>“An Investigation of the Relationships Between
+Lines of Code and Defects.”</span> <em>IEEE International Conference on
+Software Maintenance</em>, 274–83. <a href="https://doi.org/10.1109/ICSM.2009.5306304">https://doi.org/10.1109/ICSM.2009.5306304</a>.
+</div>
+<div id="ref-4407730" class="csl-entry" role="listitem">
+Zhang, Hongyu. 2008. <span>“On the Distribution of Software
+Faults.”</span> <em>IEEE Transactions on Software Engineering</em> 34
+(2): 301–2. <a href="https://doi.org/10.1109/TSE.2007.70771">https://doi.org/10.1109/TSE.2007.70771</a>.
+</div>
+<div id="ref-Zhang07" class="csl-entry" role="listitem">
+Zhang, Hongyu, and Xiuzhen Zhang. 2007. <span>“Comments on "Data Mining
+Static Code Attributes to Learn Defect Predictors".”</span> <em>IEEE
+Transactions on Software Engineering</em> (Los Alamitos, CA, USA) 33
+(9): 635–37. https://doi.org/<a href="http://doi.ieeecomputersociety.org/10.1109/TSE.2007.70706">http://doi.ieeecomputersociety.org/10.1109/TSE.2007.70706</a>.
+</div>
+<div id="ref-ZhangHFM11" class="csl-entry" role="listitem">
+Zhang, Yuanyuan, Mark Harman, Anthony Finkelstein, and S. Afshin
+Mansouri. 2011. <span>“Comparing the Performance of Metaheuristics for
+the Analysis of Multi-Stakeholder Tradeoffs in Requirements
+Optimisation.”</span> <em>Information and Software Technology</em> 53
+(7): 761–73. https://doi.org/<a href="http://dx.doi.org/10.1016/j.infsof.2011.02.001">http://dx.doi.org/10.1016/j.infsof.2011.02.001</a>.
+</div>
+<div id="ref-Zimmermann2009" class="csl-entry" role="listitem">
+Zimmermann, Thomas, Nachiappan Nagappan, Harald Gall, Emanuel Giger, and
+Brendan Murphy. 2009. <span>“Cross-Project Defect Prediction: A Large
+Scale Experiment on Data Vs. Domain Vs. Process.”</span> <em>Proceedings
+of the the 7th Joint Meeting of the European Software Engineering
+Conference and the ACM SIGSOFT Symposium on the Foundations of Software
+Engineering</em> (New York, NY, USA), ESEC/FSE’09, 91–100. <a href="https://doi.org/10.1145/1595696.1595713">https://doi.org/10.1145/1595696.1595713</a>.
+</div>
+<div id="ref-ZPZ07" class="csl-entry" role="listitem">
+Zimmermann, Thomas, Rahul Premraj, and Andreas Zeller. 2007.
+<span>“Predicting Defects for Eclipse.”</span> <em>Proceedings of the
+Third International Workshop on Predictor Models in Software Engineering
+(PROMISE’07)</em> (Washington, DC, USA), PROMISE’07, 9–9.
+https://doi.org/<a href="http://dx.doi.org/10.1109/PROMISE.2007.10">http://dx.doi.org/10.1109/PROMISE.2007.10</a>.
+</div>
+<div id="ref-Zimmermann07Eclipse" class="csl-entry" role="listitem">
+Zimmermann, T., R. Premraj, and A. Zeller. 2007. <span>“Predicting
+Defects for Eclipse.”</span> <em>International Workshop on Predictor
+Models in Software Engineering (PROMISE’07)</em>, May, 9. <a href="https://doi.org/10.1109/PROMISE.2007.10">https://doi.org/10.1109/PROMISE.2007.10</a>.
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/danrodgar\.github\.io\/DASE\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./630_timeSeries.html" class="pagination-link" aria-label="Time Series">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Time Series</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

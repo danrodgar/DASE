@@ -1,0 +1,83 @@
+
+## R Markdown
+
+R Markdown lets us combine narrative text, code, and output in one reproducible
+document. In software engineering, this is very useful for:
+
+- defect analysis reports
+- effort estimation summaries
+- model evaluation dashboards
+- experiment logs for reproducibility
+
+## Basic Structure
+
+A typical R Markdown / Quarto document contains:
+
+- headings and text written in Markdown
+- code chunks (R, Python, etc.)
+- generated output (tables, plots, metrics)
+
+The rendering process executes the chunks and creates HTML/PDF/Word output.
+
+## Code Chunks
+
+Chunks start and end with triple backticks and a chunk header.
+
+```{r}
+# Example software metrics dataset
+se_metrics <- data.frame(
+	module = c("Auth", "Billing", "Search", "UI", "Export"),
+	loc = c(220, 540, 430, 310, 270),
+	cyclomatic = c(12, 25, 19, 14, 11),
+	defects = c(0, 3, 2, 1, 0)
+)
+
+summary(se_metrics)
+```
+
+## Useful Chunk Options
+
+- `echo=FALSE`: hide code, show results
+- `message=FALSE`: hide package startup messages
+- `warning=FALSE`: hide warnings
+- `eval=FALSE`: show code but do not run it
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+aggregate(defects ~ module, data = se_metrics, FUN = mean)
+```
+
+## Inline Code
+
+You can insert computed values directly in text.
+
+Example: the total number of defects in this sample is `r sum(se_metrics$defects)`.
+
+## Plot Example (Software Engineering)
+
+```{r, fig.width=7, fig.height=4}
+plot(
+	se_metrics$loc,
+	se_metrics$defects,
+	xlab = "Lines of Code (LOC)",
+	ylab = "Number of Defects",
+	main = "Defects vs LOC by Module",
+	pch = 19,
+	col = "steelblue"
+)
+text(se_metrics$loc, se_metrics$defects, labels = se_metrics$module, pos = 3, cex = 0.8)
+```
+
+## Reproducibility Tips
+
+- set a random seed for experiments (`set.seed(...)`)
+- keep data-loading code in the document
+- report metrics and plots in the same file
+- avoid manual copy/paste of results into reports
+
+## Further Information
+
+- [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [R Markdown by Posit](https://rmarkdown.rstudio.com/)
+- [Quarto Authoring Basics](https://quarto.org/docs/authoring/)
+
+

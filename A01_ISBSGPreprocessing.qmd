@@ -1,0 +1,97 @@
+# Appendix: Preprocessing the ISBSG Repository {#sec-isbsg-preprocessing}
+
+## The ISBSG Repository
+
+The International Software Benchmarking Standards Group ([ISBSG](https://www.isbsg.org/)), a non-profit organisation, maintains a software project management repository contributed by a variety of organisations. The ISBSG checks the validity of submissions and provides benchmarking information in return. Projects are described using over 60 attributes covering functional size, team size, development platform, lifecycle phases, and more. These attributes fall broadly into the following categories:
+
+- Project context: type of organisation, business area, type of development
+- Product characteristics: application type, user base
+- Development characteristics: platform, languages, tools
+- Project size data: function points (IFPUG, COSMIC, etc.)
+- Qualitative factors: experience, use of methodologies
+
+Before applying statistical or machine learning methods to this dataset, substantial preprocessing is required. The steps below describe the data cleaning process applied across multiple ISBSG releases.
+
+## Preprocessing Steps
+
+### Instance Selection
+
+**Data Quality Rating.** Projects are classified from A (fully sound data) to D (fundamental shortcomings). Following ISBSG guidance, only projects rated A or B are retained; C and D rated projects are removed.
+
+**Unadjusted Function Point Rating.** This rating reflects the quality of the functional size measurement. Again, only A and B rated projects are kept.
+
+**Count Approach.** Projects sized using methods other than IFPUG, NESMA, Albrecht, or Dreger were removed, as these represent small, non-comparable portions of the database. NESMA is a compliant variant of IFPUG; Albrecht's technique is the precursor to IFPUG; the Dreger method is a guide to IFPUG counting. All these variants are included.
+
+**Recording Method.** Only projects where total effort was recorded as *Staff hours (Recorded)* are retained. This method tracks effort from daily records of all hours expended by each person. Methods such as *Staff hours (Derived)* or *Productive Time Only* are excluded as more subjective.
+
+**Resource Level.** Only Level 1 (development team effort, including project management and administration, but excluding user training, support teams, and end users) is used.
+
+**Homogenisation of nominal attributes.** Many entries are blank or labelled "don't know". Equivalent labels are unified (e.g., COBOL 2 and COBOL II become COBOL). Nominal values representing less than 1% of all projects are removed as non-representative. For example, the *Language Type* attribute can be 2GL, 3GL, 4GL, 5GL, and ApG, but 2GL, 5GL, and ApG each account for less than 1%; only 3GL and 4GL are retained.
+
+### Attribute Selection
+
+After instance cleaning, some attributes contain a single value and provide no information. Attributes with more than 85% missing values are also removed. Where multiple attributes measure the same characteristic, the ISBSG-recommended one is kept: *Normalised Level 1 Productivity Delivery Rate* for productivity and *Normalised Level 1 Work Effort* for effort.
+
+A final manual check removes remaining inconsistencies such as a language being classified under two different language types (e.g., Visual Basic appearing as both 3GL and 4GL).
+
+## Selected Attributes
+
+The table below summarises the attributes retained after preprocessing (approximately 951 instances from ISBSG release 10).
+
+| Attribute | Type (Range) | % Missing |
+|-----------|-------------|-----------|
+| *FP* — Unadjusted Function Points | Ratio [3–4,911] | 0% |
+| *Eff* — Normalised Level 1 Work Effort (hours) | Ratio [4–73,920] | 0% |
+| *PDR* — Normalised Level 1 Productivity Delivery Rate (hrs/FP) | Ratio [0.1–378.1] | 0% |
+| *DevType* — Development type | Nominal {Enhancement, NewDev} | 0% |
+| *OrgType* — Organisation type | Nominal {Insurance, Ordering, Banking, Manufacturing, …} | 40% |
+| *Platf* — Development platform | Nominal {MF, PC, Multi, MR} | 51% |
+| *LangType* — Language type | Nominal {3GL, 4GL} | 25% |
+| *PrimaryProgLang* — Primary programming language | Nominal {Java, C, COBOL, PL, VB, SQL, C++, NATURAL, …} | 25% |
+| *MTS* — Maximum Team Size | Ratio [0.5–309] | 58% |
+| *ATS* — Average Team Size | Ratio [1–41] | 79% |
+
+## Descriptive Statistics
+
+After preprocessing, the continuous variables show heavily right-skewed distributions. None follow a normal distribution, as confirmed by the Shapiro-Wilk test on all variables; parametric tests should not be applied without a prior transformation.
+
+| | *FP* | *Eff* | *PDR* | *MTS* | *ATS* |
+|---|---:|---:|---:|---:|---:|
+| Count | 951 | 951 | 951 | 401 | 200 |
+| Mean | 302.7 | 3,375.3 | 17.9 | 8.4 | 7.9 |
+| Median | 135 | 1,521 | 11.3 | 5 | 5 |
+| Std Dev | 490.1 | 6,055.3 | 26.9 | 17.0 | 7.2 |
+| Min | 3 | 4 | 0.1 | 0.5 | 1 |
+| Max | 4,911 | 73,920 | 387.1 | 309 | 41 |
+
+## R Code Example
+
+The snippet below loads the preprocessed ISBSG ARFF file and explores the distribution of team size and productivity.
+
+```{r isbsg-example, eval=FALSE}
+library(foreign)
+
+# Load preprocessed ISBSG data
+d <- read.arff("datasets/ISBSGv10_AttributesSelected_952Instances_8Att_Train_CLast.arff")
+str(d)
+
+# Check normality of MaxTeamSize with and without log transform
+x <- d$MaxTeamSize
+par(mfrow = c(1, 2))
+qqnorm(x,     main = "MaxTeamSize (original)")
+qqline(x)
+qqnorm(log(x), main = "MaxTeamSize (log scale)")
+qqline(log(x))
+shapiro.test(log(x))
+
+# Compare productivity of large teams (>=9) vs small teams
+d2 <- read.arff("datasets/ATSNonEmpty_200Inst.arff")
+ats  <- d2$AverageTeamSize
+prod <- d2$NormalisedLevel1PDR
+
+boxplot(prod[ats >= 9], prod[ats < 9],
+        names = c("Large team (>=9)", "Small team (<9)"),
+        ylab  = "Productivity (PDR, hrs/FP)",
+        main  = "Team size vs productivity (ISBSG)")
+wilcox.test(prod[ats >= 9], prod[ats < 9])
+```

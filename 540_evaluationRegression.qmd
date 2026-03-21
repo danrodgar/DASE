@@ -1,0 +1,76 @@
+
+# Numeric Prediction Evaluation
+
+## Learning Objectives and Evaluation Lens
+
+- **Objective**: evaluate numeric predictions with robust error measures.
+- **Primary metrics**: MAE, RMSE, and context-specific relative metrics.
+- **Common pitfalls**: relying on a single metric and ignoring error distribution shape.
+- **Reporting advice**: include central tendency and dispersion (for example, confidence intervals or repeated-run summaries).
+
+In numeric prediction, the key quantity is the difference between the predicted value and the actual value. Common performance metrics used for numeric prediction are as follows, where $\hat{y_n}$ represents the predicted value and $y_n$ the actual one.
+
+
+Mean Square Error ($MSE$)
+
+$MSE = \frac{(\hat{y_1} - y_1)^2 + \ldots  +(\hat{y_n} - y_n)^2}{n} = \frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2$
+
+
+Root mean-squared error ($RMSE$) 
+
+${RMSE} = \sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}$ 
+ 
+
+Mean Absolute Error ($MAE$)
+
+$MAE = \frac{|\hat{y_1} - y_1| + \ldots  +|\hat{y_n} - y_n|}{n} = \frac{1}{n}\sum_{t=1}^n |\hat y_t - y_t|$
+
+Relative Absolute Error ($RAE$)
+
+$RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i |}$
+
+
+Root Relative-Squared Error ($RRSE$)
+
+$RRSE = \sqrt{ \frac{ \sum^N_{i=1} ( \hat{\theta}_i - \theta_i )^2 } {  \sum^N_{i=1} ( \overline{\theta} - \theta_i )^2 } }$
+
+where $\hat{\theta}$ is a mean value of $\theta$.
+
+
+Relative-Squared r ($RSE$)
+
+$\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}$
+
+where ($\hat{a}$ is the mean value over the training data)
+
+
+Relative Absolute Error ($RAE$)
+
+
+Correlation Coefficient
+
+_Correlation coefficient_ between two random variables $X$ and $Y$ is defined as $\rho(X,Y) = \frac{{\bf Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}$. The sample correlation coefficient $r$ between two samples $x_i$ and $y_j$ is defined as $r = S_{xy}/\sqrt{S_{xx}S_{yy}}$.
+
+Example: Is there any linear relationship between the effort estimates ($p_i$) and actual effort ($a_i$)? 
+
+$a\|39,43,21,64,57,47,28,75,34,52$
+
+$p\|65,78,52,82,92,89,73,98,56,75$
+
+```{r}
+p<-c(39,43,21,64,57,47,28,75,34,52)
+a<-c(65,78,52,82,92,89,73,98,56,75)
+#
+cor(p,a)
+```
+
+$R^2$
+
+## Important topics often missing
+
+- prediction intervals (not only point predictions)
+- robustness to outliers and heavy-tailed errors
+- metric sensitivity by project size segment (small vs large projects)
+- temporal generalization (train on older projects, test on newer)
+
+

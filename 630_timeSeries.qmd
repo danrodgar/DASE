@@ -1,0 +1,153 @@
+
+# Time Series
+
+
+Many sources of information are time related. For example, data from Software Configuration Management (SCM) such as Git, [GitHub](http://www.github.com)) systems or Dashboards such as [Grimoire Lab](https://chaoss.github.io/grimoirelab/) from [Bitergia](https://bitergia.com/) or [SonarQube](https://www.sonarqube.org/) 
+
+
+With MetricsGrimore or SonarQube we can extract datasets or dump of databases. For example, a dashboard for the OpenStack project is located at [http://activity.openstack.org/dash/browser/](http://activity.openstack.org/dash/browser/) and provides datasets as MySQL dumps or JSON files.
+
+With R we can read a JSON file as follows:
+
+```{r}
+library(jsonlite)
+# Get the JSON data 
+# gm <- fromJSON("http://activity.openstack.org/dash/browser/data/json/nova.git-scm-rep-evolutionary.json")
+gm <- fromJSON('./datasets/timeSeries/nova.git-scm-rep-evolutionary.json')
+str(gm)
+```
+
+Now we can use time series packages. First, after loading the libraries, we need to create a time series object.
+
+```{r}
+# TS libraries
+library(xts)
+library(forecast)
+
+# Library to deal with dates
+library(lubridate)
+
+# Ceate a time series object
+gmts <- xts(gm$commits,seq(ymd('2010-05-22'),ymd('2015-11-16'), by = '1 week'))
+
+# TS Object
+str(gmts)
+
+head(gmts, 3)
+```
+
+
+Visualise the time series object
+```{r}
+plot(gmts)
+```
+
+Arima model:
+```{r}
+fit <- auto.arima(gmts)
+fit
+```
+
+```{r}
+forecast(fit, 5)
+plot(forecast(fit, 5))
+```
+
+
+## SE-Specific Time Series Patterns
+
+Software engineering produces several prototypical time series patterns worth
+recognizing before applying generic forecasting methods:
+
+- **Release cycles**: commit and issue activity often surges before a release
+  and drops sharply after; this periodicity should be modelled rather than
+  treated as noise.
+- **Sprint velocity**: in agile projects, story points completed per sprint form
+  a series with weekly seasonality and occasional spikes from unplanned work.
+- **Post-release defect density curves**: defect reports rise in the first weeks
+  after a release, then decay — a well-known empirical pattern.
+
+## Changepoint Detection
+
+A **changepoint** is a location in a time series where the statistical properties
+(mean, variance, or trend) shift abruptly. In SE, changepoints often indicate:
+a team restructuring, adoption of a new testing process, an architectural
+overhaul, or a policy change.
+
+The `changepoint` package in R provides PELT (Pruned Exact Linear Time) and
+BinSeg algorithms for detecting single or multiple changepoints in mean or
+variance.
+
+```{r eval=FALSE}
+library(changepoint)
+# Detect changes in mean (e.g., number of weekly commits)
+cpt_result <- cpt.mean(as.numeric(gmts), method = "PELT", penalty = "BIC")
+plot(cpt_result)
+cpts(cpt_result)  # positions of detected changepoints
+```
+
+For more gradual structural breaks, `strucchange` implements the Bai-Perron
+framework for testing and estimating structural changes in linear regression
+models.
+
+
+## Anomaly Detection
+
+Point anomalies (unexpected spikes or dips) in SE time series can indicate
+data quality issues, incidents, or genuine development events. The `forecast`
+package includes `tsoutliers()` for automatic outlier detection. The
+`anomalize` package (part of the tidyverse-adjacent stack) provides a tidy
+interface combining decomposition with anomaly scoring.
+
+```{r eval=FALSE}
+library(anomalize)
+library(tibble)
+library(dplyr)
+
+# Example: detect anomalous commit weeks
+gm_tbl <- tibble(
+  date = seq(as.Date('2010-05-22'), as.Date('2015-11-16'), by = '1 week'),
+  commits = as.numeric(gmts)
+)
+
+gm_tbl |>
+  time_decompose(commits, method = "stl") |>
+  anomalize(remainder, method = "iqr") |>
+  plot_anomalies()
+```
+
+
+## Prophet for SE Forecasting
+
+Facebook's **Prophet** model handles time series with strong multiple
+seasonalities (weekly, annual), holiday effects, and missing data — all
+common in SE repositories. It is particularly useful for projecting issue
+volume, review load, or CI build queue length over a planning horizon.
+
+```{r eval=FALSE}
+# install.packages("prophet")
+library(prophet)
+
+df_prophet <- data.frame(
+  ds = seq(as.Date('2010-05-22'), as.Date('2015-11-16'), by = '1 week'),
+  y  = as.numeric(gmts)
+)
+m   <- prophet(df_prophet, weekly.seasonality = TRUE)
+fut <- make_future_dataframe(m, periods = 52, freq = "week")
+fct <- predict(m, fut)
+plot(m, fct)
+prophet_plot_components(m, fct)
+```
+
+
+## Further Resources on Time Series in R
+
+- Hyndman & Athanasopoulos (2021) *Forecasting: Principles and Practice* (3rd ed.)
+  — free online: <https://otexts.com/fpp3/>
+- `tsibble`, `fable`, and `feasts` packages for tidy time series analysis
+- CRAN Task View on Time Series:
+  <https://cran.r-project.org/view=TimeSeries>
+- A Little Book of R for Time Series:
+  <https://a-little-book-of-r-for-time-series.readthedocs.io/>
+
+

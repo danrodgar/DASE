@@ -1,44 +1,14 @@
 ---
-title: "Data Analysis in Software Engineering using R"
 author: "Daniel Rodriguez and Javier Dolado"
 date: "`r Sys.Date()`"
-bibliography: [./references/dataSources.bib,
-    ./references/RandStatistics.bib,
-    ./references/RPackages.bib,
-    ./references/referencesFS.bib,
-    ./references/referencesIS.bib,
-    ./references/evaluation.bib,
-    ./references/machinelearning.bib,    
-    ./references/effortEstimation.bib,
-    ./references/DefectPrediction.bib,
-    ./references/SEmetrics.bib
-    ]
-biblio-style: apalike
-link-citations: true
 github-repo: danrodgar/DASE
 description: "DASE  Data Analysis in Software Engineering"
 ---
 
-# Welcome {-}
+# Welcome {.unnumbered}
 
-This __Data Analysis in Software Engineering (DASE)__ book/notes will try teach you how to do data science with R in Software Engineering. 
-
+These __Data Analysis in Software Engineering (DASE)__ notes provide an introduction to the foundations of data science with R for software engineering.
 It is a work in progress.
 
-**Acknowledgments**
 
-Projects:
-
-* PRESI: TIN2013-46928-C3
-    + amuSE TIN2013-46928-C3-2-R
-    + PERTEST TIN2013-46928-C3-1-R
-
-* QARE: TIN2016-76956-C3
-    + BadgePeople: TIN2016-76956-C3-3-R
-    + TESTEAMOS: TIN2016-76956-C3-1-R
-
-* Network SBSE ([SEBASENet](https://www.uco.es/investigacion/proyectos/SEBASENet/index.php?title=P%C3%A1gina_principal)): TIN2015-71841-REDT
-
-* TestBUS PID2019-105455GB-C32
-
-This work is licensed under the [Creative Commons Attribution-NonCommtercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/) United States License. 
+This work is licensed under the [Creative Commons Attribution-NonCommtercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/).

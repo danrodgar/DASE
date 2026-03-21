@@ -1,0 +1,339 @@
+
+# Exploratory Data Analysis
+
+## Descriptive statistics
+
+The first task to do with any dataset is to characterize it in terms of summary statistics and graphics. 
+
+Displaying information graphically will help us to identify the main characteristics of the data. To describe a distribution we often want to know where it is centered and and what the spread is (mean, median, quantiles)
+
+For software engineering datasets, EDA should also include **data quality and validity checks** (not only visual summaries).
+
+
+## EDA Checklist for Software Engineering Data
+
+Before modeling, verify at least:
+
+1. Record counts and unique keys (files/modules/issues/commits)
+2. Missing values per variable
+3. Duplicated rows or duplicated IDs
+4. Class imbalance (for defect labels)
+5. Suspicious values (negative effort, impossible dates, zero size with non-zero effort)
+6. Correlated predictors and potential redundancy
+7. Data leakage risks (features created after the prediction time)
+8. Temporal consistency (training data should precede test data)
+
+The checklist prevents many common pitfalls in defect prediction and effort estimation studies.
+ 
+## Basic Plots
+
+* _Histogram_ defines a sequence of breaks and then counts the number of observations in the bins formed by the breaks.
+  
+* _Boxplot_ used to summarize data succinctly, quickly displaying if the data is symmetric or has suspected outliers. 
+    
+![Boxplot description](./figures/boxplotexp.png)
+
+* _Q-Q plot_ is used to determine if the data is close to being normally distributed. The quantiles of the standard normal distribution is represented by a straight line. The normality of the data can be evaluated by observing the extent in which the points appear on the line. When the data is normally distributed around the mean, then the mean and the median should be equal. Quantiles are cut points dividing the range of a probability distribution into continuous intervals with equal probabilities, or dividing the observations in a sample in the same way.
+
+![Quartiles in a normal distribution -- wikimedia id 14702157](./figures/Iqr_with_quantile.png)
+
+* _Scatterplot_ provides a graphical view of the relationship between two sets of numbers: one numerical variable against another. 
+  
+* _Kernel Density_ plot visualizes the underlying distribution of a variable. Kernel density estimation is a non-parametric method of estimating the probability density function of continuous random variable. It helps to identify the distribution of the variable.
+    
+* _Violin plot_ is a combination of a boxplot and a kernel density plot. 
+    
+
+ 
+## Normality 
+
+  * A normal distribution is an arrangement of a data set in which most values cluster in the middle of the range
+  * A graphical representation of a normal distribution is sometimes called a *bell curve* because of its shape.
+  * Many procedures in statistics are based on this property. *Parametric* procedures require the normality property.
+  * In a normal distribution about 95% of the probability lies within 2 Standard Deviations of the mean.
+  * Two examples: one population with mean 60 and the standard deviation of 1, and the other with mean 60 and $sd=4$ (means shifted to 0)
+  
+```{r SDPlotExample, fig.cap="Plot example of the area within 2 and 4SD of the mean respectively", tidy=TRUE}
+# Area within 2SD of the mean
+par(mfrow=c(1,2))
+plot(function(x) dnorm(x, mean = 0, sd = 1),
+xlim = c(-3, 3), main = "SD 1", xlab = "x",
+ylab = "", cex = 2)
+segments(-2, 0, -2, 0.4)
+segments(2, 0, 2, 0.4)
+# Area within 4SD of the mean
+plot(function(x) dnorm(x, mean = 0, sd = 4),
+xlim = c(-12, 12), main = "SD 4", xlab = "x",
+ylab = "", cex = 2)
+segments(-8, 0, -8, 0.1)
+segments(8, 0, 8, 0.1)
+```
+
+  - if we sample from this population we get "another population":
+  
+```{r, tidy=TRUE}
+#tidy uses the package formatR to format the code
+
+sample.means <- rep(NA, 1000)
+for (i in 1:1000) {
+  sample.40 <- rnorm(40, mean = 60, sd = 4) 
+    #rnorm generates random numbers from normal distribution
+  sample.means[i] <- mean(sample.40)
+}
+means40 <- mean(sample.means)
+sd40 <- sd(sample.means)
+means40
+sd40
+```
+
+- These sample means are another "population". The sampling distribution of the sample mean is normally distributed meaning that the "mean of a representative sample provides an estimate of the unknown population mean". This is shown in Figure \@ref(fig:sampleMeansExample)
+
+```{r sampleMeansExample, fig.cap="Sample means histogram"}
+hist(sample.means)
+```
+
+
+
+## Using a running Example to visualise the different plots
+
+As a running example we do next:
+
+  1. Set the path to the file
+  
+  2. Read the _Telecom1_ dataset and print out the summary statistics with the command `summary`
+  
+  
+```{r telecomExample, tidy=TRUE}
+options(digits=3)
+telecom1 <- read.table("./datasets/effortEstimation/Telecom1.csv", sep=",",header=TRUE, stringsAsFactors=FALSE, dec = ".") #read data
+summary(telecom1)
+```
+
+### Basic data quality checks (Telecom1)
+
+```{r telecomQualityChecks, tidy=TRUE}
+# shape and simple quality checks
+dim(telecom1)
+colSums(is.na(telecom1))
+sum(duplicated(telecom1))
+
+# impossible values for this context (should be non-negative)
+sum(telecom1$size < 0)
+sum(telecom1$effort < 0)
+```
+
+### Temporal validation and leakage prevention
+
+In software engineering data, random train/test splits may produce optimistic results when data from the same period (or release) appears in both sets.
+
+When time order is available, prefer a **chronological split**:
+
+1. train on older projects/releases,
+2. test on newer projects/releases.
+
+```{r telecomTemporalSplit, tidy=TRUE}
+# Temporal split by order: first 70% for training, last 30% for testing.
+# Use this only when the rows are already ordered chronologically.
+n <- nrow(telecom1)
+cutoff <- floor(0.70 * n)
+
+telecom_train <- telecom1[1:cutoff, ]
+telecom_test  <- telecom1[(cutoff + 1):n, ]
+
+dim(telecom_train)
+dim(telecom_test)
+
+# Compare basic distributions to detect temporal drift.
+summary(telecom_train$effort)
+summary(telecom_test$effort)
+```
+
+If your dataset includes explicit dates (for example commit date or release date), sort by that field first and then split.
+
+  * We see that this dataset has three variables (or parameters) and few data points (18)
+    + *size*: the independent variable
+    + *effort*: the dependent variable
+    + *EstTotal*: the estimates coming from an estimation method
+  * Basic Plots
+  
+  
+```{r message=FALSE, warning=FALSE, tidy=TRUE}
+par(mfrow=c(1,2)) #n figures per row
+size_telecom1 <- telecom1$size
+effort_telecom1 <- telecom1$effort
+
+hist(size_telecom1, col="blue", xlab='size', ylab = 'Probability', main = 'Histogram of project Size')
+lines(density(size_telecom1, na.rm = T, from = 0, to = max(size_telecom1)))
+plot(density(size_telecom1))
+
+
+hist(effort_telecom1, col="blue")
+plot(density(effort_telecom1))
+
+boxplot(size_telecom1)
+boxplot(effort_telecom1)
+
+# violin plots for those two variables
+library(vioplot)
+vioplot(size_telecom1, names = '') 
+title("Violin Plot of Project Size")
+vioplot(effort_telecom1, names = '')
+title("Violin Plot of Project Effort")
+
+par(mfrow=c(1,1))
+qqnorm(size_telecom1, main="Q-Q Plot of 'size'")
+qqline(size_telecom1, col=2, lwd=2, lty=2) #draws a line through the first and third quartiles
+qqnorm(effort_telecom1,  main="Q-Q Plot of 'effort'")
+qqline(effort_telecom1)
+```
+
+
+  * We can observe the non-normality of the data. 
+  
+  * We may look the possible relationship between size and effort with a scatter plot
+  
+```{r scatterplotExample, fig.cap="Scatterplot. Relationship between size and effort", tidy=TRUE}
+plot(size_telecom1, effort_telecom1)
+```
+
+
+### Example with the China dataset
+
+
+```{r message=FALSE, warning=FALSE}
+library(foreign)
+china <- read.arff("./datasets/effortEstimation/china.arff")
+china_size <- china$AFP
+summary(china_size)
+china_effort <- china$Effort
+summary(china_effort)
+par(mfrow=c(1,2))
+hist(china_size, col="blue", xlab="Adjusted Function Points", main="Distribution of AFP")
+hist(china_effort, col="blue",xlab="Effort", main="Distribution of Effort")
+boxplot(china_size)
+boxplot(china_effort)
+qqnorm(china_size)
+qqline(china_size)
+qqnorm(china_effort)
+qqline(china_effort)
+```
+
+```{r chinaQualityChecks, tidy=TRUE}
+dim(china)
+colSums(is.na(china))
+sum(duplicated(china))
+```
+  * We observe the non-normality of the data. 
+
+#### Normality. Galton data
+
+It is the data based on the famous 1885 Francis Galton's study about the relationship between the heights of adult children and the heights of their parents.
+
+
+```{r galtonData, echo=FALSE, message=FALSE, warning=FALSE}
+# library(UsingR); data(galton)
+galton <- read.csv("./datasets/other/galton.csv")
+par(mfrow=c(1,2))
+hist(galton$child,col="blue") #,breaks=100)
+hist(galton$parent,col="blue") #,breaks=100)
+```
+
+
+#### Normalization
+
+Take $log$s in both independent variables. For example, with the _China_ dataset. 
+  
+```{r logExample, echo=FALSE, tidy=TRUE}
+par(mfrow=c(1,2))
+logchina_size = log(china_size)
+hist(logchina_size, col="blue", xlab="log Adjusted Function Points", main="Distribution of log AFP")
+logchina_effort = log(china_effort)
+hist(logchina_effort, col="blue",xlab="Effort", main="Distribution of log Effort")
+qqnorm(logchina_size)
+qqnorm(logchina_effort)
+```
+
+ * If the $log$ transformation is used, then the estimation equation is:
+  $$y= e^{b_0 + b_1 log(x)} $$
+
+
+## Correlation
+
+_Correlation_ is a statistical relationship between two sets of data. With the whole dataset we may check for the linear Correlation of the variables we are interested in.
+
+As an example with the China dataset
+  
+```{r correlationChinaDataset}
+par(mfrow=c(1,1))
+plot(china_size,china_effort)
+cor(china_size,china_effort)
+cor.test(china_size,china_effort)
+cor(china_size,china_effort, method="spearman")
+cor(china_size,china_effort, method="kendall")
+```
+
+
+
+## Confidence Intervals. Bootstrap
+  * Until now we have generated point estimates
+  * A _confidence interval_ (CI) is an interval estimate of a population parameter. The parameter can be the mean, the median or other. The frequentist CI is an observed interval that is different from sample to sample. It frequently includes the value of the unobservable parameter of interest if the experiment is repeated. The *confidence level* is the value that measures the frequency that the constructed intervals contain the true value of the parameter. 
+  * The construction of a confidence interval with an exact value of confidence level for a distribution requires some statistical properties. Usually, *normality* is one of the properties required for computing confidence intervals. 
+    + Not all confidence intervals contain the true value of the parameter.
+    + Simulation of confidence intervals
+
+An example from Ugarte et al. [@ugarte2015probability]
+
+```{r confiedenceIntervals, echo=FALSE, tidy=TRUE}
+  # code from the book by Ugarte et al.
+  norsim <- function(sims = 100, n = 36, mu = 100, sigma = 18, conf.level = 0.95){
+  alpha <- 1 - conf.level
+  CL <- conf.level * 100
+  ll <- numeric(sims)
+  ul <- numeric(sims)
+  for (i in 1:sims){
+    xbar <- mean(rnorm(n , mu, sigma))
+    ll[i] <- xbar - qnorm(1 - alpha/2)*sigma/sqrt(n)
+    ul[i] <- xbar + qnorm(1 - alpha/2)*sigma/sqrt(n)
+  }
+  notin <- sum((ll > mu) + (ul < mu))
+  percentage <- round((notin/sims) * 100, 2)
+  SCL <- 100 - percentage
+  plot(ll, type = "n", ylim = c(min(ll), max(ul)), xlab = " ", 
+       ylab = " ")
+  for (i in 1:sims) {
+    low <- ll[i]
+    high <- ul[i]
+    if (low < mu & high > mu) {
+      segments(i, low, i, high)
+    }
+    else if (low > mu & high > mu) {
+      segments(i, low, i, high, col = "red", lwd = 5)
+    }
+    else {
+      segments(i, low, i, high, col = "blue", lwd = 5)
+    }
+  }
+  abline(h = mu)
+#   cat(SCL, "\b% of the random confidence intervals contain Mu =", mu, "\b.", "\n")
+}
+```
+
+```{r tidy=TRUE}
+set.seed(10)
+norsim(sims = 100, n = 36, mu = 100, sigma = 18, conf.level = 0.95)
+```
+
+  * The range defined by the confidence interval will vary with each sample, because the sample size will vary each time and the standard deviation will vary too.
+  * 95% confidence interval: it is the probability that the hypothetical confidence intervals (that would be computed from the hypothetical repeated samples) will contain the population mean.
+  * the particular interval that we compute on one sample does not mean that the population mean lies within that interval with a probability of 95%.
+  * Recommended reading: [@Hoekstra2014] *Robust misinterpretation of confidence intervals* 
+
+
+## Nonparametric Bootstrap
+  * For computing CIs the important thing is to know the assumptions that are made to “know” the
+distribution of the statistic.
+  * There is a way to compute confidence intervals without meeting the requirements of parametric methods. 
+  * **Resampling** or **bootstraping** is a method to calculate estimates of a parameter taking samples from the original data and using those *resamples* to calculate statistics. Using the resamples usually gives more accurate results than using the original single sample to calculate an estimate of a parameter. 
+  
+  ![Bootstrap](figures/bootstrap.png)
+  - An example of bootstrap CI can be found in Chapter \@ref(evaluationSE), "Evaluation in Software Engineering"
