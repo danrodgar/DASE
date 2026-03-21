@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>12&nbsp; Advanced Preprocessing Techniques – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./330_featureSelectionExample.html" rel="next">
+<link href="./310_basicPreprocessing.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./310_basicPreprocessing.html">Part III - Preprocessing</a></li><li class="breadcrumb-item"><a href="./320_advancedPreprocessingTechniques.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -221,8 +256,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+  <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -383,40 +418,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link active" data-scroll-target="#feature-selection"><span class="header-section-number">12.1</span> Feature Selection</a></li>
+  <li><a href="#instance-selection" id="toc-instance-selection" class="nav-link" data-scroll-target="#instance-selection"><span class="header-section-number">12.2</span> Instance Selection</a></li>
+  <li><a href="#missing-data-imputation" id="toc-missing-data-imputation" class="nav-link" data-scroll-target="#missing-data-imputation"><span class="header-section-number">12.3</span> Missing Data Imputation</a></li>
+  <li><a href="#encoding-and-transformation-pipelines" id="toc-encoding-and-transformation-pipelines" class="nav-link" data-scroll-target="#encoding-and-transformation-pipelines"><span class="header-section-number">12.4</span> Encoding and transformation pipelines</a></li>
+  <li><a href="#temporal-splits-and-concept-drift" id="toc-temporal-splits-and-concept-drift" class="nav-link" data-scroll-target="#temporal-splits-and-concept-drift"><span class="header-section-number">12.5</span> Temporal splits and concept drift</a></li>
+  <li><a href="#deployment-consistency" id="toc-deployment-consistency" class="nav-link" data-scroll-target="#deployment-consistency"><span class="header-section-number">12.6</span> Deployment consistency</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./310_basicPreprocessing.html">Part III - Preprocessing</a></li><li class="breadcrumb-item"><a href="./320_advancedPreprocessingTechniques.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +449,88 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>This chapter complements basic preprocessing with techniques that are often required in realistic software engineering datasets.</p>
+<section id="feature-selection" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="feature-selection"><span class="header-section-number">12.1</span> Feature Selection</h2>
+<p>This technique consists of selecting the most relevant attributes. The need for applying FS includes the following points:</p>
+<ul>
+<li><p>A reduced volume of data allows different data mining or searching techniques to be applied.</p></li>
+<li><p>Irrelevant and redundant attributes can generate less accurate and more complex models. Furthermore, data mining algorithms can be executed faster.</p></li>
+<li><p>It is possible to avoid the collection of data for those irrelevant and redundant attributes in the future.</p></li>
+</ul>
+<p>FS algorithms designed with different evaluation criteria broadly fall into two categories:</p>
+<ul>
+<li><p>The <em>filter model</em> relies on general characteristics of the data to evaluate and select feature subsets without involving any data mining algorithm.</p></li>
+<li><p>The <em>wrapper model</em> requires one predetermined mining algorithm and uses its performance as the evaluation criterion. It searches for features better suited to the mining algorithm aiming to improve mining performance, but it also tends to be more computationally expensive than filter model [11, 12].</p></li>
+</ul>
+</section>
+<section id="instance-selection" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="instance-selection"><span class="header-section-number">12.2</span> Instance Selection</h2>
+<p>Instance selection aims to reduce dataset size while preserving predictive performance. In software engineering datasets, this is useful when duplicated or near-duplicated modules inflate training time and bias model behavior.</p>
+<p>Typical strategies include:</p>
+<ul>
+<li>distance-based prototype selection for nearest-neighbor methods</li>
+<li>noise filtering before model training</li>
+<li>uncertainty-based sampling in iterative workflows</li>
+</ul>
+<p>In practice, evaluate instance selection with repeated resampling and compare both performance and model stability against a no-selection baseline.</p>
+</section>
+<section id="missing-data-imputation" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="missing-data-imputation"><span class="header-section-number">12.3</span> Missing Data Imputation</h2>
+<p>Missing data imputation should be treated as part of the training pipeline, not as a one-off preprocessing script. This avoids data leakage and improves reproducibility.</p>
+<p>Recommended workflow:</p>
+<ul>
+<li>analyze missingness patterns first (MCAR, MAR, MNAR assumptions)</li>
+<li>choose imputation strategy by variable type and modeling objective</li>
+<li>fit imputation using only training folds</li>
+<li>validate impact on downstream metrics</li>
+</ul>
+<p>Common options in modern R workflows include median/mode imputation through <code>recipes</code>, nearest-neighbor imputation, and model-based methods for richer datasets.</p>
+</section>
+<section id="encoding-and-transformation-pipelines" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="encoding-and-transformation-pipelines"><span class="header-section-number">12.4</span> Encoding and transformation pipelines</h2>
+<p>Advanced workflows usually include mixed variable types and skewed numeric distributions. A practical recipe often combines:</p>
+<ul>
+<li>dummy encoding for categorical variables</li>
+<li>variance filtering for unstable predictors</li>
+<li>normalization for distance/regularized models</li>
+<li>optional log/Yeo-Johnson transforms for skewed features</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./datasets/defectPred/unified/Unified-file.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[, <span class="fu">c</span>(<span class="st">"McCC"</span>, <span class="st">"CLOC"</span>, <span class="st">"PDA"</span>, <span class="st">"PUA"</span>, <span class="st">"LLOC"</span>, <span class="st">"LOC"</span>, <span class="st">"bug"</span>)]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Defective <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(df<span class="sc">$</span>bug <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"Y"</span>, <span class="st">"N"</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>bug <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>rec_adv <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Defective <span class="sc">~</span> ., <span class="at">data =</span> df) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_nzv</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_YeoJohnson</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>rec_adv <span class="sc">|&gt;</span> <span class="fu">prep</span>() <span class="sc">|&gt;</span> <span class="fu">juice</span>() <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="temporal-splits-and-concept-drift" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="temporal-splits-and-concept-drift"><span class="header-section-number">12.5</span> Temporal splits and concept drift</h2>
+<p>For SE prediction tasks, data distributions can change across releases (concept drift). Prefer temporal evaluation when date/order information is available.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cutoff <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fl">0.7</span> <span class="sc">*</span> n)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>train_time <span class="ot">&lt;-</span> df[<span class="dv">1</span><span class="sc">:</span>cutoff, ]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>test_time <span class="ot">&lt;-</span> df[(cutoff <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n, ]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(train_time<span class="sc">$</span>LOC)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(test_time<span class="sc">$</span>LOC)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="deployment-consistency" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="deployment-consistency"><span class="header-section-number">12.6</span> Deployment consistency</h2>
+<p>A frequent production issue is mismatch between training-time preprocessing and inference-time preprocessing. Persist preprocessing objects (recipes, lookup tables, selected features) and reuse them unchanged in deployment.</p>
 
 
 </section>
@@ -837,10 +938,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./310_basicPreprocessing.html" class="pagination-link" aria-label="Preprocessing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Preprocessing</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./330_featureSelectionExample.html" class="pagination-link" aria-label="Feature Selection Example">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Feature Selection Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

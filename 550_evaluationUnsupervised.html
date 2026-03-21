@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>21&nbsp; Evaluation of Unsupervised Models – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./560_classicalHypothesisTesting.html" rel="next">
+<link href="./540_evaluationRegression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -74,6 +109,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="toc.css">
@@ -88,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./550_evaluationUnsupervised.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -222,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -297,7 +361,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./550_evaluationUnsupervised.html" class="sidebar-item-text sidebar-link">
+  <a href="./550_evaluationUnsupervised.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></span></a>
   </div>
 </li>
@@ -383,40 +447,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#learning-objectives-and-evaluation-lens" id="toc-learning-objectives-and-evaluation-lens" class="nav-link active" data-scroll-target="#learning-objectives-and-evaluation-lens"><span class="header-section-number">21.1</span> Learning Objectives and Evaluation Lens</a></li>
+  <li><a href="#example-clustering-software-modules-unifiedbugdataset" id="toc-example-clustering-software-modules-unifiedbugdataset" class="nav-link" data-scroll-target="#example-clustering-software-modules-unifiedbugdataset"><span class="header-section-number">21.2</span> Example: Clustering Software Modules (UnifiedBugDataset)</a></li>
+  <li><a href="#internal-evaluation-metrics" id="toc-internal-evaluation-metrics" class="nav-link" data-scroll-target="#internal-evaluation-metrics"><span class="header-section-number">21.3</span> Internal Evaluation Metrics</a></li>
+  <li><a href="#external-evaluation-using-defect-labels-only-for-assessment" id="toc-external-evaluation-using-defect-labels-only-for-assessment" class="nav-link" data-scroll-target="#external-evaluation-using-defect-labels-only-for-assessment"><span class="header-section-number">21.4</span> External Evaluation (Using Defect Labels Only for Assessment)</a></li>
+  <li><a href="#se-interpretation-of-the-result" id="toc-se-interpretation-of-the-result" class="nav-link" data-scroll-target="#se-interpretation-of-the-result"><span class="header-section-number">21.5</span> SE Interpretation of the Result</a></li>
+  <li><a href="#important-topics-often-missing" id="toc-important-topics-often-missing" class="nav-link" data-scroll-target="#important-topics-often-missing"><span class="header-section-number">21.6</span> Important topics often missing</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./550_evaluationUnsupervised.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +478,187 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<section id="learning-objectives-and-evaluation-lens" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="learning-objectives-and-evaluation-lens"><span class="header-section-number">21.1</span> Learning Objectives and Evaluation Lens</h2>
+<ul>
+<li><strong>Objective</strong>: evaluate whether unsupervised structure is both statistically coherent and practically useful.</li>
+<li><strong>Primary metrics</strong>: silhouette, CH index, purity, ARI.</li>
+<li><strong>Interpretation rule</strong>: internal quality and external usefulness should both be considered.</li>
+<li><strong>Common pitfalls</strong>: selecting <span class="math inline">\(k\)</span> once without sensitivity analysis and over-interpreting unstable clusters.</li>
+</ul>
+<p>In unsupervised learning we do not train against target labels, so evaluation must focus on cluster structure quality and business usefulness.</p>
+<p>In software engineering, a common use case is grouping modules/components by their static metrics (size, complexity, coupling) to identify <em>risk profiles</em> for testing and quality assurance.</p>
+</section>
+<section id="example-clustering-software-modules-unifiedbugdataset" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="example-clustering-software-modules-unifiedbugdataset"><span class="header-section-number">21.2</span> Example: Clustering Software Modules (UnifiedBugDataset)</h2>
+<p>We use <code>Unified-file.csv</code> from UnifiedBugDataset 1.2 (2019), which merges multiple defect datasets (PROMISE, Eclipse, Bug Prediction Dataset, Bugcatchers, GitHub bug datasets). Compared to using only NASA subsets (e.g., KC1/JM1), this is a broader and more up-to-date benchmark.</p>
+<p>Even though clustering is unsupervised, the dataset includes a <code>bug</code> field that we use <em>after</em> clustering as an external validation signal.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>unified <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./datasets/defectPred/unified/Unified-file.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># External validation label (binary): defective if bug count &gt; 0.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>truth <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(unified<span class="sc">$</span>bug <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"buggy"</span>, <span class="st">"clean"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"clean"</span>, <span class="st">"buggy"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use numeric software metrics only, excluding identifiers and bug label.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"Name"</span>, <span class="st">"LongName"</span>, <span class="st">"Parent"</span>, <span class="st">"bug"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> unified[, <span class="fu">setdiff</span>(<span class="fu">names</span>(unified), drop_cols)]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> X[, <span class="fu">sapply</span>(X, is.numeric), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove incomplete rows and keep labels aligned.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ok <span class="ot">&lt;-</span> <span class="fu">complete.cases</span>(X)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> X[ok, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>truth <span class="ot">&lt;-</span> truth[ok]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove degenerate columns that break scaling/kmeans.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>var_ok <span class="ot">&lt;-</span> <span class="fu">vapply</span>(X, <span class="cf">function</span>(col) {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    v <span class="ot">&lt;-</span> <span class="fu">var</span>(col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is.finite</span>(v) <span class="sc">&amp;&amp;</span> v <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">logical</span>(<span class="dv">1</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> X[, var_ok, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette requires pairwise distances (O(n^2)); cap sample size for speed.</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>max_n <span class="ot">&lt;-</span> <span class="dv">2500</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(X) <span class="sc">&gt;</span> max_n) {</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(X)), <span class="at">size =</span> max_n)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> X[idx, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    truth <span class="ot">&lt;-</span> truth[idx]</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale metrics to avoid size-dominated clusters.</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="ot">&lt;-</span> X_scaled[, <span class="fu">colSums</span>(<span class="fu">is.finite</span>(X_scaled)) <span class="sc">==</span> <span class="fu">nrow</span>(X_scaled), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X_scaled)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="internal-evaluation-metrics" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="internal-evaluation-metrics"><span class="header-section-number">21.3</span> Internal Evaluation Metrics</h2>
+<p>Internal metrics evaluate cluster compactness and separation without labels.</p>
+<ul>
+<li>Total within-cluster sum of squares (<code>tot.withinss</code>): lower is better</li>
+<li>Average silhouette width: higher is better</li>
+<li>Calinski-Harabasz index: higher is better</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>calinski_harabasz <span class="ot">&lt;-</span> <span class="cf">function</span>(x, clusters) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    clusters <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(x)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    k <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(clusters)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    overall_center <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(x)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Within-cluster sum of squares</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    wss <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Between-cluster sum of squares</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    bss <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (cl <span class="cf">in</span> <span class="fu">levels</span>(clusters)) {</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        idx <span class="ot">&lt;-</span> <span class="fu">which</span>(clusters <span class="sc">==</span> cl)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        xk <span class="ot">&lt;-</span> x[idx, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        nk <span class="ot">&lt;-</span> <span class="fu">nrow</span>(xk)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        ck <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(xk)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        wss <span class="ot">&lt;-</span> wss <span class="sc">+</span> <span class="fu">sum</span>((xk <span class="sc">-</span> <span class="fu">matrix</span>(ck, <span class="at">nrow =</span> nk, <span class="at">ncol =</span> <span class="fu">ncol</span>(xk), <span class="at">byrow =</span> <span class="cn">TRUE</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        bss <span class="ot">&lt;-</span> bss <span class="sc">+</span> nk <span class="sc">*</span> <span class="fu">sum</span>((ck <span class="sc">-</span> overall_center)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    (bss <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">/</span> (wss <span class="sc">/</span> (n <span class="sc">-</span> k))</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>avg_silhouette <span class="ot">&lt;-</span> <span class="cf">function</span>(x, clusters) {</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>has_cluster) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    sil <span class="ot">&lt;-</span> cluster<span class="sc">::</span><span class="fu">silhouette</span>(<span class="fu">as.integer</span>(<span class="fu">as.factor</span>(clusters)), <span class="fu">dist</span>(x))</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(sil[, <span class="st">"sil_width"</span>])</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ks <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>internal_tbl <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ks, <span class="cf">function</span>(k) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(X_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">k =</span> k,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">total_withinss =</span> km<span class="sc">$</span>tot.withinss,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">avg_silhouette =</span> <span class="fu">avg_silhouette</span>(X_scaled, km<span class="sc">$</span>cluster),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">calinski_harabasz =</span> <span class="fu">calinski_harabasz</span>(X_scaled, km<span class="sc">$</span>cluster)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>internal_tbl <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, internal_tbl)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>internal_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="external-evaluation-using-defect-labels-only-for-assessment" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="external-evaluation-using-defect-labels-only-for-assessment"><span class="header-section-number">21.4</span> External Evaluation (Using Defect Labels Only for Assessment)</h2>
+<p>External metrics compare clusters with known classes. This does not make the training supervised; it only checks whether clusters align with practical categories of interest.</p>
+<ul>
+<li>Purity: proportion of modules assigned to the majority class in each cluster</li>
+<li>Adjusted Rand Index (ARI): agreement corrected for chance</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>purity_score <span class="ot">&lt;-</span> <span class="cf">function</span>(truth, pred) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    tab <span class="ot">&lt;-</span> <span class="fu">table</span>(truth, pred)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">apply</span>(tab, <span class="dv">2</span>, max)) <span class="sc">/</span> <span class="fu">sum</span>(tab)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>adjusted_rand_index <span class="ot">&lt;-</span> <span class="cf">function</span>(truth, pred) {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    tab <span class="ot">&lt;-</span> <span class="fu">table</span>(truth, pred)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">sum</span>(tab)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(tab)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> <span class="fu">colSums</span>(tab)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    sum_choose <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">choose</span>(tab, <span class="dv">2</span>))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    expected <span class="ot">&lt;-</span> (<span class="fu">sum</span>(<span class="fu">choose</span>(a, <span class="dv">2</span>)) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">choose</span>(b, <span class="dv">2</span>))) <span class="sc">/</span> <span class="fu">choose</span>(n, <span class="dv">2</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    max_index <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> (<span class="fu">sum</span>(<span class="fu">choose</span>(a, <span class="dv">2</span>)) <span class="sc">+</span> <span class="fu">sum</span>(<span class="fu">choose</span>(b, <span class="dv">2</span>)))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    denom <span class="ot">&lt;-</span> max_index <span class="sc">-</span> expected</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (denom <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    (sum_choose <span class="sc">-</span> expected) <span class="sc">/</span> denom</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose k by best silhouette when available, otherwise k=2 as baseline.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">is.na</span>(internal_tbl<span class="sc">$</span>avg_silhouette))) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    k_best <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    k_best <span class="ot">&lt;-</span> internal_tbl<span class="sc">$</span>k[<span class="fu">which.max</span>(internal_tbl<span class="sc">$</span>avg_silhouette)]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>km_best <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(X_scaled, <span class="at">centers =</span> k_best, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>external_tbl <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">k =</span> k_best,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">purity =</span> <span class="fu">purity_score</span>(truth, km_best<span class="sc">$</span>cluster),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjusted_rand_index =</span> <span class="fu">adjusted_rand_index</span>(truth, km_best<span class="sc">$</span>cluster)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>external_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="se-interpretation-of-the-result" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="se-interpretation-of-the-result"><span class="header-section-number">21.5</span> SE Interpretation of the Result</h2>
+<p>In this context, useful unsupervised evaluation means:</p>
+<ul>
+<li>Clusters are internally coherent (higher silhouette / CH, lower WSS)</li>
+<li>Clusters have interpretable engineering meaning
+<ul>
+<li>for example, one cluster might contain high complexity and size metrics, indicating modules requiring stronger testing effort</li>
+</ul></li>
+<li>If external validation is available, non-trivial purity/ARI suggests that structural metric groups are related to defect proneness</li>
+</ul>
+<p>This evaluation approach supports practical decisions such as risk-based test prioritization, review allocation, and focused refactoring.</p>
+</section>
+<section id="important-topics-often-missing" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="important-topics-often-missing"><span class="header-section-number">21.6</span> Important topics often missing</h2>
+<ul>
+<li>cluster stability under resampling (same data, different seeds)</li>
+<li>sensitivity to feature scaling choices</li>
+<li>sensitivity to parameter choices (<span class="math inline">\(k\)</span>, <code>eps</code>, <code>MinPts</code>)</li>
+<li>actionable interpretation quality (can teams act on cluster descriptions?)</li>
+</ul>
 
 
 </section>
@@ -837,10 +1066,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./540_evaluationRegression.html" class="pagination-link" aria-label="Numeric Prediction Evaluation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./560_classicalHypothesisTesting.html" class="pagination-link" aria-label="Classical Hypothesis Testing">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Classical Hypothesis Testing</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

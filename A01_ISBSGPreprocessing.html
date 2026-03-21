@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>Appendix A — Appendix: Preprocessing the ISBSG Repository – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./990_references.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A01_ISBSGPreprocessing.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A01_ISBSGPreprocessing.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: Preprocessing the ISBSG Repository</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -222,7 +256,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -373,6 +407,23 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A01_ISBSGPreprocessing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: Preprocessing the ISBSG Repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -383,40 +434,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#the-isbsg-repository" id="toc-the-isbsg-repository" class="nav-link active" data-scroll-target="#the-isbsg-repository"><span class="header-section-number">A.1</span> The ISBSG Repository</a></li>
+  <li><a href="#preprocessing-steps" id="toc-preprocessing-steps" class="nav-link" data-scroll-target="#preprocessing-steps"><span class="header-section-number">A.2</span> Preprocessing Steps</a>
+  <ul class="collapse">
+  <li><a href="#instance-selection" id="toc-instance-selection" class="nav-link" data-scroll-target="#instance-selection"><span class="header-section-number">A.2.1</span> Instance Selection</a></li>
+  <li><a href="#attribute-selection" id="toc-attribute-selection" class="nav-link" data-scroll-target="#attribute-selection"><span class="header-section-number">A.2.2</span> Attribute Selection</a></li>
+  </ul></li>
+  <li><a href="#selected-attributes" id="toc-selected-attributes" class="nav-link" data-scroll-target="#selected-attributes"><span class="header-section-number">A.3</span> Selected Attributes</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"><span class="header-section-number">A.4</span> Descriptive Statistics</a></li>
+  <li><a href="#r-code-example" id="toc-r-code-example" class="nav-link" data-scroll-target="#r-code-example"><span class="header-section-number">A.5</span> R Code Example</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A01_ISBSGPreprocessing.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A01_ISBSGPreprocessing.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: Preprocessing the ISBSG Repository</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span id="sec-isbsg-preprocessing" class="quarto-section-identifier">Appendix A — Appendix: Preprocessing the ISBSG Repository</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +468,201 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<section id="the-isbsg-repository" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="the-isbsg-repository"><span class="header-section-number">A.1</span> The ISBSG Repository</h2>
+<p>The International Software Benchmarking Standards Group (<a href="https://www.isbsg.org/">ISBSG</a>), a non-profit organisation, maintains a software project management repository contributed by a variety of organisations. The ISBSG checks the validity of submissions and provides benchmarking information in return. Projects are described using over 60 attributes covering functional size, team size, development platform, lifecycle phases, and more. These attributes fall broadly into the following categories:</p>
+<ul>
+<li>Project context: type of organisation, business area, type of development</li>
+<li>Product characteristics: application type, user base</li>
+<li>Development characteristics: platform, languages, tools</li>
+<li>Project size data: function points (IFPUG, COSMIC, etc.)</li>
+<li>Qualitative factors: experience, use of methodologies</li>
+</ul>
+<p>Before applying statistical or machine learning methods to this dataset, substantial preprocessing is required. The steps below describe the data cleaning process applied across multiple ISBSG releases.</p>
+</section>
+<section id="preprocessing-steps" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="preprocessing-steps"><span class="header-section-number">A.2</span> Preprocessing Steps</h2>
+<section id="instance-selection" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="instance-selection"><span class="header-section-number">A.2.1</span> Instance Selection</h3>
+<p><strong>Data Quality Rating.</strong> Projects are classified from A (fully sound data) to D (fundamental shortcomings). Following ISBSG guidance, only projects rated A or B are retained; C and D rated projects are removed.</p>
+<p><strong>Unadjusted Function Point Rating.</strong> This rating reflects the quality of the functional size measurement. Again, only A and B rated projects are kept.</p>
+<p><strong>Count Approach.</strong> Projects sized using methods other than IFPUG, NESMA, Albrecht, or Dreger were removed, as these represent small, non-comparable portions of the database. NESMA is a compliant variant of IFPUG; Albrecht’s technique is the precursor to IFPUG; the Dreger method is a guide to IFPUG counting. All these variants are included.</p>
+<p><strong>Recording Method.</strong> Only projects where total effort was recorded as <em>Staff hours (Recorded)</em> are retained. This method tracks effort from daily records of all hours expended by each person. Methods such as <em>Staff hours (Derived)</em> or <em>Productive Time Only</em> are excluded as more subjective.</p>
+<p><strong>Resource Level.</strong> Only Level 1 (development team effort, including project management and administration, but excluding user training, support teams, and end users) is used.</p>
+<p><strong>Homogenisation of nominal attributes.</strong> Many entries are blank or labelled “don’t know”. Equivalent labels are unified (e.g., COBOL 2 and COBOL II become COBOL). Nominal values representing less than 1% of all projects are removed as non-representative. For example, the <em>Language Type</em> attribute can be 2GL, 3GL, 4GL, 5GL, and ApG, but 2GL, 5GL, and ApG each account for less than 1%; only 3GL and 4GL are retained.</p>
+</section>
+<section id="attribute-selection" class="level3" data-number="A.2.2">
+<h3 data-number="A.2.2" class="anchored" data-anchor-id="attribute-selection"><span class="header-section-number">A.2.2</span> Attribute Selection</h3>
+<p>After instance cleaning, some attributes contain a single value and provide no information. Attributes with more than 85% missing values are also removed. Where multiple attributes measure the same characteristic, the ISBSG-recommended one is kept: <em>Normalised Level 1 Productivity Delivery Rate</em> for productivity and <em>Normalised Level 1 Work Effort</em> for effort.</p>
+<p>A final manual check removes remaining inconsistencies such as a language being classified under two different language types (e.g., Visual Basic appearing as both 3GL and 4GL).</p>
+</section>
+</section>
+<section id="selected-attributes" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="selected-attributes"><span class="header-section-number">A.3</span> Selected Attributes</h2>
+<p>The table below summarises the attributes retained after preprocessing (approximately 951 instances from ISBSG release 10).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 37%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Type (Range)</th>
+<th>% Missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>FP</em> — Unadjusted Function Points</td>
+<td>Ratio [3–4,911]</td>
+<td>0%</td>
+</tr>
+<tr class="even">
+<td><em>Eff</em> — Normalised Level 1 Work Effort (hours)</td>
+<td>Ratio [4–73,920]</td>
+<td>0%</td>
+</tr>
+<tr class="odd">
+<td><em>PDR</em> — Normalised Level 1 Productivity Delivery Rate (hrs/FP)</td>
+<td>Ratio [0.1–378.1]</td>
+<td>0%</td>
+</tr>
+<tr class="even">
+<td><em>DevType</em> — Development type</td>
+<td>Nominal {Enhancement, NewDev}</td>
+<td>0%</td>
+</tr>
+<tr class="odd">
+<td><em>OrgType</em> — Organisation type</td>
+<td>Nominal {Insurance, Ordering, Banking, Manufacturing, …}</td>
+<td>40%</td>
+</tr>
+<tr class="even">
+<td><em>Platf</em> — Development platform</td>
+<td>Nominal {MF, PC, Multi, MR}</td>
+<td>51%</td>
+</tr>
+<tr class="odd">
+<td><em>LangType</em> — Language type</td>
+<td>Nominal {3GL, 4GL}</td>
+<td>25%</td>
+</tr>
+<tr class="even">
+<td><em>PrimaryProgLang</em> — Primary programming language</td>
+<td>Nominal {Java, C, COBOL, PL, VB, SQL, C++, NATURAL, …}</td>
+<td>25%</td>
+</tr>
+<tr class="odd">
+<td><em>MTS</em> — Maximum Team Size</td>
+<td>Ratio [0.5–309]</td>
+<td>58%</td>
+</tr>
+<tr class="even">
+<td><em>ATS</em> — Average Team Size</td>
+<td>Ratio [1–41]</td>
+<td>79%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="descriptive-statistics" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">A.4</span> Descriptive Statistics</h2>
+<p>After preprocessing, the continuous variables show heavily right-skewed distributions. None follow a normal distribution, as confirmed by the Shapiro-Wilk test on all variables; parametric tests should not be applied without a prior transformation.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;"><em>FP</em></th>
+<th style="text-align: right;"><em>Eff</em></th>
+<th style="text-align: right;"><em>PDR</em></th>
+<th style="text-align: right;"><em>MTS</em></th>
+<th style="text-align: right;"><em>ATS</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Count</td>
+<td style="text-align: right;">951</td>
+<td style="text-align: right;">951</td>
+<td style="text-align: right;">951</td>
+<td style="text-align: right;">401</td>
+<td style="text-align: right;">200</td>
+</tr>
+<tr class="even">
+<td>Mean</td>
+<td style="text-align: right;">302.7</td>
+<td style="text-align: right;">3,375.3</td>
+<td style="text-align: right;">17.9</td>
+<td style="text-align: right;">8.4</td>
+<td style="text-align: right;">7.9</td>
+</tr>
+<tr class="odd">
+<td>Median</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">1,521</td>
+<td style="text-align: right;">11.3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td>Std Dev</td>
+<td style="text-align: right;">490.1</td>
+<td style="text-align: right;">6,055.3</td>
+<td style="text-align: right;">26.9</td>
+<td style="text-align: right;">17.0</td>
+<td style="text-align: right;">7.2</td>
+</tr>
+<tr class="odd">
+<td>Min</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Max</td>
+<td style="text-align: right;">4,911</td>
+<td style="text-align: right;">73,920</td>
+<td style="text-align: right;">387.1</td>
+<td style="text-align: right;">309</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="r-code-example" class="level2" data-number="A.5">
+<h2 data-number="A.5" class="anchored" data-anchor-id="r-code-example"><span class="header-section-number">A.5</span> R Code Example</h2>
+<p>The snippet below loads the preprocessed ISBSG ARFF file and explores the distribution of team size and productivity.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load preprocessed ISBSG data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.arff</span>(<span class="st">"datasets/ISBSGv10_AttributesSelected_952Instances_8Att_Train_CLast.arff"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check normality of MaxTeamSize with and without log transform</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> d<span class="sc">$</span>MaxTeamSize</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(x,     <span class="at">main =</span> <span class="st">"MaxTeamSize (original)"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(x)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">log</span>(x), <span class="at">main =</span> <span class="st">"MaxTeamSize (log scale)"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">log</span>(x))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">log</span>(x))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare productivity of large teams (&gt;=9) vs small teams</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">read.arff</span>(<span class="st">"datasets/ATSNonEmpty_200Inst.arff"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ats  <span class="ot">&lt;-</span> d2<span class="sc">$</span>AverageTeamSize</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>prod <span class="ot">&lt;-</span> d2<span class="sc">$</span>NormalisedLevel1PDR</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(prod[ats <span class="sc">&gt;=</span> <span class="dv">9</span>], prod[ats <span class="sc">&lt;</span> <span class="dv">9</span>],</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"Large team (&gt;=9)"</span>, <span class="st">"Small team (&lt;9)"</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab  =</span> <span class="st">"Productivity (PDR, hrs/FP)"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">main  =</span> <span class="st">"Team size vs productivity (ISBSG)"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(prod[ats <span class="sc">&gt;=</span> <span class="dv">9</span>], prod[ats <span class="sc">&lt;</span> <span class="dv">9</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
@@ -837,11 +1070,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./990_references.html" class="pagination-link" aria-label="References">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">References</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

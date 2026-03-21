@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>2&nbsp; What is Data Mining – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,7 +24,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -35,7 +53,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./130_rmarkdown.html" rel="next">
+<link href="./110_rIntro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -74,6 +93,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="toc.css">
@@ -88,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./120_intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -139,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./120_intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./120_intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></span></a>
   </div>
 </li>
@@ -383,40 +431,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#the-aim-of-data-analysis-and-statistical-learning" id="toc-the-aim-of-data-analysis-and-statistical-learning" class="nav-link active" data-scroll-target="#the-aim-of-data-analysis-and-statistical-learning"><span class="header-section-number">2.1</span> The Aim of Data Analysis and Statistical Learning</a></li>
+  <li><a href="#data-science" id="toc-data-science" class="nav-link" data-scroll-target="#data-science"><span class="header-section-number">2.2</span> Data Science</a></li>
+  <li><a href="#further-information" id="toc-further-information" class="nav-link" data-scroll-target="#further-information"><span class="header-section-number">2.3</span> Further Information</a></li>
+  <li><a href="#data-mining-and-data-science-with-r" id="toc-data-mining-and-data-science-with-r" class="nav-link" data-scroll-target="#data-mining-and-data-science-with-r"><span class="header-section-number">2.4</span> Data Mining and Data Science with R</a></li>
+  <li><a href="#data-mining-with-weka" id="toc-data-mining-with-weka" class="nav-link" data-scroll-target="#data-mining-with-weka"><span class="header-section-number">2.5</span> Data Mining with Weka</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./120_intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,12 +461,96 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>We will deal with extracting information from data, either for estimation, defect prediction, planning, etc.</p>
+<p>We will provide an overview of data analsyis using different techniques.</p>
+<p>A definition we will like to highlight is the one about Knowledge Discovery in Databases (KDD), which is the non-trivial process of identifying valid, novel, potentially useful, and ultimately understandable patterns in data <span class="citation" data-cites="FayyadPS1996">(<a href="990_references.html#ref-FayyadPS1996" role="doc-biblioref">Fayyad et al. 1996</a>)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/Fayyad96kdd-process.png" class="img-fluid figure-img"></p>
+<figcaption>KDD Process</figcaption>
+</figure>
+</div>
+<p>The Cross Industry Process for Data Mining (CRISP-DM) also provides a common and well-developed framework for delivering data mining projects identifying six steps <span class="citation" data-cites="shearer00crisp">(<a href="990_references.html#ref-shearer00crisp" role="doc-biblioref">Shearer 2000</a>)</span>:</p>
+<ol type="1">
+<li>Problem Understanding</li>
+<li>Data Understanding</li>
+<li>Data Preparation</li>
+<li>Modeling</li>
+<li>Evaluation</li>
+<li>Deployment</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/CRISP-DM_Process_Diagram.png" class="img-fluid figure-img"></p>
+<figcaption>CRISP-DM (Wikipedia)</figcaption>
+</figure>
+</div>
+<section id="the-aim-of-data-analysis-and-statistical-learning" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-aim-of-data-analysis-and-statistical-learning"><span class="header-section-number">2.1</span> The Aim of Data Analysis and Statistical Learning</h2>
+<ul>
+<li>The aim of any data analysis is to <strong>understand the data</strong></li>
+<li>and to build models for making predictions and estimating future events based on past data</li>
+<li>and to make statistical inferences from our data.</li>
+<li>We may want to test different hypothesis on the data</li>
+<li>We want to generate conclusions about the population where our sample data comes from</li>
+<li>Most probably we are interested in building a model for quality, time, defects or effort prediction</li>
+</ul>
+<p><img src="figures/prediction.png" class="img-fluid"></p>
+<ul>
+<li>We want to find a function <span class="math inline">\(f()\)</span>, that given <span class="math inline">\(X1, X2, ...\)</span> computes <span class="math inline">\(Y=f(X1, X2, ..., Xn)\)</span></li>
+</ul>
+</section>
+<section id="data-science" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="data-science"><span class="header-section-number">2.2</span> Data Science</h2>
+<p>Data science (DS) is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structured and unstructured data. Data science is related to data mining, machine learning and big data.</p>
+<p>We may say that the term DS embraces all terms related to data analysis that previously were under different disciplines.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/Data_science.png" class="img-fluid figure-img"></p>
+<figcaption>Wikipedia Data Science</figcaption>
+</figure>
+</div>
+</section>
+<section id="further-information" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="further-information"><span class="header-section-number">2.3</span> Further Information</h2>
+<ul>
+<li><a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">W.N. Venables, D.M. Smith and the R Core Team, An Introduction to R</a></li>
+</ul>
+<p>Generic books about statistics:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf">John Verzani, <em>simpleR - Using R for Introductory Statistics</em></a></p></li>
+<li><p><a href="https://www.springer.com/gp/book/9780387790534">Peter Dalgaard, <em>Introductory Statistics with R</em>, 2nd Edt., Springer, 2008</a></p></li>
+<li><p><a href="http://www.springer.com/it/book/9781461471370">Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, <em>An Introduction to Statistical Learning with Applications in R</em>, Springer, 2013</a></p></li>
+<li><p><a href="https://www.routledge.com/products/9780415879682">Geoff Cumming, <em>Understanding the New Statistics: Effect Sizes, Confidence Intervals, and Meta-Analysis</em>, Routledge, New York, 2012</a></p></li>
+</ul>
+</section>
+<section id="data-mining-and-data-science-with-r" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="data-mining-and-data-science-with-r"><span class="header-section-number">2.4</span> Data Mining and Data Science with R</h2>
+<ul>
+<li><p><a href="https://r4ds.had.co.nz/">R for Data Science</a></p></li>
+<li><p><a href="https://www.manning.com/books/practical-data-science-with-r-second-edition">Practical Data Science with R</a> *<a href="https://www.jaredlander.com/r-for-everyone/">R for Everyone: Advanced Analytics and Graphics</a></p></li>
+<li><p><a href="http://www.springer.com/gp/book/9781441998897">Graham Williams, <em>Data Mining with Rattle and R: The Art of Excavating Data for Knowledge Discovery</em>, Springer 2011</a></p>
+<p>Also there is a Web site: <a href="http://rattle.togaware.com/">http://rattle.togaware.com/</a></p></li>
+<li><p><a href="https://www.crcpress.com/Data-Mining-with-R-Learning-with-Case-Studies/Torgo/9781439810187">Luis Torgo, <em>Data Mining with R: Learning with Case Studies</em>, Chapman and Hall/CRC, 2010</a></p></li>
+<li><p><a href="http://www.rdatamining.com/">http://www.rdatamining.com/</a></p></li>
+</ul>
+</section>
+<section id="data-mining-with-weka" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="data-mining-with-weka"><span class="header-section-number">2.5</span> Data Mining with Weka</h2>
+<p>Weka is another popular framework written in Java that can be used and extended with other languages and frameworks. The authors of Weka also have a popular book:</p>
+<ul>
+<li>Ian Witten, Eibe Frank, Mark Hall, Christopher J. Pal, Data Mining: Practical Machine Learning Tools and Techniques (4th Edt), Morgan Kaufmann, 2016, ISBN: 978-0128042915</li>
+</ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-FayyadPS1996" class="csl-entry" role="listitem">
+Fayyad, Usama, Gregory Piatetsky-Shapiro, and Padhraic Smyth. 1996. <span>“The KDD Process for Extracting Useful Knowledge from Volumes of Data.”</span> <em>Commun. ACM</em> (New York, NY, USA) 39 (11): 27–34. <a href="https://doi.org/10.1145/240455.240464">https://doi.org/10.1145/240455.240464</a>.
+</div>
+<div id="ref-shearer00crisp" class="csl-entry" role="listitem">
+Shearer, Colin. 2000. <span>“The CRISP-DM Model: The New Blueprint for Data Mining.”</span> <em>Journal of Data Warehousing</em> 5 (4).
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -837,10 +956,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./130_rmarkdown.html" class="pagination-link" aria-label="R Markdown">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>8&nbsp; Data Sources in Software Engineering – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,7 +24,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -35,7 +53,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./220_dataEffortEstimation.html" rel="next">
+<link href="./170_ggplot.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./210_dataSources.html">Part II - Data Sources and EDA</a></li><li class="breadcrumb-item"><a href="./210_dataSources.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -186,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./210_dataSources.html" class="sidebar-item-text sidebar-link">
+  <a href="./210_dataSources.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></span></a>
   </div>
 </li>
@@ -222,7 +241,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -373,6 +392,23 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A01_ISBSGPreprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: Preprocessing the ISBSG Repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -383,40 +419,36 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#repositories" id="toc-repositories" class="nav-link active" data-scroll-target="#repositories"><span class="header-section-number">9</span> Repositories</a>
+  <ul class="collapse">
+  <li><a href="#large-scale-open-infrastructures-current" id="toc-large-scale-open-infrastructures-current" class="nav-link" data-scroll-target="#large-scale-open-infrastructures-current"><span class="header-section-number">9.1</span> Large-scale Open Infrastructures (Current)</a></li>
+  <li><a href="#curated-and-reproducible-research-collections" id="toc-curated-and-reproducible-research-collections" class="nav-link" data-scroll-target="#curated-and-reproducible-research-collections"><span class="header-section-number">9.2</span> Curated and Reproducible Research Collections</a></li>
+  <li><a href="#restricted-controlled-access-datasets" id="toc-restricted-controlled-access-datasets" class="nav-link" data-scroll-target="#restricted-controlled-access-datasets"><span class="header-section-number">9.3</span> Restricted / Controlled-Access Datasets</a></li>
+  <li><a href="#legacy-resources-still-cited-use-with-caution" id="toc-legacy-resources-still-cited-use-with-caution" class="nav-link" data-scroll-target="#legacy-resources-still-cited-use-with-caution"><span class="header-section-number">9.4</span> Legacy Resources (Still Cited, Use with Caution)</a></li>
+  </ul></li>
+  <li><a href="#open-toolsdashboards-to-extract-data" id="toc-open-toolsdashboards-to-extract-data" class="nav-link" data-scroll-target="#open-toolsdashboards-to-extract-data"><span class="header-section-number">10</span> Open Tools/Dashboards to extract data</a>
+  <ul class="collapse">
+  <li><a href="#issues" id="toc-issues" class="nav-link" data-scroll-target="#issues"><span class="header-section-number">10.1</span> Issues</a></li>
+  <li><a href="#critical-data-quality-threats-in-se-mining" id="toc-critical-data-quality-threats-in-se-mining" class="nav-link" data-scroll-target="#critical-data-quality-threats-in-se-mining"><span class="header-section-number">10.2</span> Critical Data Quality Threats in SE Mining</a></li>
+  <li><a href="#what-is-often-missing-in-se-data-sources" id="toc-what-is-often-missing-in-se-data-sources" class="nav-link" data-scroll-target="#what-is-often-missing-in-se-data-sources"><span class="header-section-number">10.3</span> What Is Often Missing in SE Data Sources</a></li>
+  <li><a href="#minimum-dataset-card-for-reproducibility" id="toc-minimum-dataset-card-for-reproducibility" class="nav-link" data-scroll-target="#minimum-dataset-card-for-reproducibility"><span class="header-section-number">10.4</span> Minimum Dataset Card for Reproducibility</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./210_dataSources.html">Part II - Data Sources and EDA</a></li><li class="breadcrumb-item"><a href="./210_dataSources.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Sources in Software Engineering</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,12 +458,175 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>We classify this trail in the following categories:</p>
+<ul>
+<li><p><em>Source code</em> can be studied to measure its properties, such as size or complexity.</p></li>
+<li><p><em>Source Code Management Systems</em> (SCM) make it possible to store all the changes that the different source code files undergo during the project. Also, SCM systems allow for work to be done in parallel by different developers over the same source code tree. Every change recorded in the system is accompanied with meta-information (author, date, reason for the change, etc) that can be used for research purposes.</p></li>
+<li><p><em>Issue or Bug tracking systems</em> (ITS). Bugs, defects and user requests are managed in ISTs, where users and developers can fill tickets with a description of a defect found, or a desired new functionality. All the changes to the ticket are recorded in the system, and most of the systems also record the comments and communications among all the users and developers implied in the task.</p></li>
+<li><p><em>Messages</em> between developers and users. In the case of free/open source software, the projects are open to the world, and the messages are archived in the form of mailing lists and social networks which can also be mined for research purposes. There are also some other open message systems, such as IRC or forums.</p></li>
+<li><p><em>Meta-data about the projects</em>. As well as the low level information of the software processes, we can also find meta-data about the software projects which can be useful for research. This meta-data may include intended-audience, programming language, domain of application, license (in the case of open source), etc.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/artifactsMeta.png" class="img-fluid figure-img"></p>
+<figcaption>Metadata (source: Israel Herraiz)</figcaption>
+</figure>
+</div>
+<ul>
+<li><em>Usage data</em>. There are statistics about software downloads, logs from servers, software reviews, etc.</li>
+</ul>
+<p>Types of information stored in the repositories:</p>
+<ul>
+<li><p>Meta-information about the project itself and the people that participated.</p>
+<ul>
+<li><p>Low-level information</p>
+<ul>
+<li><p>Mailing Lists (ML)</p></li>
+<li><p>Bug Tracking Systems (BTS) or Project Tracker System (PTS)</p></li>
+<li><p>Software Configuration Management Systems (SCM)</p></li>
+</ul></li>
+<li><p>Processed information. For example project management information about the effort estimation and cost of the project.</p></li>
+</ul></li>
+<li><p>Whether the repository is public or not</p></li>
+<li><p>Single project vs.&nbsp;multiprojects. Whether the repository contains information of a single project with multiples versions or multiples projects and/or versions.</p></li>
+<li><p>Type of content, open source or industrial projects</p></li>
+<li><p>Format in which the information is stored and formats or technologies for accessing the information:</p>
+<ul>
+<li><p>Text. It can be just plain text, CSV (Comma Separated Values) files, Attribute-Relation File Format (ARFF) or its variants</p></li>
+<li><p>Through databases. Downloading dumps of the database.</p></li>
+<li><p>Remote access such as APIs of Web services or REST</p></li>
+</ul></li>
+</ul>
+<section id="repositories" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Repositories</h1>
+<p>The repository ecosystem has changed substantially in recent years. In practice, it is useful to distinguish between large-scale open infrastructures, curated benchmark collections, and restricted datasets.</p>
+<section id="large-scale-open-infrastructures-current" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="large-scale-open-infrastructures-current"><span class="header-section-number">9.1</span> Large-scale Open Infrastructures (Current)</h2>
+<ul>
+<li><strong>GitHub Archive</strong> (event stream for public GitHub activity) <a href="https://www.gharchive.org/">https://www.gharchive.org/</a></li>
+<li><strong>GitHub public data on BigQuery</strong> (queryable snapshots/events and metadata) <a href="https://console.cloud.google.com/marketplace/product/github/github-repos">https://console.cloud.google.com/marketplace/product/github/github-repos</a></li>
+<li><strong>Software Heritage</strong> (universal archive of publicly available source code) <a href="https://www.softwareheritage.org/">https://www.softwareheritage.org/</a></li>
+<li><strong>World of Code</strong> (very large source-code and commit graph; research access model) <a href="https://worldofcode.org/">https://worldofcode.org/</a></li>
+<li><strong>Libraries.io</strong> (package/dependency metadata across many ecosystems) <a href="https://libraries.io/">https://libraries.io/</a></li>
+</ul>
+</section>
+<section id="curated-and-reproducible-research-collections" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="curated-and-reproducible-research-collections"><span class="header-section-number">9.2</span> Curated and Reproducible Research Collections</h2>
+<ul>
+<li><strong>Zenodo</strong> (datasets/code with DOI for reproducibility) <a href="https://zenodo.org/">https://zenodo.org/</a></li>
+<li><strong>PROMISE repository</strong> (classic SE benchmark datasets) <a href="http://promise.site.uottawa.ca/SERepository/datasets-page.html">http://promise.site.uottawa.ca/SERepository/datasets-page.html</a></li>
+<li><strong>Awesome MSR list</strong> (curated pointers to mining software repositories resources) <a href="https://github.com/dspinellis/awesome-msr">https://github.com/dspinellis/awesome-msr</a></li>
+</ul>
+</section>
+<section id="restricted-controlled-access-datasets" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="restricted-controlled-access-datasets"><span class="header-section-number">9.3</span> Restricted / Controlled-Access Datasets</h2>
+<ul>
+<li><strong>ISBSG</strong> (industry benchmark data, mainly effort/cost) <a href="http://www.isbsg.org/">http://www.isbsg.org/</a></li>
+<li><strong>World of Code</strong> can also fall into this category depending on requested access level and usage mode.</li>
+</ul>
+</section>
+<section id="legacy-resources-still-cited-use-with-caution" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="legacy-resources-still-cited-use-with-caution"><span class="header-section-number">9.4</span> Legacy Resources (Still Cited, Use with Caution)</h2>
+<p>Several repositories frequently cited in older literature are partially inactive, changed, or difficult to reproduce exactly in their original form (for example, FLOSSMole, FLOSSMetrics, some SourceForge archives, and project-specific mirrors). They remain useful for historical comparison, but new studies should prefer modern, actively maintained infrastructures.</p>
+<p>For PROMISE/NASA-style defect datasets, note the well-documented quality issues and the limited availability of original source context.</p>
+</section>
+</section>
+<section id="open-toolsdashboards-to-extract-data" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Open Tools/Dashboards to extract data</h1>
+<p>Process to extract data:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./figures/process.png" class="img-fluid figure-img"></p>
+<figcaption>Process</figcaption>
+</figure>
+</div>
+<p>Within the open source community, several toolkits allow us to extract data that can be used to explore projects:</p>
+<p>Metrics Grimoire <a href="http://metricsgrimoire.github.io/">http://metricsgrimoire.github.io/</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/Grimoire.png" class="img-fluid figure-img"></p>
+<figcaption>Grimoire</figcaption>
+</figure>
+</div>
+<p>SonarQube <a href="http://www.sonarqube.org/">http://www.sonarqube.org/</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/sonarQube.png" class="img-fluid figure-img"></p>
+<figcaption>SonarQube</figcaption>
+</figure>
+</div>
+<p>CKJM (OO Metrics tool) <a href="http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/">http://gromit.iiar.pwr.wroc.pl/p_inf/ckjm/</a></p>
+<p>Collects a large number of object-oriented metrics from code.</p>
+<section id="issues" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="issues"><span class="header-section-number">10.1</span> Issues</h2>
+<p>There are problems such as different tools report different values for the same metric <span class="citation" data-cites="Lincke2008">(<a href="990_references.html#ref-Lincke2008" role="doc-biblioref">Lincke et al. 2008</a>)</span></p>
+<p>It is well known that the NASA datasets have some problems:</p>
+<ul>
+<li><p><span class="citation" data-cites="Gray2011">(<a href="990_references.html#ref-Gray2011" role="doc-biblioref">Gray et al. 2011</a>)</span> The misuse of the NASA metrics data program data sets for automated software defect prediction</p></li>
+<li><p><span class="citation" data-cites="Shepperd2013">(<a href="990_references.html#ref-Shepperd2013" role="doc-biblioref">Shepperd et al. 2013</a>)</span> Data Quality: Some Comments on the NASA Software Defect Datasets</p></li>
+</ul>
+</section>
+<section id="critical-data-quality-threats-in-se-mining" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="critical-data-quality-threats-in-se-mining"><span class="header-section-number">10.2</span> Critical Data Quality Threats in SE Mining</h2>
+<p>When mining software repositories, several systematic threats can corrupt datasets before any analysis begins. These are distinct from the general data quality issues above and are specific to the sociotechnical nature of software repositories.</p>
+<p><strong>Bot activity.</strong> A substantial fraction of commits, issues, pull requests, and comments in modern repositories originate from automated agents — dependency updaters (Dependabot, Renovate), CI bots (GitHub Actions), or project management bots. Including bot activity inflates author counts, commit frequencies, and issue-close rates in ways that distort any analysis based on those signals. Detecting bots requires heuristics or classifiers trained on names, email patterns, and behavioral regularity <span class="citation" data-cites="Rosa2021Bot">(<a href="990_references.html#ref-Rosa2021Bot" role="doc-biblioref">Recupito et al. 2021</a>)</span>.</p>
+<p><strong>Identity and alias merging.</strong> The same developer may appear under multiple email addresses, usernames, or display names across systems. Without alias resolution, contributor statistics, author-level effort models, and social network analyses are unreliable. Tools such as <em>git-fame</em>, <em>SortingHat</em>, or custom string-similarity heuristics are commonly used for this step <span class="citation" data-cites="Kalliamvakou2014Perils">(<a href="990_references.html#ref-Kalliamvakou2014Perils" role="doc-biblioref">Kalliamvakou et al. 2014</a>)</span>.</p>
+<p><strong>Tangled commits.</strong> A single commit may fix a bug, refactor existing code, and add a new feature simultaneously. SZZ-based defect datasets assume that bug-fixing commits cleanly identify the bug-introducing change — a fragile assumption when commits are tangled. Untangling methods exist but are rarely applied in published datasets.</p>
+<p><strong>The SZZ algorithm and its known flaws.</strong> Most defect prediction datasets label bug-introducing changes by tracing bug-fixing commits back to the lines they modified, a process codified in the SZZ algorithm. SZZ is known to be noisy: it misattributes whitespace changes, comment edits, and moved code as bug introductions. Multiple variants (B-SZZ, AG-SZZ, MA-SZZ, RA-SZZ) have been proposed to reduce these errors; Borg et al.&nbsp;provide a systematic comparison <span class="citation" data-cites="Borg2019SZZ">(<a href="990_references.html#ref-Borg2019SZZ" role="doc-biblioref">Borg et al. 2019</a>)</span>.</p>
+<p><strong>Near-duplicate and forked repositories.</strong> GitHub hosts millions of repository forks. Mining without fork-filtering inflates dataset size and introduces near-identical observations, inflating apparent sample size and correlation. World of Code and GHTorrent both document the extent of this problem.</p>
+<p><strong>Survivorship bias.</strong> Analyses on “active” or “popular” repositories systematically exclude projects that died, stalled, or were kept private. Kalliamvakou et al.&nbsp;identified this as one of the central perils of mining GitHub; findings from surviving projects may not generalise to the full population of software development <span class="citation" data-cites="Kalliamvakou2014Perils">(<a href="990_references.html#ref-Kalliamvakou2014Perils" role="doc-biblioref">Kalliamvakou et al. 2014</a>)</span>.</p>
+</section>
+<section id="what-is-often-missing-in-se-data-sources" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="what-is-often-missing-in-se-data-sources"><span class="header-section-number">10.3</span> What Is Often Missing in SE Data Sources</h2>
+<p>When selecting a dataset, it is common to focus on size and number of attributes, but several critical aspects are often under-reported:</p>
+<ul>
+<li><strong>Provenance</strong>: exact extraction query/script, extraction date, and tool version.</li>
+<li><strong>Versioning</strong>: whether the data corresponds to one release, multiple releases, or moving snapshots.</li>
+<li><strong>Unit of analysis</strong>: file-level, class-level, module-level, commit-level, or issue-level.</li>
+<li><strong>Ground truth definition</strong>: how labels were assigned (for example, how a file is marked as defective).</li>
+<li><strong>Missing data policy</strong>: whether missing values were removed, imputed, or left as-is.</li>
+<li><strong>Data quality checks</strong>: duplicate records, inconsistent identifiers, impossible values.</li>
+<li><strong>Licensing and legal constraints</strong>: redistribution rights and terms of use.</li>
+<li><strong>Privacy/security</strong>: anonymization of developer identities and removal of sensitive fields.</li>
+</ul>
+<p>These elements are essential to make replication and fair comparison possible.</p>
+</section>
+<section id="minimum-dataset-card-for-reproducibility" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="minimum-dataset-card-for-reproducibility"><span class="header-section-number">10.4</span> Minimum Dataset Card for Reproducibility</h2>
+<p>For each dataset used in this course/project, document at least:</p>
+<ol type="1">
+<li>Source repository and URL</li>
+<li>Extraction period and timezone</li>
+<li>Granularity and keys (e.g., file, commit, issue)</li>
+<li>Label definition and class distribution</li>
+<li>Number of records before/after cleaning</li>
+<li>Features removed and rationale</li>
+<li>Known threats to validity</li>
+</ol>
+<p>This small checklist dramatically improves transparency and repeatability.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Borg2019SZZ" class="csl-entry" role="listitem">
+Borg, Markus, Oscar Svensson, Kristian Berg, and Daniel Hansson. 2019. <span>“<span>SZZ</span> Unleashed: An Open Implementation of the <span>SZZ</span> Algorithm – Featuring Example Usage in a Study of Just-in-Time Bug Prediction for the <span>Linux</span> Kernel.”</span> <em>Proceedings of the 3rd ACM SIGSOFT International Workshop on Machine Learning Techniques for Software Quality Evaluation</em>, 1–6. <a href="https://doi.org/10.1145/3340482.3342742">https://doi.org/10.1145/3340482.3342742</a>.
+</div>
+<div id="ref-Gray2011" class="csl-entry" role="listitem">
+Gray, D., D. Bowes, N. Davey, Y. Sun, and B. Christianson. 2011. <span>“The Misuse of the NASA Metrics Data Program Data Sets for Automated Software Defect Prediction.”</span> <em>15th Annual Conference on Evaluation Assessment in Software Engineering (EASE 2011)</em>, 96–103. <a href="https://doi.org/10.1049/ic.2011.0012">https://doi.org/10.1049/ic.2011.0012</a>.
+</div>
+<div id="ref-Kalliamvakou2014Perils" class="csl-entry" role="listitem">
+Kalliamvakou, Eirini, Georgios Gousios, Kelly Blincoe, Leif Singer, Daniel M. German, and Daniela Damian. 2014. <span>“The Promises and Perils of Mining <span>GitHub</span>.”</span> <em>Proceedings of the 11th Working Conference on Mining Software Repositories (MSR)</em>, 92–101. <a href="https://doi.org/10.1145/2597073.2597074">https://doi.org/10.1145/2597073.2597074</a>.
+</div>
+<div id="ref-Lincke2008" class="csl-entry" role="listitem">
+Lincke, Rüdiger, Jonas Lundberg, and Welf Löwe. 2008. <span>“Comparing Software Metrics Tools.”</span> <em>Proceedings of the 2008 International Symposium on Software Testing and Analysis (ISSTA’08)</em> (New York, NY, USA), ISSTA’08, 131–42. <a href="https://doi.org/10.1145/1390630.1390648">https://doi.org/10.1145/1390630.1390648</a>.
+</div>
+<div id="ref-Rosa2021Bot" class="csl-entry" role="listitem">
+Recupito, Gilberto, Giulia Cassieri, Matteo Ciniselli, Simone Scalabrino, and Rocco Oliveto. 2021. <span>“Characterizing and Detecting Bots That Commit Code.”</span> <em>Proceedings of the 18th International Conference on Mining Software Repositories (MSR)</em>, 230–34. <a href="https://doi.org/10.1109/MSR52588.2021.00031">https://doi.org/10.1109/MSR52588.2021.00031</a>.
+</div>
+<div id="ref-Shepperd2013" class="csl-entry" role="listitem">
+Shepperd, M., Qinbao Song, Zhongbin Sun, and C. Mair. 2013. <span>“Data Quality: Some Comments on the NASA Software Defect Datasets.”</span> <em>IEEE Transactions on Software Engineering</em> 39 (9): 1208–15. <a href="https://doi.org/10.1109/TSE.2013.11">https://doi.org/10.1109/TSE.2013.11</a>.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -837,10 +1032,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./170_ggplot.html" class="pagination-link" aria-label="The `ggplot2` package">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The <code>ggplot2</code> package</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./220_dataEffortEstimation.html" class="pagination-link" aria-label="Effort Estimation Data in Software Engineering">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Effort Estimation Data in Software Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

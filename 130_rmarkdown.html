@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>3&nbsp; R Markdown – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./140_rnpython.html" rel="next">
+<link href="./120_intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./130_rmarkdown.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -145,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./130_rmarkdown.html" class="sidebar-item-text sidebar-link">
+  <a href="./130_rmarkdown.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span></a>
   </div>
 </li>
@@ -383,40 +418,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#basic-structure" id="toc-basic-structure" class="nav-link active" data-scroll-target="#basic-structure"><span class="header-section-number">3.1</span> Basic Structure</a></li>
+  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks"><span class="header-section-number">3.2</span> Code Chunks</a></li>
+  <li><a href="#useful-chunk-options" id="toc-useful-chunk-options" class="nav-link" data-scroll-target="#useful-chunk-options"><span class="header-section-number">3.3</span> Useful Chunk Options</a></li>
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code"><span class="header-section-number">3.4</span> Inline Code</a></li>
+  <li><a href="#plot-example-software-engineering" id="toc-plot-example-software-engineering" class="nav-link" data-scroll-target="#plot-example-software-engineering"><span class="header-section-number">3.5</span> Plot Example (Software Engineering)</a></li>
+  <li><a href="#reproducibility-tips" id="toc-reproducibility-tips" class="nav-link" data-scroll-target="#reproducibility-tips"><span class="header-section-number">3.6</span> Reproducibility Tips</a></li>
+  <li><a href="#further-information" id="toc-further-information" class="nav-link" data-scroll-target="#further-information"><span class="header-section-number">3.7</span> Further Information</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./130_rmarkdown.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +450,109 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>R Markdown lets us combine narrative text, code, and output in one reproducible document. In software engineering, this is very useful for:</p>
+<ul>
+<li>defect analysis reports</li>
+<li>effort estimation summaries</li>
+<li>model evaluation dashboards</li>
+<li>experiment logs for reproducibility</li>
+</ul>
+<section id="basic-structure" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="basic-structure"><span class="header-section-number">3.1</span> Basic Structure</h2>
+<p>A typical R Markdown / Quarto document contains:</p>
+<ul>
+<li>headings and text written in Markdown</li>
+<li>code chunks (R, Python, etc.)</li>
+<li>generated output (tables, plots, metrics)</li>
+</ul>
+<p>The rendering process executes the chunks and creates HTML/PDF/Word output.</p>
+</section>
+<section id="code-chunks" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="code-chunks"><span class="header-section-number">3.2</span> Code Chunks</h2>
+<p>Chunks start and end with triple backticks and a chunk header.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example software metrics dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>se_metrics <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">module =</span> <span class="fu">c</span>(<span class="st">"Auth"</span>, <span class="st">"Billing"</span>, <span class="st">"Search"</span>, <span class="st">"UI"</span>, <span class="st">"Export"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">loc =</span> <span class="fu">c</span>(<span class="dv">220</span>, <span class="dv">540</span>, <span class="dv">430</span>, <span class="dv">310</span>, <span class="dv">270</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cyclomatic =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">25</span>, <span class="dv">19</span>, <span class="dv">14</span>, <span class="dv">11</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">defects =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(se_metrics)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    module               loc        cyclomatic      defects   
+ Length:5           Min.   :220   Min.   :11.0   Min.   :0.0  
+ Class :character   1st Qu.:270   1st Qu.:12.0   1st Qu.:0.0  
+ Mode  :character   Median :310   Median :14.0   Median :1.0  
+                    Mean   :354   Mean   :16.2   Mean   :1.2  
+                    3rd Qu.:430   3rd Qu.:19.0   3rd Qu.:2.0  
+                    Max.   :540   Max.   :25.0   Max.   :3.0  </code></pre>
+</div>
+</div>
+</section>
+<section id="useful-chunk-options" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="useful-chunk-options"><span class="header-section-number">3.3</span> Useful Chunk Options</h2>
+<ul>
+<li><code>echo=FALSE</code>: hide code, show results</li>
+<li><code>message=FALSE</code>: hide package startup messages</li>
+<li><code>warning=FALSE</code>: hide warnings</li>
+<li><code>eval=FALSE</code>: show code but do not run it</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   module defects
+1    Auth       0
+2 Billing       3
+3  Export       0
+4  Search       2
+5      UI       1</code></pre>
+</div>
+</div>
+</section>
+<section id="inline-code" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="inline-code"><span class="header-section-number">3.4</span> Inline Code</h2>
+<p>You can insert computed values directly in text.</p>
+<p>Example: the total number of defects in this sample is 6.</p>
+</section>
+<section id="plot-example-software-engineering" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="plot-example-software-engineering"><span class="header-section-number">3.5</span> Plot Example (Software Engineering)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    se_metrics<span class="sc">$</span>loc,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    se_metrics<span class="sc">$</span>defects,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Lines of Code (LOC)"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Number of Defects"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Defects vs LOC by Module"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"steelblue"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(se_metrics<span class="sc">$</span>loc, se_metrics<span class="sc">$</span>defects, <span class="at">labels =</span> se_metrics<span class="sc">$</span>module, <span class="at">pos =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="130_rmarkdown_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="reproducibility-tips" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="reproducibility-tips"><span class="header-section-number">3.6</span> Reproducibility Tips</h2>
+<ul>
+<li>set a random seed for experiments (<code>set.seed(...)</code>)</li>
+<li>keep data-loading code in the document</li>
+<li>report metrics and plots in the same file</li>
+<li>avoid manual copy/paste of results into reports</li>
+</ul>
+</section>
+<section id="further-information" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="further-information"><span class="header-section-number">3.7</span> Further Information</h2>
+<ul>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></li>
+<li><a href="https://rmarkdown.rstudio.com/">R Markdown by Posit</a></li>
+<li><a href="https://quarto.org/docs/authoring/">Quarto Authoring Basics</a></li>
+</ul>
 
 
 </section>
@@ -837,10 +960,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./120_intro.html" class="pagination-link" aria-label="What is Data Mining">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is Data Mining</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./140_rnpython.html" class="pagination-link" aria-label="R and Python">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

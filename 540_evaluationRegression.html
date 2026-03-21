@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>20&nbsp; Numeric Prediction Evaluation – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./550_evaluationUnsupervised.html" rel="next">
+<link href="./530_evaluationGraphical.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -74,6 +109,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="toc.css">
@@ -88,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./540_evaluationRegression.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -222,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -291,7 +355,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./540_evaluationRegression.html" class="sidebar-item-text sidebar-link">
+  <a href="./540_evaluationRegression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></span></a>
   </div>
 </li>
@@ -383,40 +447,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#learning-objectives-and-evaluation-lens" id="toc-learning-objectives-and-evaluation-lens" class="nav-link active" data-scroll-target="#learning-objectives-and-evaluation-lens"><span class="header-section-number">20.1</span> Learning Objectives and Evaluation Lens</a></li>
+  <li><a href="#important-topics-often-missing" id="toc-important-topics-often-missing" class="nav-link" data-scroll-target="#important-topics-often-missing"><span class="header-section-number">20.2</span> Important topics often missing</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./540_evaluationRegression.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Numeric Prediction Evaluation</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +474,51 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<section id="learning-objectives-and-evaluation-lens" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="learning-objectives-and-evaluation-lens"><span class="header-section-number">20.1</span> Learning Objectives and Evaluation Lens</h2>
+<ul>
+<li><strong>Objective</strong>: evaluate numeric predictions with robust error measures.</li>
+<li><strong>Primary metrics</strong>: MAE, RMSE, and context-specific relative metrics.</li>
+<li><strong>Common pitfalls</strong>: relying on a single metric and ignoring error distribution shape.</li>
+<li><strong>Reporting advice</strong>: include central tendency and dispersion (for example, confidence intervals or repeated-run summaries).</li>
+</ul>
+<p>In numeric prediction, the key quantity is the difference between the predicted value and the actual value. Common performance metrics used for numeric prediction are as follows, where <span class="math inline">\(\hat{y_n}\)</span> represents the predicted value and <span class="math inline">\(y_n\)</span> the actual one.</p>
+<p>Mean Square Error (<span class="math inline">\(MSE\)</span>)</p>
+<p><span class="math inline">\(MSE = \frac{(\hat{y_1} - y_1)^2 + \ldots  +(\hat{y_n} - y_n)^2}{n} = \frac{1}{n}\sum_{i=1}^n(\hat{y_i} - y_i)^2\)</span></p>
+<p>Root mean-squared error (<span class="math inline">\(RMSE\)</span>)</p>
+<p><span class="math inline">\({RMSE} = \sqrt{\frac{\sum_{t=1}^n (\hat y_t - y)^2}{n}}\)</span></p>
+<p>Mean Absolute Error (<span class="math inline">\(MAE\)</span>)</p>
+<p><span class="math inline">\(MAE = \frac{|\hat{y_1} - y_1| + \ldots  +|\hat{y_n} - y_n|}{n} = \frac{1}{n}\sum_{t=1}^n |\hat y_t - y_t|\)</span></p>
+<p>Relative Absolute Error (<span class="math inline">\(RAE\)</span>)</p>
+<p><span class="math inline">\(RAE = \frac{ \sum^N_{i=1} | \hat{\theta}_i - \theta_i | } {  \sum^N_{i=1} | \overline{\theta} - \theta_i |}\)</span></p>
+<p>Root Relative-Squared Error (<span class="math inline">\(RRSE\)</span>)</p>
+<p><span class="math inline">\(RRSE = \sqrt{ \frac{ \sum^N_{i=1} ( \hat{\theta}_i - \theta_i )^2 } {  \sum^N_{i=1} ( \overline{\theta} - \theta_i )^2 } }\)</span></p>
+<p>where <span class="math inline">\(\hat{\theta}\)</span> is a mean value of <span class="math inline">\(\theta\)</span>.</p>
+<p>Relative-Squared r (<span class="math inline">\(RSE\)</span>)</p>
+<p><span class="math inline">\(\frac{(p_1-a_1)^2 + \ldots  +(p_n-a_n)^2}{(a_1-\hat{a})^2 + \ldots + (a_n-\hat{a})^2}\)</span></p>
+<p>where (<span class="math inline">\(\hat{a}\)</span> is the mean value over the training data)</p>
+<p>Relative Absolute Error (<span class="math inline">\(RAE\)</span>)</p>
+<p>Correlation Coefficient</p>
+<p><em>Correlation coefficient</em> between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\rho(X,Y) = \frac{{\bf Cov}(X,Y)}{\sqrt{{\bf Var}(X){\bf Var}(Y)}}\)</span>. The sample correlation coefficient <span class="math inline">\(r\)</span> between two samples <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_j\)</span> is defined as <span class="math inline">\(r = S_{xy}/\sqrt{S_{xx}S_{yy}}\)</span>.</p>
+<p>Example: Is there any linear relationship between the effort estimates (<span class="math inline">\(p_i\)</span>) and actual effort (<span class="math inline">\(a_i\)</span>)?</p>
+<p><span class="math inline">\(a\|39,43,21,64,57,47,28,75,34,52\)</span></p>
+<p><span class="math inline">\(p\|65,78,52,82,92,89,73,98,56,75\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">39</span>,<span class="dv">43</span>,<span class="dv">21</span>,<span class="dv">64</span>,<span class="dv">57</span>,<span class="dv">47</span>,<span class="dv">28</span>,<span class="dv">75</span>,<span class="dv">34</span>,<span class="dv">52</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">78</span>,<span class="dv">52</span>,<span class="dv">82</span>,<span class="dv">92</span>,<span class="dv">89</span>,<span class="dv">73</span>,<span class="dv">98</span>,<span class="dv">56</span>,<span class="dv">75</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(p,a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><span class="math inline">\(R^2\)</span></p>
+</section>
+<section id="important-topics-often-missing" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="important-topics-often-missing"><span class="header-section-number">20.2</span> Important topics often missing</h2>
+<ul>
+<li>prediction intervals (not only point predictions)</li>
+<li>robustness to outliers and heavy-tailed errors</li>
+<li>metric sensitivity by project size segment (small vs large projects)</li>
+<li>temporal generalization (train on older projects, test on newer)</li>
+</ul>
 
 
 </section>
@@ -837,10 +926,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./530_evaluationGraphical.html" class="pagination-link" aria-label="Graphical Evaluation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Graphical Evaluation</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./550_evaluationUnsupervised.html" class="pagination-link" aria-label="Evaluation of Unsupervised Models">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Evaluation of Unsupervised Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

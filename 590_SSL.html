@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>25&nbsp; Further Classification Models – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./610_SNAinSE.html" rel="next">
+<link href="./580_advancedModelBuilding.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./590_SSL.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -222,7 +257,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -321,7 +356,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./590_SSL.html" class="sidebar-item-text sidebar-link">
+  <a href="./590_SSL.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></span></a>
   </div>
 </li>
@@ -373,6 +408,23 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A01_ISBSGPreprocessing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix: Preprocessing the ISBSG Repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -383,40 +435,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#learning-objectives-and-evaluation-lens" id="toc-learning-objectives-and-evaluation-lens" class="nav-link active" data-scroll-target="#learning-objectives-and-evaluation-lens"><span class="header-section-number">25.1</span> Learning Objectives and Evaluation Lens</a></li>
+  <li><a href="#multilabel-classification" id="toc-multilabel-classification" class="nav-link" data-scroll-target="#multilabel-classification"><span class="header-section-number">25.2</span> Multilabel classification</a></li>
+  <li><a href="#ordinal-classification" id="toc-ordinal-classification" class="nav-link" data-scroll-target="#ordinal-classification"><span class="header-section-number">25.3</span> Ordinal Classification</a></li>
+  <li><a href="#weak-and-distant-supervision" id="toc-weak-and-distant-supervision" class="nav-link" data-scroll-target="#weak-and-distant-supervision"><span class="header-section-number">25.4</span> Weak and Distant Supervision</a></li>
+  <li><a href="#active-learning" id="toc-active-learning" class="nav-link" data-scroll-target="#active-learning"><span class="header-section-number">25.5</span> Active Learning</a></li>
+  <li><a href="#semi-supervised-learning" id="toc-semi-supervised-learning" class="nav-link" data-scroll-target="#semi-supervised-learning"><span class="header-section-number">25.6</span> Semi-supervised Learning</a>
+  <ul class="collapse">
+  <li><a href="#practical-caveats" id="toc-practical-caveats" class="nav-link" data-scroll-target="#practical-caveats"><span class="header-section-number">25.6.1</span> Practical caveats</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./590_SSL.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Further Classification Models</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,12 +469,147 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<section id="learning-objectives-and-evaluation-lens" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="learning-objectives-and-evaluation-lens"><span class="header-section-number">25.1</span> Learning Objectives and Evaluation Lens</h2>
+<ul>
+<li><strong>Objective</strong>: handle classification settings that go beyond single-label fully supervised learning.</li>
+<li><strong>Data context</strong>: multilabel corpora and partially labeled datasets.</li>
+<li><strong>Validation</strong>: strict separation of labeled/unlabeled/test data with leakage controls.</li>
+<li><strong>Primary metrics</strong>: macro/micro F1 for multilabel tasks; confusion-based metrics for SSL classification.</li>
+<li><strong>Common pitfalls</strong>: pseudo-label confirmation bias, class imbalance, and distribution mismatch.</li>
+</ul>
+</section>
+<section id="multilabel-classification" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="multilabel-classification"><span class="header-section-number">25.2</span> Multilabel classification</h2>
+<p>Some datasets, for example reviews of applications and mobile application repositories such as the App Store or Google Play, contain reviews that can have several labels at the same time (e.g., bugs, feature requests, UI issues). Similarly, a software issue may belong to multiple components or concern multiple quality attributes simultaneously.</p>
+<p>In <strong>multilabel classification</strong>, each instance can be assigned to more than one class. Common approaches are:</p>
+<ul>
+<li><strong>Binary Relevance (BR)</strong>: train one independent binary classifier per label. Simple but ignores label co-occurrence.</li>
+<li><strong>Classifier Chains (CC)</strong>: extend BR by passing previous predictions as features to the next classifier, capturing label dependencies.</li>
+<li><strong>Label Powerset (LP)</strong>: treat each unique label combination as a single class; exact but combinatorially expensive.</li>
+</ul>
+<p>In R, the <code>mldr</code> package provides data structures and learners for multilabel classification. For a tidy workflow, <code>mlr3</code> with its multilabel task type is an alternative. Evaluation uses <strong>Hamming loss</strong> (fraction of wrong label assignments), <strong>macro/micro F1</strong>, and <strong>subset accuracy</strong> (all labels correct).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sketch with mldr</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(mldr)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mldr_dataset &lt;- mldr_from_dataframe(df, labelIndices = label_col_indices)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(mldr_dataset)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ordinal-classification" class="level2" data-number="25.3">
+<h2 data-number="25.3" class="anchored" data-anchor-id="ordinal-classification"><span class="header-section-number">25.3</span> Ordinal Classification</h2>
+<p>Many SE outcomes are not nominal but <strong>ordinal</strong>: defect severity (low &lt; medium &lt; high &lt; critical), code review priority, or technical debt level. Standard classifiers treat classes as exchangeable and ignore the ordering, which can inflate nominal error rates on practically small mistakes.</p>
+<p>Approaches: - <strong>Ordinal regression</strong> (proportional-odds model): extends logistic regression with monotonicity constraints across thresholds. - <strong>Threshold decomposition</strong>: convert the ordinal problem into a series of binary problems using cumulative link models. - <strong>Cost-sensitive learning</strong>: assign asymmetric misclassification costs that reflect the ordinal distance.</p>
+<p>In R, the <code>ordinal</code> package implements cumulative link (mixed) models.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ordinal)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># m &lt;- clm(severity ~ loc + complexity, data = train_df)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># predict(m, newdata = test_df)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="weak-and-distant-supervision" class="level2" data-number="25.4">
+<h2 data-number="25.4" class="anchored" data-anchor-id="weak-and-distant-supervision"><span class="header-section-number">25.4</span> Weak and Distant Supervision</h2>
+<p>In SE datasets, labels are often derived from heuristics rather than manual annotation — for example, a file is labelled “defective” if a commit message contains the word <em>fix</em> or <em>bug</em> (SZZ approach), or a commit is labelled as a “feature addition” based on keyword matching. These automatically generated, imperfect labels are called <strong>weak labels</strong> or <strong>distant labels</strong>.</p>
+<p><strong>Consequences:</strong> - Label noise can substantially degrade model performance. - Models may learn to predict the labelling heuristic rather than the underlying concept. - Standard evaluation metrics are optimistic if the test set uses the same noisy labels as training.</p>
+<p><strong>Mitigations:</strong> - Use a small set of carefully hand-labelled instances to validate label quality. - Apply label-noise-robust learning algorithms (e.g., learning with noisy labels via bootstrapping or noise-tolerant loss functions). - Report sensitivity analyses showing performance variation under different label-cleaning thresholds.</p>
+</section>
+<section id="active-learning" class="level2" data-number="25.5">
+<h2 data-number="25.5" class="anchored" data-anchor-id="active-learning"><span class="header-section-number">25.5</span> Active Learning</h2>
+<p><strong>Active learning</strong> addresses the situation where unlabeled data is abundant but labeling is expensive (requiring expert code review, manual bug classification, or security audit). The learner iteratively queries an <em>oracle</em> (typically a human expert) for the labels of the most informative instances.</p>
+<p>Common query strategies: - <strong>Uncertainty sampling</strong>: query the instance on which the current model is least confident. - <strong>Query by committee</strong>: train a committee of models; query the instance with the highest disagreement. - <strong>Expected model change</strong>: query the instance that would most change the model.</p>
+<p>In SE, active learning has been applied to defect labeling, code review prioritization, and test-case selection. The key advantage is that fewer expert-labeled examples are needed to reach a target accuracy.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Active learning loop sketch (uncertainty sampling)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Start with small labeled set L, large unlabeled pool U</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Train classifier on L</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Compute prediction entropy on U</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Select top-k most uncertain instances → send to oracle</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Add newly labeled instances to L, remove from U</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Repeat until budget exhausted</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="semi-supervised-learning" class="level2" data-number="25.6">
+<h2 data-number="25.6" class="anchored" data-anchor-id="semi-supervised-learning"><span class="header-section-number">25.6</span> Semi-supervised Learning</h2>
+<p>Self-train a model on semi-supervised data.</p>
+<section id="practical-caveats" class="level3" data-number="25.6.1">
+<h3 data-number="25.6.1" class="anchored" data-anchor-id="practical-caveats"><span class="header-section-number">25.6.1</span> Practical caveats</h3>
+<p>Semi-supervised learning can improve performance when unlabeled data matches the same distribution as labeled data, but it can also amplify errors.</p>
+<p>Key risks and guardrails:</p>
+<ol type="1">
+<li><dl>
+<dt><strong>Confirmation bias</strong>: wrong pseudo-labels can reinforce themselves.</dt>
+<dd>
+Use confidence thresholds and add pseudo-labels gradually.
+</dd>
+</dl></li>
+<li><dl>
+<dt><strong>Distribution mismatch</strong>: unlabeled pool may differ from labeled data.</dt>
+<dd>
+Monitor drift and evaluate on a clean held-out set.
+</dd>
+</dl></li>
+<li><dl>
+<dt><strong>Overconfidence</strong>: probabilities may be poorly calibrated.</dt>
+<dd>
+Prefer calibrated models or conservative thresholds.
+</dd>
+</dl></li>
+<li><dl>
+<dt><strong>Leakage</strong>: test data must never be used in pseudo-label loops.</dt>
+<dd>
+Keep strict train/validation/test separation.
+</dd>
+</dl></li>
+</ol>
+<p>The legacy examples in this chapter used <code>DMwR2::SelfTrain</code>, which is no longer actively maintained. A standard modern alternative in R workflows is to combine <code>tidymodels</code> with a pseudo-labeling loop.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Small example with the Iris classification data set</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Split into train / test</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(iris)), <span class="dv">100</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> iris[idx, ]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> iris[<span class="sc">-</span>idx, ]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Hide labels for a large subset of the training data</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>tr_ssl <span class="ot">&lt;-</span> tr</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>nas <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(tr_ssl)), <span class="dv">70</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>tr_ssl<span class="sc">$</span>Species[nas] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Start from labeled rows only</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>labeled <span class="ot">&lt;-</span> tr_ssl <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Species))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>unlabeled <span class="ot">&lt;-</span> tr_ssl <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">is.na</span>(Species))</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Base learner</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_recipe</span>(<span class="fu">recipe</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> labeled)) <span class="sc">|&gt;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_model</span>(<span class="fu">decision_tree</span>() <span class="sc">|&gt;</span> <span class="fu">set_engine</span>(<span class="st">"rpart"</span>) <span class="sc">|&gt;</span> <span class="fu">set_mode</span>(<span class="st">"classification"</span>))</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Pseudo-labeling loop (single pass for teaching clarity)</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">fit</span>(wf, <span class="at">data =</span> labeled)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit0, unlabeled, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit0, unlabeled, <span class="at">type =</span> <span class="st">"class"</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Keep only high-confidence pseudo-labels</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>conf <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="fu">as.matrix</span>(probs), <span class="dv">1</span>, max)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>selected <span class="ot">&lt;-</span> conf <span class="sc">&gt;=</span> <span class="fl">0.9</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>pseudo <span class="ot">&lt;-</span> unlabeled[selected, ]</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>pseudo<span class="sc">$</span>Species <span class="ot">&lt;-</span> preds<span class="sc">$</span>.pred_class[selected]</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>augmented <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(labeled, pseudo)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>fit_ssl <span class="ot">&lt;-</span> <span class="fu">fit</span>(wf, <span class="at">data =</span> augmented)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="do">## Evaluate on held-out test set</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>pred_ssl <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_ssl, ts, <span class="at">type =</span> <span class="st">"class"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">conf_mat_vec</span>(ts<span class="sc">$</span>Species, pred_ssl<span class="sc">$</span>.pred_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -837,10 +1015,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./580_advancedModelBuilding.html" class="pagination-link" aria-label="Advanced Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Advanced Models</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./610_SNAinSE.html" class="pagination-link" aria-label="Social Network Analysis in SE">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Social Network Analysis in SE</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

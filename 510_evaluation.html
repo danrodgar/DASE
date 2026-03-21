@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>17&nbsp; Evaluation of Models – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -35,7 +34,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./520_evaluationClassifiers.html" rel="next">
+<link href="./430_basicModelBuildingUnsupervised.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -74,6 +74,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="toc.css">
@@ -88,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./510_evaluation.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -222,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -273,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./510_evaluation.html" class="sidebar-item-text sidebar-link">
+  <a href="./510_evaluation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></span></a>
   </div>
 </li>
@@ -383,40 +412,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#learning-objectives-and-evaluation-lens" id="toc-learning-objectives-and-evaluation-lens" class="nav-link active" data-scroll-target="#learning-objectives-and-evaluation-lens"><span class="header-section-number">17.1</span> Learning Objectives and Evaluation Lens</a></li>
+  <li><a href="#what-is-often-missing-in-model-evaluation" id="toc-what-is-often-missing-in-model-evaluation" class="nav-link" data-scroll-target="#what-is-often-missing-in-model-evaluation"><span class="header-section-number">17.2</span> What Is Often Missing in Model Evaluation</a></li>
+  <li><a href="#building-and-validating-a-model" id="toc-building-and-validating-a-model" class="nav-link" data-scroll-target="#building-and-validating-a-model"><span class="header-section-number">17.3</span> Building and Validating a Model</a>
+  <ul class="collapse">
+  <li><a href="#holdout-approach" id="toc-holdout-approach" class="nav-link" data-scroll-target="#holdout-approach"><span class="header-section-number">17.3.1</span> Holdout approach</a></li>
+  <li><a href="#cross-validation-cv" id="toc-cross-validation-cv" class="nav-link" data-scroll-target="#cross-validation-cv"><span class="header-section-number">17.3.2</span> Cross Validation (CV)</a></li>
+  <li><a href="#leave-one-out-cross-validation-loo-cv" id="toc-leave-one-out-cross-validation-loo-cv" class="nav-link" data-scroll-target="#leave-one-out-cross-validation-loo-cv"><span class="header-section-number">17.3.3</span> Leave-One-Out Cross-Validation (LOO-CV)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./510_evaluation.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,12 +445,80 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>Once we obtain the model with the training data, we need to evaluate it on unseen test data.</p>
+<blockquote class="blockquote">
+<p><strong>No Free Lunch theorem</strong> In the absence of any knowledge about the prediction problem, no model can be said to be uniformly better than any other</p>
+</blockquote>
+<section id="learning-objectives-and-evaluation-lens" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="learning-objectives-and-evaluation-lens"><span class="header-section-number">17.1</span> Learning Objectives and Evaluation Lens</h2>
+<ul>
+<li><strong>Objective</strong>: estimate how well a model generalizes to unseen software engineering data.</li>
+<li><strong>Validation</strong>: holdout, repeated holdout, and cross-validation depending on dataset size.</li>
+<li><strong>Primary principle</strong>: no information from test data may influence training or preprocessing.</li>
+<li><strong>Common pitfalls</strong>: leakage, overfitting during tuning, and reporting only one metric.</li>
+</ul>
+</section>
+<section id="what-is-often-missing-in-model-evaluation" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="what-is-often-missing-in-model-evaluation"><span class="header-section-number">17.2</span> What Is Often Missing in Model Evaluation</h2>
+<p>In many studies, these critical points are under-reported:</p>
+<ol type="1">
+<li><strong>Baseline comparison</strong> (for example, random/naive/majority baselines)</li>
+<li><strong>Uncertainty estimates</strong> (confidence intervals or repeated-run variability)</li>
+<li><strong>Threshold policy</strong> for turning probabilities into labels</li>
+<li><strong>Temporal validation</strong> when data is time-ordered</li>
+<li><strong>Error analysis</strong> by subgroup/release/module type</li>
+</ol>
+<p>Including these points improves rigor and reproducibility.</p>
+</section>
+<section id="building-and-validating-a-model" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="building-and-validating-a-model"><span class="header-section-number">17.3</span> Building and Validating a Model</h2>
+<p>We cannot use the same data for training and test. Doing so is like evaluating a student with exercises already solved in class: results will be optimistic and we will not measure generalization capability.</p>
+<p>Therefore, we should, at a minimum, divide the dataset into <em>training</em> and <em>testing</em>, learn the model with the training data and test it with the rest of data as explained next.</p>
+<section id="holdout-approach" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="holdout-approach"><span class="header-section-number">17.3.1</span> Holdout approach</h3>
+<p><strong>Holdout approach</strong> consists of dividing the dataset into <em>training</em> (typically approx. 2/3 of the data) and <em>testing</em> (approx 1/3 of the data). + Problems: Data can be skewed, missing classes, etc. if randomly divided. Stratification ensures that each class is represented with approximately equal proportions (e.g., if data contains approximately 45% of positive cases, train and test splits should keep similar proportions of positive cases).</p>
+<p>Holdout estimate can be made more reliable by repeating the process with different subsamples (repeated holdout method).</p>
+<p>The error rates on the different iterations are averaged (overall error rate).</p>
+<ul>
+<li>Usually, part of the data points are used for building the model and the remaining points are used for validating the model. There are several approaches to this process.</li>
+<li><em>Validation Set approach</em>: it is the simplest method. It consists of randomly dividing the available set of observations into two parts, a <em>training set</em> and a <em>validation set</em> or holdout set. set. Usually 2/3 of the data points are used for training and 1/3 is used for testing purposes.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/validation.png" class="img-fluid figure-img"></p>
+<figcaption>Hold out validation</figcaption>
+</figure>
+</div>
+</section>
+<section id="cross-validation-cv" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="cross-validation-cv"><span class="header-section-number">17.3.2</span> Cross Validation (CV)</h3>
+<p><em>k-fold Cross-Validation</em> involves randomly dividing the set of observations into <span class="math inline">\(k\)</span> groups, or folds, of approximately equal size. One fold is treated as a validation set and the method is trained on the remaining <span class="math inline">\(k-1\)</span> folds. This procedure is repeated <span class="math inline">\(k\)</span> times. If <span class="math inline">\(k\)</span> is equal to <span class="math inline">\(n\)</span> we are in the previous method.</p>
+<ul>
+<li><p>1st step: split dataset (<span class="math inline">\(\cal D\)</span>) into <span class="math inline">\(k\)</span> subsets of approximately equal size <span class="math inline">\(C_1, \dots, C_k\)</span></p></li>
+<li><p>2nd step: we construct a dataset <span class="math inline">\(D_i = D-C_i\)</span> used for training and test the accuracy of the classifier <span class="math inline">\(D_i\)</span> on <span class="math inline">\(C_i\)</span> subset for testing</p></li>
+</ul>
+<p>Having done this for all <span class="math inline">\(k\)</span> we estimate the accuracy of the method by averaging the accuracy over the <span class="math inline">\(k\)</span> cross-validation trials</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/kfold.png" class="img-fluid figure-img"></p>
+<figcaption>k-fold</figcaption>
+</figure>
+</div>
+</section>
+<section id="leave-one-out-cross-validation-loo-cv" class="level3" data-number="17.3.3">
+<h3 data-number="17.3.3" class="anchored" data-anchor-id="leave-one-out-cross-validation-loo-cv"><span class="header-section-number">17.3.3</span> Leave-One-Out Cross-Validation (LOO-CV)</h3>
+<ul>
+<li><em>Leave-One-Out Cross-Validation</em> (LOO-CV): This is a special case of CV. Instead of creating two subsets for train and test, a single observation is used for the validation set, and the remaining observations make up the training set. This approach is repeated <span class="math inline">\(n\)</span> times (the total number of observations) and the estimate for the test mean squared error is the average of the <span class="math inline">\(n\)</span> test estimates.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/leaveone.png" class="img-fluid figure-img"></p>
+<figcaption>Leave One Out</figcaption>
+</figure>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -837,10 +924,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./430_basicModelBuildingUnsupervised.html" class="pagination-link" aria-label="Unsupervised or Descriptive modeling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Unsupervised or Descriptive modeling</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./520_evaluationClassifiers.html" class="pagination-link" aria-label="Evaluation of Classification Models">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

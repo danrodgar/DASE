@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>4&nbsp; R and Python – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./150_rpackages.html" rel="next">
+<link href="./130_rmarkdown.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./140_rnpython.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -151,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./140_rnpython.html" class="sidebar-item-text sidebar-link">
+  <a href="./140_rnpython.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span></a>
   </div>
 </li>
@@ -222,7 +257,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -383,40 +418,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#using-python-with-rmarkdown-and-rstudio" id="toc-using-python-with-rmarkdown-and-rstudio" class="nav-link active" data-scroll-target="#using-python-with-rmarkdown-and-rstudio"><span class="header-section-number">4.1</span> Using Python with RMarkdown and RStudio</a></li>
+  <li><a href="#further-information" id="toc-further-information" class="nav-link" data-scroll-target="#further-information"><span class="header-section-number">4.2</span> Further Information</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./140_rnpython.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span id="sec-rnpython" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R and Python</span></span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +445,160 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>R and Python can interact together via the <em>reticulate</em> package.</p>
+<p>The documentation for the <code>reticulate</code> package can be found here: <a href="https://rstudio.github.io/reticulate/">https://rstudio.github.io/reticulate/</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./figures/reticulated_python.png" class="img-fluid figure-img"></p>
+<figcaption>reticulate</figcaption>
+</figure>
+</div>
+<p>Installation and configuration instructions are in the <a href="https://rstudio.github.io/reticulate/articles/python_dependencies.html">reticulate documentation</a>.</p>
+<p>Or we can create our environment following - <a href="https://www.youtube.com/watch?v=8WE-EU5k97Q&amp;t=27s">R and Python – a happy union with reticulate webinar</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reticulate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note that the <code>reticulate</code> package requires Python &gt;= 3.8 and NumPy &gt;= 1.16.</p>
+<section id="using-python-with-rmarkdown-and-rstudio" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="using-python-with-rmarkdown-and-rstudio"><span class="header-section-number">4.1</span> Using Python with RMarkdown and RStudio</h2>
+<p>The R build-in dataset will be used later</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"reticulate"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># use_virtualenv("myenv")</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">dase_python_ready =</span> reticulate<span class="sc">::</span><span class="fu">py_module_available</span>(<span class="st">"pandas"</span>) <span class="sc">&amp;&amp;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                reticulate<span class="sc">::</span><span class="fu">py_module_available</span>(<span class="st">"seaborn"</span>) <span class="sc">&amp;&amp;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                reticulate<span class="sc">::</span><span class="fu">py_module_available</span>(<span class="st">"matplotlib"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">isTRUE</span>(<span class="fu">getOption</span>(<span class="st">"dase_python_ready"</span>))) {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">message</span>(<span class="st">"Python demo chunks requiring pandas/seaborn/matplotlib are skipped in this environment."</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello Python!"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>datactrs <span class="op">=</span> {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CHN'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'China'</span>, <span class="st">'POP'</span>: <span class="fl">1_398.72</span>, <span class="st">'AREA'</span>: <span class="fl">9_596.96</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">12_234.78</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>},</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'IND'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'India'</span>, <span class="st">'POP'</span>: <span class="fl">1_351.16</span>, <span class="st">'AREA'</span>: <span class="fl">3_287.26</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">2_575.67</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1947-08-15'</span>},</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'USA'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'US'</span>, <span class="st">'POP'</span>: <span class="fl">329.74</span>, <span class="st">'AREA'</span>: <span class="fl">9_833.52</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">19_485.39</span>, <span class="st">'CONT'</span>: <span class="st">'N.America'</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'IND_DAY'</span>: <span class="st">'1776-07-04'</span>},</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'IDN'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Indonesia'</span>, <span class="st">'POP'</span>: <span class="fl">268.07</span>, <span class="st">'AREA'</span>: <span class="fl">1_910.93</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">1_015.54</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1945-08-17'</span>},</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'BRA'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Brazil'</span>, <span class="st">'POP'</span>: <span class="fl">210.32</span>, <span class="st">'AREA'</span>: <span class="fl">8_515.77</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">2_055.51</span>, <span class="st">'CONT'</span>: <span class="st">'S.America'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1822-09-07'</span>},</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PAK'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Pakistan'</span>, <span class="st">'POP'</span>: <span class="fl">205.71</span>, <span class="st">'AREA'</span>: <span class="fl">881.91</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">302.14</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1947-08-14'</span>},</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NGA'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Nigeria'</span>, <span class="st">'POP'</span>: <span class="fl">200.96</span>, <span class="st">'AREA'</span>: <span class="fl">923.77</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">375.77</span>, <span class="st">'CONT'</span>: <span class="st">'Africa'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1960-10-01'</span>},</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'BGD'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Bangladesh'</span>, <span class="st">'POP'</span>: <span class="fl">167.09</span>, <span class="st">'AREA'</span>: <span class="fl">147.57</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">245.63</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1971-03-26'</span>},</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'RUS'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Russia'</span>, <span class="st">'POP'</span>: <span class="fl">146.79</span>, <span class="st">'AREA'</span>: <span class="fl">17_098.25</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">1_530.75</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1992-06-12'</span>},</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'MEX'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Mexico'</span>, <span class="st">'POP'</span>: <span class="fl">126.58</span>, <span class="st">'AREA'</span>: <span class="fl">1_964.38</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">1_158.23</span>, <span class="st">'CONT'</span>: <span class="st">'N.America'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1810-09-16'</span>},</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'JPN'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Japan'</span>, <span class="st">'POP'</span>: <span class="fl">126.22</span>, <span class="st">'AREA'</span>: <span class="fl">377.97</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">4_872.42</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>},</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'DEU'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Germany'</span>, <span class="st">'POP'</span>: <span class="fl">83.02</span>, <span class="st">'AREA'</span>: <span class="fl">357.11</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">3_693.20</span>, <span class="st">'CONT'</span>: <span class="st">'Europe'</span>},</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FRA'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'France'</span>, <span class="st">'POP'</span>: <span class="fl">67.02</span>, <span class="st">'AREA'</span>: <span class="fl">640.68</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">2_582.49</span>, <span class="st">'CONT'</span>: <span class="st">'Europe'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1789-07-14'</span>},</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">'GBR'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'UK'</span>, <span class="st">'POP'</span>: <span class="fl">66.44</span>, <span class="st">'AREA'</span>: <span class="fl">242.50</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">2_631.23</span>, <span class="st">'CONT'</span>: <span class="st">'Europe'</span>},</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ITA'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Italy'</span>, <span class="st">'POP'</span>: <span class="fl">60.36</span>, <span class="st">'AREA'</span>: <span class="fl">301.34</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">1_943.84</span>, <span class="st">'CONT'</span>: <span class="st">'Europe'</span>},</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ARG'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Argentina'</span>, <span class="st">'POP'</span>: <span class="fl">44.94</span>, <span class="st">'AREA'</span>: <span class="fl">2_780.40</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">637.49</span>, <span class="st">'CONT'</span>: <span class="st">'S.America'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1816-07-09'</span>},</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">'DZA'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Algeria'</span>, <span class="st">'POP'</span>: <span class="fl">43.38</span>, <span class="st">'AREA'</span>: <span class="fl">2_381.74</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">167.56</span>, <span class="st">'CONT'</span>: <span class="st">'Africa'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1962-07-05'</span>},</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">'CAN'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Canada'</span>, <span class="st">'POP'</span>: <span class="fl">37.59</span>, <span class="st">'AREA'</span>: <span class="fl">9_984.67</span>,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">1_647.12</span>, <span class="st">'CONT'</span>: <span class="st">'N.America'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1867-07-01'</span>},</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">'AUS'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Australia'</span>, <span class="st">'POP'</span>: <span class="fl">25.47</span>, <span class="st">'AREA'</span>: <span class="fl">7_692.02</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">1_408.68</span>, <span class="st">'CONT'</span>: <span class="st">'Oceania'</span>},</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">'KAZ'</span>: {<span class="st">'COUNTRY'</span>: <span class="st">'Kazakhstan'</span>, <span class="st">'POP'</span>: <span class="fl">18.53</span>, <span class="st">'AREA'</span>: <span class="fl">2_724.90</span>,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">'GDP'</span>: <span class="fl">159.41</span>, <span class="st">'CONT'</span>: <span class="st">'Asia'</span>, <span class="st">'IND_DAY'</span>: <span class="st">'1991-12-16'</span>}</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> (<span class="st">'COUNTRY'</span>, <span class="st">'POP'</span>, <span class="st">'AREA'</span>, <span class="st">'GDP'</span>, <span class="st">'CONT'</span>, <span class="st">'IND_DAY'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns  <span class="co">#ubuntu #sudo apt-get install -y python3-seaborn </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">"tips"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>mylist <span class="op">=</span> [<span class="st">"youtube"</span>, <span class="st">'linkedin'</span>, <span class="st">'1littlecoder'</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>tips[<span class="st">'total_bill'</span>], y <span class="op">=</span> tips[<span class="st">'tip'</span>], hue<span class="op">=</span>tips[<span class="st">'day'</span>])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>fmri <span class="op">=</span> sns.load_dataset(<span class="st">"fmri"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(py<span class="sc">$</span>fmri, region <span class="sc">==</span> <span class="st">"parietal"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sns.lmplot(<span class="st">"timepoint"</span>,<span class="st">"signal"</span>, data<span class="op">=</span>r.f1)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mpl.pyplot.show()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sns.lmplot(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, data<span class="op">=</span>r.mtcars)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mpl.pyplot.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>datactrs, index<span class="op">=</span>columns).T</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">'datasets/datasets/other/data_countries.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We can read the dataset from python</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.read_csv(<span class="st">"datasets/other/data_countries.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use R to read and write data from a package</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"nycflights13"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(flights, <span class="st">"datasets/other/flights.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use python to read the dataset and process the data</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> pandas.read_csv(<span class="st">"datasets/other/flights.csv"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights[flights[<span class="st">'dest'</span>] <span class="op">==</span><span class="st">"ORD"</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights[[<span class="st">'carrier'</span>, <span class="st">'dep_delay'</span>, <span class="st">'arr_delay'</span>]]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights.dropna()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flights.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use Python for plotting</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="fl">0.0</span>, <span class="fl">2.0</span>, <span class="fl">0.01</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> np.sin(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>t)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.plot(t,s)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'time (s)'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'voltage (mV)'</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"test.png"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use R for plotting Python objects:</p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+</section>
+<section id="further-information" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="further-information"><span class="header-section-number">4.2</span> Further Information</h2>
+<ul>
+<li><p><a href="https://posit.co/resources/videos/rstudio-a-single-home-for-r-and-python/">RStudio: A Single Home for R and Python</a></p></li>
+<li><p><a href="https://rstudio.github.io/reticulate/">R interface to Python</a></p></li>
+<li><p><a href="https://posit.co/blog/practical-interoperability/">Practical Interoperability with R and Python</a></p></li>
+<li><p><a href="https://www.r-bloggers.com/2021/01/rstudio-python-visual-markdown-editor-rstudio-latest-update/">RStudio + Python, Visual Markdown Editor – RStudio Latest Update</a></p></li>
+<li><p><a href="https://rstudio.github.io/reticulate/articles/arrays.html">Arrays in R and Python (reticulate)</a></p></li>
+<li><p><a href="https://quarto.org/docs/computations/python.html">Quarto: Using Python</a></p></li>
+</ul>
 
 
 </section>
@@ -837,10 +1006,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./130_rmarkdown.html" class="pagination-link" aria-label="R Markdown">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Markdown</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./150_rpackages.html" class="pagination-link" aria-label="R Packages">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Packages</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

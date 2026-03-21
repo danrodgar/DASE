@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>6&nbsp; The Tidyverse approach to Data Analysis – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./170_ggplot.html" rel="next">
+<link href="./150_rpackages.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./160_tidyverse.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -163,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./160_tidyverse.html" class="sidebar-item-text sidebar-link">
+  <a href="./160_tidyverse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></span></a>
   </div>
 </li>
@@ -222,7 +257,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -383,40 +418,35 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#packages-included" id="toc-packages-included" class="nav-link active" data-scroll-target="#packages-included"><span class="header-section-number">6.1</span> Packages included</a>
+  <ul class="collapse">
+  <li><a href="#the-pipe-operator-in-packages-magrittr-and-dplyr" id="toc-the-pipe-operator-in-packages-magrittr-and-dplyr" class="nav-link" data-scroll-target="#the-pipe-operator-in-packages-magrittr-and-dplyr"><span class="header-section-number">6.1.1</span> The Pipe operator in packages magrittr and dplyr</a></li>
+  </ul></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr"><span class="header-section-number">6.2</span> dplyr</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">6.2.1</span> Examples</a></li>
+  </ul></li>
+  <li><a href="#tibble" id="toc-tibble" class="nav-link" data-scroll-target="#tibble"><span class="header-section-number">6.3</span> Tibble</a></li>
+  <li><a href="#tidymodels" id="toc-tidymodels" class="nav-link" data-scroll-target="#tidymodels"><span class="header-section-number">6.4</span> Tidymodels</a>
+  <ul class="collapse">
+  <li><a href="#criticisms-to-this-approach" id="toc-criticisms-to-this-approach" class="nav-link" data-scroll-target="#criticisms-to-this-approach"><span class="header-section-number">6.4.1</span> Criticisms to this approach</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./110_rIntro.html">Part I - R Ecosystem</a></li><li class="breadcrumb-item"><a href="./160_tidyverse.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Tidyverse approach to Data Analysis</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,12 +456,90 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<p>The <code>tidyverse</code> is a set of packages promoted by Posit with the purpose of standardizing the processes in data science</p>
+<p><a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a></p>
+<p><a href="https://principles.tidyverse.org/">Tidyverse design principles</a></p>
+<section id="packages-included" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="packages-included"><span class="header-section-number">6.1</span> Packages included</h2>
+<ul>
+<li><code>readr</code></li>
+<li><code>tibble</code></li>
+<li><code>dplyr</code> for data manipulation</li>
+<li><code>tidyr</code> for “tidy”ing data</li>
+<li><code>forcats</code></li>
+<li><code>ggplot2</code> for plotting data</li>
+<li><code>purrr</code></li>
+<li><code>stringr</code></li>
+<li>and the Pipe operator <code>%&gt;%</code></li>
+</ul>
+<section id="the-pipe-operator-in-packages-magrittr-and-dplyr" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="the-pipe-operator-in-packages-magrittr-and-dplyr"><span class="header-section-number">6.1.1</span> The Pipe operator in packages magrittr and dplyr</h3>
+<p>The pipe <code>%&gt;%</code> operator was first introduced in the <code>magrittr</code> package and became central to the tidyverse. It passes the left-hand side as the first argument to the right-hand side function, allowing readable left-to-right chains.</p>
+<p>Since <strong>R 4.1 (2021)</strong>, base R ships its own native pipe <code>|&gt;</code> which covers most common use cases without loading any package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># magrittr pipe (requires magrittr or dplyr)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cyl <span class="sc">&gt;</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># native pipe (base R &gt;= 4.1, no package needed)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">subset</span>(cyl <span class="sc">&gt;</span> <span class="dv">4</span>) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Both operators are functionally equivalent for the examples in this book. The native <code>|&gt;</code> is preferred in new code; <code>%&gt;%</code> remains common in older scripts and has extra features (<code>%T&gt;%</code>, <code>%&lt;&gt;%</code>) for advanced use.</p>
+<p>It comes in handy when applying a sequence of functions to data frames.</p>
+</section>
+</section>
+<section id="dplyr" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="dplyr"><span class="header-section-number">6.2</span> dplyr</h2>
+<p>dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:</p>
+<pre><code>mutate() adds new variables that are functions of existing variables
+select() picks variables based on their names.
+filter() picks cases based on their values.
+summarise() reduces multiple values down to a single summary.
+arrange() changes the ordering of the rows.
+group_by() which allows you to perform any operation “by group”.</code></pre>
+<section id="examples" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="examples"><span class="header-section-number">6.2.1</span> Examples</h3>
+<p><code>glimpse</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>select</code> is used for subsetting variables</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(mtcars,mpg)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(mtcars, mpg<span class="sc">:</span>disp,<span class="sc">-</span>cyl) <span class="co"># mpg to disp, except cyl</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>mutate</code> adds new columns to a dataset</p>
+<p><code>filter</code> selects cases based on the values of the rows</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">filter</span>(hp<span class="sc">&gt;</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Group_by is used to group data by one or more columns. Usually</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">filter</span>(hp<span class="sc">&gt;</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">avg_mpg=</span><span class="fu">mean</span>(mpg))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>arrange is used to sort cases in ascending or descending order.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">filter</span>(hp<span class="sc">&gt;</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">avg_mpg=</span><span class="fu">mean</span>(mpg)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(cyl))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="tibble" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="tibble"><span class="header-section-number">6.3</span> Tibble</h2>
+<p><code>Tibbles</code> are a modern take on dataframes. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e.&nbsp;converting character vectors to factors).” <a href="https://tibble.tidyverse.org/" class="uri">https://tibble.tidyverse.org/</a></p>
+</section>
+<section id="tidymodels" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="tidymodels"><span class="header-section-number">6.4</span> Tidymodels</h2>
+<p>The modern modeling framework in the tidyverse ecosystem. This chapter presents <code>tidymodels</code> as the primary approach for data preprocessing, training, tuning, and evaluation.</p>
+<p><a href="https://www.tidymodels.org/">The tidymodels Package</a></p>
+<section id="criticisms-to-this-approach" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="criticisms-to-this-approach"><span class="header-section-number">6.4.1</span> Criticisms to this approach</h3>
+<ul>
+<li><a href="https://towardsdatascience.com/a-thousand-gadgets-my-thoughts-on-the-r-tidyverse-2441d8504433" class="uri">https://towardsdatascience.com/a-thousand-gadgets-my-thoughts-on-the-r-tidyverse-2441d8504433</a></li>
+<li><a href="https://github.com/matloff/TidyverseSkeptic/blob/master/READMEFull.md" class="uri">https://github.com/matloff/TidyverseSkeptic/blob/master/READMEFull.md</a></li>
+<li><a href="https://www.r-bloggers.com/2019/12/why-i-dont-use-the-tidyverse/" class="uri">https://www.r-bloggers.com/2019/12/why-i-dont-use-the-tidyverse/</a></li>
+<li>Jared P. Lander, R for Everyone. Advanced Analytics and Graphics, 2nd ed., Addison-Wesley, 2017</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -837,10 +945,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./150_rpackages.html" class="pagination-link" aria-label="R Packages">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Packages</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./170_ggplot.html" class="pagination-link" aria-label="The `ggplot2` package">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The <code>ggplot2</code> package</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

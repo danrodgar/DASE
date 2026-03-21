@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Daniel Rodriguez and Javier Dolado">
 <meta name="description" content="DASE Data Analysis in Software Engineering">
 
-<title>Data Analysis in Software Engineering using R</title>
+<title>18&nbsp; Evaluation of Classification Models – Data Analysis in Software Engineering using R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,7 +69,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./110_rIntro.html" rel="next">
+<link href="./530_evaluationGraphical.html" rel="next">
+<link href="./510_evaluation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -74,6 +109,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="toc.css">
@@ -88,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./520_evaluationClassifiers.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -222,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./320_advancedPreprocessingTechniques.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Feature Selection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Preprocessing Techniques</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -279,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./520_evaluationClassifiers.html" class="sidebar-item-text sidebar-link">
+  <a href="./520_evaluationClassifiers.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></span></a>
   </div>
 </li>
@@ -383,40 +447,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#learning-objectives-and-evaluation-lens" id="toc-learning-objectives-and-evaluation-lens" class="nav-link active" data-scroll-target="#learning-objectives-and-evaluation-lens"><span class="header-section-number">18.1</span> Learning Objectives and Evaluation Lens</a>
+  <ul class="collapse">
+  <li><a href="#prediction-in-probabilistic-classifiers" id="toc-prediction-in-probabilistic-classifiers" class="nav-link" data-scroll-target="#prediction-in-probabilistic-classifiers"><span class="header-section-number">18.1.1</span> Prediction in probabilistic classifiers</a></li>
+  <li><a href="#calibration-and-brier-score" id="toc-calibration-and-brier-score" class="nav-link" data-scroll-target="#calibration-and-brier-score"><span class="header-section-number">18.1.2</span> Calibration and Brier Score</a></li>
+  <li><a href="#cost-sensitive-threshold-selection" id="toc-cost-sensitive-threshold-selection" class="nav-link" data-scroll-target="#cost-sensitive-threshold-selection"><span class="header-section-number">18.1.3</span> Cost-Sensitive Threshold Selection</a></li>
+  </ul></li>
+  <li><a href="#important-topics-often-missing" id="toc-important-topics-often-missing" class="nav-link" data-scroll-target="#important-topics-often-missing"><span class="header-section-number">18.2</span> Important topics often missing</a></li>
+  <li><a href="#agreement-between-human-raters" id="toc-agreement-between-human-raters" class="nav-link" data-scroll-target="#agreement-between-human-raters"><span class="header-section-number">18.3</span> Agreement Between Human Raters</a></li>
+  <li><a href="#other-metrics-used-in-software-engineering-with-classification" id="toc-other-metrics-used-in-software-engineering-with-classification" class="nav-link" data-scroll-target="#other-metrics-used-in-software-engineering-with-classification"><span class="header-section-number">18.4</span> Other Metrics used in Software Engineering with Classification</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./510_evaluation.html">Part V - Evaluation</a></li><li class="breadcrumb-item"><a href="./520_evaluationClassifiers.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Analysis in Software Engineering using R</h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Evaluation of Classification Models</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    DASE Data Analysis in Software Engineering
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Daniel Rodriguez and Javier Dolado </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
-    </div>
-  </div>
   
     
   </div>
@@ -426,10 +481,155 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>These <strong>Data Analysis in Software Engineering (DASE)</strong> notes provide an introduction to the foundations of data science with R for software engineering. It is a work in progress.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommtercial-NoDerivs 3.0</a>.</p>
+<section id="learning-objectives-and-evaluation-lens" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="learning-objectives-and-evaluation-lens"><span class="header-section-number">18.1</span> Learning Objectives and Evaluation Lens</h2>
+<ul>
+<li><strong>Objective</strong>: evaluate classifier quality under realistic software quality constraints.</li>
+<li><strong>Primary metrics</strong>: precision, recall, F1, ROC-AUC, PR-AUC, and MCC.</li>
+<li><strong>Imbalanced data focus</strong>: prioritize PR-AUC, recall/precision trade-offs, and MCC.</li>
+<li><strong>Common pitfalls</strong>: accuracy-only reporting, arbitrary thresholds, and uncalibrated probabilities.</li>
+</ul>
+<p>The confusion matrix (which can be extended to multiclass problems) is a table that presents the results of a classification algorithm. The following table shows the possible outcomes for binary classification problems:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(Act Pos\)</span></th>
+<th><span class="math inline">\(Act Neg\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Pred Pos\)</span></td>
+<td><span class="math inline">\(TP\)</span></td>
+<td><span class="math inline">\(FP\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Pred Neg\)</span></td>
+<td><span class="math inline">\(FN\)</span></td>
+<td><span class="math inline">\(TN\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>where <em>True Positives</em> (<span class="math inline">\(TP\)</span>) and <em>True Negatives</em> (<span class="math inline">\(TN\)</span>) are respectively the number of positive and negative instances correctly classified, <em>False Positives</em> (<span class="math inline">\(FP\)</span>) is the number of negative instances misclassified as positive (also called Type I errors), and <em>False Negatives</em> (<span class="math inline">\(FN\)</span>) is the number of positive instances misclassified as negative (Type II errors).</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion Matrix in Wikipedia</a></li>
+</ul>
+<p>From the confusion matrix, we can calculate:</p>
+<ul>
+<li><p><em>True positive rate</em>, or <em>recall </em> (<span class="math inline">\(TP_r = recall = TP/TP+FN\)</span>) is the proportion of positive cases correctly classified as belonging to the positive class.</p></li>
+<li><p><em>False negative rate</em> (<span class="math inline">\(FN_r=FN/TP+FN\)</span>) is the proportion of positive cases misclassified as belonging to the negative class.</p></li>
+<li><p><em>False positive rate</em> (<span class="math inline">\(FP_r=FP/FP+TN\)</span>) is the proportion of negative cases misclassified as belonging to the positive class.</p></li>
+<li><p><em>True negative rate</em> (<span class="math inline">\(TN_r=TN/FP+TN\)</span>) is the proportion of negative cases correctly classified as belonging to the negative class.</p></li>
+</ul>
+<p>There is a trade-off between <span class="math inline">\(FP_r\)</span> and <span class="math inline">\(FN_r\)</span> as the objective is minimize both metrics (or conversely, maximize the true negative and positive rates). It is possible to combine both metrics into a single figure, predictive <span class="math inline">\(accuracy\)</span>:</p>
+<p><span class="math display">\[accuracy = \frac{TP + TN}{TP + TN + FP + FN}\]</span></p>
+<p>to measure performance of classifiers (or the complementary value, the <em>error rate</em> which is defined as <span class="math inline">\(1-accuracy\)</span>)</p>
+<ul>
+<li><p>Precision, fraction of relevant instances among the retrieved instances, <span class="math display">\[\frac{TP}{TP+FP}\]</span></p></li>
+<li><p>Recall$ (<span class="math inline">\(sensitivity\)</span> probability of detection, <span class="math inline">\(PD\)</span>) is the fraction of relevant instances that have been retrieved over total relevant instances, <span class="math inline">\(\frac{TP}{TP+FN}\)</span></p></li>
+<li><p><em>f-measure</em> is the harmonic mean of precision and recall, <span class="math inline">\(2 \cdot \frac{precision \cdot recall}{precision + recall}\)</span></p></li>
+<li><p>G-mean: <span class="math inline">\(\sqrt{PD \times Precision}\)</span></p></li>
+<li><p>G-mean2: <span class="math inline">\(\sqrt{PD \times Specificity}\)</span></p></li>
+<li><p>J coefficient, <span class="math inline">\(j-coeff = sensitivity + specificity - 1 = PD-PF\)</span></p></li>
+<li><p>A suitable and interesting performance metric for binary classification when data are imbalanced is the Matthew’s Correlation Coefficient (<span class="math inline">\(MCC\)</span>)~:</p></li>
+</ul>
+<p><span class="math display">\[MCC=\frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}\]</span></p>
+<p><span class="math inline">\(MCC\)</span> can also be calculated from the confusion matrix. Its range goes from -1 to +1; the closer to one the better as it indicates perfect prediction whereas a value of 0 means that classification is not better than random prediction and negative values mean that predictions are worst than random.</p>
+<section id="prediction-in-probabilistic-classifiers" class="level3" data-number="18.1.1">
+<h3 data-number="18.1.1" class="anchored" data-anchor-id="prediction-in-probabilistic-classifiers"><span class="header-section-number">18.1.1</span> Prediction in probabilistic classifiers</h3>
+<p>A probabilistic classifier estimates the probability of each possible class value given the attribute values of the instance <span class="math inline">\(P(c|{x})\)</span>. Then, given a new instance, <span class="math inline">\({x}\)</span>, the class value with the highest a posteriori probability will be assigned to that new instance (the <em>winner takes all</em> approach):</p>
+<p><span class="math inline">\(\psi({x}) = argmax_c (P(c|{x}))\)</span></p>
+</section>
+<section id="calibration-and-brier-score" class="level3" data-number="18.1.2">
+<h3 data-number="18.1.2" class="anchored" data-anchor-id="calibration-and-brier-score"><span class="header-section-number">18.1.2</span> Calibration and Brier Score</h3>
+<p>For many SE decisions (e.g., test prioritization by risk), probability quality matters as much as ranking quality.</p>
+<ul>
+<li><strong>Discrimination</strong>: how well the model separates classes (ROC-AUC, PR-AUC)</li>
+<li><strong>Calibration</strong>: whether predicted probabilities match observed frequencies</li>
+</ul>
+<p>The <strong>Brier score</strong> for binary classification is:</p>
+<p><span class="math display">\[
+    ext{Brier} = \frac{1}{n}\sum_{i=1}^{n}(\hat{p}_i - y_i)^2
+\]</span></p>
+<p>where <span class="math inline">\(\hat{p}_i\)</span> is the predicted probability for the positive class and <span class="math inline">\(y_i \in \{0,1\}\)</span> is the observed label.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># y_true: 0/1 labels, p_hat: predicted probabilities for positive class</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>brier <span class="ot">&lt;-</span> <span class="fu">mean</span>((p_hat <span class="sc">-</span> y_true)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>brier</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># simple calibration table by probability bins</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>bins <span class="ot">&lt;-</span> <span class="fu">cut</span>(p_hat, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(<span class="fu">cbind</span>(<span class="at">pred =</span> p_hat, <span class="at">obs =</span> y_true) <span class="sc">~</span> bins, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="cost-sensitive-threshold-selection" class="level3" data-number="18.1.3">
+<h3 data-number="18.1.3" class="anchored" data-anchor-id="cost-sensitive-threshold-selection"><span class="header-section-number">18.1.3</span> Cost-Sensitive Threshold Selection</h3>
+<p>Default threshold 0.5 may be suboptimal when false negatives and false positives have different engineering costs.</p>
+<p>If <span class="math inline">\(C_{FN}\)</span> and <span class="math inline">\(C_{FP}\)</span> are unit costs for false negatives and false positives, a practical objective is to minimize expected cost:</p>
+<p><span class="math display">\[
+    ext{Cost}(t) = C_{FN} \cdot FN(t) + C_{FP} \cdot FP(t)
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># choose threshold by minimum expected cost on validation data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ths <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="at">by =</span> <span class="fl">0.05</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cost_fn <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="co"># example: missing a defect is 5x costlier</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cost_fp <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>cost_tbl <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ths, <span class="cf">function</span>(t) {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p_hat <span class="sc">&gt;=</span> t, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  fn <span class="ot">&lt;-</span> <span class="fu">sum</span>(pred <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> y_true <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  fp <span class="ot">&lt;-</span> <span class="fu">sum</span>(pred <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> y_true <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  cost_fn <span class="sc">*</span> fn <span class="sc">+</span> cost_fp <span class="sc">*</span> fp</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>best_t <span class="ot">&lt;-</span> ths[<span class="fu">which.min</span>(cost_tbl)]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>best_t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="important-topics-often-missing" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="important-topics-often-missing"><span class="header-section-number">18.2</span> Important topics often missing</h2>
+<ul>
+<li><strong>Threshold tuning</strong>: default 0.5 is rarely optimal for defect prediction.</li>
+<li><strong>Cost-sensitive evaluation</strong>: false negatives and false positives have different engineering costs.</li>
+<li><strong>Calibration</strong>: verify that predicted probabilities match observed frequencies.</li>
+<li><strong>Per-release/per-project reporting</strong>: aggregate metrics can hide unstable behavior across contexts.</li>
+</ul>
+</section>
+<section id="agreement-between-human-raters" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="agreement-between-human-raters"><span class="header-section-number">18.3</span> Agreement Between Human Raters</h2>
+<p>When classification labels are created by people (for example, issue triage, review tagging, or defect categorization), agreement between annotators should be reported before model training.</p>
+<ul>
+<li><strong>Cohen’s kappa</strong>: agreement between two raters, corrected for chance.</li>
+<li><strong>Fleiss’ kappa</strong>: agreement among more than two raters.</li>
+<li><strong>Krippendorff’s alpha</strong>: flexible agreement metric for different data types.</li>
+<li><strong>Kendall’s tau</strong>: useful for agreement in <strong>ranked/ordinal</strong> judgments, not the usual first choice for nominal class labels.</li>
+</ul>
+<p>Practical recommendation:</p>
+<ol type="1">
+<li>Report raw agreement percentage and one chance-corrected coefficient.</li>
+<li>Use weighted kappa (or ordinal-specific metrics) for ordered categories.</li>
+<li>Reconcile low-agreement labels before using them as training targets.</li>
+</ol>
+<p>Simple R examples:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two raters (nominal classes)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>irr<span class="sc">::</span><span class="fu">kappa2</span>(<span class="fu">data.frame</span>(rater1, rater2))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple raters</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>irr<span class="sc">::</span><span class="fu">kappam.fleiss</span>(ratings_matrix)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinal/ranking agreement</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(rater1_rank, rater2_rank, <span class="at">method =</span> <span class="st">"kendall"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="other-metrics-used-in-software-engineering-with-classification" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="other-metrics-used-in-software-engineering-with-classification"><span class="header-section-number">18.4</span> Other Metrics used in Software Engineering with Classification</h2>
+<p>In the domain of defect prediction and when two classes are considered, it is also customary to refer to the <em>probability of detection</em>, (<span class="math inline">\(pd\)</span>) which corresponds to the True Positive rate (<span class="math inline">\(TP_{rate}\)</span> or ) as a measure of the goodness of the model, and <em>probability of false alarm</em> (<span class="math inline">\(pf\)</span>) as performance measures~.</p>
+<p>The objective is to find which techniques that maximise <span class="math inline">\(pd\)</span> and minimise <span class="math inline">\(pf\)</span>. As stated by Menzies et al., the balance between these two measures depends on the project characteristics (e.g.&nbsp;real-time systems vs.&nbsp;information management systems) it is formulated as the Euclidean distance from the sweet spot <span class="math inline">\(pf=0\)</span> and <span class="math inline">\(pd=1\)</span> to a pair of <span class="math inline">\((pf,pd)\)</span>.</p>
+<p><span class="math display">\[balance=1-\frac{\sqrt{(0-pf^2)+(1-pd^2)}}{\sqrt{2}}\]</span></p>
+<p>It is normalized by the maximum possible distance across the ROC square (<span class="math inline">\(\sqrt{2}, 2\)</span>), subtracted this value from 1, and expressed it as a percentage.</p>
 
 
 </section>
@@ -837,10 +1037,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./510_evaluation.html" class="pagination-link" aria-label="Evaluation of Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Evaluation of Models</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110_rIntro.html" class="pagination-link" aria-label="Introduction to R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./530_evaluationGraphical.html" class="pagination-link" aria-label="Graphical Evaluation">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Graphical Evaluation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
