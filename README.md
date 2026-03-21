@@ -1,8 +1,8 @@
 
 
-Course Data Analysis in Software Engineering 
-- Course in <https://github.com/danrodgar/DASE>.
-- Html at <http://danrodgar.github.io/DASE/>.
+Course Data Analysis in Software Engineering usign R.
+- Source: <https://github.com/danrodgar/DASE>.
+- Website: <http://danrodgar.github.io/DASE/>.
 
 ## Build and preview
 
@@ -15,18 +15,7 @@ This project uses Quarto book rendering from `.qmd` chapters.
 ## Release policy
 
 - Day-to-day commits should focus on source files (`.qmd`, configs, assets) and avoid generated `docs/` churn.
-- Update `docs/` only for major versions intended for `dase.github.io` publication.
+- Update `docs/` only for major versions intended for `danrodgar.github.io/DASE` publication.
 - For a major release, run `quarto render .` and commit the resulting `docs/` changes in a dedicated release commit.
 
-**Acknowledgments**
-
-Projects:
-* PRESI: TIN2013-46928-C3
-    + amuSE TIN2013-46928-C3-2-R
-    + PERTEST TIN2013-46928-C3-1-R
-* QARE: TIN2016-76956-C3
-    + BadgePeople: TIN2016-76956-C3-3-R
-    + TESTEAMOS: TIN2016-76956-C3-1-R
-* TestBUS PID2019-105455GB-C32
-* Network SBSE ([SEBASENet](https://www.uco.es/investigacion/proyectos/SEBASENet/index.php?title=P%C3%A1gina_principal)): TIN2015-71841-REDT
 
